@@ -1,5 +1,5 @@
 ENG-tools beta
-v. 01
+v. 02
 
 by jmg*AT*phasechange*DOT*info
 March 3rd 2015
