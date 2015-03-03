@@ -4,7 +4,7 @@
 # March 2nd 2015
 
 # Processes file 'data/date_ratios.txt'
-# Writes results to 'data/versionNumber_eng_cdr.txt'
+# Writes results to 'results/versionNumber_eng_cdr.txt'
 # Writes run log to 'logs/versionNumber_eng_cdr_log.txt'
 
 # Run AFTER 'en_genre.py'
