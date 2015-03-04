@@ -10,7 +10,7 @@ To use these scripts, you will require the following:
 
 2) A text file called 'apikey.txt' containing your API key, in the same folder as the scripts
 
-3) Python 2 and the Pyen library (from https://github.com/plamere/pyen)
+3) Python 2, the 'pyen' library (from https://github.com/plamere/pyen), and the 'matplotlib' library (from http://http://matplotlib.org)
 
 When you have these, proceed as follows:
 
