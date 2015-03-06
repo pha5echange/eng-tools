@@ -2,7 +2,20 @@ ENG-tools beta
 v. 02
 
 by jmg*AT*phasechange*DOT*info
-March 3rd 2015
+March 6th 2015
+
+MANIFEST: 
+
+en_genre.py
+eng_cdr.py
+eng_cluster.py
+eng_first.py
+eng_list.py
+eng_plot.py
+eng_plot_retromatic.py (LATEST ADDITION)
+eng_prob.py
+eng_process_clusters.py
+eng_process_firsts.py
 
 To use these scripts, you will require the following:
 
@@ -39,3 +52,6 @@ Then run 'eng_process_clusters.py' to plot the results in 'graphs/..'
 Run this, and it will use the 'data/date_ratios.txt' file from earlier. It writes the output to 'results/eng_cdr.txt'
 
 Other features to be documented....
+
+6) 'eng_plot_retromatic.py' plots the data gleaned (manually) from 'http://everynoise.com/retromatic.html'
+
