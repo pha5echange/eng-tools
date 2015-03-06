@@ -7,14 +7,23 @@ March 6th 2015
 MANIFEST: 
 
 (1) en_genre.py
+
 (2) eng_cdr.py
+
 (3) eng_cluster.py
+
 (4) eng_first.py
+
 (5) eng_list.py
+
 (6) eng_plot.py
+
 (7) eng_plot_retromatic.py (LATEST ADDITION)
+
 (8) eng_prob.py
+
 (9) eng_process_clusters.py
+
 (10) eng_process_firsts.py
 
 To use these scripts, you will require the following:
