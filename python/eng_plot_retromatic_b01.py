@@ -68,8 +68,8 @@ for key, value in sorted(years.iteritems()):
    yAxis.append(value)
 
 # set axes values
-x_low = (min(xAxis) - 10)
-x_high = (max(xAxis) + 10)
+x_low = (min(xAxis) - 5)
+x_high = (max(xAxis) + 5)
 y_low = 0
 y_high = (max(yAxis) + 10)
 
@@ -78,7 +78,7 @@ plt.plot(xAxis, yAxis, marker='o', linestyle='-', color='b')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.suptitle('Retromatic Genre Plot', fontsize=14)
+plt.suptitle('Retromatic: numbers of genres popular by year', fontsize=12)
 plt.xlabel('Year', fontsize=12)
 plt.ylabel('Number of Genres', fontsize=12)
 plt.xlim(x_low, x_high)

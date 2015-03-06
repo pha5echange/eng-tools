@@ -28,7 +28,7 @@ fileNames = os.listdir("genres")
 if not os.path.exists("logs"):
     os.makedirs("logs")
 
-# create 'results' subdirectory if necessary
+# create 'data' subdirectory if necessary
 if not os.path.exists("data"):
     os.makedirs("data")
 
