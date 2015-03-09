@@ -1,20 +1,19 @@
-ENG-tools beta
-v. 01
+ENG-Tools beta v. 01
 
 by jmg*AT*phasechange*DOT*info
+
 March 8th 2015
 
 These scripts have been created to facilitate research into musical genre utilising the Echonest.
+
 This is a beta release; USE AT YOUR OWN RISK. 
 
 A full manifest can be found at the end of this readme file. 
 
-To use these scripts, you will require the following:
+To use ENG-Tools you will require the following:
 
 1) An Echonest Developer account, and an API key (from https://developer.echonest.com/account/register)
-
 2) A text file called 'apikey.txt' containing your API key, in the same folder as the scripts
-
 3) Python 2, the 'pyen' library (from https://github.com/plamere/pyen), and the 'matplotlib' library (from http://http://matplotlib.org)
 
 When you have these, proceed as follows:
@@ -42,7 +41,7 @@ This will ask you for a figure, the percentage of artists to be considered as a 
 
 Run this, and it will use the 'data/date_ratios.txt' file from earlier. It writes the output to 'results/eng_cdr.txt'
 
-7) 'eng_prob.py' converts a genre data file (which is basically a frequency distribution) to a probability distribution. The purpose of this is to facilitate analysis at a later date. To use this script, copy a genre data file to 'data/..' and rename it to 'genre_freq_data.txt'. 
+7) 'eng_prob.py' converts the output from a single genre plot (the results file from 'eng_plot.py'- a genre data file which has been converted to a frequency distribution) to a probability distribution. The purpose of this is to facilitate analysis at a later date. To use this script, copy a genre plot file to 'data/..' and rename it to 'genre_freq_data.txt'. 
 
 8) 'eng_plot_retromatic.py' plots the data gleaned (manually) from 'http://everynoise.com/retromatic.html' This charts the genres of the most popular 5000 songs for every year since 1950 (based on Echonest 'song' genres figures; these are unavailable to the API). A file containg this data can be found in the 'data/' directory, and this is where the script will look for 'retromatic.txt'.
 
