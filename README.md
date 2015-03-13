@@ -1,10 +1,12 @@
-ENG-Tools beta v. 01
+ENG-Tools beta v. 02
 
 by jmg*AT*phasechange*DOT*info
 
-March 8th 2015
+March 13th 2015
 
 These scripts have been created to facilitate research into musical genre utilising the Echonest.
+
+LAST ADDITION - CAPTURE OF 'HOTTTNESSS" VALUE FOR ARTISTS
 
 This is a beta release; USE AT YOUR OWN RISK. 
 
