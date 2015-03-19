@@ -6,7 +6,7 @@ March 13th 2015
 
 These scripts have been created to facilitate research into musical genre utilising the Echonest.
 
-LAST ADDITION - CAPTURE OF 'HOTTTNESSS" VALUE FOR ARTISTS
+LAST ADDITION - 'eng_hot.py' - Calculates Hotttnesss ratings for genres
 
 This is a beta release; USE AT YOUR OWN RISK. 
 
@@ -59,16 +59,18 @@ MANIFEST:
 
 (4) eng_first.py
 
-(5) eng_list.py
+(5) eng_hot.py
 
-(6) eng_multi_plot.py (LATEST ADDITION)
+(6) eng_list.py
 
-(7) eng_plot.py
+(7) eng_multi_plot.py
 
-(8) eng_plot_retromatic.py
+(8) eng_plot.py
 
-(9) eng_prob.py
+(9) eng_plot_retromatic.py
 
-(10) eng_process_clusters.py
+(10) eng_prob.py
 
-(11) eng_process_firsts.py
+(11) eng_process_clusters.py
+
+(12) eng_process_firsts.py
