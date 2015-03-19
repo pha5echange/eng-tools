@@ -70,7 +70,7 @@ for index in range(len(fileNames)):
 	hotLow = (min(hotValues))
 	hotHigh = (max(hotValues))
 
-	processedResults.write(str(genreName) + '^' + str(hotAverage) + '\n')
+	processedResults.write(str(genreName) + '^' + str(artistTotal) + '^' + str (hotLow) + '^' + str(hotAverage) + '^' + str(hotHigh) + '\n')
 	print ('Lowest hotttnesss for ' + str(genreName) + ' is ' + str(hotLow))
 	print ('Average hotttnesss for ' + str(genreName) + ' is ' + str(hotAverage))
 	print ('Highest hotttnesss for ' + str(genreName) + ' is ' + str(hotHigh))
@@ -83,8 +83,7 @@ processedResults.close()
 endTime = datetime.now()
 
 # write to log
-runLog.write ('\n' + 'Run Information' + '\n' + '\n')
-runLog.write ('Genre Average Hotttnesss | ' + 'Version: ' + versionNumber + '\n')
+runLog.write ('\n' + 'Genre Average Hotttnesss | ' + 'Version: ' + versionNumber + '\n' + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Results are saved to ../results/versionNumber_eng_hot_data.txt' + '\n')
