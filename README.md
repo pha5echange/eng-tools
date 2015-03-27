@@ -8,6 +8,8 @@ These scripts have been created to facilitate research into musical genre utilis
 
 This is a beta release; USE AT YOUR OWN RISK. 
 
+Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 A full manifest can be found at the end of this readme file. 
 
 To use ENG-Tools you will require the following:
