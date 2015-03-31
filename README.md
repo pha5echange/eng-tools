@@ -2,7 +2,7 @@ ENG-Tools beta v. 02
 
 by jmg*AT*phasechange*DOT*info
 
-March 19th 2015
+March 31st 2015
 
 These scripts have been created to facilitate research into musical genre utilising the Echonest.
 
@@ -41,7 +41,7 @@ Then run 'eng_process_firsts.py' and this will plot the results, and produce a g
 
 This will ask you for a figure, the percentage of artists to be considered as a cluster. 5%, for example. The minimum number of artists that will be considered a cluster, is 3; this is hardcoded. If you choose a percentage that works out at less than 3, the figure is set as to 3. Then run 'eng_process_clusters.py' to plot the results (in 'graphs/'). 
 
-5) To plot the graph for artists-over-time for each and every genre, run 'eng_multi_plot.py'. It will produce one graph (named with the version number and genre) for each genre file (and place them in 'graphs/'). A full set of 1370 plots takes around 6 minutes with an i5 processor. Individual genres can easily be plotted in two ways; either run 'eng_multi_plot' having placed only one genre file in the 'genres/' folder, or run 'eng_plot.py'. If doing the later, you will need to copy a genre data file and place it in 'data/'. Then rename it to 'genre_2_plot.txt'. 
+5) To plot the graph for artists-over-time for each and every genre, run 'eng_multi_plot.py'. It will produce one graph (named with the version number and genre) for each genre file (and place them in 'graphs/'). A full set of 1370 plots takes around 6 minutes with an i5 processor. Individual genres can easily be plotted in two ways; either run 'eng_multi_plot' having placed only one genre file in the 'genres/' folder, or run 'eng_plot.py'. If doing the later, you will need to copy a genre data file and place it in 'data/'. Then rename it to 'genre_2_plot.txt'. 'eng_plot' and 'eng_multi_plot' now have statistical calulations integrated into them; these are written to 'results/eng_multi_plot_stats_data.txt'. 
 
 6) 'eng_cdr.py' calculates the ratio of artists with date information to those without, for each genre.
 
