@@ -10,7 +10,7 @@ This is a beta release; USE AT YOUR OWN RISK.
 
 Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-LAST ADDITION - 'eng_hot.py' - Calculates and writes 'Hotttnesss' ratings for genres (low, high and average)
+LAST ADDITION - descriptive statistics added to 'eng_plot' and 'eng_multi_plot' 
 
 A full manifest can be found at the end of this readme file. 
 
