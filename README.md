@@ -2,7 +2,7 @@ ENG-Tools beta v. 02
 
 by jmg*AT*phasechange*DOT*info
 
-March 31st 2015
+April 7th 2015
 
 These scripts have been created to facilitate research into musical genre utilising the Echonest.
 
@@ -10,7 +10,8 @@ This is a beta release; USE AT YOUR OWN RISK.
 
 Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-LAST ADDITION - descriptive statistics added to 'eng_plot' and 'eng_multi_plot' 
+LAST ADDITIONS 	- descriptive statistics added to 'eng_plot' and 'eng_multi_plot' 
+				- 'plot artists' added (to get artist-inception totals per year
 
 A full manifest can be found at the end of this readme file. 
 
@@ -71,10 +72,12 @@ MANIFEST:
 
 (8) eng_plot.py
 
-(9) eng_plot_retromatic.py
+(9) eng_plot_artists.py
 
-(10) eng_prob.py
+(10) eng_plot_retromatic.py
 
-(11) eng_process_clusters.py
+(11) eng_prob.py
 
-(12) eng_process_firsts.py
+(12) eng_process_clusters.py
+
+(13) eng_process_firsts.py
