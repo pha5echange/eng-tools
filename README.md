@@ -10,9 +10,7 @@ This is a beta release; USE AT YOUR OWN RISK.
 
 Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-LAST ADDITIONS 	- descriptive statistics added to 'eng_plot' and 'eng_multi_plot' 
-
-                - 'plot artists' added (to get artist-inception totals per year)
+LAST ADDITION - 'plot artists' added (to get artist-inception totals per year)
 
 A full manifest can be found at the end of this readme file. 
 
