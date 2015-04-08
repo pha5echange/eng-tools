@@ -1,7 +1,7 @@
-# eng_plot_b03.py
-# Version b03
+# eng_plot_b02.py
+# Version b01
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 30th 2015
+# March 13th 2015
 
 # Reads single genre file output from 'en_genre.py'
 # Processes [renamed and moved] file 'data/genre_2_plot.txt'
@@ -11,21 +11,17 @@
 # Writes results to 'results/versionNumber_genreName_eng_plot_data.txt'
 # Writes run log to 'logs/versionNumber_genreName_eng_plot_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_plot.png'
-# DOES STATS
 
 # Run AFTER 'en_genre.py' [AND after moving and renaming a genre data file]
 
 # import packages
 import os
-import sys
-import numpy as np
-import scipy.stats as stats
 from datetime import datetime
 from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b03")
+versionNumber = ("b02")
 genreName = str(raw_input ("Enter the name of the genre to be plotted: "))
 
 # create 'logs' subdirectory if necessary
@@ -55,12 +51,9 @@ print ('\n' + 'Single Genre Plotter | ' + 'Version: ' + versionNumber + ' | Star
 # define path for graphs
 graphPath = os.path.join("graphs", versionNumber + '_' + genreName + "_eng_plot.png")
 
-# open files for output
+# open file for output
 resultsPath = os.path.join("results", versionNumber + '_' + genreName + '_eng_plot_data.txt')
 processedResults = open(resultsPath, 'a')
-
-statsPath = os.path.join("results", versionNumber + '_' + genreName + '_eng_plot_stats_data.txt')
-statsResults = open(statsPath, 'a')
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'genre_2_plot.txt')
@@ -114,31 +107,6 @@ plt.savefig(graphPath, format = 'png')
 
 # close file
 processedResults.close()
-
-#STATS
-npData = np.array([(xAxis),(yAxis)], dtype=int)
-npMedian = str(np.median(npData, axis=1))
-npMean = npData.mean(axis=1)
-npMin = npData.min(axis=1)
-npMax = npData.max(axis=1)
-npStd = npData.std(axis=1, ddof=1)
-npVar = npData.var(axis=1)
-npSkew = stats.skew(npData, axis=1)
-npKurt = stats.kurtosis(npData, axis=1)
-npRange = (npMax - npMin)
-
-print ("Data: " + str(npData))
-print ("Array shape: " + str(npData.shape))
-print ("Median: " + str(npMedian))
-print ("Mean: " + str(npMean))
-print ("StD: " + str(npStd))
-print ("Skew: " + str(npSkew))
-print ("Kurtosis: " + str(npKurt))
-
-statsResults.write(str(genreName) + ' ^ ' + "Median: " + str(npMedian) + ' ^ ' + "Mean: " + str(npMean) + ' ^ ' + "Min: " + str(npMin) + ' ^ ' + "Max: " + str(npMax) + ' ^ ' + "StD: " + str(npStd) + ' ^ ' + "Var: " + str(npVar) + ' ^ ' + "Skew: " + str(npSkew) + ' ^ ' + "Kurtosis: " + str(npKurt) + ' ^ ' + "Range: " + str(npRange) + '\n')
-
-# close file
-statsResults.close()
 
 # End timing of run
 endTime = datetime.now()
