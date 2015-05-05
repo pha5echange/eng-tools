@@ -1,12 +1,12 @@
-# en_genre_b01.py
-# Version b01
+# en_genre_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 2nd 2015
+# March 13th 2015
 
 # Gets list of genres, and artists within genres, from Echonest utilising pyen
 # Uses 'artist/search - genre =' method
 # Results sorted by 'artist_start_year_asc'
-# Gets a maximum of 1000 artists per genre (Echonest limit)
+# Gets a maximum of 1000 artists per genre (Echonest limit) with `years_active' and `hotttnesss' data
 # Produces '^' seperated output, and only writes artists where 'years_active' date information is provided
 # Writes each genres data to a seperate file in 'genres' subdirectory
 # Writes 'data/date_ratios.txt' (percentage of returned artists with date information) to facilitate the use of 'eng_cdr.py'
@@ -23,7 +23,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # define indexing variables for total artist responses
 artistTotal = 0
@@ -81,10 +81,14 @@ for g in response_genre['genres']:
 
 	# call Echonest and get 'artists' within genres
 	while results < 1000: 
-		response_artist = en.get('artist/search', genre = g['name'], start = startIndex, sort = ['artist_start_year-asc'], bucket = ['years_active'], results = ['100'])
+		response_artist = en.get('artist/search', genre = g['name'], start = startIndex, sort = ['artist_start_year-asc'], bucket = ['years_active', 'hotttnesss'], results = ['100'])
 
 		# run through 'artists' writing results to 'genreArtistList'
 		for a in response_artist['artists']:
+
+
+			# Cast 'Hotttnesss' to float and store in hotNess
+			hotNess = float(a['hotttnesss'])
 
 			# Get string of 'years_active' to allow for later clean-up (to show only first start year)
 			yaString = str(a['years_active'])
@@ -95,7 +99,7 @@ for g in response_genre['genres']:
 
 			else:
 				# write to '^' seperated file (as circumflex/caret does not appear in any band name found so far)
-				genreArtistList.write (a['name'] + '^' + yaString[12:16] + '^' + yaString[26:30] + '\n')
+				genreArtistList.write (a['name'] + '^' + yaString[12:16] + '^' + yaString[26:30] + '^' + str(hotNess) + '\n')
 				artistGenreWrite = artistGenreWrite + 1
 				artistGenreCount = artistGenreCount + 1
 

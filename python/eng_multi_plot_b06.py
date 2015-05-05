@@ -1,10 +1,11 @@
-# eng_multi_plot_b01.py
-# Version b01
+# eng_multi_plot_b06.py
+# Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 8th 2015
+# May 5th 2015
 
 # Processes genre files output from 'en_genre.py'
 # Plots frequency distribution of artists over time
+# Writes stats to 'results/versionNumber_eng_multi_plot_stats_data.txt'
 # Writes results to 'results/versionNumber_eng_multi_plot_data.txt'
 # Writes run log to 'logs/versionNumber_eng_multi_plot_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_multi_plot.png'
@@ -13,12 +14,15 @@
 
 # import packages
 import os
+import sys
+import numpy as np
+import scipy.stats as stats
 from datetime import datetime
 from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b01")
+versionNumber = ("b06")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -35,9 +39,16 @@ if not os.path.exists("graphs"):
 if not os.path.exists("results"):
     os.makedirs("results")
 
-# open file for writing log
+# open files for output
 logPath = os.path.join("logs", versionNumber + '_eng_multi_plot_log.txt')
 runLog = open(logPath, 'a')
+
+statsPath = os.path.join("results", versionNumber + '_' + '_eng_multi_plot_stats_data.txt')
+statsResults = open(statsPath, 'a')
+statsResults.write("Genre" + ',' + "Min" + ',' + "Max" + ',' + "Range" + ',' + "Median" + ',' + "Mean" + ',' + "StD" + ',' + "Var" + ',' + "Skew" + ',' + "Kurtosis" + '\n')
+
+resultsPath = os.path.join("results", versionNumber + '_eng_multi_plot_data.txt')
+processedResults = open(resultsPath, 'a')
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -47,19 +58,16 @@ startTime = datetime.now()
 runLog.write ('\n' + 'Multi Genre Plotter | ' + 'Version: ' + versionNumber + '\n' + '\n')
 print ('\n' + 'Multi Genre Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
-# open file for output
-resultsPath = os.path.join("results", versionNumber + '_eng_multi_plot_data.txt')
-processedResults = open(resultsPath, 'a')
-
 for index in range(len(fileNames)):
 
   # look for files in 'genres' subfolder
   pathname = os.path.join("genres", fileNames[index])
   genreFile = str(fileNames[index])
   genreName, fileExtension = genreFile.split(".")
+  genreNameClean = genreName.replace("'", "")
 
-  processedResults.write('Plotting graph for the genre: ' + genreName + '\n')
-  print('Plotting graph for the genre: ' + genreName + '\n')
+  # processedResults.write('\n' + genreName + '\n')
+  print('\n' + 'Plotting graph and calculating statistics for ' + genreName + '\n')
   
   # define path for graphs
   graphPath = os.path.join("graphs", versionNumber + '_' + genreName + "_eng_multi_plot.png")
@@ -74,7 +82,7 @@ for index in range(len(fileNames)):
 
   	# split line and append 'instances' with start date values
   	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-  	artist, artistStart, artistEnd = line.split("^")
+  	artist, artistStart, artistEnd, hotness = line.split("^")
   	instances.append(int(artistStart))
 
   # close input file
@@ -99,7 +107,8 @@ for index in range(len(fileNames)):
   y_high = (max(yAxis) + 10)
 
   # plot graph
-  plt.plot(xAxis, yAxis, marker='o', linestyle='-', color='b')
+  width = 1
+  plt.bar(xAxis, yAxis, width, color='blue')
 
   # label, plot and save image of graph
   plt.grid(zorder=0)
@@ -111,7 +120,45 @@ for index in range(len(fileNames)):
   plt.savefig(graphPath, format = 'png')
   plt.clf()
 
-# close file
+  #STATS
+  npData = np.array([(xAxis)], dtype=int)
+  npMin = npData.min(axis=1)
+  npMax = npData.max(axis=1)
+  npRange = str(npMax - npMin)
+  npMedian = str(np.median(npData, axis=1))
+  npMean = str(npData.mean(axis=1))
+  npStd = str(npData.std(axis=1, ddof=1))
+  npVar = str(npData.var(axis=1))
+  npSkew = str(stats.skew(npData, axis=1))
+  npKurt = str(stats.kurtosis(npData, axis=1))
+
+  npMinInterStr = str(npMin)
+  npMinStr = (npMinInterStr.strip('[]'))
+  npMaxInterStr = str(npMax)
+  npMaxStr = (npMaxInterStr.strip('[]'))
+  npRangeStr = (npRange.strip('[]'))
+  npMedianStr = (npMedian.strip('[]'))
+  npMeanStr = (npMean.strip('[]'))
+  npStdStr = (npStd.strip('[]'))
+  npVarStr = (npVar.strip('[]'))
+  npSkewStr = (npSkew.strip('[]'))
+  npKurtStr = (npKurt.strip('[]'))
+
+  print ("Data: " + str(npData))
+  print ("Array shape: " + str(npData.shape))
+  print ("Min: " + npMinStr)
+  print ("Max: " + npMaxStr)
+  print ("Range: " + npRangeStr)    
+  print ("Median: " + npMedianStr)
+  print ("Mean: " + npMeanStr)
+  print ("StD: " + npStdStr)
+  print ("Skew: " + npSkewStr)
+  print ("Kurtosis: " + npKurtStr)
+
+  statsResults.write(genreNameClean + ',' + npMinStr + ',' + npMaxStr + ',' + npRangeStr + ',' + npMedianStr + ',' + npMeanStr + ',' + npStdStr + ',' + npVarStr + ',' + npSkewStr + ',' + npKurtStr + '\n')
+
+# close files
+statsResults.close()
 processedResults.close()
 
 # End timing of run
@@ -122,8 +169,9 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
+runLog.write ('Stats are saved to ../results/versionNumber_eng_muti_plot_stats_data.txt' + '\n')
 runLog.write ('Results are saved to ../results/versionNumber_eng_muti_plot_data.txt' + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_genreName_eng_multi_plot.png' + '\n')
+runLog.write ('Graphs are saved to ../graphs/versionNumber_genreName_eng_multi_plot.png' + '\n')
 runLog.close()
 
 # write to screen
@@ -131,5 +179,6 @@ print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
+print ('Stats are saved to ../results/versionNumber_eng_muti_plot_stats_data.txt')
 print ('Results are saved to ../results/versionNumber_eng_multi_plot_data.txt')
-print ('Graph is saved to ../graphs/versionNumber_genreName_eng_multi_plot.png')
+print ('Graphs are saved to ../graphs/versionNumber_genreName_eng_multi_plot.png')

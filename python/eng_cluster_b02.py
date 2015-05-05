@@ -1,7 +1,7 @@
-# eng_cluster_b01.py
+# eng_cluster_b02.py
 # Version b01
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 2nd 2015
+# March 13th 2015
 
 # Examines Echonest genre lists
 # Finds clusters of start dates in files 
@@ -19,7 +19,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -28,7 +28,7 @@ fileNames = os.listdir("genres")
 if not os.path.exists("logs"):
     os.makedirs("logs")
 
-# create 'data' subdirectory if necessary
+# create 'results' subdirectory if necessary
 if not os.path.exists("data"):
     os.makedirs("data")
 
@@ -65,7 +65,7 @@ for index in range(len(fileNames)):
 
 		# split line and append genreStartDates' with start date values
 		# splits on '^' as this character does not appear in the genre or artist names in the data file 
-		artist, start, end_date = line.split("^")
+		artist, start, end_date, hotness = line.split("^")
 		startDate = int(start)
 		artistNames.append(artist)
 		genreStartDates.append(startDate)

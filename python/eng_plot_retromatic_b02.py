@@ -1,7 +1,7 @@
-# eng_plot_retromatic_b01.py
-# Version b01
+# eng_plot_retromatic_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 6th 2015
+# May 1st 2015
 
 # Processes file 'data/retromatic.txt'
 # Plots frequency distribution of genres over time
@@ -17,7 +17,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -28,7 +28,7 @@ if not os.path.exists("graphs"):
     os.makedirs("graphs")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_' + '_eng_plot_retromatic_log.txt')
+logPath = os.path.join("logs", versionNumber + '_eng_plot_retromatic_log.txt')
 runLog = open(logPath, 'a')
 
 # Initiate timing of run
@@ -74,13 +74,13 @@ y_low = 0
 y_high = (max(yAxis) + 10)
 
 # plot graph
-plt.plot(xAxis, yAxis, marker='o', linestyle='-', color='b')
+width = 1
+plt.bar(xAxis, yAxis, width, color='blue')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.suptitle('Retromatic: numbers of genres popular by year', fontsize=12)
-plt.xlabel('Year', fontsize=12)
-plt.ylabel('Number of Genres', fontsize=12)
+plt.xlabel('Year', fontsize=14)
+plt.ylabel('Number of Genres', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 plt.savefig(graphPath, format = 'png')

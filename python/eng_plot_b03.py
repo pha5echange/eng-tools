@@ -1,7 +1,9 @@
-# eng_plot_b01.py
-# Version b01
+# eng_plot_b03.py
+# Version b013
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 2nd 2015
+# May 1st 2015
+
+# PLOTS BARS
 
 # Reads single genre file output from 'en_genre.py'
 # Processes [renamed and moved] file 'data/genre_2_plot.txt'
@@ -21,7 +23,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b01")
+versionNumber = ("b03")
 genreName = str(raw_input ("Enter the name of the genre to be plotted: "))
 
 # create 'logs' subdirectory if necessary
@@ -67,7 +69,7 @@ for line in dataInput:
 
 	# split line and append 'instances' with start date values
 	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	artist, artistStart, artistEnd = line.split("^")
+	artist, artistStart, artistEnd, hotness = line.split("^")
 	instances.append(int(artistStart))
 
 # close input file
@@ -88,16 +90,16 @@ for key, value in sorted(countedInstances.iteritems()):
 x_low = (min(xAxis) - 10)
 x_high = (max(xAxis) + 10)
 y_low = 0
-y_high = (max(yAxis) + 10)
+y_high = (max(yAxis) + 5)
 
 # plot graph
-plt.plot(xAxis, yAxis, marker='o', linestyle='-', color='b')
+width = 3
+plt.bar(xAxis, yAxis, width, color='blue')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.suptitle('Single Genre Plot' + ' - ' + genreName, fontsize=14)
-plt.xlabel('Artist Start Year', fontsize=12)
-plt.ylabel('Number of Artists', fontsize=12)
+plt.xlabel(genreName + ' Artist Start Year', fontsize=14)
+plt.ylabel('Number of Artists', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 plt.savefig(graphPath, format = 'png')

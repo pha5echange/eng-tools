@@ -1,7 +1,7 @@
-# eng_first_b01.py
+# eng_first_b02.py
 # Version b01
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 2nd 2015
+# March 13th 2015
 
 # Examines Echonest genre lists
 # Finds first instance of a band start date in a genre
@@ -15,7 +15,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -54,7 +54,7 @@ for index in range(len(fileNames)):
 
 	# split line and append genreDates' with start date values
 	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	artist, start, end_date = first_line.split("^")
+	artist, start, end_date, hotness = first_line.split("^")
 	startDate = int(start)
 
 	# close input file
