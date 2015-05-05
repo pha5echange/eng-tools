@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # May 1st 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Reads results from output of 'eng_cluster.py'
 # Processes file 'data/first_cluster.txt'
 # Writes results to 'results/versionNumber_eng_process_clusters.txt'
@@ -94,7 +96,7 @@ plt.bar(xAxis, yAxis, width, color='blue')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.xlabel('Year of Inception (5 percent artist clusters)', fontsize=14)
+plt.xlabel('Year of Inception', fontsize=14)
 plt.ylabel('Number of Genres', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)

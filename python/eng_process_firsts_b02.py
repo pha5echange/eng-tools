@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 2nd 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Reads results from output of 'eng_first.py'
 # Processes file 'data/first_instances.txt'
 # Writes results to 'results/versionNumber_eng_process_firsts.txt'

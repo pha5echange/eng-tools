@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 18th 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Processes genre files output from 'en_genre.py'
 # Averages 'hotttnesss' of artists and produces values for genre hotttness, plus highest and lowest hotttnesss figures for each genre
 # Writes results to 'results/versionNumber_eng_hot_data.txt'

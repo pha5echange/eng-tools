@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # May 5th 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Processes genre files output from 'en_genre.py'
 # Plots frequency distribution of artists over time
 # Writes stats to 'results/versionNumber_eng_multi_plot_stats_data.txt'

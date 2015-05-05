@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # May 1st 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # PLOTS BARS
 
 # Reads single genre file output from 'en_genre.py'

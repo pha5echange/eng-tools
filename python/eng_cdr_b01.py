@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 2nd 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Processes file 'data/date_ratios.txt'
 # Writes results to 'results/versionNumber_eng_cdr.txt'
 # Writes run log to 'logs/versionNumber_eng_cdr_log.txt'

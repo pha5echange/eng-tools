@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # May 1st 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Processes file 'data/retromatic.txt'
 # Plots frequency distribution of genres over time
 # Writes run log to 'logs/versionNumber_genreName_eng_plot_retromatic_log.txt'

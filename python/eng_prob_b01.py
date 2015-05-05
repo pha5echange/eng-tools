@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 2nd 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Calculates probability distribution of artists against time
 # Reads single genre file output from 'eng_plot.py'
 # Processes [renamed and moved] file 'data/genre_freq_data.txt'

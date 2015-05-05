@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 13th 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Gets list of genres, and artists within genres, from Echonest utilising pyen
 # Uses 'artist/search - genre =' method
 # Results sorted by 'artist_start_year_asc'

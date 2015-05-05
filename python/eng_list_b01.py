@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 2nd 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Gets list of genres from Echonest utilising pyen
 # Uses 'genre/list' method
 # Reads API Key from 'apikey.txt'

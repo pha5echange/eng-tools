@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 13th 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Examines Echonest genre lists
 # Finds clusters of start dates in files 
 # A cluster could, for example, equal 5% of the total number of artists

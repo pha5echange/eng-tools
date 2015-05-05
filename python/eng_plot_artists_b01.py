@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # April 7th 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Processes file 'data/eng_multi_plot_data.txt'
 # Plots frequency distribution of artists over time
 # Writes run log to 'logs/versionNumber_eng_plot_artists_log.txt'

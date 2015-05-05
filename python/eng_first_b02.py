@@ -3,6 +3,8 @@
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 13th 2015
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+
 # Examines Echonest genre lists
 # Finds first instance of a band start date in a genre
 # Reads files from 'genres' subdirectory
