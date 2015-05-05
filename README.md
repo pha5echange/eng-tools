@@ -10,11 +10,8 @@ This is a beta release; USE AT YOUR OWN RISK.
 
 Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-<<<<<<< HEAD
-=======
 LAST ADDITION - plotting scripts now produce bar graphs. descriptive statistics improved.
 
->>>>>>> dev-beta-02
 A full manifest can be found at the end of this readme file. 
 
 To use ENG-Tools you will require the following:
