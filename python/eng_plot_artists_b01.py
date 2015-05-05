@@ -1,5 +1,5 @@
-# eng_plot_artists_b01.py
-# Version b01
+# eng_plot_artists_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # April 7th 2015
 
@@ -15,7 +15,7 @@ from collections import defaultdict
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -80,7 +80,8 @@ y_low = 0
 y_high = (max(yAxis) + 100)
 
 # plot graph
-plt.plot(xAxis, yAxis, marker='o', linestyle='-', color='b')
+width = 1 
+plt.bar(xAxis, yAxis, width, color='blue')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)

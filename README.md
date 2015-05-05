@@ -2,7 +2,7 @@ ENG-Tools beta v. 02
 
 by jmg*AT*phasechange*DOT*info
 
-April 7th 2015
+May 5th 2015
 
 These scripts have been created to facilitate research into musical genre utilising the Echonest.
 
@@ -10,7 +10,7 @@ This is a beta release; USE AT YOUR OWN RISK.
 
 Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-LAST ADDITION - 'plot artists' added (to get artist-inception totals per year)
+LAST ADDITION - plotting scripts now produce bar graphs. descriptive statistics improved.
 
 A full manifest can be found at the end of this readme file. 
 

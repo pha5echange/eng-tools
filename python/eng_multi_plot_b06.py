@@ -1,7 +1,7 @@
-# eng_multi_plot_b04.py
-# Version b01
+# eng_multi_plot_b06.py
+# Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# April 8th 2015
+# May 5th 2015
 
 # Processes genre files output from 'en_genre.py'
 # Plots frequency distribution of artists over time
@@ -22,7 +22,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b04")
+versionNumber = ("b06")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -45,7 +45,7 @@ runLog = open(logPath, 'a')
 
 statsPath = os.path.join("results", versionNumber + '_' + '_eng_multi_plot_stats_data.txt')
 statsResults = open(statsPath, 'a')
-statsResults.write("Genre" + ', ' + "Median" + ', ' + "Mean" + ', ' + "StD" + ', ' + "Var" + ', ' + "Skew" + ', ' + "Kurtosis" + '\n')
+statsResults.write("Genre" + ',' + "Min" + ',' + "Max" + ',' + "Range" + ',' + "Median" + ',' + "Mean" + ',' + "StD" + ',' + "Var" + ',' + "Skew" + ',' + "Kurtosis" + '\n')
 
 resultsPath = os.path.join("results", versionNumber + '_eng_multi_plot_data.txt')
 processedResults = open(resultsPath, 'a')
@@ -64,6 +64,7 @@ for index in range(len(fileNames)):
   pathname = os.path.join("genres", fileNames[index])
   genreFile = str(fileNames[index])
   genreName, fileExtension = genreFile.split(".")
+  genreNameClean = genreName.replace("'", "")
 
   # processedResults.write('\n' + genreName + '\n')
   print('\n' + 'Plotting graph and calculating statistics for ' + genreName + '\n')
@@ -106,7 +107,8 @@ for index in range(len(fileNames)):
   y_high = (max(yAxis) + 10)
 
   # plot graph
-  plt.plot(xAxis, yAxis, marker='o', linestyle='-', color='b')
+  width = 1
+  plt.bar(xAxis, yAxis, width, color='blue')
 
   # label, plot and save image of graph
   plt.grid(zorder=0)
@@ -120,32 +122,40 @@ for index in range(len(fileNames)):
 
   #STATS
   npData = np.array([(xAxis)], dtype=int)
+  npMin = npData.min(axis=1)
+  npMax = npData.max(axis=1)
+  npRange = str(npMax - npMin)
   npMedian = str(np.median(npData, axis=1))
   npMean = str(npData.mean(axis=1))
-  npMin = str(npData.min(axis=1))
-  npMax = str(npData.max(axis=1))
   npStd = str(npData.std(axis=1, ddof=1))
   npVar = str(npData.var(axis=1))
   npSkew = str(stats.skew(npData, axis=1))
   npKurt = str(stats.kurtosis(npData, axis=1))
-  #npRange = (npMax - npMin)
 
-  npMedianStr = str(npMedian.strip('[]'))
-  npMeanStr = str(npMean.strip('[]'))
-  npStdStr = str(npStd.strip('[]'))
-  npVarStr = str(npVar.strip('[]'))
-  npSkewStr = str(npSkew.strip('[]'))
-  npKurtStr = str(npKurt.strip('[]'))
+  npMinInterStr = str(npMin)
+  npMinStr = (npMinInterStr.strip('[]'))
+  npMaxInterStr = str(npMax)
+  npMaxStr = (npMaxInterStr.strip('[]'))
+  npRangeStr = (npRange.strip('[]'))
+  npMedianStr = (npMedian.strip('[]'))
+  npMeanStr = (npMean.strip('[]'))
+  npStdStr = (npStd.strip('[]'))
+  npVarStr = (npVar.strip('[]'))
+  npSkewStr = (npSkew.strip('[]'))
+  npKurtStr = (npKurt.strip('[]'))
 
   print ("Data: " + str(npData))
   print ("Array shape: " + str(npData.shape))
+  print ("Min: " + npMinStr)
+  print ("Max: " + npMaxStr)
+  print ("Range: " + npRangeStr)    
   print ("Median: " + npMedianStr)
   print ("Mean: " + npMeanStr)
   print ("StD: " + npStdStr)
   print ("Skew: " + npSkewStr)
   print ("Kurtosis: " + npKurtStr)
 
-  statsResults.write(genreName + ', ' + npMedianStr + ', ' + npMeanStr + ', ' + npStdStr + ', ' + npVarStr + ', ' + npSkewStr + ', ' + npKurtStr + '\n')
+  statsResults.write(genreNameClean + ',' + npMinStr + ',' + npMaxStr + ',' + npRangeStr + ',' + npMedianStr + ',' + npMeanStr + ',' + npStdStr + ',' + npVarStr + ',' + npSkewStr + ',' + npKurtStr + '\n')
 
 # close files
 statsResults.close()
