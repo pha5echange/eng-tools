@@ -42,7 +42,7 @@ runLog.write ('\n' + 'Retromatic Genre Plotter | ' + 'Version: ' + versionNumber
 print ('\n' + 'Retromatic Genre Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + '_' + "_eng_plot_retromatic.png")
+graphPath = os.path.join("graphs", versionNumber + "_eng_plot_retromatic.png")
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'retromatic.txt')

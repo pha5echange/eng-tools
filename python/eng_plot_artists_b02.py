@@ -40,7 +40,7 @@ runLog.write ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + '\
 print ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + '_' + "_eng_plot_artists.png")
+graphPath = os.path.join("graphs", versionNumber + "_eng_plot_artists.png")
 
 # open files for output
 resultsPath = os.path.join("results", versionNumber + '_eng_plot_artists_data.txt')
