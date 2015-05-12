@@ -20,7 +20,7 @@ To use ENG-Tools you will require the following:
 
 2) A text file called 'apikey.txt' containing your API key, in the same folder as the scripts
 
-3) Python 2, the 'pyen' library (from https://github.com/plamere/pyen), and the 'matplotlib' library (from http://http://matplotlib.org)
+3) Python 2, the 'pyen' library (from https://github.com/plamere/pyen), the 'matplotlib' library (from http://matplotlib.org), and the 'scipy' library (from http://www.scipy.org). 
 
 When you have these, proceed as follows:
 
