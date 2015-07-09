@@ -65,6 +65,8 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 9) 'eng_plot_retromatic.py' plots the data gleaned (manually) from 'http://everynoise.com/retromatic.html' This charts the genres of the most popular 5000 songs for every year since 1950 (based on Echonest 'song' genres figures; these are unavailable to the API). A file containg this data can be found in the 'data/' directory, and this is where the script will look for 'retromatic.txt'.
 
+10) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
+
 MANIFEST: 
 
 (1) en_genre.py
