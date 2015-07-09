@@ -1,7 +1,7 @@
-# en_genre_b02.py
-# Version b02
+# en_genre_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 13th 2015
+# July 6th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -9,8 +9,8 @@
 # Uses 'artist/search - genre =' method
 # Results sorted by 'artist_start_year_asc'
 # Gets a maximum of 1000 artists per genre (Echonest limit) with `years_active' and `hotttnesss' data
-# Produces '^' seperated output, and only writes artists where 'years_active' date information is provided
-# Writes each genres data to a seperate file in 'genres' subdirectory
+# Produces '^' seperated output
+# Writes each genres' data to a seperate file in 'genres/' subdirectory
 # Writes 'data/date_ratios.txt' (percentage of returned artists with date information) to facilitate the use of 'eng_cdr.py'
 # Writes run log to 'logs/versionNumber_engenre_log.txt'
 
@@ -25,7 +25,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # define indexing variables for total artist responses
 artistTotal = 0
@@ -95,8 +95,9 @@ for g in response_genre['genres']:
 			# Get string of 'years_active' to allow for later clean-up (to show only first start year)
 			yaString = str(a['years_active'])
 
-			# If the 'years_active' string is empty (i.e. no data) don't write the artist to the file
+			# If the 'years_active' string is empty (i.e. no data) write the artist to the file. Increment artistGenreCount (to note totals) but don't increment artistGenreWrite (to facilitate 'cdr.py').
 			if yaString == "[]":
+				genreArtistList.write (a['name'] + '^' + ' ' + '^' + ' ' + '^' + str(hotNess) + '\n')
 				artistGenreCount = artistGenreCount + 1 
 
 			else:

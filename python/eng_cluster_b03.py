@@ -1,7 +1,7 @@
-# eng_cluster_b02.py
-# Version b01
+# eng_cluster_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 13th 2015
+# July 6th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -21,7 +21,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -68,6 +68,10 @@ for index in range(len(fileNames)):
 		# split line and append genreStartDates' with start date values
 		# splits on '^' as this character does not appear in the genre or artist names in the data file 
 		artist, start, end_date, hotness = line.split("^")
+		
+		if start == " ":
+			start = 0
+
 		startDate = int(start)
 		artistNames.append(artist)
 		genreStartDates.append(startDate)
@@ -95,40 +99,60 @@ for index in range(len(fileNames)):
 	clusters = set()
 
 	while (index + 1) < maxIndex:
-		if genreStartDates[index] == genreStartDates [index + 1]:
-			clusterNumber = clusterNumber + 1
+		if genreStartDates[index] != 0:
+			if genreStartDates[index] == genreStartDates [index + 1]:
+				clusterNumber = clusterNumber + 1
 
-			runLog.write('\n' + 'Match found: ' + str(genreStartDates[index]) + '\n')
-			runLog.write('Genre: ' + str(genreLabel) + '\n')
-			runLog.write('Index: ' + str(index) + ' and ' + str(index + 1) + '\n')
-			runLog.write('Artists: ' + str(artistNames[index]) + ' and ' + str(artistNames[index + 1]) + '\n')
-			runLog.write('Cluster Number: ' + str(clusterNumber) + '\n' + '\n')
-
-			print
-			print('Match found: ' + str(genreStartDates[index]))
-			print('Genre: ' + str(genreLabel))
-			print('Index: ' + str(index) + ' and ' + str(index + 1))
-			print('Artists: ' + str(artistNames[index]) + ' and ' + str(artistNames[index + 1]))
-			print('Cluster Number: ' + str(clusterNumber))
-			print
-
-			# check for a cluster of 'minClusterSize'
-			if clusterNumber >= minClusterSize:
-				clusterDates.append(genreStartDates[index])
-
-				runLog.write('\n' + 'Cluster found - ' + 'Date: ' + str(genreStartDates[index]) + '\n')
+				runLog.write('\n' + 'Match found: ' + str(genreStartDates[index]) + '\n')
 				runLog.write('Genre: ' + str(genreLabel) + '\n')
-				runLog.write('Index: ' + str(index) + '\n')
+				runLog.write('Index: ' + str(index) + ' and ' + str(index + 1) + '\n')
+				runLog.write('Artists: ' + str(artistNames[index]) + ' and ' + str(artistNames[index + 1]) + '\n')
 				runLog.write('Cluster Number: ' + str(clusterNumber) + '\n' + '\n')
-			
+
 				print
-				print('Cluster found - ' + 'Date: ' + str(genreStartDates[index]))
+				print('Match found: ' + str(genreStartDates[index]))
 				print('Genre: ' + str(genreLabel))
-				print('Index: ' + str(index))
+				print('Index: ' + str(index) + ' and ' + str(index + 1))
+				print('Artists: ' + str(artistNames[index]) + ' and ' + str(artistNames[index + 1]))
 				print('Cluster Number: ' + str(clusterNumber))
 				print
 
-		# if not a match, then reset cluster number to '1' and mark as 'no match'
+				# check for a cluster of 'minClusterSize'
+				if clusterNumber >= minClusterSize:
+					clusterDates.append(genreStartDates[index])
+
+					runLog.write('\n' + 'Cluster found - ' + 'Date: ' + str(genreStartDates[index]) + '\n')
+					runLog.write('Genre: ' + str(genreLabel) + '\n')
+					runLog.write('Index: ' + str(index) + '\n')
+					runLog.write('Cluster Number: ' + str(clusterNumber) + '\n' + '\n')
+			
+					print
+					print('Cluster found - ' + 'Date: ' + str(genreStartDates[index]))
+					print('Genre: ' + str(genreLabel))
+					print('Index: ' + str(index))
+					print('Cluster Number: ' + str(clusterNumber))
+					print
+
+			# if not a match, then reset cluster number to '1' and mark as 'no match'
+			else:
+				clusterNumber = 1
+				runLog.write('\n' + 'No match: ' + str(genreStartDates[index]) + ' and ' + str(genreStartDates[index + 1]) + '\n')
+				runLog.write('Genre: ' + str(genreLabel) + '\n')
+				runLog.write('Index: ' + str(index) + ' and ' + str(index + 1) + '\n' )
+				runLog.write('Artists: ' + str(artistNames[index]) + ' and ' + str(artistNames[index + 1]) + '\n')
+				runLog.write('Cluster Number: ' + str(clusterNumber) + '\n' + '\n')
+		
+				print
+				print('No match: ' + str(genreStartDates[index]) + ' and ' + str(genreStartDates[index + 1]))
+				print('Genre: ' + str(genreLabel))
+				print('Index: ' + str(index) + ' and ' + str(index + 1))
+				print('Artists: ' + str(artistNames[index]) + ' and ' + str(artistNames[index + 1]))
+				print('Cluster Number: ' + str(clusterNumber))
+				print
+
+			# move index along one place to try the next match
+			index = index + 1
+
 		else:
 			clusterNumber = 1
 			runLog.write('\n' + 'No match: ' + str(genreStartDates[index]) + ' and ' + str(genreStartDates[index + 1]) + '\n')
@@ -148,8 +172,9 @@ for index in range(len(fileNames)):
 		# move index along one place to try the next match
 		index = index + 1
 
-	# add clusterDates to a set to remove duplicate entries
-	clusters = set(clusterDates)
+
+		# add clusterDates to a set to remove duplicate entries
+		clusters = set(clusterDates)
 
 	# if 'clusters' is not empty, sort 'clusterDates' and get first element, then write results to files
 	if clusters:
