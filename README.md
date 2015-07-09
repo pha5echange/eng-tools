@@ -10,11 +10,9 @@ These scripts have been created to facilitate research into musical genre utilis
 This is research software; USE IT AT YOUR OWN RISK. 
 I will respond to emails if possible, BUT THIS SOFTWARE HAS NO FORMAL SUPPORT.
 
-
 LICENCE: 
 
 http://creativecommons.org/licenses/by-nc-sa/3.0/
-
 
 LATEST ADDITIONS: 
 
@@ -23,7 +21,6 @@ LATEST ADDITIONS:
 - Graphs are not output as EPS files.
 
 A full manifest can be found at the end of this readme file. 
-
 
 USAGE: 
 
@@ -68,7 +65,6 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 8) 'eng_prob.py' converts the output from a single genre plot (the results file from 'eng_plot.py'- a genre data file which has been converted to a frequency distribution) to a probability distribution. The purpose of this is to facilitate analysis at a later date. To use this script, copy a genre plot file to 'data/' and rename it to 'genre_freq_data.txt'. 
 
 9) 'eng_plot_retromatic.py' plots the data gleaned (manually) from 'http://everynoise.com/retromatic.html' This charts the genres of the most popular 5000 songs for every year since 1950 (based on Echonest 'song' genres figures; these are unavailable to the API). A file containg this data can be found in the 'data/' directory, and this is where the script will look for 'retromatic.txt'.
-
 
 MANIFEST: 
 
