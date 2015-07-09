@@ -40,7 +40,7 @@ runLog.write ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + '\
 print ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + "_eng_plot_artists.png")
+graphPath = os.path.join("graphs", versionNumber + "_eng_plot_artists.eps")
 
 # open files for output
 resultsPath = os.path.join("results", versionNumber + '_eng_plot_artists_data.txt')
@@ -92,7 +92,7 @@ plt.xlabel('Year', fontsize=12)
 plt.ylabel('Number of Artists', fontsize=12)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(graphPath, format = 'png')
+plt.savefig(graphPath, format = 'eps')
 
 # display graph on screen - DON'T BOTHER FOR NOW
 # plt.show()
@@ -109,7 +109,7 @@ runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Results are saved to ../results/versionNumber_eng_plot_artists_data.txt' + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.png' + '\n')
+runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -118,4 +118,4 @@ print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 print ('Results are saved to ../results/versionNumber_eng_plot_artists_data.txt')
-print ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.png')
+print ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.eps')
