@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 July 9th 2015
 
-These scripts have been created to facilitate research into musical genre utilising the Echonest.
+These scripts have been created to facilitate research into musical genre using the Echonest.
 
 This is research software; USE IT AT YOUR OWN RISK. 
 I will respond to emails if possible, BUT THIS SOFTWARE HAS NO FORMAL SUPPORT.
@@ -18,7 +18,7 @@ LATEST ADDITIONS:
 
 - 'en_genre' now captures 'undocumented' artists' hotttnesss ratings. Fixes were required in 'multi_plot' and 'plot_artists' as a result. 
 
-- Graphs are not output as EPS files.
+- Graphs are now output as EPS files.
 
 A full manifest can be found at the end of this readme file. 
 
