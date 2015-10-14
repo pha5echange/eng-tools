@@ -91,8 +91,16 @@ for g in response_genre['genres']:
 			# Cast 'Hotttnesss' to float and store in hotNess
 			hotNess = float(a['hotttnesss'])
 
-			# Cast 'id:musicbrainz:artist' to string
-			MbID = str(a['id'])
+			# Retrieve MusicBrainz ID from the insanity and cast to string
+			try:
+				MbRetList = (a['foreign_ids'])
+				MbRetStr = ''.join(map(str, MbRetList))
+				junkA, junkB, junkC, junkD, notJunk = MbRetStr.split(":")
+				cleanedNotJunk = notJunk.strip ("}'")
+				MbID = str(cleanedNotJunk)
+			except:
+				MbID = str('')
+				continue
 
 			# Cast 'years_active' to string to allow for later clean-up (to show only first start year)
 			yaString = str(a['years_active'])
