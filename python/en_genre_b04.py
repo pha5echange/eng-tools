@@ -105,9 +105,9 @@ for g in response_genre['genres']:
 			# Cast 'years_active' to string to allow for later clean-up (to show only first start year)
 			yaString = str(a['years_active'])
 
-			# If the 'years_active' string is empty (i.e. no data) write the artist to the file. Increment artistGenreCount (to note totals) but don't increment artistGenreWrite (to facilitate 'cdr.py').
+			# If the 'years_active' string is empty (i.e. no data) don't write the artist to the file. Increment artistGenreCount (to note totals) but don't increment artistGenreWrite (to facilitate 'cdr.py').
 			if yaString == "[]":
-				genreArtistList.write (a['name'] + '^' + ' ' + '^' + ' ' + '^' + str(hotNess) + '^' + MbID + '\n')
+				# genreArtistList.write (a['name'] + '^' + ' ' + '^' + ' ' + '^' + str(hotNess) + '^' + MbID + '\n')
 				artistGenreCount = artistGenreCount + 1 
 
 			else:
