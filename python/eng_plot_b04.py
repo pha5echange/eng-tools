@@ -1,7 +1,7 @@
-# eng_plot_b03.py
-# Version b013
+# eng_plot_b04.py
+# Version b04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# May 1st 2015
+# October 15th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -16,6 +16,8 @@
 # Writes run log to 'logs/versionNumber_genreName_eng_plot_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_plot.png'
 
+# New version to deal with Musicbrainz ID in data files
+
 # Run AFTER 'en_genre.py' [AND after moving and renaming a genre data file]
 
 # import packages
@@ -25,7 +27,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b03")
+versionNumber = ("b04")
 genreName = str(raw_input ("Enter the name of the genre to be plotted: "))
 
 # create 'logs' subdirectory if necessary
@@ -71,7 +73,7 @@ for line in dataInput:
 
 	# split line and append 'instances' with start date values
 	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	artist, artistStart, artistEnd, hotness = line.split("^")
+	artist, artistStart, artistEnd, hotness, mbid = line.split("^")
 	instances.append(int(artistStart))
 
 # close input file

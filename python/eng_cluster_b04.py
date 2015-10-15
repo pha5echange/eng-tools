@@ -1,7 +1,7 @@
-# eng_cluster_b03.py
-# Version b03
+# eng_cluster_b04.py
+# Version b04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# July 6th 2015
+# October 15th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -15,13 +15,15 @@
 # Writes first cluster to 'data/first_cluster.txt'
 # Writes run log to 'logs/versionNumber_eng_cluster_log.txt'
 
+# New version to deal with Musicbrainz ID in data files
+
 # Run AFTER 'en_genre.py'
 
 # import packages
 import os
 from datetime import datetime
 
-versionNumber = ("b03")
+versionNumber = ("b04")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -67,7 +69,7 @@ for index in range(len(fileNames)):
 
 		# split line and append genreStartDates' with start date values
 		# splits on '^' as this character does not appear in the genre or artist names in the data file 
-		artist, start, end_date, hotness = line.split("^")
+		artist, start, end_date, hotness, mbid = line.split("^")
 		
 		if start == " ":
 			start = 0

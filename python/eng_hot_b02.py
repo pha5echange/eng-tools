@@ -1,7 +1,7 @@
-# eng_hot_b01.py
-# Version b01
+# eng_hot_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 18th 2015
+# October 15th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -10,6 +10,8 @@
 # Writes results to 'results/versionNumber_eng_hot_data.txt'
 # Writes run log to 'logs/versionNumber_eng_hot_log.txt'
 
+# New version to deal with Musicbrainz ID in data files
+
 # Run AFTER 'en_genre.py' has gathered 'genres/..'
 
 # import packages
@@ -17,7 +19,7 @@ import os
 from datetime import datetime
 from collections import Counter
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -60,7 +62,7 @@ for index in range(len(fileNames)):
 		# split line and calculate hotttnesss total
  		# splits on '^' as this character does not appear in the genre or artist names in the data file 
 
-		artist, artistStart, artistEnd, hotness = line.split("^")
+		artist, artistStart, artistEnd, hotness, mbid = line.split("^")
 		hotValues.append(float(hotness))
 
 	# close input file

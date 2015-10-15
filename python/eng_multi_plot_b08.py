@@ -1,7 +1,7 @@
-# eng_multi_plot_b07.py
-# Version b07
+# eng_multi_plot_b08.py
+# Version b08
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# July 7th 2015
+# October 15th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -11,6 +11,8 @@
 # Writes results to 'results/versionNumber_eng_multi_plot_data.txt'
 # Writes run log to 'logs/versionNumber_eng_multi_plot_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_multi_plot.png'
+
+# New version to deal with Musicbrainz ID in data files
 
 # Run AFTER 'en_genre.py' has gathered 'genres/..'
 
@@ -24,7 +26,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b07")
+versionNumber = ("b08")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -84,7 +86,7 @@ for index in range(len(fileNames)):
 
 		# split line and append 'instances' with start date values
 		# splits on '^' as this character does not appear in the genre or artist names in the data file 
-		artist, artistStart, artistEnd, hotness = line.split("^")
+		artist, artistStart, artistEnd, hotness, mbid = line.split("^")
 
 		if artistStart == " ": 
 			artistStart = 0

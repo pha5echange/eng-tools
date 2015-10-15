@@ -5,7 +5,7 @@
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-# Processes file 'data/eng_multi_plot_data.txt'
+# Processes file 'data/eng_multi_plot_data.txt' (output by 'eng_multi_plot')
 # Plots frequency distribution of artists over time
 # Writes run log to 'logs/versionNumber_eng_plot_artists_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_eng_plot_artists.png'

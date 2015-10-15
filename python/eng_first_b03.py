@@ -1,7 +1,7 @@
-# eng_first_b02.py
-# Version b01
+# eng_first_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 13th 2015
+# October 15th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -11,13 +11,15 @@
 # Writes results to 'data/first_instamces.txt'
 # Writes run log to 'logs/versionNumber_eng_first_log.txt'
 
+# New version to deal with Musicbrainz ID in data files
+
 # Run AFTER 'en_genre.py'
 
 # import packages
 import os
 from datetime import datetime
 
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -56,7 +58,7 @@ for index in range(len(fileNames)):
 
 	# split line and append genreDates' with start date values
 	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	artist, start, end_date, hotness = first_line.split("^")
+	artist, start, end_date, hotness, mbid = first_line.split("^")
 	startDate = int(start)
 
 	# close input file
