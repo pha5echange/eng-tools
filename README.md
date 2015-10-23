@@ -3,7 +3,7 @@ ENG-Tools beta v. 04
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-October 20th 2015
+October 23rd 2015
 
 These scripts have been created to facilitate research into musical genre using the Echonest.
 
@@ -21,7 +21,7 @@ The next version will fix this problem.
 
 LATEST ADDITIONS: 
 
-- BETA 0.4 'en_graph' script converts genres into set() for later use
+- BETA 0.4 'eng_graph' script converts genres into set()s and finds intersections
 
 - BETA 0.4 'en_genre' now captures artists' musicbrainz ID (and discards those without)
 
@@ -76,7 +76,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 10) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
-11) IN BETA 0.4: 'en_graph' converts the genres as sets() containing 'artists' as elements. This is for use later on...
+11) IN BETA 0.4: 'en_graph' converts the genres as set()s containing 'artists' as elements. It then finds all intersections based upon shared artists.
 
 MANIFEST (Both versions 0.3 and 0.4. Some sharing of scripts between versions): 
 
@@ -108,4 +108,4 @@ MANIFEST (Both versions 0.3 and 0.4. Some sharing of scripts between versions):
 
 BETA 0.4 ONLY: 
 
-(14) en_graph.py
+(14) eng_graph.py
