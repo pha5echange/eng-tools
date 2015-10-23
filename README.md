@@ -76,7 +76,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 10) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
-11) IN BETA 0.4: 'en_graph' converts the genres as set()s containing 'artists' as elements. It then finds all intersections based upon shared artists.
+11) IN BETA 0.4: 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists.
 
 MANIFEST (Both versions 0.3 and 0.4. Some sharing of scripts between versions): 
 
