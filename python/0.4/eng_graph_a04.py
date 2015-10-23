@@ -143,15 +143,18 @@ while setAcount < genreCount:
 endTime = datetime.now()
 
 memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
+avK = intersectCount / genreCount
+avW = totalElementCount / intersectCount
 
 # write to log
 runLog.write ('Run Information' + '\n' + '\n')
-runLog.write ('Version: ' + versionNumber + '\n')
-runLog.write ('Genres: ' + str(genreCount) + '\n')
-runLog.write ('Genres List: ' + str(len(setList)) + '\n')
+runLog.write ('Genres: ' + str(len(setList)) + '\n')
+runLog.write ('V (nodes): ' + str(genreCount) + '\n')
+runLog.write ('E (edges): ' + str(intersectCount) + '\n')
+runLog.write ('Average K (degree): ' + str(avK) + '\n')
+runLog.write ('Average W (weighting): ' + str(avW) + '\n')
 runLog.write ('Total Intersections: ' + str(totalIntersectCount) + '\n')
-runLog.write ('Intersections Written: ' + str(intersectCount) + '\n')
-runLog.write ('Co-occurrence Total: ' + str(totalElementCount) + '\n')
+runLog.write ('Total Co-occurrence: ' + str(totalElementCount) + '\n')
 runLog.write ('Memory Used: ' + str(memUseMb) + 'Mb' + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n' + '\n')
@@ -160,11 +163,13 @@ runLog.close()
 # write to screen
 print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
-print ('Genres: ' + str(genreCount))
-print ('Genres List: ' + str(len(setList)))
+print ('Genres: ' + str(len(setList)))
+print ('V (nodes): ' + str(genreCount) )
+print ('E (edges): ' + str(intersectCount))
+print ('Average K (degree): ' + str(avK))
+print ('Average W (weighting): ' + str(avW) )
 print ('Total Intersections: ' + str(totalIntersectCount))
-print ('Intersections Written: ' + str(intersectCount))
-print ('Co-occurrence Total: ' + str(totalElementCount))
+print ('Total Co-occurrence: ' + str(totalElementCount))
 print ('Memory Used: ' + str(memUseMb) + 'Mb')
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
