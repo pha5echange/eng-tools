@@ -1,11 +1,11 @@
-# eng_plot_artists_b02.py
-# Version b02
+# eng_plot_artists_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# April 7th 2015
+# October 26th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-# Processes file 'data/eng_multi_plot_data.txt' (output from 'eng_multi_plot')
+# Processes file 'data/eng_multi_plot_data.txt' (output by 'eng_multi_plot')
 # Plots frequency distribution of artists over time
 # Writes run log to 'logs/versionNumber_eng_plot_artists_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_eng_plot_artists.png'
@@ -17,7 +17,7 @@ from collections import defaultdict
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -40,7 +40,7 @@ runLog.write ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + '\
 print ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + '_' + "_eng_plot_artists.png")
+graphPath = os.path.join("graphs", versionNumber + "_eng_plot_artists.eps")
 
 # open files for output
 resultsPath = os.path.join("results", versionNumber + '_eng_plot_artists_data.txt')
@@ -57,8 +57,7 @@ years = defaultdict(int)
 for line in dataInput:
 
 	# split line and update 'years'
-	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	year, artists = line.split("^")
+	year, artists = line.split(",")
 	years[year] += int (artists)
 	years.update ({int(year):int(artists)})
 
@@ -71,7 +70,7 @@ yAxis = []
 for key, value in sorted(years.iteritems()):
 
     print key, value
-    processedResults.write(str(key) + '^' + str(value) + '\n')
+    processedResults.write(str(key) + ',' + str(value) + '\n')
     xAxis.append(int(key))
     yAxis.append(int(value))
 
@@ -92,7 +91,7 @@ plt.xlabel('Year', fontsize=12)
 plt.ylabel('Number of Artists', fontsize=12)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(graphPath, format = 'png')
+plt.savefig(graphPath, format = 'eps')
 
 # display graph on screen - DON'T BOTHER FOR NOW
 # plt.show()
@@ -109,7 +108,7 @@ runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Results are saved to ../results/versionNumber_eng_plot_artists_data.txt' + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.png' + '\n')
+runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -118,4 +117,4 @@ print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 print ('Results are saved to ../results/versionNumber_eng_plot_artists_data.txt')
-print ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.png')
+print ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.eps')

@@ -1,16 +1,18 @@
-# en_genre_b03.py
-# Version b03
+# en_genre_b05.py
+# Version b05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# July 6th 2015
+# Oct 28th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Gets list of genres, and artists within genres, from Echonest utilising pyen
 # Uses 'artist/search - genre =' method
 # Results sorted by 'artist_start_year_asc'
-# Gets a maximum of 1000 artists per genre (Echonest limit) with `years_active' and `hotttnesss' data
-# Produces '^' seperated output
+# Gets a maximum of 1000 artists per genre (Echonest limit) with `years_active', `familiarity' and `hotttnesss' 
+# Also grabs and writes MusicBrainzID (for later use) - discards artists without this
+# Produces ',' seperated output
 # Writes each genres' data to a seperate file in 'genres/' subdirectory
+# Deletes empty files (i.e. those without artists with dates and MBID), but logs their presence
 # Writes 'data/date_ratios.txt' (percentage of returned artists with date information) to facilitate the use of 'eng_cdr.py'
 # Writes run log to 'logs/versionNumber_engenre_log.txt'
 
@@ -25,7 +27,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b03")
+versionNumber = ("b05")
 
 # define indexing variables for total artist responses
 artistTotal = 0
@@ -52,9 +54,9 @@ resultsPath = os.path.join("data", 'date_ratios.txt')
 dateRatios = open(resultsPath, 'w')
 
 # get number of genres to trawl
-runLog.write ('\n' + 'Echonest Genre Trawl | ' + 'Version: ' + versionNumber + '\n' + '\n')
-print ('\n' + 'Echonest Genre Trawl | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
-genreRequests = int(input ("Enter the maximum number of genres to trawl (latest total is 1370): "))
+runLog.write ('\n' + 'Echonest Genre Trawler | ' + 'Version: ' + versionNumber + '\n' + '\n')
+print ('\n' + 'Echonest Genre Trawler | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
+genreRequests = int(input ("Enter the maximum number of genres to trawl (last EN total was 1383): "))
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -72,7 +74,8 @@ response_genre = en.get('genre/list', results = [genreRequests])
 for g in response_genre['genres']:
 
 	# open file for writing artist data
-	genresPath = os.path.join("genres", str(g['name']) + '.txt')
+	genreName = str(g['name']).replace(",", "")
+	genresPath = os.path.join("genres", genreName + '.txt')
 	genreArtistList = open(genresPath, 'w')
 
 	# define indexing variables for genre artist responses
@@ -83,26 +86,36 @@ for g in response_genre['genres']:
 
 	# call Echonest and get 'artists' within genres
 	while results < 1000: 
-		response_artist = en.get('artist/search', genre = g['name'], start = startIndex, sort = ['artist_start_year-asc'], bucket = ['years_active', 'hotttnesss'], results = ['100'])
+		response_artist = en.get('artist/search', genre = g['name'], start = startIndex, sort = ['artist_start_year-asc'], bucket = ['years_active', 'familiarity', 'hotttnesss', 'id:musicbrainz'], results = ['100'])
 
 		# run through 'artists' writing results to 'genreArtistList'
 		for a in response_artist['artists']:
 
-
-			# Cast 'Hotttnesss' to float and store in hotNess
+			# Cast floats
+			famiLiar = float(a['familiarity'])
 			hotNess = float(a['hotttnesss'])
 
-			# Get string of 'years_active' to allow for later clean-up (to show only first start year)
+			# Retrieve MusicBrainz ID from the insanity and cast to string
+			try:
+				MbRetList = (a['foreign_ids'])
+				MbRetStr = ''.join(map(str, MbRetList))
+				junkA, junkB, junkC, junkD, notJunk = MbRetStr.split(":")
+				cleanedNotJunk = notJunk.strip ("}'")
+				MbID = str(cleanedNotJunk)
+			except:
+				MbID = str('')
+				continue
+
+			# Cast 'years_active' to string to allow for later clean-up (to show only first start year)
 			yaString = str(a['years_active'])
 
-			# If the 'years_active' string is empty (i.e. no data) write the artist to the file. Increment artistGenreCount (to note totals) but don't increment artistGenreWrite (to facilitate 'cdr.py').
+			# If the 'years_active' string is empty (i.e. no data) don't write the artist to the file. Increment artistGenreCount (to note totals) but don't increment artistGenreWrite (to facilitate 'cdr.py').
 			if yaString == "[]":
-				genreArtistList.write (a['name'] + '^' + ' ' + '^' + ' ' + '^' + str(hotNess) + '\n')
 				artistGenreCount = artistGenreCount + 1 
 
 			else:
-				# write to '^' seperated file (as circumflex/caret does not appear in any band name found so far)
-				genreArtistList.write (a['name'] + '^' + yaString[12:16] + '^' + yaString[26:30] + '^' + str(hotNess) + '\n')
+				artistName = str(a['name']).replace(",", "")
+				genreArtistList.write (artistName + ',' + yaString[12:16] + ',' + yaString[26:30] + ',' + str(famiLiar) + ',' + str(hotNess) + ',' + MbID + '\n')
 				artistGenreWrite = artistGenreWrite + 1
 				artistGenreCount = artistGenreCount + 1
 
@@ -114,13 +127,17 @@ for g in response_genre['genres']:
 
 	genreArtistList.close()
 
-	runLog.write ('Genre: ' + g['name'] + ' Artists returned: ' + str(artistGenreCount) + ' Artists written: ' + str(artistGenreWrite) + '\n')
-	dateRatios.write (g['name'] + '^' + str(artistGenreCount) + '^' + str(artistGenreWrite) + '\n')
+	runLog.write ('Genre: ' + genreName + ' Artists returned: ' + str(artistGenreCount) + ' Artists written: ' + str(artistGenreWrite) + '\n')
+	dateRatios.write (genreName + ',' + str(artistGenreCount) + ',' + str(artistGenreWrite) + '\n')
 
 	# display progress
-	print ('\n' + g['name'])
+	print ('\n' + genreName)
 	print ('Genre Artists returned: ' + str(artistGenreCount))
-	print ('Genre Artists written: ' + str(artistGenreWrite) + '\n')
+	print ('Genre Artists written: ' + str(artistGenreWrite))
+
+	# delete the genre file if it is empty
+	if os.stat(genresPath).st_size == 0:
+            os.remove(genresPath)
 
 # End timing of run
 endTime = datetime.now()
@@ -135,9 +152,9 @@ runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('API Key: ' + apiKey + '\n')
 runLog.write ('Genres requested: ' + str(genreRequests) + '\n')
 runLog.write ('Genres returned: ' + str(len(response_genre['genres'])) + '\n')
-runLog.write ('Artists written: ' + str(artistWriteTotal) + '\n')
-runLog.write ('Total Artists returned : ' + str(artistTotal) + '\n')
-runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n') 
+runLog.write ('Artists with date information: ' + str(artistWriteTotal) + '\n')
+runLog.write ('Total Artists returned: ' + str(artistTotal) + '\n')
+runLog.write ('Duration of run: {}'.format(endTime - startTime) + '\n') 
 runLog.write ('Genre data is saved to ../genres/' + '\n')
 runLog.write ('Also writes ..data/date_ratios.txt to facilitate the use of eng_cdr.py' + '\n')
 runLog.close ()
@@ -149,8 +166,8 @@ print ('Date of run: {}'.format(runDate))
 print ('API Key: ' + apiKey)
 print ('Genres requested: ' + str(genreRequests))
 print ('Genres returned: ' + str(len(response_genre['genres'])))
-print ('Artists written: ' + str(artistWriteTotal))
-print ('Total Artists returned : ' + str(artistTotal))
-print ('Duration of run : {}'.format(endTime - startTime)) 
+print ('Artists with date information: ' + str(artistWriteTotal))
+print ('Total Artists returned: ' + str(artistTotal))
+print ('Duration of run: {}'.format(endTime - startTime)) 
 print ('Genre data is saved to ../genres/')
 print ('Also writes ..data/date_ratios.txt to facilitate the use of eng_cdr.py')

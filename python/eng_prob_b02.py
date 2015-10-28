@@ -1,7 +1,7 @@
-# eng_prob_b01.py
-# Version b01
+# eng_prob_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 2nd 2015
+# October 26th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -20,7 +20,7 @@ import os
 from datetime import datetime
 from collections import Counter
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 genreName = str(raw_input ("Enter the name of the genre to be plotted: "))
 totalArtists = int(raw_input ("Enter the total number of artists in this genre: "))
 
@@ -56,14 +56,13 @@ dataInput = open(pathname, "r")
 for line in dataInput:
 
 	# split line, calculate probs and write to processedResults
-	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	year, freq = line.split("^")
+	year, freq = line.split(",")
 	
 	# calculate probability value here
 	probValue = (float(freq) / float(totalArtists))
 
 	# write results
-	processedResults.write(str(year) + '^' + str(probValue) + '\n')
+	processedResults.write(str(year) + ',' + str(probValue) + '\n')
 
 # close input file
 dataInput.close()

@@ -1,7 +1,7 @@
-# eng_multi_plot_b07.py
-# Version b07
+# eng_multi_plot_b09.py
+# Version b09
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# July 7th 2015
+# October 26th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -11,6 +11,8 @@
 # Writes results to 'results/versionNumber_eng_multi_plot_data.txt'
 # Writes run log to 'logs/versionNumber_eng_multi_plot_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_multi_plot.png'
+
+# New version to deal with Musicbrainz ID in data files
 
 # Run AFTER 'en_genre.py' has gathered 'genres/..'
 
@@ -24,7 +26,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b07")
+versionNumber = ("b09")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -66,7 +68,6 @@ for index in range(len(fileNames)):
 	pathname = os.path.join("genres", fileNames[index])
 	genreFile = str(fileNames[index])
 	genreName, fileExtension = genreFile.split(".")
-	genreNameClean = genreName.replace("'", "")
 
 	# processedResults.write('\n' + genreName + '\n')
 	print('\n' + 'Plotting graph and calculating statistics for ' + genreName + '\n')
@@ -83,8 +84,7 @@ for index in range(len(fileNames)):
 	for line in dataInput:
 
 		# split line and append 'instances' with start date values
-		# splits on '^' as this character does not appear in the genre or artist names in the data file 
-		artist, artistStart, artistEnd, hotness = line.split("^")
+		artist, artistStart, artistEnd, familiarity, hotness, mbid = line.split(",")
 
 		if artistStart == " ": 
 			artistStart = 0
@@ -106,7 +106,7 @@ for index in range(len(fileNames)):
 	yAxis = []
 
 	for key, value in sorted(countedInstances.iteritems()):
-		processedResults.write(str(key) + '^' + str(value) + '\n')
+		processedResults.write(str(key) + ',' + str(value) + '\n')
 		xAxis.append(key)
 		yAxis.append(value)
 
@@ -162,10 +162,11 @@ for index in range(len(fileNames)):
 	print ("Median: " + npMedianStr)
 	print ("Mean: " + npMeanStr)
 	print ("StD: " + npStdStr)
+	print ("Var: " + npVarStr)
 	print ("Skew: " + npSkewStr)
 	print ("Kurtosis: " + npKurtStr)
 
-	statsResults.write(genreNameClean + ',' + npMinStr + ',' + npMaxStr + ',' + npRangeStr + ',' + npMedianStr + ',' + npMeanStr + ',' + npStdStr + ',' + npVarStr + ',' + npSkewStr + ',' + npKurtStr + '\n')
+	statsResults.write(genreName + ',' + npMinStr + ',' + npMaxStr + ',' + npRangeStr + ',' + npMedianStr + ',' + npMeanStr + ',' + npStdStr + ',' + npVarStr + ',' + npSkewStr + ',' + npKurtStr + '\n')
 
 # close files
 statsResults.close()

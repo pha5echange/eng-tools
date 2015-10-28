@@ -1,7 +1,7 @@
-# eng_cluster_b03.py
-# Version b03
+# eng_cluster_b05.py
+# Version b05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# July 6th 2015
+# October 26th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -15,13 +15,15 @@
 # Writes first cluster to 'data/first_cluster.txt'
 # Writes run log to 'logs/versionNumber_eng_cluster_log.txt'
 
+# New version to deal with Musicbrainz ID in data files
+
 # Run AFTER 'en_genre.py'
 
 # import packages
 import os
 from datetime import datetime
 
-versionNumber = ("b03")
+versionNumber = ("b05")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -46,7 +48,7 @@ startTime = datetime.now()
 runLog.write ('\n' + 'Genre Data Cluster Finder | ' + 'Version: ' + versionNumber + '\n' + '\n')
 print ('\n' + 'Genre Data Cluster Finder | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
-clusterInput = int(input ("Enter the percentage of the total that equates to a cluster: "))
+clusterInput = int(input ("Enter the percentage of the artists that equates to a cluster: "))
 
 # open files for reading
 for index in range(len(fileNames)):
@@ -66,8 +68,7 @@ for index in range(len(fileNames)):
 	for line in dataInput:
 
 		# split line and append genreStartDates' with start date values
-		# splits on '^' as this character does not appear in the genre or artist names in the data file 
-		artist, start, end_date, hotness = line.split("^")
+		artist, start, end_date, familiarity, hotness, mbid = line.split(",")
 		
 		if start == " ":
 			start = 0
@@ -180,8 +181,8 @@ for index in range(len(fileNames)):
 	if clusters:
 		clusterDates.sort()
 		firstClust = clusterDates[0]
-		clusterData.write(str(genreLabel) + '^' + str(sorted(clusters)) + '\n')
-		firstCluster.write(str(genreLabel) + '^' + str(firstClust) + '^' + '\n')
+		clusterData.write(str(genreLabel) + ',' + str(sorted(clusters)) + '\n')
+		firstCluster.write(str(genreLabel) + ',' + str(firstClust) + ',' + '\n')
 
 	# if 'clusters' is empty, clear out 'clusters' and set 'firstCLust' to null
 	else:

@@ -1,7 +1,7 @@
-# eng_plot_retromatic_b02.py
-# Version b02
+# eng_plot_retromatic_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# May 1st 2015
+# MOctober 28th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -19,7 +19,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -55,8 +55,7 @@ years = {}
 for line in dataInput:
 
 	# split line and append 'instances' with start date values
-	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	year, genres = line.split("^")
+	year, genres = line.split(",")
 	years.update ({int(year):int(genres)})
 
 # close input file

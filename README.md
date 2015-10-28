@@ -1,9 +1,9 @@
-ENG-Tools beta v. 03
+ENG-Tools beta v. 05
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-October 23rd 2015
+October 28th 2015
 
 These scripts have been created to facilitate research into musical genre using the Echonest.
 
@@ -14,14 +14,14 @@ LICENCE:
 
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-NOTICE: 
-When using BETA 0.4, you must manually remove empty genre files after running 'en_genre'.
-If you do not, various other scripts (including the plotting ones) will throw errors. 
-The next version will fix this problem. 
 
 LATEST ADDITIONS: 
 
-- BETA 0.3 'en_genre' now captures 'undocumented' artists' hotttnesss ratings. Fixes were required in 'multi_plot' and 'plot_artists' as a result. 
+- 'eng_graph' script converts genres into set()s and finds intersections
+
+- 'en_genre' now captures artists' musicbrainz ID (and discards those without)
+
+- artists with no `dates_active' information are not written to genre files. 
 
 - Graphs are now output as EPS files.
 
@@ -70,6 +70,8 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 10) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
+11) 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists.
+
 MANIFEST: 
 
 (1) en_genre.py
@@ -97,3 +99,5 @@ MANIFEST:
 (12) eng_process_clusters.py
 
 (13) eng_process_firsts.py
+
+(14) eng_graph.py

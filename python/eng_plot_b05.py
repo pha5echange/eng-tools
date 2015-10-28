@@ -1,7 +1,7 @@
-# eng_plot_b03.py
-# Version b013
+# eng_plot_b05.py
+# Version b05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# May 1st 2015
+# October 26th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -16,6 +16,8 @@
 # Writes run log to 'logs/versionNumber_genreName_eng_plot_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_plot.png'
 
+# New version to deal with Musicbrainz ID in data files
+
 # Run AFTER 'en_genre.py' [AND after moving and renaming a genre data file]
 
 # import packages
@@ -25,7 +27,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b03")
+versionNumber = ("b05")
 genreName = str(raw_input ("Enter the name of the genre to be plotted: "))
 
 # create 'logs' subdirectory if necessary
@@ -53,7 +55,7 @@ runLog.write ('\n' + 'Single Genre Plotter | ' + 'Version: ' + versionNumber + '
 print ('\n' + 'Single Genre Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + '_' + genreName + "_eng_plot.png")
+graphPath = os.path.join("graphs", versionNumber + '_' + genreName + "_eng_plot.eps")
 
 # open file for output
 resultsPath = os.path.join("results", versionNumber + '_' + genreName + '_eng_plot_data.txt')
@@ -70,8 +72,7 @@ instances = []
 for line in dataInput:
 
 	# split line and append 'instances' with start date values
-	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	artist, artistStart, artistEnd, hotness = line.split("^")
+	artist, artistStart, artistEnd, familiarity, hotness, mbid = line.split(",")
 	instances.append(int(artistStart))
 
 # close input file
@@ -84,7 +85,7 @@ xAxis = []
 yAxis = []
 
 for key, value in sorted(countedInstances.iteritems()):
-   processedResults.write(str(key) + '^' + str(value) + '\n')
+   processedResults.write(str(key) + ',' + str(value) + '\n')
    xAxis.append(key)
    yAxis.append(value)
 
@@ -104,7 +105,7 @@ plt.xlabel(genreName + ' Artist Start Year', fontsize=14)
 plt.ylabel('Number of Artists', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(graphPath, format = 'png')
+plt.savefig(graphPath, format = 'eps')
 
 # display graph on screen - DON'T BOTHER FOR NOW
 # plt.show()
@@ -122,7 +123,7 @@ runLog.write ('Genre: ' + genreName + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Results are saved to ../results/versionNumber_genreName_eng_plot_data.txt' + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_genreName_eng_plot.png' + '\n')
+runLog.write ('Graph is saved to ../graphs/versionNumber_genreName_eng_plot.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -132,4 +133,4 @@ print ('Genre: ' + genreName)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 print ('Results are saved to ../results/versionNumber_genreName_eng_plot_data.txt')
-print ('Graph is saved to ../graphs/versionNumber_genreName_eng_plot.png')
+print ('Graph is saved to ../graphs/versionNumber_genreName_eng_plot.eps')
