@@ -1,4 +1,4 @@
-ENG-Tools beta v. 04
+ENG-Tools beta v. 03
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
@@ -20,12 +20,6 @@ If you do not, various other scripts (including the plotting ones) will throw er
 The next version will fix this problem. 
 
 LATEST ADDITIONS: 
-
-- BETA 0.4 'eng_graph' script converts genres into set()s and finds intersections
-
-- BETA 0.4 'en_genre' now captures artists' musicbrainz ID (and discards those without)
-
-- BETA 0.4 artists with no `dates_active' information are not written to genre files. 
 
 - BETA 0.3 'en_genre' now captures 'undocumented' artists' hotttnesss ratings. Fixes were required in 'multi_plot' and 'plot_artists' as a result. 
 
@@ -76,9 +70,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 10) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
-11) IN BETA 0.4: 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists.
-
-MANIFEST (Both versions 0.3 and 0.4. Some sharing of scripts between versions): 
+MANIFEST: 
 
 (1) en_genre.py
 
@@ -105,7 +97,3 @@ MANIFEST (Both versions 0.3 and 0.4. Some sharing of scripts between versions):
 (12) eng_process_clusters.py
 
 (13) eng_process_firsts.py
-
-BETA 0.4 ONLY: 
-
-(14) eng_graph.py
