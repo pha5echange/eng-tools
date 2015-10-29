@@ -1,7 +1,7 @@
-# eng_multi_plot_b09.py
-# Version b09
+# eng_multi_plot_b10.py
+# Version b10
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 26th 2015
+# October 29th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -9,6 +9,7 @@
 # Plots frequency distribution of artists over time
 # Writes stats to 'results/versionNumber_eng_multi_plot_stats_data.txt'
 # Writes results to 'results/versionNumber_eng_multi_plot_data.txt'
+# Also writes 'data/eng_multi_plot_data.txt' (for use by 'eng_plot_artists')
 # Writes run log to 'logs/versionNumber_eng_multi_plot_log.txt'
 # Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_multi_plot.png'
 
@@ -26,7 +27,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b09")
+versionNumber = ("b10")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -34,6 +35,10 @@ fileNames = os.listdir("genres")
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
 		os.makedirs("logs")
+
+# create 'data' subdirectory if necessary
+if not os.path.exists("data"):
+		os.makedirs("data")
 
 # create 'graphs' subdirectory if necessary
 if not os.path.exists("graphs"):
@@ -50,6 +55,9 @@ runLog = open(logPath, 'a')
 statsPath = os.path.join("results", versionNumber + '_' + '_eng_multi_plot_stats_data.txt')
 statsResults = open(statsPath, 'a')
 statsResults.write("Genre" + ',' + "Min" + ',' + "Max" + ',' + "Range" + ',' + "Median" + ',' + "Mean" + ',' + "StD" + ',' + "Var" + ',' + "Skew" + ',' + "Kurtosis" + '\n')
+
+dataPath = os.path.join("data", 'eng_multi_plot_data.txt')
+dataOP = open(dataPath, 'w')
 
 resultsPath = os.path.join("results", versionNumber + '_eng_multi_plot_data.txt')
 processedResults = open(resultsPath, 'a')
@@ -107,6 +115,7 @@ for index in range(len(fileNames)):
 
 	for key, value in sorted(countedInstances.iteritems()):
 		processedResults.write(str(key) + ',' + str(value) + '\n')
+		dataOP.write(str(key) + ',' + str(value) + '\n')
 		xAxis.append(key)
 		yAxis.append(value)
 
@@ -171,6 +180,7 @@ for index in range(len(fileNames)):
 # close files
 statsResults.close()
 processedResults.close()
+dataOP.close()
 
 # End timing of run
 endTime = datetime.now()
@@ -182,6 +192,7 @@ runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Stats are saved to ../results/versionNumber_eng_muti_plot_stats_data.txt' + '\n')
 runLog.write ('Results are saved to ../results/versionNumber_eng_muti_plot_data.txt' + '\n')
+runLog.write ('Data file (for use by eng_plot_artists) is saved to ../data/eng_muti_plot_data.txt' + '\n')
 runLog.write ('Graphs are saved to ../graphs/versionNumber_genreName_eng_multi_plot.eps' + '\n')
 runLog.close()
 
@@ -192,4 +203,5 @@ print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 print ('Stats are saved to ../results/versionNumber_eng_muti_plot_stats_data.txt')
 print ('Results are saved to ../results/versionNumber_eng_multi_plot_data.txt')
+print ('Data file (for use by eng_plot_artists) is saved to ../data/eng_muti_plot_data.txt')
 print ('Graphs are saved to ../graphs/versionNumber_genreName_eng_multi_plot.eps')
