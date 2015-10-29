@@ -1,9 +1,9 @@
-ENG-Tools beta v. 03
+ENG-Tools beta v. 05
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-October 23rd 2015
+October 29th 2015
 
 These scripts have been created to facilitate research into musical genre using the Echonest.
 
@@ -14,16 +14,16 @@ LICENCE:
 
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-NOTICE: 
-When using BETA 0.4, you must manually remove empty genre files after running 'en_genre'.
-If you do not, various other scripts (including the plotting ones) will throw errors. 
-The next version will fix this problem. 
 
 LATEST ADDITIONS: 
 
-- BETA 0.3 'en_genre' now captures 'undocumented' artists' hotttnesss ratings. Fixes were required in 'multi_plot' and 'plot_artists' as a result. 
+- 'eng_fam' added, to calculate hi, low and average `familiarity' ratings for genres
 
-- Graphs are now output as EPS files.
+- 'en_genre' deletes empty genre files automatically
+
+- 'eng_graph' script converts genres into set()s and finds intersections
+
+- 'en_genre' now captures artists' musicbrainz ID (and discards those without)
 
 A full manifest can be found at the end of this readme file. 
 
@@ -59,16 +59,19 @@ This will ask you for a figure, the percentage of artists to be considered as a 
 5) To plot the graph for artists-over-time for each and every genre, run 'eng_multi_plot.py'. It will produce one graph (named with the version number and genre) for each genre file (and place them in 'graphs/'). A full set of plots takes around 6 minutes with an i5 processor. Individual genres can easily be plotted in two ways; either run 'eng_multi_plot' having placed only one genre file in the 'genres/' folder, or run 'eng_plot.py'. If doing the later, you will need to copy a genre data file and place it in 'data/'. Then rename it to 'genre_2_plot.txt'. 'eng_plot' and 'eng_multi_plot' now have statistical calulations integrated into them; these are written to 'results/eng_multi_plot_stats_data.txt'. 
 
 6) 'eng_cdr.py' calculates the ratio of artists with date information to those without, for each genre.
-
 Run this, and it will use the 'data/date_ratios.txt' file from earlier. It writes the output to 'results/eng_cdr.txt'
 
 7) 'eng_hot.py' calculates the lowest, highest and average 'Hotttnesss' metrics for each genre and stores this in 'results/'. 
 
-8) 'eng_prob.py' converts the output from a single genre plot (the results file from 'eng_plot.py'- a genre data file which has been converted to a frequency distribution) to a probability distribution. The purpose of this is to facilitate analysis at a later date. To use this script, copy a genre plot file to 'data/' and rename it to 'genre_freq_data.txt'. 
+8) 'eng_fam.py' calculates the lowest, highest and average 'Familiarity' metrics for each genre and stores this in 'results/'. 
 
-9) 'eng_plot_retromatic.py' plots the data gleaned (manually) from 'http://everynoise.com/retromatic.html' This charts the genres of the most popular 5000 songs for every year since 1950 (based on Echonest 'song' genres figures; these are unavailable to the API). A file containg this data can be found in the 'data/' directory, and this is where the script will look for 'retromatic.txt'.
+9) 'eng_prob.py' converts the output from a single genre plot (the results file from 'eng_plot.py'- a genre data file which has been converted to a frequency distribution) to a probability distribution. The purpose of this is to facilitate analysis at a later date. To use this script, copy a genre plot file to 'data/' and rename it to 'genre_freq_data.txt'. 
 
-10) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
+10) 'eng_plot_retromatic.py' plots the data gleaned (manually) from 'http://everynoise.com/retromatic.html' This charts the genres of the most popular 5000 songs for every year since 1950 (based on Echonest 'song' genres figures; these are unavailable to the API). A file containg this data can be found in the 'data/' directory, and this is where the script will look for 'retromatic.txt'.
+
+11) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
+
+12) 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists.
 
 MANIFEST: 
 
@@ -97,3 +100,7 @@ MANIFEST:
 (12) eng_process_clusters.py
 
 (13) eng_process_firsts.py
+
+(14) eng_graph.py
+
+915) eng_fam.py

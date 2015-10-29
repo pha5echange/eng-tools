@@ -1,15 +1,19 @@
-# eng_process_clusters_b01.py
-# Version b01
+# eng_process_clusters_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 2nd 2015
+# October 26th 2015
+
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Reads results from output of 'eng_cluster.py'
 # Processes file 'data/first_cluster.txt'
 # Writes results to 'results/versionNumber_eng_process_clusters.txt'
 # Writes run log to 'logs/versionNumber_eng_process_clusters_log.txt'
-# Plots results and writes PNG to 'graphs/versionNumber_eng_process_clusters_plot.png'
+# Plots results and writes PNG to 'graphs/versionNumber_eng_process_clusters_plot.eps'
 
 # Run AFTER 'eng_cluster.py'
+
+# PLOTS BARS
 
 # import packages
 import os
@@ -18,7 +22,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b01")
+versionNumber = ("b03")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -37,7 +41,7 @@ logPath = os.path.join("logs", versionNumber + '_eng_process_clusters_log.txt')
 runLog = open(logPath, 'a')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + "_eng_process_clusters_plot.png")
+graphPath = os.path.join("graphs", versionNumber + "_eng_process_clusters_plot.eps")
 
 # open file for data output
 resultsPath = os.path.join("results", versionNumber + '_eng_process_clusters.txt')
@@ -62,8 +66,7 @@ clusters = []
 for line in dataInput:
 
 	# split line and append 'clusters' with start date values
-	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	genre, clusterDate, newLine = line.split("^")
+	genre, clusterDate, newLine = line.split(",")
 	clusters.append(int(clusterDate))
 
 # close input file
@@ -76,7 +79,7 @@ xAxis = []
 yAxis = []
 
 for key, value in sorted(countedClusters.iteritems()):
-   processedResults.write(str(key) + '^' + str(value) + '\n')
+   processedResults.write(str(key) + ',' + str(value) + '\n')
    xAxis.append(key)
    yAxis.append(value)
 
@@ -87,16 +90,16 @@ y_low = 0
 y_high = (max(yAxis) + 10)
 
 # plot graph
-plt.plot(xAxis, yAxis, marker='o', linestyle='-', color='b')
+width = 1
+plt.bar(xAxis, yAxis, width, color='blue')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.suptitle('Genre Inception by Year', fontsize=20)
-plt.xlabel('Year of Inception', fontsize=12)
-plt.ylabel('Number of Genres', fontsize=12)
+plt.xlabel('Year of Inception', fontsize=14)
+plt.ylabel('Number of Genres', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(graphPath, format = 'png')
+plt.savefig(graphPath, format = 'eps')
 
 # close files
 processedResults.close()
@@ -110,7 +113,7 @@ runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Results are saved to ../results/versionNumber_eng_process_clusters.txt' + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_eng_process_clusters_plot.png' + '\n')
+runLog.write ('Graph is saved to ../graphs/versionNumber_eng_process_clusters_plot.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -119,4 +122,4 @@ print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 print ('Results are saved to ../results/versionNumber_eng_process_clusters.txt')
-print ('Graph is saved to ../graphs/versionNumber_eng_process_clusters_plot.png')
+print ('Graph is saved to ../graphs/versionNumber_eng_process_clusters_plot.eps')

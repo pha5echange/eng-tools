@@ -1,7 +1,7 @@
-# eng_plot_retromatic_b02.py
-# Version b02
+# eng_plot_retromatic_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# May 1st 2015
+# October 28th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -19,7 +19,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -42,7 +42,7 @@ runLog.write ('\n' + 'Retromatic Genre Plotter | ' + 'Version: ' + versionNumber
 print ('\n' + 'Retromatic Genre Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + '_' + "_eng_plot_retromatic.png")
+graphPath = os.path.join("graphs", versionNumber + '_' + "_eng_plot_retromatic.eps")
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'retromatic.txt')
@@ -55,8 +55,7 @@ years = {}
 for line in dataInput:
 
 	# split line and append 'instances' with start date values
-	# splits on '^' as this character does not appear in the genre or artist names in the data file 
-	year, genres = line.split("^")
+	year, genres = line.split(",")
 	years.update ({int(year):int(genres)})
 
 # close input file
@@ -85,7 +84,7 @@ plt.xlabel('Year', fontsize=14)
 plt.ylabel('Number of Genres', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(graphPath, format = 'png')
+plt.savefig(graphPath, format = 'eps')
 
 # display graph on screen - DON'T BOTHER FOR NOW
 # plt.show()
@@ -98,7 +97,7 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_retromatic.png' + '\n')
+runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_retromatic.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -106,4 +105,4 @@ print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
-print ('Graph is saved to ../graphs/versionNumber_eng_plot_retromatic.png')
+print ('Graph is saved to ../graphs/versionNumber_eng_plot_retromatic.eps')
