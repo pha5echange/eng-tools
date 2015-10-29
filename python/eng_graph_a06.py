@@ -1,7 +1,7 @@
-# eng_graph_a05.py
-# Version a05
+# eng_graph_a06.py
+# Version a06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 26th 2015
+# October 29th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -16,7 +16,7 @@ import os
 import resource
 from datetime import datetime
 
-versionNumber = ("a05")
+versionNumber = ("a06")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -124,7 +124,8 @@ while setAcount < genreCount:
 					print ('\n' + 'Intersection of ' + setAlabel + ' and ' + setBlabel + ': ' + 'Elements: ' + str(elementCount))
 					# print (intersectionStr)
 
-					intersectData.write (setAlabel + ',' + setBlabel + ',' + str(elementCount) + ',' + intersectionStr + '\n')
+					# make circumfles ('^') seperator, to avoid problems with sets() later
+					intersectData.write (setAlabel + '^' + setBlabel + '^' + str(elementCount) + '^' + intersectionStr + '\n')
 
 					intersectCount +=1
 					totalIntersectCount += 1
