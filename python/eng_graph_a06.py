@@ -33,9 +33,12 @@ if not os.path.exists("data"):
 setDataPath = os.path.join("data", 'genre_sets.txt')
 setData = open(setDataPath, 'w')
 
-# open file for data output
+# open files for data output
 intersectDataPath = os.path.join("data", 'genre_intersects.txt')
 intersectData = open(intersectDataPath, 'w')
+
+uuGraphDataPath = os.path.join("data", 'uuGraph_data.txt')
+uuGraphData = open(uuGraphDataPath, 'w')
 
 # open file for writing log
 logPath = os.path.join("logs", versionNumber + '_eng_graph_log.txt')
@@ -122,10 +125,16 @@ while setAcount < genreCount:
 					elementCount = len(intersectSet)
 
 					print ('\n' + 'Intersection of ' + setAlabel + ' and ' + setBlabel + ': ' + 'Elements: ' + str(elementCount))
-					# print (intersectionStr)
+					print (intersectionStr)
 
-					# make circumfles ('^') seperator, to avoid problems with sets() later
+					runLog.write ('\n' + 'Intersection of ' + setAlabel + ' and ' + setBlabel + ': ' + 'Elements: ' + str(elementCount))
+					runLog.write (intersectionStr + '\n')
+
+					# For full data file,make circumfles ('^') seperator, to avoid problems with sets() later
 					intersectData.write (setAlabel + '^' + setBlabel + '^' + str(elementCount) + '^' + intersectionStr + '\n')
+
+					# Minimal data file for initial unweighted, undirected graph
+					uuGraphData.write (setAlabel + ',' + setBlabel +'\n')
 
 					intersectCount +=1
 					totalIntersectCount += 1
@@ -140,12 +149,18 @@ while setAcount < genreCount:
 
 	setAcount += 1
 
+# Close files
+setData.close()
+intersectData.close()
+uuGraphData.close()
+
+avK = intersectCount / genreCount
+avW = totalElementCount / intersectCount
+
 # End timing of run
 endTime = datetime.now()
 
 memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
-avK = intersectCount / genreCount
-avW = totalElementCount / intersectCount
 
 # write to log
 runLog.write ('Run Information' + '\n' + '\n')
