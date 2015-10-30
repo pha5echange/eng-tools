@@ -1,5 +1,5 @@
-# eng_graph_a06.py
-# Version a06
+# eng_graph_a07.py
+# Version a07
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # October 29th 2015
 
@@ -16,7 +16,7 @@ import os
 import resource
 from datetime import datetime
 
-versionNumber = ("a06")
+versionNumber = ("a07")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -39,6 +39,9 @@ intersectData = open(intersectDataPath, 'w')
 
 uuGraphDataPath = os.path.join("data", 'uuGraph_data.txt')
 uuGraphData = open(uuGraphDataPath, 'w')
+
+wuGraphDataPath = os.path.join("data", 'wuGraph_data.txt')
+wuGraphData = open(wuGraphDataPath, 'w')
 
 # open file for writing log
 logPath = os.path.join("logs", versionNumber + '_eng_graph_log.txt')
@@ -90,7 +93,7 @@ for index in range(len(fileNames)):
 	genreCount += 1
 
 	# write to file for testing purposes
-	setData.write (str(genreCount) + ') ' + genreLabel + ': ' + str(setName) + '\n')
+	# setData.write (str(genreCount) + ') ' + genreLabel + ': ' + str(setName) + '\n')
 	# print (genreLabel + ': ' + str(setName) + '\n')
 
 # do intersections here
@@ -101,11 +104,11 @@ totalIntersectCount = 0
 totalElementCount = 0
 
 while setAcount < genreCount: 
-	setAlabel = str(setNameList[setAcount])
+	setAlabel = str(setNameList[setAcount]).replace(" ", "")
 	setA =set(setList[setAcount])
 	
 	while setBcount < genreCount:
-		setBlabel = str(setNameList[setBcount])
+		setBlabel = str(setNameList[setBcount]).replace(" ", "")
 		setB = set(setList[setBcount])
 
 		if setBcount < setAcount:
@@ -125,10 +128,11 @@ while setAcount < genreCount:
 					elementCount = len(intersectSet)
 
 					print ('\n' + 'Intersection of ' + setAlabel + ' and ' + setBlabel + ': ' + 'Elements: ' + str(elementCount))
-					print (intersectionStr)
+					# print (intersectionStr)
 
-					runLog.write ('\n' + 'Intersection of ' + setAlabel + ' and ' + setBlabel + ': ' + 'Elements: ' + str(elementCount))
-					runLog.write (intersectionStr + '\n')
+					runLog.write ('\n' + 'Intersection of ' + setAlabel + ' and ' + setBlabel + ': ' + 'Elements: ' + str(elementCount) + str(setAcount) + str(setBcount))
+					wuGraphData.write (setAlabel + ',' + setBlabel + ',' + str(elementCount) + '\n')
+					#runLog.write (intersectionStr + '\n')
 
 					# For full data file,make circumfles ('^') seperator, to avoid problems with sets() later
 					intersectData.write (setAlabel + '^' + setBlabel + '^' + str(elementCount) + '^' + intersectionStr + '\n')
@@ -136,12 +140,19 @@ while setAcount < genreCount:
 					# Minimal data file for initial unweighted, undirected graph
 					uuGraphData.write (setAlabel + ',' + setBlabel +'\n')
 
-					intersectCount +=1
+					intersectCount += 1
 					totalIntersectCount += 1
 					totalElementCount += elementCount
 					setBcount += 1	
 
 				else:
+					# write setA only to enable nodes with no connections
+					intersectData.write (setAlabel + '^' + " " + '\n')
+
+					# write setA only to enable nodes with no connections
+					uuGraphData.write (setAlabel + ',' + " " + '\n')
+					wuGraphData.write (setAlabel + ',' + " " + ',' + "0" + '\n')
+
 					setBcount += 1	
 
 	else:
@@ -153,6 +164,7 @@ while setAcount < genreCount:
 setData.close()
 intersectData.close()
 uuGraphData.close()
+wuGraphData.close()
 
 avK = intersectCount / genreCount
 avW = totalElementCount / intersectCount
@@ -163,7 +175,7 @@ endTime = datetime.now()
 memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
 
 # write to log
-runLog.write ('Run Information' + '\n' + '\n')
+runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Genres: ' + str(len(setList)) + '\n')
 runLog.write ('V (nodes): ' + str(genreCount) + '\n')
 runLog.write ('E (edges): ' + str(intersectCount) + '\n')

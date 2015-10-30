@@ -3,7 +3,7 @@ ENG-Tools beta v. 05
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-October 29th 2015
+October 30th 2015
 
 These scripts have been created to facilitate research into musical genre using the Echonest.
 
@@ -16,6 +16,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST ADDITIONS: 
+
+- 'eng_network' takes 'eng_graph' files and plots a network from these
 
 - 'eng_fam' added, to calculate hi, low and average `familiarity' ratings for genres
 
@@ -71,7 +73,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 11) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
-12) 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists.
+12) 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. The output files from this can then be processed with 'eng_network'. 
 
 MANIFEST: 
 
@@ -103,4 +105,6 @@ MANIFEST:
 
 (14) eng_graph.py
 
-915) eng_fam.py
+(15) eng_fam.py
+
+(16) eng_network.py
