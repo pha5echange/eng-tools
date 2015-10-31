@@ -67,9 +67,13 @@ print ('Edges: ' + str(edges))
 print ('Connections: ' + str(connections))
 print ('Density: ' + str(density) + '\n')
 
+# Write file with nodes and degree,for reference
 print ('Writing node list...' + '\n')
 for i in nodeList:
-	nodeListOP.write(str(i) + '\n')
+	nodeDegree = enGraph.degree(i)
+	nodeListOP.write(str(i) + ',' + str(nodeDegree) + '\n')
+
+nodeListOP.close()
 
 print ('\n' + 'Drawing Graph...' + '\n')
 # nx.draw(enGraph)
@@ -77,8 +81,6 @@ graph_pos = nx.spring_layout(enGraph)
 nx.draw_networkx_nodes(enGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
 nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
 nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
-
-nodeListOP.close()
 
 print ('Displaying graph...' + '\n')
 
