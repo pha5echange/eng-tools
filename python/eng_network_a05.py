@@ -1,13 +1,13 @@
-# eng_weighted_network_a05.py
+# eng_network_a05.py
 # Version a05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 3rd 30th 2015
+# November 3rd 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-# Plots network graph from edgelist 'wuGraphData.txt'
+# Plots network graph from edgelist 'uuGraphData.txt'
 # Displays using parameters from 'config_nw.txt'
-# writes 'weighted_nodeList.txt' with nodes and degrees (k) for each
+# writes 'nodeList.txt' with nodes and degrees (k) for each
 # Removes self-loop edges
 
 # Run AFTER 'eng_graph.py'
@@ -28,25 +28,22 @@ if not os.path.exists("logs"):
     os.makedirs("logs")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_weighted_network_log.txt')
+logPath = os.path.join("logs", versionNumber + '_eng_network_log.txt')
 runLog = open(logPath, 'a')
 
 # Open file to write list of nodes
-nodeListPath = os.path.join("data", versionNumber + '_weighted_nodeList.txt')
+nodeListPath = os.path.join("data", versionNumber + '_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
-# Open file to write image
-# nwPngPath = os.path.join("networks", versionNumber + '_wuNw.eps')
-# nwPng = open (nwPngPath, 'w')
-
 # Begin
-print ('\n' + 'Weighted Graph Drawing Thing | Version ' + versionNumber + ' | Starting...')
-runLog.write ('Weighted Graph Drawing Thing | Version ' + versionNumber + '\n' + '\n')
+print ('\n' + 'Graph Drawing Thing | Version ' + versionNumber + ' | Starting...')
+runLog.write ('Graph Drawing Thing | Version ' + versionNumber + '\n' + '\n')
 
-print ('\n' + 'Importing Weighted Edge List...')
-inputPath = os.path.join("data", 'wuGraph_data.txt')
+# Read the edgelist
+print ('\n' + 'Importing Edge List...')
+inputPath = os.path.join("data", 'uuGraph_data.txt')
 edgeList = open (inputPath, 'r')
-enGraph = nx.read_weighted_edgelist(edgeList, delimiter=',')
+enGraph = nx.read_edgelist(edgeList, delimiter=',')
 edgeList.close()
 
 print ('\n' + 'Calculating nodes, edges and density...' + '\n')
@@ -68,19 +65,16 @@ runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
-# Remove self-loops and clean edge labels
-print ('\n' + 'Removing self-loops and cleaning edge-labels...')
-labels = {}
-for u,v,data in enGraph.edges(data=True):
+# Remove self-loops
+print ('\n' + 'Removing self-loops...')
+for u,v in enGraph.edges():
 	if u == v:
 		enGraph.remove_edge(u,v)
 
 	newEdges = nx.number_of_edges(enGraph)
 
-	labels[(u,v)] = data ['weight']
-
 # Write file with nodes and degree,for reference
-print ('Writing node list...' + '\n')
+print ('\n' + 'Writing node list...')
 for i in nodeList:
 	nodeDegree = enGraph.degree(i)
 	nodeListOP.write(str(i) + ',' + str(nodeDegree) + '\n')
@@ -106,18 +100,17 @@ edge_thickness = int(e_thickness)
 edge_alpha = float(e_alpha)
 label_pos = float(l_pos)
 
+
 print ('\n' + 'Drawing Graph...' + '\n')
 # nx.draw(enGraph)
 graph_pos = nx.spring_layout(enGraph)
 nx.draw_networkx_nodes(enGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
 nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
 nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
-nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_size = node_text_size, font_family = text_font)
 
 print ('\n' + 'Displaying graph...' + '\n')
 
 plt.show()
-# plt.savefig(nwPng, format = 'eps')
 
 print ('\n' + 'Final Run Information' + '\n')
 print ('Nodes: ' + str(nodes))
@@ -130,5 +123,5 @@ runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Edges after self-loop removal: ' + str(newEdges) + '\n')
-runLog.write ('Connections: ' + str(connections) + '\n')
+runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
