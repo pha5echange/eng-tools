@@ -1,7 +1,7 @@
 # eng_weighted_network_a05.py
 # Version a05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 3rd 30th 2015
+# November 3rd 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
