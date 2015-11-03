@@ -1,12 +1,13 @@
-# eng_weighted_network_a04.py
+# eng_weighted_network_a05.py
 # Version a05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 30th 2015
+# November 3rd 30th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-# Plots network graph from edgelist and displays
-# Uses edge weights
+# Plots network graph from weighted edgelist and displays
+# Uses edge weights, and labels edges with these
+# Removes self-loop edges
 
 
 # Run AFTER 'eng_graph.py'
@@ -16,10 +17,10 @@ import os
 import networkx as nx
 import pylab as plt
 
-versionNumber = ("a04")
+versionNumber = ("a05")
 
 # Graph plotting parameters
-node_size = 500
+node_size = 200
 node_alpha = 0.4
 node_colour = 'silver'
 node_text_size = 10
@@ -41,12 +42,12 @@ logPath = os.path.join("logs", versionNumber + '_eng_weighted_network_log.txt')
 runLog = open(logPath, 'a')
 
 # Open file to write list of nodes
-nodeListPath = os.path.join("data", versionNumber + '_weoghted_nodeList.txt')
+nodeListPath = os.path.join("data", versionNumber + '_weighted_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
 # Open file to write image
-nwPngPath = os.path.join("networks", versionNumber + '_wuNw.eps')
-nwPng = open (nwPngPath, 'w') 
+# nwPngPath = os.path.join("networks", versionNumber + '_wuNw.eps')
+# nwPng = open (nwPngPath, 'w') 
 
 # Get the edgelist
 inputPath = os.path.join("data", 'wuGraph_data.txt')
@@ -81,21 +82,32 @@ for i in nodeList:
 
 nodeListOP.close()
 
+# Remove self-loops and clean labels
+labels = {}
+for u,v,data in enGraph.edges(data=True):
+	if u == v:
+		enGraph.remove_edge(u,v)
+
+	newEdges = nx.number_of_edges(enGraph)
+
+	labels[(u,v)] = data ['weight']
+
 print ('\n' + 'Drawing Graph...' + '\n')
 # nx.draw(enGraph)
 graph_pos = nx.spring_layout(enGraph)
 nx.draw_networkx_nodes(enGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
 nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
 nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
-nx.draw_networkx_edge_labels(enGraph, graph_pos, label_pos = 0.5, font_size = node_text_size, font_family = text_font)
+nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = 0.5, font_size = node_text_size, font_family = text_font)
 
 print ('Displaying graph...' + '\n')
 
-# plt.show()
-plt.savefig(nwPng, format = 'eps')
+plt.show()
+# plt.savefig(nwPng, format = 'eps')
 
 runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
+runLog.write ('Edges after self-loop removal: ' + str(newEdges) + '\n')
 runLog.write ('Connections: ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
