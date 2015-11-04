@@ -1,13 +1,13 @@
-# eng_network_a05.py
-# Version a05
+# eng_weighted_network_a06.py
+# Version a06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 3rd 2015
+# November 4th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-# Plots network graph from edgelist 'uuGraphData.txt'
+# Plots network graph from edgelist 'wuGraphData.txt'
 # Displays using parameters from 'config_nw.txt'
-# writes 'nodeList.txt' with nodes and degrees (k) for each
+# writes 'weighted_nodeList.txt' with nodes and degrees (k) for each
 # Removes self-loop edges
 
 # Run AFTER 'eng_graph.py'
@@ -17,7 +17,7 @@ import os
 import networkx as nx
 import pylab as plt
 
-versionNumber = ("a05")
+versionNumber = ("a06")
 
 # create 'data' subdirectory if necessary
 if not os.path.exists("data"):
@@ -28,22 +28,25 @@ if not os.path.exists("logs"):
     os.makedirs("logs")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_network_log.txt')
+logPath = os.path.join("logs", versionNumber + '_eng_weighted_network_log.txt')
 runLog = open(logPath, 'a')
 
 # Open file to write list of nodes
-nodeListPath = os.path.join("data", versionNumber + '_nodeList.txt')
+nodeListPath = os.path.join("data", versionNumber + '_weighted_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
-# Begin
-print ('\n' + 'Graph Drawing Thing | Version ' + versionNumber + ' | Starting...')
-runLog.write ('Graph Drawing Thing | Version ' + versionNumber + '\n' + '\n')
+# Open file to write image
+# nwPngPath = os.path.join("networks", versionNumber + '_wuNw.eps')
+# nwPng = open (nwPngPath, 'w')
 
-# Read the edgelist
-print ('\n' + 'Importing Edge List...')
-inputPath = os.path.join("data", 'uuGraph_data.txt')
+# Begin
+print ('\n' + 'Weighted Graph Drawing Thing | Version ' + versionNumber + ' | Starting...')
+runLog.write ('Weighted Graph Drawing Thing | Version ' + versionNumber + '\n' + '\n')
+
+print ('\n' + 'Importing Weighted Edge List...')
+inputPath = os.path.join("data", 'wuGraph_data.txt')
 edgeList = open (inputPath, 'r')
-enGraph = nx.read_edgelist(edgeList, delimiter=',')
+enGraph = nx.read_weighted_edgelist(edgeList, delimiter=',')
 edgeList.close()
 
 print ('\n' + 'Calculating nodes, edges and density...' + '\n')
@@ -65,13 +68,16 @@ runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
-# Remove self-loops
-print ('\n' + 'Removing self-loops...')
-for u,v in enGraph.edges():
+# Remove self-loops and clean edge labels
+print ('\n' + 'Removing self-loops and cleaning edge-labels...')
+labels = {}
+for u,v,data in enGraph.edges(data=True):
 	if u == v:
 		enGraph.remove_edge(u,v)
 
 	newEdges = nx.number_of_edges(enGraph)
+
+	labels[(u,v)] = data ['weight']
 
 # Write file with nodes and degree,for reference
 print ('\n' + 'Writing node list...')
@@ -91,7 +97,7 @@ nwConfig = open('config_nw.txt').readlines()
 firstLine = nwConfig.pop(0)
 
 for line in nwConfig:
-	n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos = line.split(",")
+	n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, edge_label_colour = line.split(",")
 	
 node_size = int(n_size)
 node_alpha = float(n_alpha)
@@ -100,17 +106,18 @@ edge_thickness = int(e_thickness)
 edge_alpha = float(e_alpha)
 label_pos = float(l_pos)
 
-
 print ('\n' + 'Drawing Graph...' + '\n')
 # nx.draw(enGraph)
 graph_pos = nx.spring_layout(enGraph)
 nx.draw_networkx_nodes(enGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
 nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
 nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
+nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = node_text_size, font_family = text_font)
 
 print ('\n' + 'Displaying graph...' + '\n')
 
 plt.show()
+# plt.savefig(nwPng, format = 'eps')
 
 print ('\n' + 'Final Run Information' + '\n')
 print ('Nodes: ' + str(nodes))
@@ -123,5 +130,5 @@ runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Edges after self-loop removal: ' + str(newEdges) + '\n')
-runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
+runLog.write ('Connections: ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')

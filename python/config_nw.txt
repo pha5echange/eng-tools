@@ -1,2 +1,2 @@
-node_size,node_alpha,node_colour,node_text_size,text_font,edge_thickness,edge_alpha,edge_colour,label_pos
-100,0.4,silver,9,sans-serif,1,0.2,gray,0.5
+node_size,node_alpha,node_colour,node_text_size,text_font,edge_thickness,edge_alpha,edge_colour,label_pos,edge_label_colour
+100,0.2,silver,11,sans-serif,1,0.2,gray,0.5,g
