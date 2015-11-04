@@ -1,5 +1,5 @@
-# eng_weighted_network_a06.py
-# Version a06
+# eng_weighted_network_a07.py
+# Version a07
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # November 4th 2015
 
@@ -14,10 +14,12 @@
 
 # import packages
 import os
+import resource
 import networkx as nx
-import pylab as plt
+import matplotlib.pyplot as plt
+from datetime import datetime
 
-versionNumber = ("a06")
+versionNumber = ("a07")
 
 # create 'data' subdirectory if necessary
 if not os.path.exists("data"):
@@ -38,6 +40,10 @@ nodeListOP = open (nodeListPath, 'w')
 # Open file to write image
 # nwPngPath = os.path.join("networks", versionNumber + '_wuNw.eps')
 # nwPng = open (nwPngPath, 'w')
+
+# Initiate timing of run
+runDate = datetime.now()
+startTime = datetime.now()
 
 # Begin
 print ('\n' + 'Weighted Graph Drawing Thing | Version ' + versionNumber + ' | Starting...')
@@ -87,6 +93,13 @@ for i in nodeList:
 
 nodeListOP.close()
 
+# NetworkX analysis algorithms
+print ('\n' + 'Analysing graph...')
+nodeConnect = nx.node_connectivity(enGraph)
+avClustering = nx.average_clustering(enGraph)
+eigenArray = nx.laplacian_spectrum(enGraph)
+rockToRapShortPath = nx.shortest_path(enGraph,source='rock',target='rap')
+
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('\n' + 'Reading layout config. file...')
 
@@ -119,16 +132,33 @@ print ('\n' + 'Displaying graph...' + '\n')
 plt.show()
 # plt.savefig(nwPng, format = 'eps')
 
-print ('\n' + 'Final Run Information' + '\n')
-print ('Nodes: ' + str(nodes))
-print ('Edges: ' + str(edges))
-print ('Edges after self-loop removal: ' + str(newEdges))
-print ('Connections (edges minus self-loops): ' + str(connections))
-print ('Density: ' + str(density))
+# End timing of run
+endTime = datetime.now()
+
+memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
 
 runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
+runLog.write ('Date of run: {}'.format(runDate) + '\n')
+runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n' + '\n')
+runLog.write ('Memory Used: ' + str(memUseMb) + 'Mb' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Edges after self-loop removal: ' + str(newEdges) + '\n')
-runLog.write ('Connections: ' + str(connections) + '\n')
+runLog.write ('Connections (should = previous): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
+runLog.write ('Node Connectivity: ' + str(nodeConnect) + '\n')
+runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
+runLog.write ('Shortest Path - Rock-to-Rap: ' + str(rockToRapShortPath) + '\n')
+
+print ('\n' + 'Final Run Information' + '\n')
+print ('Date of run: {}'.format(runDate))
+print ('Duration of run : {}'.format(endTime - startTime))
+print ('Memory Used: ' + str(memUseMb) + 'Mb')
+print ('Nodes: ' + str(nodes))
+print ('Edges: ' + str(edges))
+print ('Edges after self-loop removal: ' + str(newEdges))
+print ('Connections (should = previous): ' + str(connections))
+print ('Density: ' + str(density))
+print ('Node Connectivity: ' + str(nodeConnect))
+print ('Average Clustering Coefficient: ' + str(avClustering))
+print ('Shortest Path - Rock-to-Rap: ' + str(rockToRapShortPath) + '\n')
