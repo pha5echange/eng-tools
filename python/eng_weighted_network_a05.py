@@ -80,7 +80,7 @@ for u,v,data in enGraph.edges(data=True):
 	labels[(u,v)] = data ['weight']
 
 # Write file with nodes and degree,for reference
-print ('Writing node list...' + '\n')
+print ('\n' + 'Writing node list...')
 for i in nodeList:
 	nodeDegree = enGraph.degree(i)
 	nodeListOP.write(str(i) + ',' + str(nodeDegree) + '\n')
