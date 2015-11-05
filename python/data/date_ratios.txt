@@ -1,0 +1,1383 @@
+a cappella,84,67
+abstract,158,72
+abstract beats,143,37
+abstract hip hop,224,206
+abstract idm,150,36
+abstractro,80,35
+accordion,85,47
+acid house,184,158
+acid jazz,210,204
+acid techno,129,63
+acousmatic,197,166
+acoustic blues,250,245
+acoustic pop,262,252
+adult standards,237,237
+african percussion,37,15
+african rock,182,113
+afrikaans,203,75
+afrobeat,131,73
+afrobeats,34,21
+aggrotech,252,185
+albanian pop,29,18
+album rock,355,354
+albuquerque indie,17,7
+alternative americana,74,51
+alternative country,266,264
+alternative dance,272,269
+alternative emo,191,175
+alternative hardcore,64,44
+alternative hip hop,342,338
+alternative metal,311,311
+alternative metalcore,77,37
+alternative new age,124,87
+alternative pop,175,173
+alternative pop rock,156,127
+alternative r&b,155,122
+alternative rock,403,402
+alternative roots rock,101,79
+ambeat,156,75
+ambient,132,126
+ambient dub techno,146,23
+ambient fusion,218,133
+ambient idm,225,99
+ambient psychill,165,30
+ambient trance,49,5
+anarcho-punk,180,125
+andean,74,46
+anime,217,136
+anime score,126,53
+anti-folk,123,110
+antiviral pop,32,16
+appalachian folk,153,128
+arab folk,95,70
+arab pop,97,71
+arabesk,132,54
+argentine indie,149,67
+argentine reggae,109,57
+argentine rock,208,165
+armenian folk,24,12
+art rock,289,287
+athens indie,63,45
+atmospheric black metal,240,198
+atmospheric post rock,238,160
+atmospheric post-metal,206,130
+aussietronica,59,19
+austindie,78,55
+australian alternative rock,282,262
+australian country,89,58
+australian dance,114,84
+australian hip hop,168,82
+australian indie,158,125
+australian pop,221,214
+austrian hip hop,69,22
+austropop,148,74
+avant-garde,213,180
+avant-garde jazz,239,230
+avantgarde metal,224,214
+axe,148,94
+azonto,37,22
+bachata,135,115
+baile funk,73,23
+balearic,211,109
+balkan brass,174,103
+banda,101,97
+bangla,57,38
+barbershop,59,35
+barnemusikk,52,11
+barnmusik,61,22
+baroque,201,162
+baroque ensemble,23,11
+basque rock,117,61
+bass music,213,159
+bass trip,55,21
+bassline,84,36
+bay area hip hop,76,58
+beach music,86,72
+beatdown,111,78
+beats & rhymes,99,35
+bebop,240,228
+belgian indie,81,41
+belgian rock,222,166
+belly dance,104,65
+belorush,68,36
+bemani,164,39
+benga,66,37
+bhangra,158,98
+big band,212,202
+big beat,231,226
+big room,200,122
+black death,197,154
+black metal,253,249
+black sludge,210,143
+black thrash,185,155
+blackgaze,91,61
+blaskapelle,64,15
+bluegrass,216,197
+blues,231,229
+blues-rock,258,254
+blues-rock guitar,76,58
+bmore,61,33
+bolero,155,149
+boogaloo,181,158
+boogie-woogie,128,113
+bossa nova,220,201
+bossa nova jazz,128,76
+boston rock,80,70
+bounce,49,38
+bouncy house,160,56
+bow pop,93,83
+boy band,116,112
+brass band,95,78
+brass ensemble,65,34
+brazilian composition,107,90
+brazilian gospel,124,38
+brazilian hip hop,109,57
+brazilian indie,160,95
+brazilian pop music,271,257
+brazilian punk,114,81
+breakbeat,200,160
+breakcore,188,117
+breaks,54,7
+brega,87,67
+breton folk,155,83
+brill building pop,227,227
+british alternative rock,125,101
+british blues,288,282
+british brass band,59,16
+british dance band,95,62
+british folk,195,188
+british indie rock,226,209
+british invasion,221,220
+britpop,255,253
+broadway,56,45
+broken beat,162,118
+brooklyn indie,26,6
+brostep,160,97
+brutal death metal,268,249
+brutal deathcore,137,93
+bubble trance,206,167
+bubblegum dance,136,119
+bubblegum pop,227,224
+bulgarian rock,61,41
+byzantine,13,5
+c-pop,132,107
+c64,99,31
+c86,235,228
+cabaret,249,246
+cajun,161,99
+calypso,122,57
+canadian country,130,129
+canadian hip hop,82,44
+canadian indie,245,238
+canadian metal,146,136
+canadian pop,96,91
+candy pop,107,105
+cantautor,130,98
+cante flamenco,107,42
+canterbury scene,213,206
+cantopop,165,117
+canzone napoletana,107,69
+capoeira,20,5
+carnatic,96,67
+catstep,110,42
+caucasian folk,43,9
+ccm,275,264
+ceilidh,37,7
+cello,91,62
+celtic,223,214
+celtic christmas,123,110
+celtic punk,165,91
+celtic rock,176,166
+central asian folk,77,14
+chalga,61,34
+chamber pop,329,328
+chanson,245,236
+chanson quebecois,148,60
+chaotic black metal,135,89
+chaotic hardcore,134,104
+charred death,116,85
+chicago blues,242,240
+chicago house,154,130
+chicago indie,50,28
+chicago soul,230,227
+chicano rap,62,50
+children's christmas,117,82
+children's music,112,87
+chilean rock,148,110
+chill groove,94,12
+chill lounge,204,74
+chill-out,227,223
+chill-out trance,60,6
+chillstep,73,25
+chillwave,277,248
+chinese indie rock,71,36
+chinese opera,14,0
+chinese traditional,45,14
+chip hop,84,24
+chiptune,227,75
+choral,60,47
+choro,172,144
+christian alternative rock,292,291
+christian christmas,383,340
+christian dance,31,19
+christian hardcore,180,160
+christian hip hop,148,116
+christian metal,187,168
+christian music,259,250
+christian punk,151,145
+christian rock,273,273
+christmas,239,237
+christmas product,8,2
+cinematic dubstep,102,13
+clarinet,42,23
+classic afrobeat,172,28
+classic belgian pop,172,75
+classic chinese pop,117,80
+classic colombian pop,60,25
+classic czech pop,150,82
+classic danish pop,192,127
+classic dutch pop,203,28
+classic eurovision,157,73
+classic finnish pop,211,119
+classic finnish rock,124,66
+classic french pop,168,111
+classic funk rock,256,253
+classic garage rock,205,184
+classic italian pop,176,121
+classic norwegian pop,182,134
+classic peruvian pop,54,30
+classic polish pop,195,101
+classic psychedelic rock,119,93
+classic rock,312,311
+classic russian pop,5,1
+classic russian rock,143,93
+classic schlager,168,76
+classic soundtrack,146,101
+classic swedish pop,224,177
+classic turkish pop,173,39
+classic venezuelan pop,75,36
+classical,211,186
+classical christmas,368,280
+classical flute,44,21
+classical guitar,110,65
+classical organ,98,54
+classical performance,192,171
+classical period,158,123
+classical piano,176,136
+college a cappella,62,20
+college marching band,16,4
+colombian rock,100,61
+columbus ohio indie,49,31
+comedy,211,197
+comedy rock,24,10
+comic,230,220
+commons,141,39
+complextro,104,59
+composition d,202,156
+concert piano,81,41
+consort,90,61
+contemporary classical,131,63
+contemporary country,302,302
+contemporary folk,173,156
+contemporary jazz,202,193
+contemporary post-bop,288,284
+cool jazz,240,230
+corrosion,221,137
+corsican folk,28,13
+country,299,299
+country blues,255,253
+country christmas,408,397
+country dawn,170,154
+country gospel,254,248
+country road,257,256
+country rock,266,266
+coupe decale,37,16
+coverchill,145,26
+covertrance,40,6
+cowboy western,218,209
+cowpunk,201,200
+crack rock steady,131,77
+croatian pop,128,70
+crossover prog,166,91
+crossover thrash,239,229
+crunk,230,227
+crust punk,202,136
+cryptic black metal,92,40
+cuban rumba,161,140
+cubaton,34,8
+cumbia,75,48
+cumbia funk,127,3
+cumbia sonidera,52,28
+cumbia villera,86,36
+cyber metal,119,88
+czech folk,147,99
+czech rock,186,144
+dallas indie,48,32
+dance pop,350,349
+dance rock,264,261
+dance-punk,262,257
+dancehall,275,250
+dangdut,57,38
+danish hip hop,174,67
+danish indie,161,102
+danish jazz,68,43
+danish pop,237,201
+danish pop rock,106,39
+dansband,111,76
+danseband,59,28
+dansktop,149,61
+dark ambient,199,118
+dark black metal,192,150
+dark cabaret,114,84
+dark electro-industrial,166,85
+dark hardcore,124,29
+dark jazz,123,101
+dark minimal techno,51,9
+dark progressive house,70,8
+dark psytrance,193,35
+dark wave,213,202
+darkstep,140,61
+death core,227,212
+death metal,310,307
+deathgrind,263,257
+deep acoustic pop,162,146
+deep adult standards,153,132
+deep alternative r&b,66,33
+deep ambient,189,106
+deep baroque,99,53
+deep brazilian pop,97,46
+deep breakcore,158,25
+deep canadian indie,179,134
+deep ccm,91,57
+deep cello,74,26
+deep chill,156,10
+deep chill-out,153,8
+deep christian rock,194,183
+deep classic garage rock,143,71
+deep classical piano,24,4
+deep comedy,82,62
+deep contemporary country,172,157
+deep dance pop,103,90
+deep darkpsy,171,17
+deep deep house,109,17
+deep deep tech house,1,0
+deep delta blues,96,50
+deep disco,156,109
+deep disco house,171,63
+deep discofox,84,7
+deep downtempo fusion,104,46
+deep dub techno,158,36
+deep east coast hip hop,172,123
+deep euro house,141,58
+deep eurodance,143,33
+deep filthstep,23,4
+deep flow,44,13
+deep folk metal,117,51
+deep free jazz,107,78
+deep freestyle,91,70
+deep full on,104,17
+deep funk,179,136
+deep funk house,166,58
+deep g funk,96,72
+deep german indie,137,69
+deep german punk,85,39
+deep gothic post-punk,111,87
+deep happy hardcore,44,3
+deep hardcore,200,54
+deep hardcore punk,191,112
+deep hardstyle,119,21
+deep house,208,184
+deep indian pop,107,81
+deep indie pop,107,74
+deep indie rock,155,114
+deep indie singer-songwriter,93,42
+deep italo disco,199,29
+deep jazz fusion,107,72
+deep jazz guitar,96,83
+deep jazz piano,104,92
+deep latin alternative,69,30
+deep liquid,112,21
+deep liquid bass,62,5
+deep melodic death metal,150,89
+deep melodic hard rock,125,92
+deep melodic house,83,19
+deep melodic metalcore,88,57
+deep minimal techno,106,32
+deep motown,135,72
+deep neo-synthpop,189,64
+deep neofolk,64,22
+deep new wave,153,124
+deep nordic folk,121,53
+deep northern soul,198,69
+deep opera,131,93
+deep orchestral,90,39
+deep orgcore,119,54
+deep pop emo,136,93
+deep pop punk,70,38
+deep power-pop punk,129,81
+deep progressive house,23,1
+deep progressive trance,156,87
+deep psychobilly,88,34
+deep psytrance,114,18
+deep punk rock,179,112
+deep ragga,138,63
+deep rai,71,14
+deep regional mexican,23,19
+deep smooth jazz,111,74
+deep soft rock,89,79
+deep soul house,151,36
+deep soundtrack,130,77
+deep southern soul,142,94
+deep space rock,170,112
+deep string quartet,51,29
+deep sunset lounge,58,4
+deep surf music,135,54
+deep symphonic black metal,163,130
+deep talent show,81,63
+deep tech house,99,8
+deep thrash metal,137,85
+deep trap,110,61
+deep turkish pop,180,80
+deep uplifting trance,133,63
+deep vocal house,99,65
+deep vocal jazz,132,91
+delta blues,228,222
+demoscene,99,23
+denver indie,76,35
+depressive black metal,219,129
+desert blues,105,58
+desi,164,111
+destroy techno,150,65
+detroit hip hop,98,61
+detroit techno,229,195
+didgeridoo,78,38
+digital hardcore,100,68
+dirty south rap,250,245
+dirty texas rap,98,78
+disco,224,223
+disco house,199,170
+discofox,118,27
+dixieland,117,80
+djent,179,134
+dominican pop,61,47
+doo-wop,210,199
+doom metal,242,228
+doomcore,126,31
+doujin,151,37
+downtempo,244,236
+downtempo fusion,112,81
+downtempo trip hop,101,31
+drama,22,14
+dream pop,211,209
+dreamo,238,231
+drill and bass,211,163
+drone,298,288
+drone folk,97,75
+drone metal,214,184
+drone psych,153,62
+drum and bass,222,185
+drumfunk,191,92
+dub,211,198
+dub techno,198,136
+dubstep,212,119
+dubstep product,41,4
+dubsteppe,67,21
+duranguense,43,39
+dutch hip hop,162,74
+dutch house,90,38
+dutch pop,225,186
+dutch rock,199,152
+e6fi,150,146
+early music,207,164
+early music ensemble,89,46
+east coast hip hop,266,262
+easy listening,175,160
+ebm,255,234
+ectofolk,113,79
+ecuadoria,31,13
+edm,232,200
+electric blues,276,266
+electro,189,160
+electro dub,149,76
+electro house,278,247
+electro jazz,142,90
+electro latino,91,34
+electro swing,149,83
+electro trash,93,27
+electro-industrial,261,239
+electroacoustic improvisation,143,102
+electroclash,228,213
+electrofox,197,144
+electronic,269,266
+electronica,157,144
+electronicore,35,13
+electropowerpop,61,46
+electropunk,141,78
+emo,296,293
+emo punk,193,177
+enka,120,55
+entehno,69,46
+environmental,6,2
+epicore,51,20
+estonian pop,173,98
+ethereal gothic,134,68
+ethereal wave,169,157
+etherpop,75,55
+ethiopian pop,64,24
+eurobeat,191,46
+eurodance,221,203
+europop,243,242
+euroska,156,72
+eurovision,190,168
+exotica,162,132
+experimental,246,245
+experimental dubstep,29,5
+experimental psych,188,136
+experimental rock,208,208
+fado,163,92
+fake,26,13
+fallen angel,179,95
+faroese pop,38,21
+fast melodic punk,177,88
+fidget house,151,77
+filmi,179,162
+filter house,219,141
+filthstep,113,48
+fingerstyle,133,97
+finnish hardcore,144,76
+finnish hip hop,174,87
+finnish indie,159,95
+finnish jazz,129,52
+finnish metal,173,155
+finnish pop,240,178
+flamenco,186,151
+flick hop,116,36
+folk,292,290
+folk christmas,460,434
+folk metal,233,215
+folk punk,167,133
+folk rock,278,276
+folk-pop,340,338
+folk-prog,140,129
+folklore argentino,105,56
+folkmusik,138,83
+footwork,125,62
+forro,117,81
+fourth world,106,104
+freak folk,287,281
+freakbeat,217,201
+free improvisation,190,186
+free jazz,220,212
+freestyle,147,132
+french folk,62,33
+french folk pop,201,106
+french hip hop,240,157
+french indie pop,174,97
+french movie tunes,61,17
+french pop,206,193
+french punk,144,85
+french reggae,93,66
+french rock,238,212
+full on,183,66
+funeral doom,230,174
+funk,268,267
+funk carioca,87,17
+funk metal,213,213
+funk rock,306,304
+funky breaks,107,35
+future ambient,176,92
+future garage,219,120
+futurepop,260,222
+g funk,208,201
+gabba,186,81
+galego,106,30
+gamecore,190,60
+gamelan,43,19
+gangster rap,338,336
+garage pop,209,163
+garage punk,86,61
+garage punk blues,75,41
+garage rock,247,245
+gauze pop,64,29
+gbvfi,143,124
+geek folk,84,40
+geek rock,88,59
+german ccm,106,43
+german hip hop,237,153
+german indie,222,168
+german metal,172,158
+german oi,143,75
+german pop,241,217
+german pop rock,148,119
+german punk,209,138
+german show tunes,92,25
+german techno,170,151
+ghettotech,64,31
+ghoststep,25,2
+girl group,124,67
+glam metal,237,232
+glam rock,299,297
+glitch,246,222
+glitch beats,127,31
+glitch hop,158,90
+glitter trance,40,5
+goa trance,200,71
+goregrind,248,212
+gospel,185,172
+gospel blues,122,19
+gospel reggae,55,26
+gothic alternative,48,27
+gothic americana,129,75
+gothic doom,177,121
+gothic metal,228,220
+gothic post-punk,161,107
+gothic rock,231,207
+gothic symphonic metal,237,218
+grave wave,150,95
+greek hip hop,64,26
+greek house,44,10
+greek indie,133,81
+grim death metal,197,139
+grime,200,133
+grindcore,244,228
+grisly death metal,78,39
+groove metal,302,301
+grunge,205,200
+grunge pop,208,196
+grupera,135,132
+guidance,6,1
+gypsy jazz,107,64
+hands up,214,78
+happy hardcore,132,61
+hard alternative,181,126
+hard bop,236,227
+hard glam,140,91
+hard house,123,53
+hard rock,321,320
+hard stoner rock,155,80
+hard trance,112,49
+hardcore,199,183
+hardcore breaks,95,31
+hardcore hip hop,263,261
+hardcore punk,228,223
+hardcore techno,196,133
+hardstyle,174,63
+harmonica blues,190,175
+harp,86,54
+hatecore,120,46
+hauntology,128,101
+hawaiian,132,89
+healing,157,130
+heavy alternative,57,24
+heavy christmas,211,206
+heavy gothic rock,95,60
+hi nrg,211,210
+highlife,77,47
+hindustani classical,121,100
+hip hop,381,380
+hip hop quebecois,107,30
+hip hop tuga,91,32
+hip house,212,202
+hip pop,225,224
+hiplife,48,23
+hoerspiel,102,37
+hollywood,162,142
+honky tonk,144,138
+horror punk,154,113
+horrorcore,74,45
+house,257,236
+hungarian hip hop,48,31
+hungarian pop,184,123
+hungarian rock,198,161
+hurban,275,261
+hyphy,168,146
+icelandic pop,160,113
+idol,134,126
+illbient,92,84
+indian classical,151,123
+indian pop,220,198
+indian rock,66,48
+indie christmas,224,211
+indie dream pop,80,28
+indie emo,142,99
+indie emo rock,151,86
+indie folk,327,326
+indie fuzzpop,221,182
+indie pop,317,316
+indie pop rock,69,50
+indie post-punk,65,35
+indie psych-pop,138,57
+indie r&b,281,279
+indie rock,422,421
+indie shoegaze,215,146
+indie singer-songwriter,81,55
+indietronica,326,324
+indonesian indie,125,81
+indonesian pop,139,107
+indorock,62,7
+industrial,223,218
+industrial metal,219,218
+industrial rock,198,194
+instrumental post rock,129,49
+intelligent dance music,189,177
+irish folk,223,211
+irish indie,16,2
+irish rock,132,110
+iskelma,177,54
+islamic recitation,4,0
+israeli rock,116,51
+italian disco,182,102
+italian folk,136,95
+italian hip hop,136,74
+italian indie pop,233,160
+italian jazz,89,75
+italian pop,235,219
+italian pop rock,170,104
+italian progressive rock,176,123
+italian punk,70,36
+italo dance,94,21
+j-alt,199,160
+j-ambient,125,73
+j-core,134,35
+j-dance,133,105
+j-idol,190,164
+j-indie,171,110
+j-metal,200,189
+j-pop,223,211
+j-poppunk,93,55
+j-poprock,155,118
+j-punk,80,61
+j-rap,153,110
+j-rock,209,180
+j-theme,130,39
+jam band,187,177
+jangle pop,192,189
+jangle rock,71,53
+japanese jazztronica,118,57
+japanese psychedelic,152,132
+japanese r&b,195,155
+japanese standards,217,164
+japanese traditional,56,32
+japanoise,138,110
+jazz,254,247
+jazz bass,94,73
+jazz blues,238,237
+jazz brass,67,62
+jazz christmas,497,476
+jazz funk,208,206
+jazz fusion,239,232
+jazz metal,180,165
+jazz orchestra,74,45
+jazz trio,69,53
+jerk,114,97
+jig and reel,138,91
+judaica,50,29
+jug band,70,51
+juggalo,226,215
+jump blues,154,148
+jump up,155,88
+jumpstyle,75,11
+jungle,223,180
+k-hop,64,45
+k-indie,159,103
+k-pop,187,180
+k-rock,87,55
+kabarett,163,71
+karneval,147,35
+kc indie,64,31
+kindermusik,74,15
+kirtan,107,68
+kiwi rock,205,176
+kizomba,68,17
+klapa,35,8
+klezmer,138,83
+kompa,75,30
+kraut rock,175,168
+kuduro,34,8
+kurdish folk,29,8
+kwaito,140,76
+la indie,28,8
+laboratorio,111,99
+laiko,36,27
+latin,216,212
+latin alternative,189,173
+latin christian,58,37
+latin christmas,108,102
+latin electronica,96,46
+latin hip hop,162,137
+latin jazz,151,146
+latin metal,115,103
+latin pop,218,215
+latvian pop,218,130
+lds,116,58
+leeds indie,128,81
+levenslied,179,68
+liedermacher,137,103
+light music,73,44
+lilith,254,252
+liquid funk,227,130
+lithumania,136,77
+liturgical,27,15
+lo star,91,60
+lo-fi,342,342
+louisiana blues,212,210
+louisville indie,66,42
+lounge,261,252
+lounge house,60,10
+lovers rock,198,183
+lowercase,153,89
+luk thung,40,3
+madchester,267,267
+maghreb,92,34
+magyar,131,84
+makossa,67,45
+malagasy folk,62,32
+malaysian pop,71,50
+mallet,35,19
+mambo,176,166
+mande pop,194,152
+mandopop,191,112
+manele,46,15
+marching band,37,20
+mariachi,172,167
+martial industrial,220,139
+mashup,111,52
+math pop,191,149
+math rock,214,209
+mathcore,199,192
+mbalax,123,82
+medieval,201,175
+medieval rock,177,96
+meditation,57,37
+melancholia,161,157
+melbourne bounce,41,22
+mellow gold,341,339
+melodic death metal,246,241
+melodic hard rock,176,144
+melodic hardcore,242,240
+melodic metalcore,273,272
+melodic power metal,121,79
+melodic progressive metal,171,123
+memphis blues,247,243
+memphis hip hop,102,87
+memphis soul,227,214
+merengue,168,149
+merengue urbano,50,35
+merseybeat,210,208
+metal,323,323
+metal guitar,112,61
+metalcore,304,301
+metropopolis,137,134
+mexican indie,167,116
+mexican rock-and-roll,55,39
+mexican son,53,38
+mexican traditional,39,22
+miami bass,87,73
+michigan indie,68,45
+microhouse,246,229
+military band,34,14
+minimal,171,161
+minimal dub,153,43
+minimal dubstep,84,9
+minimal melodic techno,58,4
+minimal tech house,253,108
+minimal techno,271,225
+minimal wave,226,122
+mizrahi,38,23
+mod revival,114,84
+modern blues,247,239
+modern classical,212,182
+modern country rock,207,190
+modern downshift,45,15
+modern free jazz,92,76
+modern performance,72,59
+modern southern rock,75,51
+modern uplift,84,50
+monastic,46,18
+moombahton,68,33
+morna,82,43
+motivation,45,25
+motown,266,264
+movie tunes,155,123
+mpb,254,240
+musica para ninos,13,7
+musiikkia lapsille,91,20
+musique concrete,185,146
+musique pour enfants,45,7
+muziek voor kinderen,56,9
+nasheed,19,12
+nashville sound,239,238
+native american,126,96
+necrogrind,108,61
+neo classical metal,255,246
+neo honky tonk,88,59
+neo mellow,273,269
+neo metal,87,49
+neo soul,259,247
+neo soul-jazz,107,48
+neo-industrial rock,171,111
+neo-pagan,66,45
+neo-progressive,238,212
+neo-psychedelic,260,260
+neo-rockabilly,114,65
+neo-singer-songwriter,34,15
+neo-synthpop,233,153
+neo-trad metal,186,165
+neo-traditional country,21,11
+neoclassical,221,185
+neofolk,213,147
+nepali,11,5
+nerdcore,100,49
+neue deutsche harte,178,136
+neue deutsche welle,127,78
+neurofunk,211,130
+neurostep,89,20
+new age,181,173
+new age piano,61,44
+new americana,259,245
+new beat,103,46
+new jack smooth,71,47
+new jack swing,240,238
+new orleans blues,174,160
+new orleans jazz,164,147
+new rave,267,258
+new romantic,274,269
+new tribe,68,47
+new wave,305,302
+new wave pop,365,364
+new weird america,214,202
+ninja,199,183
+nintendocore,158,97
+nl folk,65,43
+no wave,215,208
+noise,165,79
+noise pop,293,291
+noise punk,146,116
+noise rock,223,219
+nordic folk,121,89
+nordic house,37,9
+norteno,116,113
+northern irish indie,104,52
+northern soul,206,167
+norwegian gospel,32,8
+norwegian hip hop,70,38
+norwegian jazz,140,85
+norwegian metal,126,124
+norwegian pop,183,135
+norwegian punk,130,45
+norwegian rock,189,156
+nu age,174,58
+nu disco,202,74
+nu electro,123,30
+nu gaze,263,263
+nu jazz,235,221
+nu metal,298,298
+nu skool breaks,178,105
+nu-cumbia,95,38
+nueva cancion,93,83
+nursery,26,6
+nwobhm,210,202
+nwothm,161,126
+nz indie,183,129
+oi,189,155
+old school hip hop,243,236
+old-time,108,94
+opera,174,143
+operatic pop,150,145
+opm,190,167
+oratory,61,52
+orchestral,186,158
+organic ambient,131,69
+orgcore,197,145
+orquesta tipica,75,44
+orquesta tropical,71,45
+oshare kei,208,177
+ostrock,139,57
+outer hip hop,110,51
+outlaw country,240,238
+outsider,94,81
+outsider house,112,48
+p funk,97,82
+pagan black metal,230,225
+pagode,161,112
+pakistani pop,92,76
+permanent wave,109,109
+persian pop,91,63
+persian traditional,39,27
+perth indie,65,51
+peruvian rock,69,43
+piano blues,207,203
+piano rock,120,116
+piedmont blues,193,192
+pipe band,101,46
+poetry,149,83
+polish hip hop,199,108
+polish indie,191,133
+polish jazz,107,52
+polish pop,222,188
+polish punk,203,150
+polish reggae,88,62
+polka,42,25
+polynesian pop,63,48
+polyphony,39,32
+pop,336,335
+pop christmas,416,415
+pop emo,142,122
+pop house,170,89
+pop punk,283,282
+pop rap,340,338
+pop rock,339,338
+popgaze,127,97
+porro,36,4
+portland indie,88,49
+portuguese pop,109,56
+portuguese rock,202,143
+post rock,232,227
+post-disco,242,233
+post-disco soul,146,90
+post-grunge,317,317
+post-hardcore,300,298
+post-metal,223,214
+post-post-hardcore,68,46
+post-punk,252,249
+power blues-rock,142,101
+power electronics,192,118
+power metal,249,246
+power noise,200,101
+power pop,189,186
+power violence,197,133
+power-pop punk,147,132
+praise,104,70
+progressive alternative,66,41
+progressive bluegrass,208,190
+progressive electro house,184,105
+progressive house,305,259
+progressive metal,259,259
+progressive psytrance,213,70
+progressive rock,257,255
+progressive trance,249,192
+progressive trance house,95,19
+progressive uplifting trance,117,24
+protopunk,260,256
+psych gaze,134,83
+psychedelic blues-rock,176,154
+psychedelic rock,260,255
+psychedelic trance,218,133
+psychill,234,105
+psychobilly,190,147
+pub rock,172,168
+puerto rican rock,53,32
+punjabi,157,101
+punk,290,290
+punk blues,170,167
+punk christmas,182,172
+punk ska,131,57
+qawwali,67,57
+quebecois,218,164
+quiet storm,297,297
+r&b,299,299
+ragga jungle,124,47
+ragtime,123,110
+rai,139,69
+ranchera,161,156
+rap,303,301
+rap metal,247,240
+rap metalcore,131,82
+rap rock,283,283
+raw black metal,145,102
+re:techno,83,19
+reading,135,73
+rebetiko,24,14
+reggae,239,225
+reggae fusion,156,99
+reggae rock,96,60
+reggaeton,162,122
+regional mexican,113,110
+relaxative,5,1
+remix,59,0
+renaissance,196,151
+retro electro,116,45
+retro metal,203,147
+rhythm and boogie,171,31
+riddim,113,34
+rio de la plata,102,48
+riot grrrl,196,179
+rock,464,463
+rock catala,182,95
+rock en espanol,233,221
+rock gaucho,168,119
+rock noise,98,61
+rock steady,210,165
+rock-and-roll,196,191
+rockabilly,186,181
+romanian pop,145,100
+romanian rock,167,111
+romantic,200,173
+roots reggae,252,240
+roots rock,307,306
+rumba,172,143
+russian alternative,88,67
+russian hip hop,104,43
+russian pop,154,74
+russian punk,110,75
+russian rock,153,101
+rva indie,33,21
+salsa,197,180
+salsa international,107,69
+samba,263,245
+saxophone,27,17
+schlager,212,167
+schranz,142,41
+scorecore,53,21
+scottish rock,150,104
+scratch,112,49
+screamo,298,292
+screamo punk,192,146
+screamocore,114,70
+seattle indie,103,70
+sega,58,17
+serialism,180,131
+sertanejo,110,63
+sertanejo tradicional,87,39
+sertanejo universitario,113,72
+sevdah,36,25
+shanty,63,40
+sheffield indie,60,43
+shibuya-kei,135,104
+shimmer pop,197,179
+shimmer psych,163,84
+shiver pop,125,94
+shoegaze,241,232
+show tunes,181,159
+singaporean pop,41,29
+singer-songwriter,404,401
+sinhala,15,5
+ska,185,171
+ska punk,208,193
+ska revival,166,138
+skate punk,346,336
+skiffle,36,18
+skinhead oi,174,73
+skinhead reggae,177,73
+skweee,49,14
+slam death metal,208,126
+slash punk,124,59
+slc indie,34,17
+sleaze rock,215,199
+sleep,5,2
+slovak hip hop,113,60
+slovak pop,167,111
+slovenian rock,157,52
+slow core,235,234
+sludge metal,252,239
+smooth jazz,228,217
+smooth urban r&b,20,6
+soca,91,48
+soda pop,154,79
+soft rock,321,321
+solipsynthm,87,37
+soukous,104,73
+soul,293,290
+soul blues,287,285
+soul christmas,284,274
+soul flow,222,181
+soul jazz,227,216
+soundtrack,236,218
+south african jazz,135,81
+southern gospel,95,84
+southern hip hop,224,222
+southern rock,190,184
+southern soul,245,240
+southern soul blues,88,77
+space rock,279,274
+spanish classical,30,18
+spanish folk,54,31
+spanish hip hop,205,75
+spanish indie pop,235,157
+spanish indie rock,69,38
+spanish invasion,93,25
+spanish new wave,158,100
+spanish pop,243,222
+spanish pop rock,97,74
+spanish punk,182,130
+spanish reggae,70,13
+speed garage,139,82
+speed metal,321,320
+speedcore,176,60
+spoken word,17,12
+spytrack,155,49
+steampunk,110,80
+steelpan,19,13
+stl indie,19,9
+stomp and flutter,119,79
+stomp and holler,305,302
+stomp and whittle,139,94
+stomp pop,146,133
+stoner metal,251,241
+stoner rock,260,248
+straight edge,200,176
+street punk,144,88
+stride,172,169
+string band,89,60
+string folk,65,48
+string quartet,64,44
+substep,101,15
+sunset lounge,53,3
+suomi rock,229,206
+surf music,181,134
+swamp blues,225,223
+swamp pop,104,91
+swedish alternative rock,67,48
+swedish hard rock,63,46
+swedish hip hop,146,72
+swedish indie pop,154,108
+swedish indie rock,187,172
+swedish jazz,76,52
+swedish metal,134,134
+swedish pop,217,193
+swedish pop punk,132,46
+swedish prog,151,69
+swedish punk,208,97
+swedish reggae,74,30
+swedish soft pop,87,16
+swedish synthpop,109,69
+swing,196,185
+swirl psych,51,21
+swiss folk,97,34
+swiss hip hop,112,60
+swiss rock,167,91
+symphonic black metal,225,207
+symphonic metal,240,223
+symphonic rock,235,234
+synthpop,385,382
+taiwanese pop,202,122
+talent show,143,124
+tango,171,120
+tech house,317,241
+technical brutal death metal,168,102
+technical death metal,248,231
+techno,230,203
+teen pop,231,226
+tejano,80,64
+tekno,51,13
+terrorcore,109,7
+texas blues,289,278
+texas country,196,188
+thai indie,54,21
+thai pop,80,48
+thrash core,166,138
+thrash metal,244,243
+thrash-groove metal,88,50
+throat singing,85,33
+tibetan,32,9
+tico,62,16
+timba,119,65
+tin pan alley,105,101
+traditional blues,270,265
+traditional british folk,194,138
+traditional country,238,237
+traditional folk,249,248
+traditional funk,131,31
+traditional irish folk,109,68
+traditional reggae,90,42
+traditional rock 'n roll,149,54
+traditional rockabilly,180,82
+traditional scottish folk,80,50
+traditional ska,154,94
+traditional soul,160,27
+traditional swing,116,67
+trance,244,192
+trance hop,160,81
+trap music,259,251
+trapstep,129,56
+trash rock,95,72
+triangle indie,109,80
+tribal house,146,127
+tribute,8,8
+trip hop,271,266
+tropical,219,212
+trova,74,51
+turbo folk,46,37
+turkish alternative,109,56
+turkish classical,126,45
+turkish folk,158,60
+turkish hip hop,60,15
+turkish jazz,164,98
+turkish pop,254,179
+turkish rock,226,156
+turntablism,211,203
+twee indie pop,167,104
+twee pop,237,230
+twin cities indie,115,70
+tzadik,92,86
+uk dub,99,27
+uk garage,138,101
+uk hip hop,145,73
+uk post-punk,243,239
+ukrainian rock,82,49
+ukulele,44,29
+unblack metal,67,41
+underground hip hop,282,279
+underground latin hip hop,36,23
+underground pop rap,99,70
+underground power pop,199,152
+underground rap,118,96
+uplifting trance,276,187
+urban contemporary,352,352
+vallenato,118,79
+vancouver indie,121,102
+vapor house,68,7
+vaporwave,97,55
+vegan straight edge,177,141
+vegas indie,21,8
+velha guarda,193,170
+venezuelan rock,96,49
+video game music,172,102
+vienna indie,144,55
+vietnamese pop,100,34
+viking metal,236,212
+vintage chanson,160,100
+vintage country folk,162,112
+vintage gospel,142,42
+vintage jazz,88,55
+vintage reggae,100,31
+vintage rockabilly,140,42
+vintage schlager,157,74
+vintage swedish pop,161,86
+vintage swing,92,52
+vintage swoon,58,16
+vintage tango,128,79
+vintage western,143,62
+violin,112,83
+viral pop,84,73
+visual kei,205,192
+vocal house,216,203
+vocal jazz,242,239
+vocaloid,141,24
+volksmusik,177,102
+warm drone,207,127
+welsh rock,140,89
+west african jazz,88,52
+west coast rap,218,210
+western swing,185,170
+wind ensemble,42,18
+witch house,107,43
+wonky,204,116
+workout,3,1
+world,205,183
+world chill,164,81
+world christmas,206,191
+world fusion,137,123
+worship,260,238
+wrestling,29,10
+wrock,47,23
+ye ye,162,86
+yoik,37,21
+yugoslav rock,184,153
+zeuhl,170,137
+zillertal,51,10
+zim,40,15
+zolo,104,90
+zouglou,51,27
+zouk,139,60
+zydeco,160,121

@@ -1,13 +1,14 @@
-# eng_weighted_network_a07.py
-# Version a07
+# eng_weighted_network_a08.py
+# Version a08
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 4th 2015
+# November 5th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Plots network graph from edgelist 'wuGraphData.txt'
 # Displays using parameters from 'config_nw.txt'
-# writes 'weighted_nodeList.txt' with nodes and degrees (k) for each
+# Writes 'weighted_nodeList.txt' with nodes and degrees (k) for each
+# Writes eps image to '\networks\'
 # Removes self-loop edges
 
 # Run AFTER 'eng_graph.py'
@@ -19,7 +20,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-versionNumber = ("a07")
+versionNumber = ("a08")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -33,6 +34,10 @@ if not os.path.exists("data"):
 if not os.path.exists("logs"):
     os.makedirs("logs")
 
+# create 'networks' subdirectory if necessary
+if not os.path.exists("networks"):
+    os.makedirs("networks")
+
 # open file for writing log
 logPath = os.path.join("logs", versionNumber + '_eng_weighted_network_log.txt')
 runLog = open(logPath, 'a')
@@ -42,8 +47,8 @@ nodeListPath = os.path.join("data", versionNumber + '_weighted_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
 # Open file to write image
-nwPngPath = os.path.join("networks", versionNumber + '_' + str(startTime) + '_wuNw.png')
-nwPng = open (nwPngPath, 'w')
+nwImgPath = os.path.join("networks", versionNumber + '_' + str(startTime) + '_wuNw.eps')
+nwImg = open (nwImgPath, 'w')
 
 # Begin
 print ('\n' + 'Weighted Graph Drawing Thing | Version ' + versionNumber + ' | Starting...')
@@ -102,6 +107,9 @@ nodeConnect = nx.node_connectivity(enGraph)
 avClustering = nx.average_clustering(enGraph)
 eigenArray = nx.laplacian_spectrum(enGraph)
 rockToRapShortPath = nx.shortest_path(enGraph,source='rock',target='rap')
+rockToJazzShortPath = nx.shortest_path(enGraph,source='rock',target='jazz')
+rapToJazzShortPath = nx.shortest_path(enGraph,source='rap',target='jazz')
+rockToClassicalShortPath = nx.shortest_path(enGraph,source='rock',target='classical')
 
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('\n' + 'Reading layout config file...')
@@ -131,9 +139,8 @@ nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_
 nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
 nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
-
 print ('\n' + 'Writing image file...')
-plt.savefig(nwPng, format = 'png')
+plt.savefig(nwImg, format = 'eps')
 
 print ('\n' + 'Displaying graph...')
 plt.show()
@@ -154,7 +161,10 @@ runLog.write ('Connections (should = previous): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 runLog.write ('Node Connectivity: ' + str(nodeConnect) + '\n')
 runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-runLog.write ('Shortest Path - Rock-to-Rap: ' + str(rockToRapShortPath) + '\n')
+runLog.write ('\n' + 'Shortest Path - Rock to Rap: ' + str(rockToRapShortPath) + '\n')
+runLog.write ('Shortest Path - Rock to Jazz: ' + str(rockToJazzShortPath) + '\n')
+runLog.write ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath) + '\n')
+runLog.write ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath) + '\n')
 
 print ('\n' + 'Final Run Information' + '\n')
 print ('Date of run: {}'.format(runDate))
@@ -167,4 +177,7 @@ print ('Connections (should = previous): ' + str(connections))
 print ('Density: ' + str(density))
 print ('Node Connectivity: ' + str(nodeConnect))
 print ('Average Clustering Coefficient: ' + str(avClustering))
-print ('Shortest Path - Rock-to-Rap: ' + str(rockToRapShortPath) + '\n')
+print ('\n' + 'Shortest Path - Rock to Rap: ' + str(rockToRapShortPath))
+print ('Shortest Path - Rock to Jazz: ' + str(rockToJazzShortPath))
+print ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath))
+print ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath) + '\n')
