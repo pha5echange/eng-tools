@@ -91,7 +91,7 @@ nwConfig = open('config_nw.txt').readlines()
 firstLine = nwConfig.pop(0)
 
 for line in nwConfig:
-	n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, edge_label_colour = line.split(",")
+	n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, e_text_size, edge_label_colour = line.split(",")
 	
 node_size = int(n_size)
 node_alpha = float(n_alpha)

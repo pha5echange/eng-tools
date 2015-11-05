@@ -3,7 +3,7 @@ ENG-Tools beta v. 05
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-November 3rd 2015
+November 5th 2015
 
 These scripts have been created to facilitate research into musical genre using the Echonest.
 
@@ -15,6 +15,8 @@ LICENCE:
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
+
+- 'config_nw.txt' configures graph layout. 
 
 - 'eng_weighted_network' now removes self-loops and cleans edge-weight labels.
 
@@ -76,7 +78,11 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 11) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
-12) 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. The output files from this can then be processed with 'eng_network' and 'eng_weighted_network'.
+12) 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
+
+13) The output files from this ('uuGraph_data' and 'wuGraph_data') can then be processed with 'eng_network' and 'eng_weighted_network'.
+
+14) Network layout parameters can be edited in 'config_nw.txt'.
 
 MANIFEST: 
 
@@ -113,3 +119,7 @@ MANIFEST:
 (16) eng_network.py
 
 (17) eng_weighted_network.py
+
+(18) apikey.txt
+
+(19) config_nw.txt

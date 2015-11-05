@@ -21,6 +21,10 @@ from datetime import datetime
 
 versionNumber = ("a07")
 
+# Initiate timing of run
+runDate = datetime.now()
+startTime = datetime.now()
+
 # create 'data' subdirectory if necessary
 if not os.path.exists("data"):
     os.makedirs("data")
@@ -38,12 +42,8 @@ nodeListPath = os.path.join("data", versionNumber + '_weighted_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
 # Open file to write image
-# nwPngPath = os.path.join("networks", versionNumber + '_wuNw.eps')
-# nwPng = open (nwPngPath, 'w')
-
-# Initiate timing of run
-runDate = datetime.now()
-startTime = datetime.now()
+nwPngPath = os.path.join("networks", versionNumber + '_' + str(startTime) + '_wuNw.png')
+nwPng = open (nwPngPath, 'w')
 
 # Begin
 print ('\n' + 'Weighted Graph Drawing Thing | Version ' + versionNumber + ' | Starting...')
@@ -74,16 +74,19 @@ runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
-# Remove self-loops and clean edge labels
-print ('\n' + 'Removing self-loops and cleaning edge-labels...')
-labels = {}
+# Remove self-loops
+print ('\n' + 'Removing self-loops...')
 for u,v,data in enGraph.edges(data=True):
 	if u == v:
 		enGraph.remove_edge(u,v)
 
-	newEdges = nx.number_of_edges(enGraph)
+newEdges = nx.number_of_edges(enGraph)
 
-	labels[(u,v)] = data ['weight']
+# Cleaning edge-labels
+print ('\n' + 'Cleaning edge labels...')
+labels = {}
+for u,v,data in enGraph.edges(data=True):
+	labels[(u,v)] = int(data ['weight'])
 
 # Write file with nodes and degree,for reference
 print ('\n' + 'Writing node list...')
@@ -101,7 +104,7 @@ eigenArray = nx.laplacian_spectrum(enGraph)
 rockToRapShortPath = nx.shortest_path(enGraph,source='rock',target='rap')
 
 # Graph plotting parameters - moved to config file 'config_nw.txt'
-print ('\n' + 'Reading layout config. file...')
+print ('\n' + 'Reading layout config file...')
 
 # open and read 'config_nw.txt'
 nwConfig = open('config_nw.txt').readlines()
@@ -110,7 +113,7 @@ nwConfig = open('config_nw.txt').readlines()
 firstLine = nwConfig.pop(0)
 
 for line in nwConfig:
-	n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, edge_label_colour = line.split(",")
+	n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, e_text_size, edge_label_colour = line.split(",")
 	
 node_size = int(n_size)
 node_alpha = float(n_alpha)
@@ -118,19 +121,22 @@ node_text_size = int(n_text_size)
 edge_thickness = int(e_thickness)
 edge_alpha = float(e_alpha)
 label_pos = float(l_pos)
+edge_text_size = int(e_text_size)
 
-print ('\n' + 'Drawing Graph...' + '\n')
+print ('\n' + 'Laying out graph...' + '\n')
 # nx.draw(enGraph)
 graph_pos = nx.spring_layout(enGraph)
 nx.draw_networkx_nodes(enGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
 nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
 nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
-nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = node_text_size, font_family = text_font)
+nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
-print ('\n' + 'Displaying graph...' + '\n')
 
+print ('\n' + 'Writing image file...')
+plt.savefig(nwPng, format = 'png')
+
+print ('\n' + 'Displaying graph...')
 plt.show()
-# plt.savefig(nwPng, format = 'eps')
 
 # End timing of run
 endTime = datetime.now()
