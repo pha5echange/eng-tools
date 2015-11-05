@@ -1,0 +1,2 @@
+node_size,node_alpha,node_colour,node_text_size,text_font,edge_thickness,edge_alpha,edge_colour,label_pos,edge_text_size,edge_label_colour
+200,0.5,silver,10,sans-serif,1,0.2,gray,0.1,8,g
