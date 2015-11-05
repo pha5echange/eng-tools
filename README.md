@@ -5,7 +5,8 @@ jmg*AT*phasechange*DOT*info
 
 November 5th 2015
 
-These scripts have been created to facilitate research into musical genre using the Echonest.
+These scripts have been created to facilitate research into musical genre using the Echonest. 
+They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
 
 This is research software; USE IT AT YOUR OWN RISK. 
 I will respond to emails if possible, BUT THIS SOFTWARE HAS NO FORMAL SUPPORT.
@@ -42,7 +43,7 @@ To use ENG-Tools you will require the following:
 
 2) A text file called 'apikey.txt' containing your API key, in the same folder as the scripts
 
-3) Python 2, the 'pyen' library (from https://github.com/plamere/pyen), the 'matplotlib' library (from http://matplotlib.org), and the 'scipy' library (from http://www.scipy.org). 
+3) Python 2.7, the 'pyen' library (from https://github.com/plamere/pyen), the 'matplotlib' library (from http://matplotlib.org),the 'scipy' library (from http://www.scipy.org), and the NetworkX library (from https://networkx.github.io/). It is likely that the iGraph library will be used in later versions; the Python version can be obtained from http://igraph.org/python/ 
 
 When you have these, proceed as follows:
 
