@@ -1,7 +1,7 @@
-# eng_graph_a09.py
-# Version a09
+# eng_nodesets_b01.py
+# Version b01
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 30th 2015
+# November 6th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -16,7 +16,7 @@ import os
 import resource
 from datetime import datetime
 
-versionNumber = ("a09")
+versionNumber = ("b01")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -46,7 +46,7 @@ wuGraphDataPath = os.path.join("data", 'wuGraph_data.txt')
 wuGraphData = open(wuGraphDataPath, 'w')
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_graph_log.txt')
+logPath = os.path.join("logs", versionNumber + '_eng_nodesets_log.txt')
 runLog = open(logPath, 'a')
 
 # Initiate timing of run
@@ -54,8 +54,8 @@ runDate = datetime.now()
 startTime = datetime.now()
 
 # ..and begin..
-runLog.write ('Genre Data Node List Maker | ' + 'Version: ' + versionNumber + '\n' + '\n')
-print ('\n' + 'Genre Data Node List Maker | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
+runLog.write ('Genre Data Node Set Maker | ' + 'Version: ' + versionNumber + '\n' + '\n')
+print ('\n' + 'Genre Data Node Set Maker | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
 # create empty lists for genre set contents and labels, an empty set to hold intersectinos and a counter
 setList = []

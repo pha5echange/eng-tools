@@ -1,7 +1,7 @@
-# eng_network_a08.py
-# Version a08
+# eng_network_a09.py
+# Version a09
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 5th 2015
+# November 6th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -12,7 +12,7 @@
 # Writes eps image to '\networks\'
 # Removes self-loop edges
 
-# Run AFTER 'eng_graph.py'
+# Run AFTER 'eng_nodesets.py'
 
 # import packages
 import os
@@ -21,7 +21,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-versionNumber = ("a08")
+versionNumber = ("a09")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -62,7 +62,7 @@ edgeList = open (inputPath, 'r')
 enGraph = nx.read_edgelist(edgeList, delimiter=',')
 edgeList.close()
 
-print ('\n' + 'Calculating nodes, edges and density...' + '\n')
+print ('\n' + 'Calculating various things...' + '\n')
 nodes = nx.number_of_nodes(enGraph)
 edges = nx.number_of_edges(enGraph)
 density = nx.density(enGraph)
@@ -87,8 +87,6 @@ for u,v in enGraph.edges():
 	if u == v:
 		enGraph.remove_edge(u,v)
 
-newEdges = nx.number_of_edges(enGraph)
-
 # Write file with nodes and degree,for reference
 print ('\n' + 'Writing node list...')
 for i in nodeList:
@@ -97,15 +95,42 @@ for i in nodeList:
 
 nodeListOP.close()
 
+# remove zero degree nodes
+#print ('\n' + 'Removing isolated nodes...' +'\n')
+#runLog.write ('\n' + 'Isolated nodes removed:' +'\n' + '\n')
+#for i in nodeList:
+#	if nx.is_isolate(enGraph,i):
+#		enGraph.remove_node(i)
+#		print ('removed node ' + str(i))
+#		runLog.write('Removed node ' + str(i) +'\n')
+
+print ('\n' + 'Recalculating various things...' + '\n')
+newNodes = nx.number_of_nodes(enGraph)
+newEdges = nx.number_of_edges(enGraph)
+newDensity = nx.density(enGraph)
+
+print ('Nodes: ' + str(newNodes))
+print ('Edges: ' + str(newEdges))
+print ('Density: ' + str(newDensity))
+
+runLog.write ('\n' + 'Intermediate data: ' + '\n' + '\n')
+runLog.write ('Nodes: ' + str(newNodes) + '\n')
+runLog.write ('Edges: ' + str(newEdges) + '\n')
+runLog.write ('Density: ' + str(newDensity) + '\n')
+
 # NetworkX analysis algorithms
 print ('\n' + 'Analysing graph...')
 nodeConnect = nx.node_connectivity(enGraph)
 avClustering = nx.average_clustering(enGraph)
 eigenArray = nx.laplacian_spectrum(enGraph)
+
+# various shortest paths, just to see...
 rockToRapShortPath = nx.shortest_path(enGraph,source='rock',target='rap')
 rockToJazzShortPath = nx.shortest_path(enGraph,source='rock',target='jazz')
 rapToJazzShortPath = nx.shortest_path(enGraph,source='rap',target='jazz')
 rockToClassicalShortPath = nx.shortest_path(enGraph,source='rock',target='classical')
+rapToClassicalShortPath = nx.shortest_path(enGraph,source='rap',target='classical')
+jazzToClassicalShortPath = nx.shortest_path(enGraph,source='jazz',target='classical')
 
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('\n' + 'Reading layout config. file...')
@@ -146,32 +171,32 @@ memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
 
 runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
-runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n' + '\n')
-runLog.write ('Memory Used: ' + str(memUseMb) + 'Mb' + '\n')
-runLog.write ('Nodes: ' + str(nodes) + '\n')
-runLog.write ('Edges: ' + str(edges) + '\n')
-runLog.write ('Edges after self-loop removal: ' + str(newEdges) + '\n')
-runLog.write ('Connections (should = previous): ' + str(connections) + '\n')
-runLog.write ('Density: ' + str(density) + '\n')
-runLog.write ('Node Connectivity: ' + str(nodeConnect) + '\n')
+runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
+runLog.write ('Memory Used: ' + str(memUseMb) + 'Mb' + '\n' + '\n')
+runLog.write ('Nodes: ' + str(newNodes) + '\n')
+runLog.write ('Edges: ' + str(newEdges) + '\n')
+runLog.write ('Density: ' + str(newDensity) + '\n')
+runLog.write ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect) + '\n')
 runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 runLog.write ('\n' + 'Shortest Path - Rock to Rap: ' + str(rockToRapShortPath) + '\n')
 runLog.write ('Shortest Path - Rock to Jazz: ' + str(rockToJazzShortPath) + '\n')
 runLog.write ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath) + '\n')
 runLog.write ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath) + '\n')
+runLog.write ('Shortest Path - Rap to Classical: ' + str(rapToClassicalShortPath) + '\n')
+runLog.write ('Shortest Path - Jazz to Classical: ' + str(jazzToClassicalShortPath) + '\n')
 
 print ('\n' + 'Final Run Information' + '\n')
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 print ('Memory Used: ' + str(memUseMb) + 'Mb')
-print ('Nodes: ' + str(nodes))
-print ('Edges: ' + str(edges))
-print ('Edges after self-loop removal: ' + str(newEdges))
-print ('Connections (should = previous): ' + str(connections))
-print ('Density: ' + str(density))
-print ('Node Connectivity: ' + str(nodeConnect))
+print ('Nodes: ' + str(newNodes))
+print ('Edges: ' + str(newEdges))
+print ('Density: ' + str(newDensity))
+print ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect))
 print ('Average Clustering Coefficient: ' + str(avClustering))
 print ('\n' + 'Shortest Path - Rock to Rap: ' + str(rockToRapShortPath))
 print ('Shortest Path - Rock to Jazz: ' + str(rockToJazzShortPath))
 print ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath))
-print ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath) + '\n')
+print ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath))
+print ('Shortest Path - Rap to Classical: ' + str(rapToClassicalShortPath))
+print ('Shortest Path - Jazz to Classical: ' + str(jazzToClassicalShortPath) + '\n')

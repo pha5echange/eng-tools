@@ -3,7 +3,7 @@ ENG-Tools beta v. 06
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-November 5th 2015
+November 6th 2015
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -17,19 +17,21 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
 
+- 'eng_weighted_network' and 'eng_network' can optionally remove zero-degree nodes.
+
 - 'config_nw.txt' configures graph layout. 
 
 - 'eng_weighted_network' now removes self-loops and cleans edge-weight labels.
 
-- 'eng_weighted_network' takes weighted edgelist and plots network. 
+- 'eng_weighted_network' takes 'eng_nodesets' weighted edgelist and plots a network. 
 
-- 'eng_network' takes 'eng_graph' files and plots a network from these
+- 'eng_network' takes 'eng_nodesets' edgelist and plots a network. 
 
 - 'eng_fam' added, to calculate hi, low and average `familiarity' ratings for genres
 
 - 'en_genre' deletes empty genre files automatically
 
-- 'eng_graph' script converts genres into set()s and finds intersections
+- 'eng_nodesets' script converts genres into set()s and finds intersections
 
 - 'en_genre' now captures artists' musicbrainz ID (and discards those without)
 
@@ -79,7 +81,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 11) 'eng_plot_artists' uses the file ouput by ‘eng multi plot’ (moved to ‘data/’ and renamed as ‘eng multi plot data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
-12) 'eng_graph' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
+12) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
 
 13) The output files from this ('uuGraph_data' and 'wuGraph_data') can then be processed with 'eng_network' and 'eng_weighted_network'.
 
@@ -113,7 +115,7 @@ MANIFEST:
 
 (13) eng_process_firsts.py
 
-(14) eng_graph.py
+(14) eng_nodesets.py
 
 (15) eng_fam.py
 
