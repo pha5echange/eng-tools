@@ -1,7 +1,7 @@
-# en_genre_b05.py
-# Version b05
+# en_genre_b06.py
+# Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# Oct 28th 2015
+# November 6th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -27,11 +27,12 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b05")
+versionNumber = ("b06")
 
 # define indexing variables for total artist responses
 artistTotal = 0
 artistWriteTotal = 0
+emptyGenres = 0
 
 # create 'genres' subdirectory if necessary
 if not os.path.exists("genres"):
@@ -91,9 +92,18 @@ for g in response_genre['genres']:
 		# run through 'artists' writing results to 'genreArtistList'
 		for a in response_artist['artists']:
 
-			# Cast floats
-			famiLiar = float(a['familiarity'])
-			hotNess = float(a['hotttnesss'])
+			# Cast floats (or try to)
+			try:
+				famiLiar = float(a['familiarity'])
+			except:
+				famiLiar = 0.0
+				continue
+
+			try:	
+				hotNess = float(a['hotttnesss'])
+			except:
+				hotNess = 0.0
+				continue
 
 			# Retrieve MusicBrainz ID from the insanity and cast to string
 			try:
@@ -116,11 +126,11 @@ for g in response_genre['genres']:
 			else:
 				artistName = str(a['name']).replace(",", "")
 				genreArtistList.write (artistName + ',' + yaString[12:16] + ',' + yaString[26:30] + ',' + str(famiLiar) + ',' + str(hotNess) + ',' + MbID + '\n')
-				artistGenreWrite = artistGenreWrite + 1
-				artistGenreCount = artistGenreCount + 1
+				artistGenreWrite += 1
+				artistGenreCount += 1
 
-		results = results + 100
-		startIndex = startIndex + 100
+		results += 100
+		startIndex += 100
 
 	artistTotal = artistTotal + artistGenreCount
 	artistWriteTotal = artistWriteTotal + artistGenreWrite
@@ -138,6 +148,8 @@ for g in response_genre['genres']:
 	# delete the genre file if it is empty
 	if os.stat(genresPath).st_size == 0:
             os.remove(genresPath)
+            emptyGenres += 1
+            runLog.write('The genre ' + genreName + ' has returned no artists. The file has been removed. ' + '\n')
 
 # End timing of run
 endTime = datetime.now()
@@ -153,6 +165,7 @@ runLog.write ('API Key: ' + apiKey + '\n')
 runLog.write ('Genres requested: ' + str(genreRequests) + '\n')
 runLog.write ('Genres returned: ' + str(len(response_genre['genres'])) + '\n')
 runLog.write ('Artists with date information: ' + str(artistWriteTotal) + '\n')
+runLog.write ('Empty genres: ' + str(emptyGenres) + '\n')
 runLog.write ('Total Artists returned: ' + str(artistTotal) + '\n')
 runLog.write ('Duration of run: {}'.format(endTime - startTime) + '\n') 
 runLog.write ('Genre data is saved to ../genres/' + '\n')
