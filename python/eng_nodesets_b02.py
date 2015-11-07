@@ -1,5 +1,5 @@
-# eng_nodesets_b01.py
-# Version b01
+# eng_nodesets_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # November 6th 2015
 
@@ -16,7 +16,7 @@ import os
 import resource
 from datetime import datetime
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -134,16 +134,14 @@ while setAcount < genreCount:
 
 					runLog.write ('Intersection of ' + setAlabel + ' and ' + setBlabel + ': ' + 'Elements: ' + str(elementCount) + ' SetAcount: ' + str(setAcount) + ' setBcount: ' + str(setBcount) + '\n')
 					
-					# For full data file,make circumfles ('^') seperator, to avoid problems with sets() later
 					if setAlabel:
+						# For full data file,make circumfles ('^') seperator, to avoid problems with sets() later
 						intersectData.write (setAlabel + '^' + setBlabel + '^' + str(elementCount) + '^' + intersectionStr + '\n')
 
-					# Minimal data file for initial unweighted, undirected graph
-					if setAlabel:
+						# Minimal data file for unweighted, undirected graph
 						uuGraphData.write (setAlabel + ',' + setBlabel +'\n')
 
-					# Data file for initial weighted, undirected graph
-					if setAlabel:
+						# Data file for weighted, undirected graph
 						wuGraphData.write (setAlabel + ',' + setBlabel + ',' + str(elementCount) + '\n')
 
 					intersectCount += 1
@@ -152,9 +150,6 @@ while setAcount < genreCount:
 					setBcount += 1	
 
 				else:
-					# write setA only to enable nodes with no connections
-					intersectData.write (setAlabel + '^' + setAlabel + '\n')
-
 					# write setA only to enable nodes with no connections
 					uuGraphData.write (setAlabel  + ',' + setAlabel + '\n')
 					wuGraphData.write (setAlabel + ',' + setAlabel + ',' + "0" + '\n')
@@ -172,8 +167,8 @@ intersectData.close()
 uuGraphData.close()
 wuGraphData.close()
 
-avK = intersectCount / genreCount
-avW = totalElementCount / intersectCount
+meanK = intersectCount / genreCount
+meanW = totalElementCount / intersectCount
 
 # End timing of run
 endTime = datetime.now()
@@ -185,8 +180,8 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Genres: ' + str(genreCount) + '\n')
 runLog.write ('V (nodes): ' + str(len(setList)) + '\n')
 runLog.write ('E (edges): ' + str(intersectCount) + '\n')
-runLog.write ('Average K (degree): ' + str(avK) + '\n')
-runLog.write ('Average W (weighting): ' + str(avW) + '\n')
+runLog.write ('Mean k(degree): ' + str(meanK) + '\n')
+runLog.write ('Mean w (weighting): ' + str(meanW) + '\n')
 runLog.write ('Total Intersections: ' + str(totalIntersectCount) + '\n')
 runLog.write ('Total Co-occurrence: ' + str(totalElementCount) + '\n')
 runLog.write ('Memory Used: ' + str(memUseMb) + 'Mb' + '\n')
@@ -200,8 +195,8 @@ print ('Version: ' + versionNumber)
 print ('Genres: ' + str(genreCount))
 print ('V (nodes): ' + str(len(setList)))
 print ('E (edges): ' + str(intersectCount))
-print ('Average K (degree): ' + str(avK))
-print ('Average W (weighting): ' + str(avW) )
+print ('Mean k (degree): ' + str(meanK))
+print ('Mean w (weighting): ' + str(meanW) )
 print ('Total Intersections: ' + str(totalIntersectCount))
 print ('Total Co-occurrence: ' + str(totalElementCount))
 print ('Memory Used: ' + str(memUseMb) + 'Mb')
