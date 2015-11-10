@@ -1,7 +1,7 @@
-# eng_plot_artists_b03.py
-# Version b03
+# eng_plot_artists_b04.py
+# Version b04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 26th 2015
+# November 10th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -13,11 +13,11 @@
 # import packages
 import os
 from datetime import datetime
-from collections import defaultdict
+#from collections import defaultdict
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b03")
+versionNumber = ("b04")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -28,7 +28,7 @@ if not os.path.exists("graphs"):
     os.makedirs("graphs")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_' + '_eng_plot_artists_log.txt')
+logPath = os.path.join("logs", versionNumber + '_eng_plot_artists_log.txt')
 runLog = open(logPath, 'a')
 
 # Initiate timing of run
@@ -51,15 +51,22 @@ pathname = os.path.join("data", 'eng_multi_plot_data.txt')
 dataInput = open(pathname, "r")
 	
 # define dict to store the dates and values
-years = defaultdict(int)
+years = {}
+totalArtists = 0
 
 # read lines from the file
 for line in dataInput:
 
 	# split line and update 'years'
 	year, artists = line.split(",")
-	years[year] += int (artists)
-	years.update ({int(year):int(artists)})
+
+	totalArtists += int(artists)
+
+	if year in years: 
+		years[year] += int(artists)
+
+	else:
+		years[year] = int(artists)
 
 # close input file
 dataInput.close()
@@ -73,6 +80,7 @@ for key, value in sorted(years.iteritems()):
     processedResults.write(str(key) + ',' + str(value) + '\n')
     xAxis.append(int(key))
     yAxis.append(int(value))
+print yAxis
 
 # set axes values
 x_low = (min(xAxis) - 5)
@@ -107,6 +115,7 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
+runLog.write ('Total Artists: ' + str(totalArtists) + '\n')
 runLog.write ('Results are saved to ../results/versionNumber_eng_plot_artists_data.txt' + '\n')
 runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.eps' + '\n')
 runLog.close()
@@ -116,5 +125,6 @@ print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
+print ('Total Artists: ' + str(totalArtists))
 print ('Results are saved to ../results/versionNumber_eng_plot_artists_data.txt')
 print ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.eps')
