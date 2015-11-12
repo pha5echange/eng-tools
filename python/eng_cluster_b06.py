@@ -1,7 +1,7 @@
-# eng_cluster_b05.py
-# Version b05
+# eng_cluster_b06.py
+# Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 26th 2015
+# November 12th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -17,13 +17,15 @@
 
 # New version to deal with Musicbrainz ID in data files
 
+# Min Cluster = 3
+
 # Run AFTER 'en_genre.py'
 
 # import packages
 import os
 from datetime import datetime
 
-versionNumber = ("b05")
+versionNumber = ("b06")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -48,7 +50,11 @@ startTime = datetime.now()
 runLog.write ('\n' + 'Genre Data Cluster Finder | ' + 'Version: ' + versionNumber + '\n' + '\n')
 print ('\n' + 'Genre Data Cluster Finder | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
-clusterInput = int(input ("Enter the percentage of the artists that equates to a cluster: "))
+clusterInput = int(input ("Enter the percentage of artists that equates to a cluster (enter 0 to enter a specific number of artists): "))
+if clusterInput == 0:
+	minArtistNumber = int(input("Enter a specific number of artists that equates to a cluster: "))
+else:
+	minArtistNumber = 0
 
 # open files for reading
 for index in range(len(fileNames)):
@@ -92,17 +98,20 @@ for index in range(len(fileNames)):
 	maxIndex = len(genreStartDates)
 
 	# variable for deciding what a cluster is - at least 3 artists in this instance, or a percentage of the total
-	divisor = int (100 / clusterInput)
-	minClusterSize = int(maxIndex / divisor)
-	if minClusterSize < 3:
-		minClusterSize = 3
+	if not minArtistNumber:
+		divisor = int (100 / clusterInput)
+		minClusterSize = int(maxIndex / divisor)
+		if minClusterSize < 3:
+			minClusterSize = 3
+	else:
+		minClusterSize = minArtistNumber
 
 	clusters = set()
 
 	while (index + 1) < maxIndex:
 		if genreStartDates[index] != 0:
-			if genreStartDates[index] == genreStartDates [index + 1]:
-				clusterNumber = clusterNumber + 1
+			if genreStartDates[index] == genreStartDates[index + 1]:
+				clusterNumber += 1
 
 				runLog.write('\n' + 'Match found: ' + str(genreStartDates[index]) + '\n')
 				runLog.write('Genre: ' + str(genreLabel) + '\n')
@@ -134,6 +143,8 @@ for index in range(len(fileNames)):
 					print('Cluster Number: ' + str(clusterNumber))
 					print
 
+					clusterNumber = 1
+
 			# if not a match, then reset cluster number to '1' and mark as 'no match'
 			else:
 				clusterNumber = 1
@@ -150,9 +161,6 @@ for index in range(len(fileNames)):
 				print('Artists: ' + str(artistNames[index]) + ' and ' + str(artistNames[index + 1]))
 				print('Cluster Number: ' + str(clusterNumber))
 				print
-
-			# move index along one place to try the next match
-			index = index + 1
 
 		else:
 			clusterNumber = 1
@@ -171,8 +179,7 @@ for index in range(len(fileNames)):
 			print
 
 		# move index along one place to try the next match
-		index = index + 1
-
+		index += 1
 
 		# add clusterDates to a set to remove duplicate entries
 		clusters = set(clusterDates)
@@ -221,6 +228,8 @@ endTime = datetime.now()
 runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Percentage of artists that equates to a cluster: ' + str(clusterInput) + '%' + '\n')
+runLog.write ('OR' + '\n')
+runLog.write ('Absolute number of artists that equates to a cluster: ' + str(minArtistNumber) + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.close()
@@ -229,5 +238,7 @@ runLog.close()
 print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Percentage of artists that equates to a cluster: ' + str(clusterInput) + '%')
+print ('OR')
+print ('Absolute number of artists that equates to a cluster: ' + str(minArtistNumber))
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
