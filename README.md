@@ -3,7 +3,7 @@ ENG-Tools beta v. 06
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-November 6th 2015
+November 12th 2015
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -16,6 +16,8 @@ LICENCE:
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
+
+- 'eng_cluster' updated to accept absolute artist numbers (as well as %)
 
 - 'eng_weighted_network' and 'eng_network' can optionally remove zero-degree nodes.
 
