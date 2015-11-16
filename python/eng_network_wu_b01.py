@@ -1,7 +1,7 @@
-# eng_weighted_network_a09.py
-# Version a09
+# eng_network_wu_b01.py
+# Version b01
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 6th 2015
+# November 16th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -9,8 +9,7 @@
 # Displays using parameters from 'config_nw.txt'
 # Writes 'weighted_nodeList.txt' with nodes and degrees (k) for each
 # Writes eps image to 'networks\..'
-# Removes self-loop edges
-# Removes zero-degree nodes if required (commented out at present)
+# Removes self-loop edges zero-degree nodes if required
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -21,7 +20,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-versionNumber = ("a09")
+versionNumber = ("b01")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -39,21 +38,33 @@ if not os.path.exists("logs"):
 if not os.path.exists("networks"):
     os.makedirs("networks")
 
+# create 'gexf' subdirectory if necessary
+if not os.path.exists("gexf"):
+	os.makedirs("gexf")
+
+# open file for writing gexf
+gexfPath = os.path.join("gexf", versionNumber + '_eng_network_wu.gexf')
+gexfFile = open(gexfPath, 'w')
+
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_weighted_network_log.txt')
+logPath = os.path.join("logs", versionNumber + '_eng_network_wu_log.txt')
 runLog = open(logPath, 'a')
 
 # Open file to write list of nodes
-nodeListPath = os.path.join("data", versionNumber + '_weighted_nodeList.txt')
+nodeListPath = os.path.join("data", versionNumber + '_wu_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
 # Open file to write image
-nwImgPath = os.path.join("networks", versionNumber + '_' + str(startTime) + '_wuNw.eps')
+nwImgPath = os.path.join("networks", versionNumber + '_' + str(startTime) + '_wu_Nw.eps')
 nwImg = open (nwImgPath, 'w')
 
 # Begin
-print ('\n' + 'Weighted Graph Drawing Thing | Version ' + versionNumber + ' | Starting...')
-runLog.write ('Weighted Graph Drawing Thing | Version ' + versionNumber + '\n' + '\n')
+print ('\n' + 'Weighted Network Thing | Version ' + versionNumber + ' | Starting...')
+runLog.write ('Weighted Network Thing | Version ' + versionNumber + '\n' + '\n')
+
+print
+selfLoopIP = int(input ("Enter 0 here to remove self-loop edges: "))
+isolatedIP = int(input ("Enter 0 here to remove isolated nodes: "))
 
 # Read the edgelist
 print ('\n' + 'Importing Weighted Edge List...')
@@ -67,6 +78,7 @@ nodes = nx.number_of_nodes(enGraph)
 edges = nx.number_of_edges(enGraph)
 density = nx.density(enGraph)
 nodeList = nx.nodes(enGraph)
+nodeList.sort()
 selfLoopEdges = enGraph.number_of_selfloops()
 connections = edges - selfLoopEdges
 
@@ -81,17 +93,31 @@ runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
-# Remove self-loops
-print ('\n' + 'Removing self-loops...')
-for u,v,data in enGraph.edges(data=True):
-	if u == v:
-		enGraph.remove_edge(u,v)
+if selfLoopIP == 0:
+	# Remove self-loops
+	print ('\n' + 'Removing self-loops...')
+	runLog.write('Removing self-loops...' + '\n' + '\n')
+	for u,v,data in enGraph.edges(data=True):
+		if u == v:
+			enGraph.remove_edge(u,v)
+			print ('removed self-loop')
+else:
+	print ('\n' + 'Self-loops intact.')
+	runLog.write('\n' + 'Self-loops intact.' + '\n')
 
-# Cleaning edge-labels
-print ('\n' + 'Cleaning edge labels...')
-labels = {}
-for u,v,data in enGraph.edges(data=True):
-	labels[(u,v)] = int(data ['weight'])
+
+if isolatedIP == 0:
+	# remove zero degree nodes
+	print ('\n' + 'Removing isolated nodes...' +'\n')
+	runLog.write ('\n' + 'Isolated nodes removed:' +'\n' + '\n')
+	for i in nodeList:
+		if nx.is_isolate(enGraph,i):
+			enGraph.remove_node(i)
+			print ('removed node ' + str(i))
+			runLog.write('Removed node ' + str(i) +'\n')
+else:
+	print ('\n' + 'Isolated nodes intact.')
+	runLog.write('\n' + 'Isolated nodes intact.' + '\n')
 
 # Write file with nodes and degree,for reference
 print ('\n' + 'Writing node list...')
@@ -101,14 +127,11 @@ for i in nodeList:
 
 nodeListOP.close()
 
-# remove zero degree nodes
-#print ('\n' + 'Removing isolated nodes...' +'\n')
-#runLog.write ('\n' + 'Isolated nodes removed:' +'\n' + '\n')
-#for i in nodeList:
-#	if nx.is_isolate(enGraph,i):
-#		enGraph.remove_node(i)
-#		print ('removed node ' + str(i))
-#		runLog.write('Removed node ' + str(i) +'\n')
+# Cleaning edge-labels
+print ('\n' + 'Cleaning edge labels...')
+labels = {}
+for u,v,data in enGraph.edges(data=True):
+	labels[(u,v)] = int(data ['weight'])
 
 print ('\n' + 'Recalculating various things...' + '\n')
 newNodes = nx.number_of_nodes(enGraph)
@@ -123,6 +146,10 @@ runLog.write ('\n' + 'Intermediate data: ' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(newNodes) + '\n')
 runLog.write ('Edges: ' + str(newEdges) + '\n')
 runLog.write ('Density: ' + str(newDensity) + '\n')
+
+# write gexf file
+nx.write_gexf(enGraph, gexfFile)
+gexfFile.close()
 
 # NetworkX analysis algorithms
 print ('\n' + 'Analysing graph...')
@@ -168,14 +195,16 @@ nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos
 
 print ('\n' + 'Writing image file...')
 plt.savefig(nwImg, format = 'eps')
+nwImg.close()
 
 print ('\n' + 'Displaying graph...')
 plt.show()
 
+# Memory use
+memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
+
 # End timing of run
 endTime = datetime.now()
-
-memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
 
 runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
@@ -192,6 +221,7 @@ runLog.write ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath) + '\n')
 runLog.write ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath) + '\n')
 runLog.write ('Shortest Path - Rap to Classical: ' + str(rapToClassicalShortPath) + '\n')
 runLog.write ('Shortest Path - Jazz to Classical: ' + str(jazzToClassicalShortPath) + '\n')
+runLog.close()
 
 print ('\n' + 'Final Run Information' + '\n')
 print ('Date of run: {}'.format(runDate))

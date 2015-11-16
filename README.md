@@ -3,7 +3,7 @@ ENG-Tools beta v. 06
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-November 12th 2015
+November 16th 2015
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -17,15 +17,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
 
+- 'eng_network_wu' and 'eng_network' can optionally remove self-loops and zero-degree nodes.
+
 - 'eng_cluster' updated to accept absolute artist numbers (as well as %)
 
-- 'eng_weighted_network' and 'eng_network' can optionally remove zero-degree nodes.
+- 'config_nw.txt' configures network layout. 
 
-- 'config_nw.txt' configures graph layout. 
-
-- 'eng_weighted_network' now removes self-loops and cleans edge-weight labels.
-
-- 'eng_weighted_network' takes 'eng_nodesets' weighted edgelist and plots a network. 
+- 'eng_network_wu' takes 'eng_nodesets' weighted edgelist and plots an undirected network. 
 
 - 'eng_network' takes 'eng_nodesets' edgelist and plots a network. 
 
@@ -85,7 +83,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
 
-13) The output files from this ('uuGraph_data' and 'wuGraph_data') can then be processed with 'eng_network' and 'eng_weighted_network'.
+13) The output files from this ('uuGraph_data' and 'wuGraph_data') can then be processed with 'eng_network' and 'eng_network_wu'.
 
 14) Network layout parameters can be edited in 'config_nw.txt'.
 
@@ -123,7 +121,7 @@ MANIFEST:
 
 (16) eng_network.py
 
-(17) eng_weighted_network.py
+(17) eng network_wu.py
 
 (18) apikey.txt
 
