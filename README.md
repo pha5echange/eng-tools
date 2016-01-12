@@ -3,7 +3,7 @@ ENG-Tools beta v. 06
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-November 16th 2015
+January 12th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -16,6 +16,10 @@ LICENCE:
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
+
+- 'eng_cdr' generates 'data\artistNums.txt' for use (later) by 'eng_network_wd.py'
+
+- 'eng_network_wd' adds genre start dates and generates directed graph GEXF file.
 
 - 'eng_network_wu' and 'eng_network' can optionally remove self-loops and zero-degree nodes.
 
@@ -123,6 +127,8 @@ MANIFEST:
 
 (17) eng network_wu.py
 
-(18) apikey.txt
+(18) eng_network_wd.py
 
-(19) config_nw.txt
+(19) apikey.txt
+
+(20) config_nw.txt
