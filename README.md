@@ -1,9 +1,9 @@
-ENG-Tools beta v. 06
+ENG-Tools beta v. 07
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
-January 12th 2016
+January 14th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -16,6 +16,8 @@ LICENCE:
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
+
+- 'en_genre' generates a list of removed (empty) genres.
 
 - 'eng_cdr' generates 'data\artistNums.txt' for use (later) by 'eng_network_wd.py'
 
