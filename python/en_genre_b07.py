@@ -71,6 +71,9 @@ apiKey = str(apiKeyFile.read())
 en = pyen.Pyen(apiKey)
 response_genre = en.get('genre/list', results = [genreRequests])
 
+# Initiate 'removedGenres' list
+removedGenres = []
+
 # run through 'genres' writing results to 'genreArtistList'
 for g in response_genre['genres']:
 
@@ -80,7 +83,6 @@ for g in response_genre['genres']:
 	genreArtistList = open(genresPath, 'w')
 
 	# define indexing variables for genre artist responses
-	removedGenres = []
 	startIndex = 0
 	results = 0
 	artistGenreCount = 0
