@@ -141,7 +141,9 @@ for g in response_genre['genres']:
 	genreArtistList.close()
 
 	runLog.write ('Genre: ' + genreName + ' Artists returned: ' + str(artistGenreCount) + ' Artists written: ' + str(artistGenreWrite) + '\n')
-	dateRatios.write (genreName + ',' + str(artistGenreCount) + ',' + str(artistGenreWrite) + '\n')
+
+	while artistGenreWrite != 0:
+		dateRatios.write (genreName + ',' + str(artistGenreCount) + ',' + str(artistGenreWrite) + '\n')
 
 	# display progress
 	print ('\n' + genreName)
