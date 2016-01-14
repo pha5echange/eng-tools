@@ -142,20 +142,21 @@ for g in response_genre['genres']:
 
 	runLog.write ('Genre: ' + genreName + ' Artists returned: ' + str(artistGenreCount) + ' Artists written: ' + str(artistGenreWrite) + '\n')
 
-	while artistGenreWrite != 0:
-		dateRatios.write (genreName + ',' + str(artistGenreCount) + ',' + str(artistGenreWrite) + '\n')
-
 	# display progress
 	print ('\n' + genreName)
 	print ('Genre Artists returned: ' + str(artistGenreCount))
 	print ('Genre Artists written: ' + str(artistGenreWrite))
 
+	# write to 'date_ratios.txt' if not empty
+	if artistGenreWrite != 0:
+		dateRatios.write (genreName + ',' + str(artistGenreCount) + ',' + str(artistGenreWrite) + '\n')
+
 	# delete the genre file if it is empty
 	if os.stat(genresPath).st_size == 0:
-            os.remove(genresPath)
-            emptyGenres += 1
-            runLog.write('The genre ' + genreName + ' has returned no artists. The file has been removed. ' + '\n')
-            removedGenres.append(genreName)
+    		os.remove(genresPath)
+    		emptyGenres += 1
+    		runLog.write('The genre ' + genreName + ' has returned no artists. The file has been removed. ' + '\n')
+    		removedGenres.append(genreName)
 
 # End timing of run
 endTime = datetime.now()
