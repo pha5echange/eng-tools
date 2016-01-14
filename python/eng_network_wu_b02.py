@@ -1,13 +1,14 @@
-# eng_network_wu_b01.py
-# Version b01
+# eng_network_wu_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 16th 2015
+# November 17th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Plots network graph from edgelist 'wuGraphData.txt'
 # Displays using parameters from 'config_nw.txt'
 # Writes 'weighted_nodeList.txt' with nodes and degrees (k) for each
+# Writes analysis file to 'results\'
 # Writes eps image to 'networks\..'
 # Removes self-loop edges zero-degree nodes if required
 
@@ -17,10 +18,11 @@
 import os
 import resource
 import networkx as nx
+from networkx.algorithms.approximation import clique
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -34,33 +36,42 @@ if not os.path.exists("data"):
 if not os.path.exists("logs"):
     os.makedirs("logs")
 
-# create 'networks' subdirectory if necessary
-if not os.path.exists("networks"):
-    os.makedirs("networks")
-
 # create 'gexf' subdirectory if necessary
 if not os.path.exists("gexf"):
 	os.makedirs("gexf")
 
-# open file for writing gexf
-gexfPath = os.path.join("gexf", versionNumber + '_eng_network_wu.gexf')
-gexfFile = open(gexfPath, 'w')
+# create 'results' subdirectory if necessary
+if not os.path.exists("results"):
+	os.makedirs("results")
+
+# create 'networks' subdirectory if necessary
+if not os.path.exists("networks"):
+    os.makedirs("networks")
+
+# open file to write list of nodes
+nodeListPath = os.path.join("data", versionNumber + '_wu_nodeList.txt')
+nodeListOP = open (nodeListPath, 'w') 
 
 # open file for writing log
 logPath = os.path.join("logs", versionNumber + '_eng_network_wu_log.txt')
 runLog = open(logPath, 'a')
 
-# Open file to write list of nodes
-nodeListPath = os.path.join("data", versionNumber + '_wu_nodeList.txt')
-nodeListOP = open (nodeListPath, 'w') 
+# open file for writing gexf
+gexfPath = os.path.join("gexf", versionNumber + '_eng_network_wu.gexf')
+gexfFile = open(gexfPath, 'w')
+
+# open file for analysis results
+anPath = os.path.join("results", versionNumber + '_eng_network_wu_analysis.txt')
+anFile = open(anPath, 'w')
 
 # Open file to write image
-nwImgPath = os.path.join("networks", versionNumber + '_' + str(startTime) + '_wu_Nw.eps')
-nwImg = open (nwImgPath, 'w')
+#nwImgPath = os.path.join("networks", versionNumber + '_' + str(startTime) + '_wu_Nw.eps')
+#nwImg = open (nwImgPath, 'w')
 
 # Begin
 print ('\n' + 'Weighted Network Thing | Version ' + versionNumber + ' | Starting...')
 runLog.write ('Weighted Network Thing | Version ' + versionNumber + '\n' + '\n')
+anFile.write ('Weighted Network Thing | Version ' + versionNumber + '\n' + '\n')
 
 print
 selfLoopIP = int(input ("Enter 0 here to remove self-loop edges: "))
@@ -95,16 +106,15 @@ runLog.write ('Density: ' + str(density) + '\n')
 
 if selfLoopIP == 0:
 	# Remove self-loops
-	print ('\n' + 'Removing self-loops...')
-	runLog.write('Removing self-loops...' + '\n' + '\n')
+	print ('\n' + 'Removing self-loops...' + '\n')
+	runLog.write('\n' + 'Removing self-loops...' + '\n')
 	for u,v,data in enGraph.edges(data=True):
 		if u == v:
 			enGraph.remove_edge(u,v)
-			print ('removed self-loop')
+			print ('removed self-loop ' + str(u))
 else:
 	print ('\n' + 'Self-loops intact.')
 	runLog.write('\n' + 'Self-loops intact.' + '\n')
-
 
 if isolatedIP == 0:
 	# remove zero degree nodes
@@ -153,9 +163,20 @@ gexfFile.close()
 
 # NetworkX analysis algorithms
 print ('\n' + 'Analysing graph...')
-nodeConnect = nx.node_connectivity(enGraph)
+print ('Average clustering coefficient...')
 avClustering = nx.average_clustering(enGraph)
+print ('Laplacian spectrum...')
 eigenArray = nx.laplacian_spectrum(enGraph)
+print ('Connected components...')
+connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
+print ('Clique removal...')
+cliqueRemoval = clique.clique_removal(enGraph)
+print ('Node connectivity...')
+nodeConnect = nx.node_connectivity(enGraph)
+print ('Average node connectivity...')
+avNodeConnect = nx.average_node_connectivity(enGraph)
+print ('Edge connectivity...')
+edgeConnect = nx.edge_connectivity(enGraph)
 
 # various shortest paths, just to see...
 rockToRapShortPath = nx.shortest_path(enGraph,source='rock',target='rap')
@@ -186,19 +207,19 @@ label_pos = float(l_pos)
 edge_text_size = int(e_text_size)
 
 print ('\n' + 'Laying out graph...' + '\n')
-# nx.draw(enGraph)
+#nx.draw(enGraph)
 graph_pos = nx.spring_layout(enGraph)
 nx.draw_networkx_nodes(enGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
 nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
 nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
 nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
-print ('\n' + 'Writing image file...')
-plt.savefig(nwImg, format = 'eps')
-nwImg.close()
+#print ('\n' + 'Writing image file...')
+#plt.savefig(nwImg, format = 'eps')
+#nwImg.close()
 
-print ('\n' + 'Displaying graph...')
-plt.show()
+#print ('\n' + 'Displaying graph...')
+#plt.show()
 
 # Memory use
 memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
@@ -210,18 +231,25 @@ runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Memory Used: ' + str(memUseMb) + 'Mb' + '\n' + '\n')
-runLog.write ('Nodes: ' + str(newNodes) + '\n')
-runLog.write ('Edges: ' + str(newEdges) + '\n')
-runLog.write ('Density: ' + str(newDensity) + '\n')
-runLog.write ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect) + '\n')
-runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-runLog.write ('\n' + 'Shortest Path - Rock to Rap: ' + str(rockToRapShortPath) + '\n')
-runLog.write ('Shortest Path - Rock to Jazz: ' + str(rockToJazzShortPath) + '\n')
-runLog.write ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath) + '\n')
-runLog.write ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath) + '\n')
-runLog.write ('Shortest Path - Rap to Classical: ' + str(rapToClassicalShortPath) + '\n')
-runLog.write ('Shortest Path - Jazz to Classical: ' + str(jazzToClassicalShortPath) + '\n')
 runLog.close()
+
+anFile.write ('Date of run: {}'.format(runDate) + '\n')
+anFile.write ('Nodes: ' + str(newNodes) + '\n')
+anFile.write ('Edges: ' + str(newEdges) + '\n')
+anFile.write ('Density: ' + str(newDensity) + '\n')
+anFile.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
+anFile.write ('Connected Components: ' + str(connectComp) + '\n' + '\n')
+anFile.write ('Clique Removal: ' + str(cliqueRemoval) + '\n' + '\n')
+anFile.write ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect) + '\n')
+anFile.write ('Average Node Connectivity: ' + str(avNodeConnect) + '\n')
+anFile.write ('Edge Connectivity: ' + str(edgeConnect) + '\n')
+anFile.write ('\n' + 'Shortest Path - Rock to Rap: ' + str(rockToRapShortPath) + '\n')
+anFile.write ('Shortest Path - Rock to Jazz: ' + str(rockToJazzShortPath) + '\n')
+anFile.write ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath) + '\n')
+anFile.write ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath) + '\n')
+anFile.write ('Shortest Path - Rap to Classical: ' + str(rapToClassicalShortPath) + '\n')
+anFile.write ('Shortest Path - Jazz to Classical: ' + str(jazzToClassicalShortPath) + '\n')
+anFile.close()
 
 print ('\n' + 'Final Run Information' + '\n')
 print ('Date of run: {}'.format(runDate))
@@ -230,9 +258,17 @@ print ('Memory Used: ' + str(memUseMb) + 'Mb')
 print ('Nodes: ' + str(newNodes))
 print ('Edges: ' + str(newEdges))
 print ('Density: ' + str(newDensity))
-print ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect))
 print ('Average Clustering Coefficient: ' + str(avClustering))
-print ('\n' + 'Shortest Path - Rock to Rap: ' + str(rockToRapShortPath))
+print ('Laplacian Spectrum: ')
+print (eigenArray)
+print
+print ('Connected Components: ' + str(connectComp) + '\n')
+print ('Clique Removal: ' + str(cliqueRemoval) + '\n')
+print ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect))
+print ('Average Node Connectivity: ' + str(avNodeConnect))
+print ('Edge Connectivity: ' + str(edgeConnect))
+print
+print ('Shortest Path - Rock to Rap: ' + str(rockToRapShortPath))
 print ('Shortest Path - Rock to Jazz: ' + str(rockToJazzShortPath))
 print ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath))
 print ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath))

@@ -7,6 +7,7 @@
 
 # Plots network graph from edgelist 'data\wuGraphData.txt'
 # Adds dates from 'data\first_clusters.txt' as node attributes
+# Adds artist numbers from 'data\eng_artistNums.txt' as node attributes
 # Removes nodes where date-cluster information is not available
 # Removes self-loop edges and zero-degree nodes if required
 # Displays using parameters from 'config_nw.txt'
@@ -116,17 +117,24 @@ runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
-# Remove self-loops
-if selfLoopIP == 0:
-	print ('\n' + 'Removing self-loops...' + '\n')
-	runLog.write('\n' + 'Removing self-loops...' + '\n')
-	for u,v,data in enGraph.edges(data=True):
-		if u == v:
-			enGraph.remove_edge(u,v)
-			print ('removed self-loop ' + str(u))
-else:
-	print ('\n' + 'Self-loops intact.')
-	runLog.write('\n' + 'Self-loops intact.' + '\n')
+# Generate dictionary containing nodenames and artist numbers (from 'data\eng_artistNums.txt')
+artistInputPath = os.path.join("data", 'eng_artistNums.txt')
+artistInput = open(artistInputPath, 'r')
+
+artistDict = {}
+
+for line in artistInput:
+	genreInput, artistNum, newline = line.split(",")
+	genreName = str(genreInput).replace(" ", "")
+	artistDict[genreName] = artistNum
+
+sortArtists = OrderedDict(sorted(artistDict.items()))
+print sortArtists
+anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
+
+# Apply artist numbers of nodes as attributes
+print ('\n' + 'Applying artist number attribute to nodes...')
+nx.set_node_attributes (enGraph, 'artists', sortArtists)
 
 # Generate dictionary containing nodenames and dates (from 'data\first_cluster.txt')
 dateInputPath = os.path.join("data", 'first_cluster.txt')
@@ -174,6 +182,18 @@ if isolatedIP == 0:
 else:
 	print ('\n' + 'Isolated nodes intact.')
 	runLog.write('\n' + 'Isolated nodes intact.' + '\n')
+
+# Remove self-loops
+if selfLoopIP == 0:
+	print ('\n' + 'Removing self-loops...' + '\n')
+	runLog.write('\n' + 'Removing self-loops...' + '\n')
+	for u,v,data in enGraph.edges(data=True):
+		if u == v:
+			enGraph.remove_edge(u,v)
+			print ('removed self-loop ' + str(u))
+else:
+	print ('\n' + 'Self-loops intact.')
+	runLog.write('\n' + 'Self-loops intact.' + '\n')
 
 # Clean edge-labels
 print ('\n' + 'Cleaning edge labels...')

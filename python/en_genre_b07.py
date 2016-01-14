@@ -1,7 +1,7 @@
-# en_genre_b06.py
-# Version b06
+# en_genre_b07.py
+# Version b07
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 6th 2015
+# January 14th 2015
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -27,7 +27,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b06")
+versionNumber = ("b07")
 
 # define indexing variables for total artist responses
 artistTotal = 0
@@ -80,6 +80,7 @@ for g in response_genre['genres']:
 	genreArtistList = open(genresPath, 'w')
 
 	# define indexing variables for genre artist responses
+	removedGenres = []
 	startIndex = 0
 	results = 0
 	artistGenreCount = 0
@@ -150,6 +151,7 @@ for g in response_genre['genres']:
             os.remove(genresPath)
             emptyGenres += 1
             runLog.write('The genre ' + genreName + ' has returned no artists. The file has been removed. ' + '\n')
+            removedGenres.append(genreName)
 
 # End timing of run
 endTime = datetime.now()
@@ -166,6 +168,7 @@ runLog.write ('Genres requested: ' + str(genreRequests) + '\n')
 runLog.write ('Genres returned: ' + str(len(response_genre['genres'])) + '\n')
 runLog.write ('Artists with date information: ' + str(artistWriteTotal) + '\n')
 runLog.write ('Empty genres: ' + str(emptyGenres) + '\n')
+runLog.write ('Removed Genres: ' + str(removedGenres) + '\n')
 runLog.write ('Total Artists returned: ' + str(artistTotal) + '\n')
 runLog.write ('Duration of run: {}'.format(endTime - startTime) + '\n') 
 runLog.write ('Genre data is saved to ../genres/' + '\n')
@@ -180,6 +183,8 @@ print ('API Key: ' + apiKey)
 print ('Genres requested: ' + str(genreRequests))
 print ('Genres returned: ' + str(len(response_genre['genres'])))
 print ('Artists with date information: ' + str(artistWriteTotal))
+print ('Empty genres: ' + str(emptyGenres))
+print ('Removed Genres: ' + str(removedGenres))
 print ('Total Artists returned: ' + str(artistTotal))
 print ('Duration of run: {}'.format(endTime - startTime)) 
 print ('Genre data is saved to ../genres/')
