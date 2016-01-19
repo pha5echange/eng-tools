@@ -170,9 +170,22 @@ if noDateNode > 1:
 print ('\n' + 'Applying date attribute to nodes...')
 nx.set_node_attributes (enGraph, 'Date', sortDates)
 
+# Remove self-loops
+if selfLoopIP == 0:
+	print ('\n' + 'Checking for and removing self-loops...' + '\n')
+	runLog.write('\n' + 'Checking for and removing self-loops...' + '\n')
+	for u,v,data in enGraph.edges(data=True):
+		if u == v:
+			enGraph.remove_edge(u,v)
+			print ('removed self-loop ' + str(u))
+else:
+	print ('Self-loops intact.' + '\n')
+	runLog.write('\n' + 'Self-loops intact.' + '\n')
+
 # Remove zero degree nodes
 if isolatedIP == 0:
 	print ('\n' + 'Checking for and removing isolated (zero degree) nodes...' +'\n')
+	runLog.write('\n' + 'Checking for and removing isolated (zero degree) nodes...' +'\n')
 	for i in nodeList:
 		if nx.is_isolate(enGraph,i):
 			enGraph.remove_node(i)
@@ -181,18 +194,6 @@ if isolatedIP == 0:
 else:
 	print ('Isolated nodes intact.' + '\n')
 	runLog.write('\n' + 'Isolated nodes intact.' + '\n')
-
-# Remove self-loops
-if selfLoopIP == 0:
-	print ('Checking for and removing self-loops...' + '\n')
-	runLog.write('\n' + 'Checking for and removing self-loops...' + '\n')
-	for u,v,data in enGraph.edges(data=True):
-		if u == v:
-			enGraph.remove_edge(u,v)
-			print ('removed self-loop ' + str(u))
-else:
-	print ('\n' + 'Self-loops intact.')
-	runLog.write('\n' + 'Self-loops intact.' + '\n')
 
 # Clean edge-labels
 print ('\n' + 'Cleaning edge labels...')
