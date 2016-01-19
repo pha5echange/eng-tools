@@ -1,7 +1,7 @@
-# eng_cdr_b04.py
-# Version b04
+# eng_cdr_b05.py
+# Version b05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# January 19th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -16,7 +16,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b04")
+versionNumber = ("b05")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -59,11 +59,12 @@ for line in dataInput:
 
 	# split line, calculate and write results
 	genre, returned, written = line.split(",")
+	intWritten = int(written)
 	floatWritten = float(written)
 	floatReturned = float(returned)
 	dateRatio = float(floatWritten/floatReturned * 100)
 	processedResults.write(genre + ',' + str(dateRatio) + '\n')
-	artistNums.write(genre + ',' + str(returned) + ',' + '\n')
+	artistNums.write(genre + ',' + str(intWritten) + ',' + '\n')
 	print('Genre: ' + genre + ' Percentage of artists with dates: ' + str(dateRatio))
 
 # close input file

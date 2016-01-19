@@ -1,7 +1,7 @@
-# eng_network_wd_b07.py
-# Version b07
+# eng_network_wd_b08.py
+# Version b08
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# January 19th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b07")
+versionNumber = ("b08")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -129,11 +129,10 @@ for line in artistInput:
 	artistDict[genreName] = artistNum
 
 sortArtists = OrderedDict(sorted(artistDict.items()))
-print sortArtists
 anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
 
 # Apply artist numbers of nodes as attributes
-print ('\n' + 'Applying artist number attribute to nodes...')
+print ('Applying artist number attribute to nodes...' + '\n')
 nx.set_node_attributes (enGraph, 'artists', sortArtists)
 
 # Generate dictionary containing nodenames and dates (from 'data\first_cluster.txt')
@@ -148,12 +147,11 @@ for line in dateInput:
 	dateDict[genreName] = genreDate
 
 sortDates = OrderedDict(sorted(dateDict.items()))
-print sortDates
 anFile.write('Sorted genre dates: ' + str(sortDates) + '\n' + '\n')
 
 # Discard nodes without first-cluster dates
 noDateNode = 0
-print ('\n' + 'Checking for nodes with dates...' + '\n')
+print ('Checking for nodes with inception dates...' + '\n')
 for i in nodeList:
 	if not i in sortDates.keys():
 		enGraph.remove_node(i)
@@ -161,10 +159,12 @@ for i in nodeList:
 		noDateNode += 1
 
 if noDateNode == 1:
-	print ('\n' + 'Removed ' + str(noDateNode) + ' node.')
+	print ('\n' + 'Removed ' + str(noDateNode) + ' node due to no inception date.')
+	runLog.write ('\n' + 'Removed ' + str(noDateNode) + ' node due to no inception date.' + '\n')
 
 if noDateNode > 1:
-	print ('\n' + 'Removed ' + str(noDateNode) + ' nodes.')
+	print ('\n' + 'Removed ' + str(noDateNode) + ' nodes due to no inception dates.')
+	runLog.write ('\n' + 'Removed ' + str(noDateNode) + ' nodes due to no inception dates.' + '\n')
 
 # Apply dates of nodes as attributes
 print ('\n' + 'Applying date attribute to nodes...')
@@ -172,21 +172,20 @@ nx.set_node_attributes (enGraph, 'Date', sortDates)
 
 # Remove zero degree nodes
 if isolatedIP == 0:
-	print ('\n' + 'Removing isolated nodes...' +'\n')
-	runLog.write ('Isolated nodes removed:' +'\n' + '\n')
+	print ('\n' + 'Checking for and removing isolated (zero degree) nodes...' +'\n')
 	for i in nodeList:
 		if nx.is_isolate(enGraph,i):
 			enGraph.remove_node(i)
-			print ('removed node ' + str(i))
-			runLog.write('Removed node ' + str(i) +'\n')
+			print ('Removed isolated node ' + str(i))
+			runLog.write('Removed isolated node ' + str(i) +'\n')
 else:
-	print ('\n' + 'Isolated nodes intact.')
+	print ('Isolated nodes intact.' + '\n')
 	runLog.write('\n' + 'Isolated nodes intact.' + '\n')
 
 # Remove self-loops
 if selfLoopIP == 0:
-	print ('\n' + 'Removing self-loops...' + '\n')
-	runLog.write('\n' + 'Removing self-loops...' + '\n')
+	print ('Checking for and removing self-loops...' + '\n')
+	runLog.write('\n' + 'Checking for and removing self-loops...' + '\n')
 	for u,v,data in enGraph.edges(data=True):
 		if u == v:
 			enGraph.remove_edge(u,v)
@@ -226,25 +225,25 @@ for i in newNodeList:
 
 nodeListOP.close()
 
-# Write gexf file for use in Gephi
-print ('\n' + 'Writing gexf file...')
+# Write undirected gexf file for use in Gephi
+print ('\n' + 'Writing undirected gexf file...')
 nx.write_gexf(enGraph, gexfFile)
 gexfFile.close()
 
 # NetworkX analysis algorithms
-print ('\n' + 'Analysing graph...')
-print ('Average clustering coefficient...')
+print ('\n' + 'Analysing graph...' + '\n')
+print ('Average clustering coefficient...' + '\n')
 avClustering = nx.average_clustering(enGraph)
-print ('Laplacian spectrum...')
+print ('Laplacian spectrum...' + '\n')
 eigenArray = nx.laplacian_spectrum(enGraph)
-print ('Connected components...')
+print ('Connected components...' + '\n')
 connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-print ('Find cliques...')
+print ('Find cliques...' + '\n')
 cl = nx.find_cliques(enGraph)
 cl = sorted(list(cl), key = len, reverse = True)
-print ('Number of cliques: ' + str(len(cl)))
+print ('Number of cliques: ' + str(len(cl)) + '\n')
 cl_sizes = [len(c) for c in cl]
-print ('Size of cliques: ' + str(cl_sizes) + '\n')
+print ('Size of cliques: ' + str(cl_sizes))
 
 '''
 print ('Clique removal...')
@@ -265,15 +264,19 @@ rapToClassicalShortPath = nx.shortest_path(enGraph,source='rap',target='classica
 jazzToClassicalShortPath = nx.shortest_path(enGraph,source='jazz',target='classical')
 '''
 
+# Work out how to direct graph based on dates and implement here
+
 # Write directed graph gexf
 diEnGraph = nx.DiGraph()
 diEnGraph.add_nodes_from(enGraph)
 diEnGraph.add_edges_from(enGraph.edges())
+
+print ('\n' + 'Writing directed gexf file...' + '\n')
 nx.write_gexf(diEnGraph, gexfDFile)
 gexfDFile.close()
 
 # Graph plotting parameters - moved to config file 'config_nw.txt'
-print ('\n' + 'Reading layout config file...')
+print ('Reading layout config file...' + '\n')
 
 # Open and read 'config_nw.txt'
 nwConfig = open('config_nw.txt').readlines()
@@ -292,7 +295,8 @@ edge_alpha = float(e_alpha)
 label_pos = float(l_pos)
 edge_text_size = int(e_text_size)
 
-print ('\n' + 'Laying out graph...' + '\n')
+print ('Laying out graph...' + '\n')
+
 #nx.draw(enGraph)
 graph_pos = nx.spring_layout(enGraph)
 nx.draw_networkx_nodes(enGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
@@ -300,13 +304,14 @@ nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_
 nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
 nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
-# write image file and display graph
-'''
-print ('\n' + 'Writing image file...')
+# write image file
+print ('Writing image file...' + '\n')
 plt.savefig(nwImg, format = 'png')
 nwImg.close()
 
-print ('\n' + 'Displaying graph...')
+'''
+# display graph
+print ('Displaying graph...' + '\n')
 plt.show()
 ''' 
 
@@ -317,22 +322,26 @@ memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
 endTime = datetime.now()
 
 runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
-runLog.write ('Date of run: {}'.format(runDate) + '\n')
+runLog.write ('Nodes: ' + str(newNodes) + '\n')
+runLog.write ('Edges: ' + str(newEdges) + '\n')
+runLog.write ('Density: ' + str(newDensity) + '\n')
+runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
+runLog.write ('\n' + 'Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
-runLog.write ('Memory Used: ' + str(memUseMb) + 'Mb' + '\n' + '\n')
+runLog.write ('Memory Used: ' + str(memUseMb) + 'Mb')
 runLog.close()
 
-anFile.write ('Date of run: {}'.format(runDate) + '\n')
+anFile.write ('Number of cliques: ' + str(len(cl)) + '\n' + '\n')
+anFile.write ('Size of cliques: ' + str(cl_sizes) + '\n' + '\n')
+anFile.write ('Clique List: ' + str(cl) + '\n')
+anFile.write ('\n' + 'Date of run: {}'.format(runDate) + '\n')
 anFile.write ('Nodes: ' + str(newNodes) + '\n')
 anFile.write ('Edges: ' + str(newEdges) + '\n')
 anFile.write ('Density: ' + str(newDensity) + '\n')
 anFile.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 anFile.write ('Connected Components: ' + str(connectComp) + '\n')
-anFile.write ('Number of cliques: ' + str(len(cl)) + '\n')
 
 '''
-anFile.write ('Size of cliques: ' + str(cl_sizes) + '\n')
-anFile.write ('Clique List: ' + str(cl) + '\n')
 anFile.write ('Clique Removal: ' + str(cliqueRemoval) + '\n' + '\n')
 anFile.write ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect) + '\n')
 anFile.write ('Average Node Connectivity: ' + str(avNodeConnect) + '\n')
@@ -349,32 +358,27 @@ anFile.close()
 np.savetxt (lsFile, eigenArray)
 lsFile.close()
 
-print ('\n' + 'Final Run Information' + '\n')
-print ('Date of run: {}'.format(runDate))
-print ('Duration of run : {}'.format(endTime - startTime))
-print ('Memory Used: ' + str(memUseMb) + 'Mb')
+print ('Final Run Information' + '\n')
 print ('Nodes: ' + str(newNodes))
 print ('Edges: ' + str(newEdges))
 print ('Density: ' + str(newDensity))
 print ('Average Clustering Coefficient: ' + str(avClustering))
+print ('Number of cliques: ' + str(len(cl)))
+print ('Connected Components: ' + str(connectComp))
+print
+print ('Date of run: {}'.format(runDate))
+print ('Duration of run : {}'.format(endTime - startTime))
+print ('Memory Used: ' + str(memUseMb) + 'Mb')
 
 '''
-print ('Laplacian Spectrum: ')
-print (eigenArray)
-print
-print ('Connected Components: ' + str(connectComp))
-print ('Number of cliques: ' + str(len(cl)))
-print ('Size of cliques: ' + str(cl_sizes))
-print ('Clique List: ' + str(cl) + '\n')
-print ('Clique Removal: ' + str(cliqueRemoval) + '\n')
+print ('Clique Removal: ' + str(cliqueRemoval))
 print ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect))
 print ('Average Node Connectivity: ' + str(avNodeConnect))
-print ('Edge Connectivity: ' + str(edgeConnect))
-print
+anFile.write ('Edge Connectivity: ' + str(edgeConnect))
 print ('Shortest Path - Rock to Rap: ' + str(rockToRapShortPath))
 print ('Shortest Path - Rock to Jazz: ' + str(rockToJazzShortPath))
 print ('Shortest Path - Rap to Jazz: ' + str(rapToJazzShortPath))
 print ('Shortest Path - Rock to Classical: ' + str(rockToClassicalShortPath))
 print ('Shortest Path - Rap to Classical: ' + str(rapToClassicalShortPath))
-print ('Shortest Path - Jazz to Classical: ' + str(jazzToClassicalShortPath) + '\n')
+print ('Shortest Path - Jazz to Classical: ' + str(jazzToClassicalShortPath))
 '''
