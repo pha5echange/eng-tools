@@ -17,21 +17,19 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
 
-- 'en_genre' generates a list of removed (empty) genres.
+- 'en_genre' removes empty genres from 'date_ratios.txt'
 
 - 'eng_cdr' generates 'data\artistNums.txt' for use (later) by 'eng_network_wd.py'
 
-- 'eng_network_wd' adds genre start dates and generates directed graph GEXF file.
+- 'eng_network_wu' and 'eng_network_wd' can optionally remove self-loops and zero-degree nodes.
 
-- 'eng_network_wu' and 'eng_network' can optionally remove self-loops and zero-degree nodes.
+- 'eng_network_wd' adds genre start dates and generates directed graph GEXF file.
 
 - 'eng_cluster' updated to accept absolute artist numbers (as well as %)
 
 - 'config_nw.txt' configures network layout. 
 
 - 'eng_network_wu' takes 'eng_nodesets' weighted edgelist and plots an undirected network. 
-
-- 'eng_network' takes 'eng_nodesets' edgelist and plots a network. 
 
 - 'eng_fam' added, to calculate hi, low and average `familiarity' ratings for genres
 
@@ -89,7 +87,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
 
-13) The output files from this ('uuGraph_data' and 'wuGraph_data') can then be processed with 'eng_network' and 'eng_network_wu'.
+13) The output files from this ('uuGraph_data' and 'wuGraph_data') can then be processed with 'eng_network_wd' and 'eng_network_wu'.
 
 14) Network layout parameters can be edited in 'config_nw.txt'.
 
@@ -125,12 +123,10 @@ MANIFEST:
 
 (15) eng_fam.py
 
-(16) eng_network.py
+(16) eng network_wu.py
 
-(17) eng network_wu.py
+(17) eng_network_wd.py
 
-(18) eng_network_wd.py
+(18) apikey.txt (BLANK - REQUIRES API KEY)
 
-(19) apikey.txt
-
-(20) config_nw.txt
+(19) config_nw.txt

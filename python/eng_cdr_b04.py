@@ -1,14 +1,14 @@
-# eng_cdr_b03.py
-# Version b03
+# eng_cdr_b04.py
+# Version b04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 12th 2016
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Processes file 'data/date_ratios.txt'
-# Writes results to 'results/versionNumber_eng_cdr.txt'
+# Writes results to 'results/eng_cdr_versionNumber.txt'
 # Also writes a list of genres with numbers of artists written to 'data/eng_artistNums.txt' for use by later by 'eng_network_wd.py'
-# Writes run log to 'logs/versionNumber_eng_cdr_log.txt'
+# Writes run log to 'logs/eng_cdr_versionNumber_log.txt'
 
 # Run AFTER 'en_genre.py'
 
@@ -16,7 +16,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b03")
+versionNumber = ("b04")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -31,7 +31,7 @@ if not os.path.exists("results"):
     os.makedirs("results")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_cdr_log.txt')
+logPath = os.path.join("logs", 'eng_cdr_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # open file for data output
@@ -39,7 +39,7 @@ dataPath = os.path.join("data", 'eng_artistNums.txt')
 artistNums = open(dataPath, 'w')
 
 # open file for results output
-resultsPath = os.path.join("results", versionNumber + '_eng_cdr.txt')
+resultsPath = os.path.join("results", 'eng_cdr_' + versionNumber + '.txt')
 processedResults = open(resultsPath, 'w')
 
 # Initiate timing of run
@@ -63,7 +63,7 @@ for line in dataInput:
 	floatReturned = float(returned)
 	dateRatio = float(floatWritten/floatReturned * 100)
 	processedResults.write(genre + ',' + str(dateRatio) + '\n')
-	artistNums.write(genre + ',' + str(returned) + '\n')
+	artistNums.write(genre + ',' + str(returned) + ',' + '\n')
 	print('Genre: ' + genre + ' Percentage of artists with dates: ' + str(dateRatio))
 
 # close input file
@@ -81,7 +81,7 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
-runLog.write('Output saved to results/versionNumber_calc_date_ratios.txt' + '\n')
+runLog.write('Output saved to results/eng_cdr_versionNumber.txt' + '\n')
 runLog.write('Artist Numbers saved to data/eng_artistNums.txt' + '\n')
 runLog.close()
 
@@ -90,5 +90,5 @@ print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print('Duration of run : {}'.format(endTime - startTime))
-print('Output saved to results/versionNumber_calc_date_ratios.txt')
+print('Output saved to results/eng_cdr_versionNumber.txt')
 print('Artist Numbers saved to data/eng_artistNums.txt' + '\n')

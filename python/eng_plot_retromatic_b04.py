@@ -1,14 +1,16 @@
-# eng_plot_retromatic_b03.py
-# Version b03
+# eng_plot_retromatic_b04.py
+# Version b04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 28th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Plots data from 'Retromatic' (by Glenn McDonald)
+# http://www.furia.com/page.cgi?type=log&id=389
 
 # Processes file 'data/retromatic.txt'
 # Plots frequency distribution of genres over time
-# Writes run log to 'logs/versionNumber_genreName_eng_plot_retromatic_log.txt'
-# Plots results and writes PNG to 'graphs/versionNumber_eng_plot_retromatic.png'
+# Writes run log to 'logs/eng_plot_retromatic_versionNumber_log.txt'
+# Plots results and writes EPS to 'graphs/eng_plot_versionNumber_retromatic.eps'
 
 # Ensure 'retromatic.txt' is present in the 'data' folder.
 
@@ -19,7 +21,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b03")
+versionNumber = ("b04")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -30,8 +32,11 @@ if not os.path.exists("graphs"):
     os.makedirs("graphs")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_plot_retromatic_log.txt')
+logPath = os.path.join("logs", 'eng_plot_retromatic_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
+
+# define path for graphs
+graphPath = os.path.join("graphs", 'eng_plot_retromatic_' + versionNumber + ".eps")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -40,9 +45,6 @@ startTime = datetime.now()
 # ..and begin..
 runLog.write ('\n' + 'Retromatic Genre Plotter | ' + 'Version: ' + versionNumber + '\n' + '\n')
 print ('\n' + 'Retromatic Genre Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
-
-# define path for graphs
-graphPath = os.path.join("graphs", versionNumber + '_' + "_eng_plot_retromatic.eps")
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'retromatic.txt')
@@ -97,7 +99,7 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_retromatic.eps' + '\n')
+runLog.write ('Graph is saved to ../graphs/eng_plot_retromatic_versionNumber.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -105,4 +107,4 @@ print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
-print ('Graph is saved to ../graphs/versionNumber_eng_plot_retromatic.eps')
+print ('Graph is saved to ../graphs/eng_plot_retromatic_versionNumber.eps')

@@ -1,7 +1,7 @@
-# eng_plot_b05.py
-# Version b05
+# eng_plot_b06.py
+# Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 26th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -12,9 +12,9 @@
 # Plots frequency distribution of artists over time
 # This version allows for the input of the name of the genre being plotted
 # In the future, multi-file version, this will be pulled from the filename
-# Writes results to 'results/versionNumber_genreName_eng_plot_data.txt'
-# Writes run log to 'logs/versionNumber_genreName_eng_plot_log.txt'
-# Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_plot.png'
+# Writes results to 'results/eng_plot_versionNumber_genreName_data.txt'
+# Writes run log to 'logs/eng_plot_versionNumber_genreName_log.txt'
+# Plots results and writes EPS to 'graphs/eng_plot_versionNumber_genreName.eps'
 
 # New version to deal with Musicbrainz ID in data files
 
@@ -27,7 +27,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b05")
+versionNumber = ("b06")
 genreName = str(raw_input ("Enter the name of the genre to be plotted: "))
 
 # create 'logs' subdirectory if necessary
@@ -43,7 +43,7 @@ if not os.path.exists("results"):
     os.makedirs("results")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_' + genreName + '_eng_plot_log.txt')
+logPath = os.path.join("logs", 'eng_plot_' + versionNumber + '_' + genreName + '_log.txt')
 runLog = open(logPath, 'a')
 
 # Initiate timing of run
@@ -55,10 +55,10 @@ runLog.write ('\n' + 'Single Genre Plotter | ' + 'Version: ' + versionNumber + '
 print ('\n' + 'Single Genre Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + '_' + genreName + "_eng_plot.eps")
+graphPath = os.path.join("graphs", 'eng_plot_' + versionNumber + '_' + genreName + ".eps")
 
 # open file for output
-resultsPath = os.path.join("results", versionNumber + '_' + genreName + '_eng_plot_data.txt')
+resultsPath = os.path.join("results", 'eng_plot_' + versionNumber + '_' + genreName + '_data.txt')
 processedResults = open(resultsPath, 'a')
 
 # look for file in 'data' subfolder
@@ -122,8 +122,8 @@ runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Genre: ' + genreName + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
-runLog.write ('Results are saved to ../results/versionNumber_genreName_eng_plot_data.txt' + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_genreName_eng_plot.eps' + '\n')
+runLog.write ('Results are saved to ../results/eng_plot_versionNumber_genreName_data.txt' + '\n')
+runLog.write ('Graph is saved to ../graphs/eng_plot_versionNumber_genreName.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -132,5 +132,5 @@ print ('Version: ' + versionNumber)
 print ('Genre: ' + genreName)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
-print ('Results are saved to ../results/versionNumber_genreName_eng_plot_data.txt')
-print ('Graph is saved to ../graphs/versionNumber_genreName_eng_plot.eps')
+print ('Results are saved to ../results/eng_plot_versionNumber_genreName_data.txt')
+print ('Graph is saved to ../graphs/eng_plot_versionNumber_genreName.eps')

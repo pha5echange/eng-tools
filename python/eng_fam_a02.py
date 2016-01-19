@@ -1,14 +1,14 @@
-# eng_fam_a01.py
+# eng_fam_a02.py
 # Version a01
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 29th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Processes genre files output from 'en_genre.py'
 # Averages 'familiarity' of artists and produces values for genre, plus highest and lowest familiarity figures for each genre
-# Writes results to 'results/versionNumber_eng_fam_data.txt'
-# Writes run log to 'logs/versionNumber_eng_fam_log.txt'
+# Writes results to 'results/eng_fam_versionNumber_data.txt'
+# Writes run log to 'logs/eng_fam_versionNumber_log.txt'
 
 # New version to deal with Musicbrainz ID in data files
 
@@ -19,7 +19,7 @@ import os
 from datetime import datetime
 from collections import Counter
 
-versionNumber = ("a01")
+versionNumber = ("a02")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -33,8 +33,12 @@ if not os.path.exists("results"):
     os.makedirs("results")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_fam_log.txt')
+logPath = os.path.join("logs", 'eng_fam_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
+
+# open file for output
+resultsPath = os.path.join("results", 'eng_fam_' + versionNumber + '_data.txt')
+processedResults = open(resultsPath, 'a')
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -42,10 +46,6 @@ startTime = datetime.now()
 
 # ..and begin..
 print ('\n' + 'Genre Average Familiarity | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
-
-# open file for output
-resultsPath = os.path.join("results", versionNumber + '_eng_fam_data.txt')
-processedResults = open(resultsPath, 'a')
 
 for index in range(len(fileNames)):
 
@@ -88,7 +88,7 @@ endTime = datetime.now()
 runLog.write ('\n' + 'Genre Average Familiarity | ' + 'Version: ' + versionNumber + '\n' + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
-runLog.write ('Results are saved to ../results/versionNumber_eng_fam_data.txt' + '\n')
+runLog.write ('Results are saved to ../results/eng_fam_versionNumber_data.txt' + '\n')
 runLog.close()
 
 # write to screen
@@ -96,4 +96,4 @@ print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
-print ('Results are saved to ../results/versionNumber_eng_fam_data.txt')
+print ('Results are saved to ../results/eng_fam_versionNumber_data.txt')

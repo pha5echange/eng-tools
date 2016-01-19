@@ -1,19 +1,19 @@
-# eng_multi_plot_b10.py
-# Version b10
+# eng_multiplot_b11.py
+# Version b11
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 29th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Processes genre files output from 'en_genre.py'
 # Plots frequency distribution of artists over time
-# Writes stats to 'results/versionNumber_eng_multi_plot_stats_data.txt'
-# Writes results to 'results/versionNumber_eng_multi_plot_data.txt'
-# Also writes 'data/eng_multi_plot_data.txt' (for use by 'eng_plot_artists')
-# Writes run log to 'logs/versionNumber_eng_multi_plot_log.txt'
-# Plots results and writes PNG to 'graphs/versionNumber_genreName_eng_multi_plot.png'
+# Writes stats to 'results/eng_multiplot_stats_versionNumber_data.txt'
+# Writes results to 'results/eng_multiplot_versionNumber_data.txt'
+# Also writes 'data/eng_multiplot_data.txt' (for use by 'eng_plot_artists')
+# Writes run log to 'logs/eng_multiplot_versionNumber_log.txt'
+# Plots results and writes EPS to 'graphs/eng_multiplot_versionNumber_genreName.eps'
 
-# New version to deal with Musicbrainz ID in data files
+# This version deals with Musicbrainz ID in data files
 
 # Run AFTER 'en_genre.py' has gathered 'genres/..'
 
@@ -27,7 +27,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b10")
+versionNumber = ("b11")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -49,17 +49,18 @@ if not os.path.exists("results"):
 		os.makedirs("results")
 
 # open files for output
-logPath = os.path.join("logs", versionNumber + '_eng_multi_plot_log.txt')
+logPath = os.path.join("logs", 'eng_multiplot_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
-statsPath = os.path.join("results", versionNumber + '_' + '_eng_multi_plot_stats_data.txt')
+statsPath = os.path.join("results", 'eng_multiplot_stats_' + versionNumber + '_data.txt')
 statsResults = open(statsPath, 'a')
 statsResults.write("Genre" + ',' + "Min" + ',' + "Max" + ',' + "Range" + ',' + "Median" + ',' + "Mean" + ',' + "StD" + ',' + "Var" + ',' + "Skew" + ',' + "Kurtosis" + '\n')
 
-dataPath = os.path.join("data", 'eng_multi_plot_data.txt')
+# Write 'data/eng_multi_plot_data.txt' (for use by 'eng_plot_artists')
+dataPath = os.path.join("data", 'eng_multiplot_data.txt')
 dataOP = open(dataPath, 'w')
 
-resultsPath = os.path.join("results", versionNumber + '_eng_multi_plot_data.txt')
+resultsPath = os.path.join("results", 'eng_multiplot_' + versionNumber + '_data.txt')
 processedResults = open(resultsPath, 'a')
 
 # Initiate timing of run
@@ -79,9 +80,9 @@ for index in range(len(fileNames)):
 
 	# processedResults.write('\n' + genreName + '\n')
 	print('\n' + 'Plotting graph and calculating statistics for ' + genreName + '\n')
-	
+
 	# define path for graphs
-	graphPath = os.path.join("graphs", versionNumber + '_' + genreName + "_eng_multi_plot.eps")
+	graphPath = os.path.join("graphs", 'eng_multiplot_' + versionNumber + '_' + genreName + '.eps')
 
 	dataInput = open(pathname, "r")
 
@@ -190,10 +191,10 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
-runLog.write ('Stats are saved to ../results/versionNumber_eng_muti_plot_stats_data.txt' + '\n')
-runLog.write ('Results are saved to ../results/versionNumber_eng_muti_plot_data.txt' + '\n')
-runLog.write ('Data file (for use by eng_plot_artists) is saved to ../data/eng_muti_plot_data.txt' + '\n')
-runLog.write ('Graphs are saved to ../graphs/versionNumber_genreName_eng_multi_plot.eps' + '\n')
+runLog.write ('Stats are saved to ../results/eng_multiplot_stats_versionNumber_data.txt' + '\n')
+runLog.write ('Results are saved to ../results/eng_multiplot_versionNumber_data.txt' + '\n')
+runLog.write ('Data file (for use by eng_plot_artists) is saved to ../data/eng_multiplot_data.txt' + '\n')
+runLog.write ('Graphs are saved to ../graphs/eng_multiplot_versionNumber_genreName.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -201,7 +202,7 @@ print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
-print ('Stats are saved to ../results/versionNumber_eng_muti_plot_stats_data.txt')
-print ('Results are saved to ../results/versionNumber_eng_multi_plot_data.txt')
-print ('Data file (for use by eng_plot_artists) is saved to ../data/eng_muti_plot_data.txt')
-print ('Graphs are saved to ../graphs/versionNumber_genreName_eng_multi_plot.eps')
+print ('Stats are saved to ../results/eng_multiplot_stats_versionNumber_data.txt')
+print ('Results are saved to ../results/eng_multiplot_versionNumber_data.txt')
+print ('Data file (for use by eng_plot_artists) is saved to ../data/eng_multiplot_data.txt')
+print ('Graphs are saved to ../graphs/eng_multiplot_versionNumber_genreName.eps')

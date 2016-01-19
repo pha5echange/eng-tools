@@ -1,23 +1,22 @@
-# eng_plot_artists_b04.py
-# Version b04
+# eng_plot_artists_b05.py
+# Version b05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 10th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
-# Processes file 'data/eng_multi_plot_data.txt' (output by 'eng_multi_plot')
+# Processes file 'data/eng_multiplot_data.txt' (output by 'engmulti_plot')
 # Plots frequency distribution of artists over time
-# Writes run log to 'logs/versionNumber_eng_plot_artists_log.txt'
-# Plots results and writes PNG to 'graphs/versionNumber_eng_plot_artists.png'
+# Writes run log to 'logs/eng_plot_artists_versionNumber_log.txt'
+# Plots results and writes EPS to 'graphs/eng_plot_artists_versionNumber.eps'
 
 # import packages
 import os
 from datetime import datetime
-#from collections import defaultdict
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b04")
+versionNumber = ("b05")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -28,8 +27,12 @@ if not os.path.exists("graphs"):
     os.makedirs("graphs")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_plot_artists_log.txt')
+logPath = os.path.join("logs", 'eng_plot_artists_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
+
+# open files for output
+resultsPath = os.path.join("results", 'eng_plot_artists_' + versionNumber + '_data.txt')
+processedResults = open(resultsPath, 'a')
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -39,15 +42,8 @@ startTime = datetime.now()
 runLog.write ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + '\n' + '\n')
 print ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
-# define path for graphs
-graphPath = os.path.join("graphs", versionNumber + "_eng_plot_artists.eps")
-
-# open files for output
-resultsPath = os.path.join("results", versionNumber + '_eng_plot_artists_data.txt')
-processedResults = open(resultsPath, 'a')
-
 # look for file in 'data' subfolder
-pathname = os.path.join("data", 'eng_multi_plot_data.txt')
+pathname = os.path.join("data", 'eng_multiplot_data.txt')
 dataInput = open(pathname, "r")
 	
 # define dict to store the dates and values
@@ -92,6 +88,9 @@ y_high = (max(yAxis) + 100)
 width = 1 
 plt.bar(xAxis, yAxis, width, color='blue')
 
+# define path for graphs
+graphPath = os.path.join("graphs", 'eng_plot_artists_' + versionNumber + ".eps")
+
 # label, plot and save image of graph
 plt.grid(zorder=0)
 plt.suptitle('Numbers of artists by year', fontsize=12)
@@ -116,8 +115,8 @@ runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Total Artists: ' + str(totalArtists) + '\n')
-runLog.write ('Results are saved to ../results/versionNumber_eng_plot_artists_data.txt' + '\n')
-runLog.write ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.eps' + '\n')
+runLog.write ('Results are saved to ../results/eng_plot_artists_versionNumber_data.txt' + '\n')
+runLog.write ('Graph is saved to ../graphs/eng_plot_artists_versionNumber.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -126,5 +125,5 @@ print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 print ('Total Artists: ' + str(totalArtists))
-print ('Results are saved to ../results/versionNumber_eng_plot_artists_data.txt')
-print ('Graph is saved to ../graphs/versionNumber_eng_plot_artists.eps')
+print ('Results are saved to ../results/eng_plot_artists_versionNumber_data.txt')
+print ('Graph is saved to ../graphs/eng_plot_artists_versionNumber.eps')

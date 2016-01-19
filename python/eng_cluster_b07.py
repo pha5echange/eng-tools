@@ -1,7 +1,7 @@
-# eng_cluster_b06.py
+# eng_cluster_b07.py
 # Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 12th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -13,7 +13,7 @@
 # Reads files from 'genres' subdirectory
 # Writes results to 'data/cluster_results.txt'
 # Writes first cluster to 'data/first_cluster.txt'
-# Writes run log to 'logs/versionNumber_eng_cluster_log.txt'
+# Writes run log to 'logs/eng_cluster_versionNumber_log.txt'
 
 # New version to deal with Musicbrainz ID in data files
 
@@ -25,7 +25,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b06")
+versionNumber = ("b07")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -39,7 +39,7 @@ if not os.path.exists("data"):
     os.makedirs("data")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_cluster_log.txt')
+logPath = os.path.join("logs", 'eng_cluster_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # Initiate timing of run
@@ -101,6 +101,12 @@ for index in range(len(fileNames)):
 	if not minArtistNumber:
 		divisor = int (100 / clusterInput)
 		minClusterSize = int(maxIndex / divisor)
+
+		# fix zero-result
+		if minClusterSize == 0:
+			minClusterSize = 1
+
+		# ensure minimum cluster size (3 at present)
 		if minClusterSize < 3:
 			minClusterSize = 3
 	else:

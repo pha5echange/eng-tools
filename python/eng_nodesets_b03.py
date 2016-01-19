@@ -1,7 +1,7 @@
-# eng_nodesets_b02.py
-# Version b02
+# eng_nodesets_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# November 6th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -16,7 +16,7 @@ import os
 import resource
 from datetime import datetime
 
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -46,7 +46,7 @@ wuGraphDataPath = os.path.join("data", 'wuGraph_data.txt')
 wuGraphData = open(wuGraphDataPath, 'w')
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_nodesets_log.txt')
+logPath = os.path.join("logs", 'eng_nodesets_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # Initiate timing of run
@@ -170,10 +170,10 @@ wuGraphData.close()
 meanK = intersectCount / genreCount
 meanW = totalElementCount / intersectCount
 
+memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
+
 # End timing of run
 endTime = datetime.now()
-
-memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
 
 # write to log
 runLog.write ('\n' + 'Run Information' + '\n' + '\n')

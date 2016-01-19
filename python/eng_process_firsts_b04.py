@@ -1,15 +1,15 @@
-# eng_process_firsts_b03.py
-# Version b03
+# eng_process_firsts_b04.py
+# Version b04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 26th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Reads results from output of 'eng_first.py'
 # Processes file 'data/first_instances.txt'
-# Writes results to 'results/versionNumber_eng_process_firsts.txt'
-# Writes run log to 'logs/versionNumber_eng_process_firsts_log.txt'
-# Plots results and writes PNG to 'graphs/versionNumber_eng_process_firsts_plot.eps'
+# Writes results to 'results/eng_process_firsts_versionNumber.txt'
+# Writes run log to 'logs/eng_process_firsts_versionNumber_log.txt'
+# Plots results and writes EPS to 'graphs/eng_process_firsts_versionNumber_plot.eps'
 
 # Run AFTER 'eng_cluster.py'
 
@@ -22,7 +22,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b03")
+versionNumber = ("b04")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -37,14 +37,14 @@ if not os.path.exists("results"):
     os.makedirs("results")
 
 # open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_process_firsts_log.txt')
+logPath = os.path.join("logs", 'eng_process_firsts_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # define path for graphs
-graphPath = os.path.join("graphs", versionNumber + "_eng_process_firsts_plot.eps")
+graphPath = os.path.join("graphs", 'eng_process_firsts_' + versionNumber + "_plot.eps")
 
 # open file for data output
-resultsPath = os.path.join("results", versionNumber + '_eng_process_firsts.txt')
+resultsPath = os.path.join("results", 'eng_process_firsts_' + versionNumber + '.txt')
 processedResults = open(resultsPath, 'a')
 
 # Initiate timing of run
@@ -112,7 +112,7 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
-runLog.write('Graph is saved to ../graphs/versionNumber_eng_process_firsts_plot.eps' + '\n')
+runLog.write('Graph is saved to ../graphs/eng_process_firsts_versionNumber_plot.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -120,4 +120,4 @@ print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ('Date of run: {}'.format(runDate))
 print('Duration of run : {}'.format(endTime - startTime))
-print('Graph is saved to ../graphs/versionNumber_eng_process_firsts_plot.eps')
+print('Graph is saved to ../graphs/eng_process_firsts_versionNumber_plot.eps')

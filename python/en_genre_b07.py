@@ -1,7 +1,7 @@
 # en_genre_b07.py
 # Version b07
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2015
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -9,12 +9,12 @@
 # Uses 'artist/search - genre =' method
 # Results sorted by 'artist_start_year_asc'
 # Gets a maximum of 1000 artists per genre (Echonest limit) with `years_active', `familiarity' and `hotttnesss' 
-# Also grabs and writes MusicBrainzID (for later use) - discards artists without this
+# Also grabs and writes MusicBrainzID - discards artists without this
 # Produces ',' seperated output
-# Writes each genres' data to a seperate file in 'genres/' subdirectory
+# Writes each genres' data to a seperate file in 'genres/..' subdirectory
 # Deletes empty files (i.e. those without artists with dates and MBID), but logs their presence
 # Writes 'data/date_ratios.txt' (percentage of returned artists with date information) to facilitate the use of 'eng_cdr.py'
-# Writes run log to 'logs/versionNumber_engenre_log.txt'
+# Writes run log to 'logs/en_genre_versionNumber_log.txt'
 
 # import packages
 import os
@@ -47,7 +47,7 @@ if not os.path.exists("logs"):
     os.makedirs("logs")
 
 # open file for writing run info
-logPath = os.path.join("logs", versionNumber + '_engenre_log.txt')
+logPath = os.path.join("logs", 'en_genre_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # open file for writing 'calc_date_ratios'

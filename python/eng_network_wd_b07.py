@@ -1,7 +1,7 @@
-# eng_network_wd_b06.py
-# Version b06
+# eng_network_wd_b07.py
+# Version b07
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 12th 2016
+# January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -11,7 +11,7 @@
 # Removes nodes where date-cluster information is not available
 # Removes self-loop edges and zero-degree nodes if required
 # Displays using parameters from 'config_nw.txt'
-# Writes 'results\wd_nodeList.txt' with nodes and degrees (k)
+# Writes 'results\eng_network_wd_nodeList.txt' with nodes and degrees (k)
 # Writes analysis file to 'results\'
 # Writes Laplacian Spectrum results to 'results\'
 # Writes image to 'networks\'
@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b06")
+versionNumber = ("b07")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -52,31 +52,31 @@ if not os.path.exists("networks"):
     os.makedirs("networks")
 
 # Open file for writing log
-logPath = os.path.join("logs", versionNumber + '_eng_network_wd_log.txt')
+logPath = os.path.join("logs", 'eng_network_wd_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # Open file for writing gexf
-gexfPath = os.path.join("gexf", versionNumber + '_eng_network_wd.gexf')
+gexfPath = os.path.join("gexf", 'eng_network_wd_' + versionNumber + '.gexf')
 gexfFile = open(gexfPath, 'w')
 
 # Open file for writing digraph gexf
-gexfDPath = os.path.join("gexf", versionNumber + '_eng_digraph_wd.gexf')
+gexfDPath = os.path.join("gexf", 'eng_network_digraph_wd_' + versionNumber + '.gexf')
 gexfDFile = open(gexfDPath, 'w')
 
 # Open file to write list of nodes
-nodeListPath = os.path.join("results", versionNumber + '_wd_nodeList.txt')
+nodeListPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
 # Open file for analysis results
-anPath = os.path.join("results", versionNumber + '_eng_network_wd_analysis.txt')
+anPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_analysis.txt')
 anFile = open(anPath, 'w')
 
 # Open file to write Laplacian Spectrum Numpy array
-lsPath = os.path.join("results", versionNumber + '_eng_network_wd_Laplacian.txt')
+lsPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_laplacian.txt')
 lsFile = open(lsPath, 'w')
 
 # Open file to write image
-nwImgPath = os.path.join("networks", versionNumber + '_' + str(startTime) + '_wd_Nw.png')
+nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(startTime) + '_nw.png')
 nwImg = open (nwImgPath, 'w')
 
 # Begin
@@ -111,7 +111,7 @@ print ('Edges: ' + str(edges))
 print ('Connections (edges minus self-loops): ' + str(connections))
 print ('Density: ' + str(density) + '\n')
 
-runLog.write ('\n' + 'Initial data: ' + '\n' + '\n')
+runLog.write ('Initial data: ' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
@@ -173,7 +173,7 @@ nx.set_node_attributes (enGraph, 'Date', sortDates)
 # Remove zero degree nodes
 if isolatedIP == 0:
 	print ('\n' + 'Removing isolated nodes...' +'\n')
-	runLog.write ('\n' + 'Isolated nodes removed:' +'\n' + '\n')
+	runLog.write ('Isolated nodes removed:' +'\n' + '\n')
 	for i in nodeList:
 		if nx.is_isolate(enGraph,i):
 			enGraph.remove_node(i)
@@ -329,10 +329,10 @@ anFile.write ('Density: ' + str(newDensity) + '\n')
 anFile.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 anFile.write ('Connected Components: ' + str(connectComp) + '\n')
 anFile.write ('Number of cliques: ' + str(len(cl)) + '\n')
-anFile.write ('Size of cliques: ' + str(cl_sizes) + '\n')
-anFile.write ('Clique List: ' + str(cl) + '\n')
 
 '''
+anFile.write ('Size of cliques: ' + str(cl_sizes) + '\n')
+anFile.write ('Clique List: ' + str(cl) + '\n')
 anFile.write ('Clique Removal: ' + str(cliqueRemoval) + '\n' + '\n')
 anFile.write ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect) + '\n')
 anFile.write ('Average Node Connectivity: ' + str(avNodeConnect) + '\n')
@@ -357,6 +357,8 @@ print ('Nodes: ' + str(newNodes))
 print ('Edges: ' + str(newEdges))
 print ('Density: ' + str(newDensity))
 print ('Average Clustering Coefficient: ' + str(avClustering))
+
+'''
 print ('Laplacian Spectrum: ')
 print (eigenArray)
 print
@@ -364,7 +366,6 @@ print ('Connected Components: ' + str(connectComp))
 print ('Number of cliques: ' + str(len(cl)))
 print ('Size of cliques: ' + str(cl_sizes))
 print ('Clique List: ' + str(cl) + '\n')
-'''
 print ('Clique Removal: ' + str(cliqueRemoval) + '\n')
 print ('Node Connectivity (if 0, graph is disconnected): ' + str(nodeConnect))
 print ('Average Node Connectivity: ' + str(avNodeConnect))
