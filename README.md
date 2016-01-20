@@ -2,7 +2,8 @@ ENG-Tools beta v. 08
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
-www*DOT*phasechange*DOT*info
+
+http://www*DOT*phasechange*DOT*info
 
 January 20th 2016
 
