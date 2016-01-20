@@ -1,7 +1,7 @@
-# eng_network_wd_b08.py
-# Version b08
+# eng_network_wd_b09.py
+# Version b09
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 19th 2016
+# January 20th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -10,6 +10,7 @@
 # Adds artist numbers from 'data\eng_artistNums.txt' as node attributes
 # Removes nodes where date-cluster information is not available
 # Removes self-loop edges and zero-degree nodes if required
+# Removes nodes based upon 'incepDate' if required - a date is requested and all nodes NEWER than this are removed
 # Displays using parameters from 'config_nw.txt'
 # Writes 'results\eng_network_wd_nodeList.txt' with nodes and degrees (k)
 # Writes analysis file to 'results\'
@@ -29,7 +30,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b08")
+versionNumber = ("b09")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -55,39 +56,41 @@ if not os.path.exists("networks"):
 logPath = os.path.join("logs", 'eng_network_wd_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
-# Open file for writing gexf
-gexfPath = os.path.join("gexf", 'eng_network_wd_' + versionNumber + '.gexf')
-gexfFile = open(gexfPath, 'w')
-
-# Open file for writing digraph gexf
-gexfDPath = os.path.join("gexf", 'eng_network_digraph_wd_' + versionNumber + '.gexf')
-gexfDFile = open(gexfDPath, 'w')
-
-# Open file to write list of nodes
-nodeListPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_nodeList.txt')
-nodeListOP = open (nodeListPath, 'w') 
-
-# Open file for analysis results
-anPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_analysis.txt')
-anFile = open(anPath, 'w')
-
-# Open file to write Laplacian Spectrum Numpy array
-lsPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_laplacian.txt')
-lsFile = open(lsPath, 'w')
-
-# Open file to write image
-nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(startTime) + '_nw.png')
-nwImg = open (nwImgPath, 'w')
-
 # Begin
 print ('\n' + 'Weighted Directed Network Thing | Version ' + versionNumber + ' | Starting...')
-runLog.write ('Weighted Directed Network Thing | Version ' + versionNumber + '\n' + '\n')
-anFile.write ('Weighted Directed Network Thing | Version ' + versionNumber + '\n' + '\n')
 
 # Get user input
 print
 selfLoopIP = int(input ("Enter 0 here to remove self-loop edges: "))
 isolatedIP = int(input ("Enter 0 here to remove isolated nodes: "))
+dateIP = int(input ("Enter a year to remove nodes that appear AFTER this date (or 0 to leave the network intact): "))
+
+# Open file to write list of nodes
+nodeListPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nodeList.txt')
+nodeListOP = open (nodeListPath, 'w') 
+
+# Open file for writing gexf
+gexfPath = os.path.join("gexf", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
+gexfFile = open(gexfPath, 'w')
+
+# Open file for writing digraph gexf
+gexfDPath = os.path.join("gexf", 'eng_network_digraph_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
+gexfDFile = open(gexfDPath, 'w')
+
+# Open file for analysis results
+anPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_analysis.txt')
+anFile = open(anPath, 'w')
+
+# Open file to write Laplacian Spectrum Numpy array
+lsPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
+lsFile = open(lsPath, 'w')
+
+# Open file to write image
+nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
+nwImg = open (nwImgPath, 'w')
+
+runLog.write ('Weighted Directed Network Thing | Version ' + versionNumber + '\n' + '\n')
+anFile.write ('Weighted Directed Network Thing | Version ' + versionNumber + '\n' + '\n')
 
 # Read the edgelist
 print ('\n' + 'Importing Weighted Edge List...')
@@ -132,8 +135,8 @@ sortArtists = OrderedDict(sorted(artistDict.items()))
 anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
 
 # Apply artist numbers of nodes as attributes
-print ('Applying artist number attribute to nodes...' + '\n')
-nx.set_node_attributes (enGraph, 'artists', sortArtists)
+print ('Applying total artist number attribute to nodes...' + '\n')
+nx.set_node_attributes (enGraph, 'totalArtists', sortArtists)
 
 # Generate dictionary containing nodenames and dates (from 'data\first_cluster.txt')
 dateInputPath = os.path.join("data", 'first_cluster.txt')
@@ -166,9 +169,24 @@ if noDateNode > 1:
 	print ('\n' + 'Removed ' + str(noDateNode) + ' nodes due to no inception dates.')
 	runLog.write ('\n' + 'Removed ' + str(noDateNode) + ' nodes due to no inception dates.' + '\n')
 
+nodeList = nx.nodes(enGraph)
+
 # Apply dates of nodes as attributes
-print ('\n' + 'Applying date attribute to nodes...')
-nx.set_node_attributes (enGraph, 'Date', sortDates)
+print ('\n' + 'Applying inception date attribute to nodes...')
+nx.set_node_attributes (enGraph, 'incepDate', sortDates)
+
+# Remove nodes where 'incepDate' attribute is NEWER than user input ('dateIP')
+if dateIP != 0:
+	for i in nodeList:
+		incepDate = nx.get_node_attributes (enGraph, 'incepDate')
+		intIncep = int(incepDate[i])
+		if intIncep > dateIP:
+			enGraph.remove_node(i)
+			print ('Removed newer node ' + str(i) + ' based upon inception date.')
+else:
+	print ('No nodes removed based upon inception date.' + '\n')
+
+nodeList = nx.nodes(enGraph)
 
 # Remove self-loops
 if selfLoopIP == 0:
@@ -182,6 +200,8 @@ else:
 	print ('Self-loops intact.' + '\n')
 	runLog.write('\n' + 'Self-loops intact.' + '\n')
 
+nodeList = nx.nodes(enGraph)
+
 # Remove zero degree nodes
 if isolatedIP == 0:
 	print ('\n' + 'Checking for and removing isolated (zero degree) nodes...' +'\n')
@@ -190,10 +210,12 @@ if isolatedIP == 0:
 		if nx.is_isolate(enGraph,i):
 			enGraph.remove_node(i)
 			print ('Removed isolated node ' + str(i))
-			runLog.write('Removed isolated node ' + str(i) +'\n')
+			runLog.write('Removed isolated node ' + str(i) + '\n')
 else:
 	print ('Isolated nodes intact.' + '\n')
 	runLog.write('\n' + 'Isolated nodes intact.' + '\n')
+
+nodeList = nx.nodes(enGraph)
 
 # Clean edge-labels
 print ('\n' + 'Cleaning edge labels...')
@@ -266,6 +288,7 @@ jazzToClassicalShortPath = nx.shortest_path(enGraph,source='jazz',target='classi
 '''
 
 # Work out how to direct graph based on dates and implement here
+# TO DO
 
 # Write directed graph gexf
 diEnGraph = nx.DiGraph()
@@ -323,6 +346,7 @@ memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
 endTime = datetime.now()
 
 runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
+runLog.write ('User-entered date: ' + str(dateIP) + '\n')
 runLog.write ('Nodes: ' + str(newNodes) + '\n')
 runLog.write ('Edges: ' + str(newEdges) + '\n')
 runLog.write ('Density: ' + str(newDensity) + '\n')
@@ -360,6 +384,7 @@ np.savetxt (lsFile, eigenArray)
 lsFile.close()
 
 print ('Final Run Information' + '\n')
+print ('User-entered date: ' + str(dateIP))
 print ('Nodes: ' + str(newNodes))
 print ('Edges: ' + str(newEdges))
 print ('Density: ' + str(newDensity))

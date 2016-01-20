@@ -1,9 +1,10 @@
-ENG-Tools beta v. 07
+ENG-Tools beta v. 08
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
+www*DOT*phasechange*DOT*info
 
-January 14th 2016
+January 20th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -16,6 +17,8 @@ LICENCE:
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
+
+- 'eng_network_wd' can optionally remove nodes based upon inception date
 
 - 'en_genre' removes empty genres from 'date_ratios.txt'
 
