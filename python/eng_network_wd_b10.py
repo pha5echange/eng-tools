@@ -93,8 +93,8 @@ lsPath = os.path.join("data", 'eng_network_wd_' + versionNumber + '_' + str(date
 lsFile = open(lsPath, 'w')
 
 # Open file to write image
-# nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
-# nwImg = open (nwImgPath, 'w')
+nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
+nwImg = open (nwImgPath, 'w')
 
 runLog.write ('Weighted Directed Network Thing | Version ' + versionNumber + '\n' + '\n')
 anFile.write ('Weighted Directed Network Thing | Version ' + versionNumber + '\n' + '\n')
@@ -371,6 +371,26 @@ print ('Number of cliques: ' + str(len(cl)) + '\n')
 cl_sizes = [len(c) for c in cl]
 print ('Size of cliques: ' + str(cl_sizes))
 
+print ('Nodes: ' + str(nodes))
+print ('Edges: ' + str(edges))
+print ('Self-loops: ' + str(selfLoopEdges))
+print ('Density: ' + str(density))
+print ('Average Clustering Coefficient: ' + str(avClustering))
+print ('Number of cliques: ' + str(len(cl)))
+print ('Connected Components: ' + str(connectComp))
+print
+print (str(nx.info(enGraph)))
+print
+
+runLog.write ('\n' + 'Final undirected graph data: ' + '\n' + '\n')
+runLog.write ('Nodes: ' + str(nodes) + '\n')
+runLog.write ('Edges: ' + str(edges) + '\n')
+runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
+runLog.write ('Density: ' + str(density) + '\n')
+runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
+runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
+runLog.write ('Connected Components: ' + str(connectComp) + '\n')
+
 # Write undirected gexf file for use in Gephi
 print ('\n' + 'Writing undirected gexf file...' + '\n')
 nx.write_gexf(enGraph, gexfFile)
@@ -380,6 +400,7 @@ np.savetxt (lsFile, eigenArray)
 lsFile.close()
 
 # Write directed graph and then gexf of this
+print ("Directing graph... ")
 diEnGraph = nx.DiGraph()
 diEnGraph.add_nodes_from(enGraph.nodes(data=True))
 diEnGraph.add_edges_from(enGraph.edges(data=True))
@@ -425,7 +446,7 @@ for i in edgeList:
 		diEnGraph.remove_edge(nodeU,nodeV)
 		# write to a list of removed edges
 		removedNodes += 1
-		print("Removed edge between nodes " + str(nodeU) + " and " + str(nodeV) + " due to identical node inception dates. ")
+		print("Removed edge between nodes " + str(nodeU) + " and " + str(nodeV) + " due to identical node inception dates. " + '\n')
 		edgeListOP.write("Removed edge between nodes " + str(nodeU) + " and " + str(nodeV) + " due to identical node inception dates. " + '\n')
 
 print (str(removedNodes) + " edges removed due to identical node inception dates. " + '\n')
@@ -436,7 +457,6 @@ gexfDFile.close()
 
 edgeListOP.close()
 
-'''
 # Plot and display graph
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('Reading layout config file...' + '\n')
@@ -461,11 +481,11 @@ edge_text_size = int(e_text_size)
 print ('Laying out graph...' + '\n')
 
 #nx.draw(enGraph)
-graph_pos = nx.spring_layout(enGraph)
-nx.draw_networkx_nodes(enGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
-nx.draw_networkx_edges(enGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
-nx.draw_networkx_labels(enGraph, graph_pos, font_size = node_text_size, font_family = text_font)
-nx.draw_networkx_edge_labels(enGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
+graph_pos = nx.spring_layout(diEnGraph)
+nx.draw_networkx_nodes(diEnGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
+nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
+nx.draw_networkx_labels(diEnGraph, graph_pos, font_size = node_text_size, font_family = text_font)
+nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
 # write image file
 print ('Writing image file...' + '\n')
@@ -475,7 +495,6 @@ nwImg.close()
 # display graph
 print ('Displaying graph...' + '\n')
 plt.show()
-''' 
 
 # Recalculate basic graph statistics
 nodes = nx.number_of_nodes(diEnGraph)
@@ -488,7 +507,7 @@ memUseMb = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1048576
 # End timing of run
 endTime = datetime.now()
 
-print ('\n' + 'Final Run Information' + '\n')
+print ('\n' + 'Final Directed Graph Information' + '\n')
 print ('User-entered date: ' + str(dateIP))
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
@@ -500,8 +519,7 @@ print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 print ('Memory Used: ' + str(memUseMb) + 'Mb')
 
-
-runLog.write ('\n' + 'Final Run Information' + '\n' + '\n')
+runLog.write ('\n' + 'Final Directed Graph Information' + '\n' + '\n')
 runLog.write ('User-entered date: ' + str(dateIP) + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
