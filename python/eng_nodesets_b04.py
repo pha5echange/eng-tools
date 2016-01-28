@@ -1,13 +1,14 @@
 # eng_nodesets_b03.py
-# Version b03
+# Version b04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# January 27th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 # Examines Echonest genre lists
 # Creates a set for each genre, and adds artist info. as elements
-# Finds shared artists to facilitate node-list generaton 
+# Finds shared artists to facilitate node-list generation
+# Writes weighted nodelist 
 
 # Run AFTER 'en_genre.py'
 
@@ -16,7 +17,7 @@ import os
 import resource
 from datetime import datetime
 
-versionNumber = ("b03")
+versionNumber = ("b04")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -36,10 +37,6 @@ if not os.path.exists("data"):
 # open files for data output
 intersectDataPath = os.path.join("data", 'genre_intersects.txt')
 intersectData = open(intersectDataPath, 'w')
-
-# Data file for unweighted, undirected graph
-uuGraphDataPath = os.path.join("data", 'uuGraph_data.txt')
-uuGraphData = open(uuGraphDataPath, 'w')
 
 # Data file for weighted, undirected graph
 wuGraphDataPath = os.path.join("data", 'wuGraph_data.txt')
@@ -106,11 +103,11 @@ totalIntersectCount = 0
 totalElementCount = 0
 
 while setAcount < genreCount: 
-	setAlabel = str(setNameList[setAcount]).replace(" ", "")
+	setAlabel = str(setNameList[setAcount]).replace(" ", "").replace("'","")
 	setA  = set(setList[setAcount])
 	
 	while setBcount < genreCount:
-		setBlabel = str(setNameList[setBcount]).replace(" ", "")
+		setBlabel = str(setNameList[setBcount]).replace(" ", "").replace("'","")
 		setB  = set(setList[setBcount])
 
 		if setBcount < setAcount:
@@ -138,9 +135,6 @@ while setAcount < genreCount:
 						# For full data file,make circumfles ('^') seperator, to avoid problems with sets() later
 						intersectData.write (setAlabel + '^' + setBlabel + '^' + str(elementCount) + '^' + intersectionStr + '\n')
 
-						# Minimal data file for unweighted, undirected graph
-						uuGraphData.write (setAlabel + ',' + setBlabel +'\n')
-
 						# Data file for weighted, undirected graph
 						wuGraphData.write (setAlabel + ',' + setBlabel + ',' + str(elementCount) + '\n')
 
@@ -151,7 +145,6 @@ while setAcount < genreCount:
 
 				else:
 					# write setA only to enable nodes with no connections
-					uuGraphData.write (setAlabel  + ',' + setAlabel + '\n')
 					wuGraphData.write (setAlabel + ',' + setAlabel + ',' + "0" + '\n')
 
 					setBcount += 1	
@@ -164,7 +157,6 @@ while setAcount < genreCount:
 # Close files
 # setData.close()
 intersectData.close()
-uuGraphData.close()
 wuGraphData.close()
 
 meanK = intersectCount / genreCount

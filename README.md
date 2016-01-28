@@ -1,11 +1,11 @@
-ENG-Tools beta v. 08
+ENG-Tools beta v. 09
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-January 20th 2016
+January 28th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -19,13 +19,15 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
 
+- 'eng_network_wd' removes edges where, in a directed network, the nodes have the same inception date. 
+
 - 'eng_network_wd' can optionally remove nodes based upon inception date
 
 - 'en_genre' removes empty genres from 'date_ratios.txt'
 
 - 'eng_cdr' generates 'data\artistNums.txt' for use (later) by 'eng_network_wd.py'
 
-- 'eng_network_wu' and 'eng_network_wd' can optionally remove self-loops and zero-degree nodes.
+- 'eng_network_wd' can optionally remove self-loops and zero-degree nodes.
 
 - 'eng_network_wd' adds genre start dates and generates directed graph GEXF file.
 
@@ -33,7 +35,7 @@ LATEST ADDITIONS:
 
 - 'config_nw.txt' configures network layout. 
 
-- 'eng_network_wu' takes 'eng_nodesets' weighted edgelist and plots an undirected network. 
+- 'eng_network_wd' takes 'eng_nodesets' weighted edgelist and plots undirected and directed networks. 
 
 - 'eng_fam' added, to calculate hi, low and average `familiarity' ratings for genres
 
@@ -91,7 +93,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
 
-13) The output files from this ('uuGraph_data' and 'wuGraph_data') can then be processed with 'eng_network_wd' and 'eng_network_wu'.
+13) The output file from this ('wuGraph_data') can then be processed with 'eng_network_wd'.
 
 14) Network layout parameters can be edited in 'config_nw.txt'.
 
@@ -127,10 +129,8 @@ MANIFEST:
 
 (15) eng_fam.py
 
-(16) eng network_wu.py
+(16) eng_network_wd.py
 
-(17) eng_network_wd.py
+(17) apikey.txt (BLANK - REQUIRES API KEY)
 
-(18) apikey.txt (BLANK - REQUIRES API KEY)
-
-(19) config_nw.txt
+(18) config_nw.txt

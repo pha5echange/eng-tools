@@ -1,7 +1,7 @@
-# en_genre_b07.py
-# Version b07
+# en_genre_b09.py
+# Version b09
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# January 28th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -27,7 +27,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b07")
+versionNumber = ("b09")
 
 # define indexing variables for total artist responses
 artistTotal = 0
@@ -77,8 +77,14 @@ removedGenres = []
 # run through 'genres' writing results to 'genreArtistList'
 for g in response_genre['genres']:
 
-	# open file for writing artist data
-	genreName = str(g['name']).replace(",", "")
+	# clean response and define name of genre
+	genreName = str(g['name']).replace(",", "").replace(" ", "").replace("'","")
+
+	# fix the `zouglou' problem
+	if genreName.endswith('u'):
+		genreName = genreName[:-1]
+
+	# open file for writing artist data	
 	genresPath = os.path.join("genres", genreName + '.txt')
 	genreArtistList = open(genresPath, 'w')
 
