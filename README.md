@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-January 28th 2016
+February 9th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -19,9 +19,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
 
+- 'eng_network_wd' calculates 'artist Total' for networks. 
+
+- 'eng_network_wd' renders undirected network AFTER directing to help calculate final characteristics.  
+
 - 'eng_network_wd' removes edges where, in a directed network, the nodes have the same inception date. 
 
-- 'eng_network_wd' can optionally remove nodes based upon inception date
+- 'eng_network_wd' can optionally remove nodes based upon inception date. 
 
 - 'en_genre' removes empty genres from 'date_ratios.txt'
 
