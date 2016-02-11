@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 9th 2016
+February 11th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -13,11 +13,15 @@ They acquire data from the Echonest (via the API), process it, and facilitate st
 This is research software; USE IT AT YOUR OWN RISK. 
 I will respond to emails if possible, BUT THIS SOFTWARE HAS NO FORMAL SUPPORT.
 
+
 LICENCE: 
 
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
+
 LATEST ADDITIONS: 
+
+- 'shm' calculates the Simple Hybridity Metric (SHM) for nodes and graphs. 
 
 - 'eng_network_wd' calculates 'artist Total' for networks. 
 
@@ -51,17 +55,18 @@ LATEST ADDITIONS:
 
 A full manifest can be found at the end of this readme file. 
 
-USAGE: 
+
+REQUIREMENTS: 
 
 To use ENG-Tools you will require the following:
 
 1) An Echonest Developer account, and an API key (from https://developer.echonest.com/account/register)
 
-2) A text file called 'apikey.txt' containing your API key, in the same folder as the scripts
+2) A text file called 'apikey.txt' containing your Echonest API key, in the same folder as the scripts
 
 3) Python 2.7, the 'pyen' library (from https://github.com/plamere/pyen), the 'matplotlib' library (from http://matplotlib.org), the 'scipy' library (from http://www.scipy.org), and the 'networkx' library (from https://networkx.github.io/). It is likely that the 'community' library (https://bitbucket.org/taynaud/python-louvain) and the 'igraph' library will be used in later versions; the Python version of iGraph can be obtained from http://igraph.org/python/ 
 
-When you have these, proceed as follows:
+USAGE: 
 
 1) Run 'eng_list.py'. 
 
@@ -97,9 +102,12 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
 
-13) The output file from this ('wuGraph_data') can then be processed with 'eng_network_wd'.
+13) The output file from this ('wuGraph_data') can then be processed with 'eng_network_wd'. This outputs, among other things, GEXF files, Laplacian Spectra, and other analyses and results. 
 
-14) Network layout parameters can be edited in 'config_nw.txt'.
+14) Network layout parameters can be edited in 'config_nw.txt'. 
+
+15) Rename a GEXF file ('gexf/shm.gexf') and run 'shm.py' to calculate the SimpleHybridity Metric (SHM) for a graph. 
+
 
 MANIFEST: 
 
@@ -135,6 +143,8 @@ MANIFEST:
 
 (16) eng_network_wd.py
 
-(17) apikey.txt (BLANK - REQUIRES API KEY)
+(17) shm.py
 
-(18) config_nw.txt
+(18) apikey.txt (BLANK - REQUIRES API KEY)
+
+(19) config_nw.txt
