@@ -34,6 +34,11 @@ print ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber 
 
 omegaYear = int(input ("Enter the up-to-year of this graph: "))
 
+# open file for node results output
+nodeResultsPath = os.path.join("results", 'shm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
+nodeFile = open(nodeResultsPath, 'a')
+nodeFile.write ("Genre" + "," + "Node H" + "," + "Node Sig" + "," + "Final Node Sig" + '\n')
+
 # Read DiGraph GEXF file to generate network
 diGraphPath = os.path.join("gexf", 'shm.gexf')
 diEnGraph = nx.read_gexf(diGraphPath)
@@ -105,10 +110,14 @@ for node in diEnGraph.nodes():
 	print ("NodeH for " + str(node) + " is: " + str(NodeH))
 	print ("Final node significance for " + str(node) + " is: " + str(finalNodeSig))
 
+	nodeFile.write (str(node) + "," + str(NodeH) + "," + str(nodeSig) + "," + str(finalNodeSig) + '\n')
+
 	runLog.write ("Node total artists for " + str(node) + " is: " + str(nodeTotalArtists) + '\n')
 	runLog.write ("Node significance for " + str(node) + " is: " + str(nodeSig) + '\n')
 	runLog.write ("NodeH for " + str(node) + " is: " + str(NodeH) + '\n')
 	runLog.write ("Final node significance for " + str(node) + " is: " + str(finalNodeSig) + '\n')
+
+nodeFile.close()
 
 print ('\n' + "Final node sig dictionary: " + str(finalNodeSigDict))
 
@@ -133,7 +142,8 @@ runLog.write ("Number of nodes: " + str(totalGraphNodes) + '\n')
 runLog.write ("Number of NodeH 1.0 genres: " + str(totalNodeH) + '\n')
 runLog.write ("Percentage of NodeH 1.0 genres: " + str(percNodeH) + '\n')
 runLog.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
-runLog.write ("GraphH: " + str(sum(finalNodeSigDict.values())) + '\n' + '\n')
+runLog.write ("GraphH: " + str(sum(finalNodeSigDict.values())) + '\n')
+runLog.write ('\n' + "=============================================================" + '\n')
 runLog.close()
 
 # Write to results
@@ -143,5 +153,5 @@ resultsFile.write ("Number of NodeH 1.0 genres: " + str(totalNodeH) + '\n')
 resultsFile.write ("Percentage of NodeH 1.0 genres: " + str(percNodeH) + '\n')
 resultsFile.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
 resultsFile.write ("GraphH: " + str(sum(finalNodeSigDict.values())) + '\n')
-resultsFile.write ("=============================================================" + '\n')
+resultsFile.write ('\n' + "=============================================================" + '\n')
 resultsFile.close()

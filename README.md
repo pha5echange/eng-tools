@@ -21,37 +21,17 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
 
+- 'shm' saves log, results and nodes file.
+
 - 'shm' calculates the Simple Hybridity Metric (SHM) for nodes and graphs. 
+
+- 'gexf/shm.gexf' added to prevent 'shm' errors
 
 - 'eng_network_wd' calculates 'artist Total' for networks. 
 
 - 'eng_network_wd' renders undirected network AFTER directing to help calculate final characteristics.  
 
 - 'eng_network_wd' removes edges where, in a directed network, the nodes have the same inception date. 
-
-- 'eng_network_wd' can optionally remove nodes based upon inception date. 
-
-- 'en_genre' removes empty genres from 'date_ratios.txt'
-
-- 'eng_cdr' generates 'data\artistNums.txt' for use (later) by 'eng_network_wd.py'
-
-- 'eng_network_wd' can optionally remove self-loops and zero-degree nodes.
-
-- 'eng_network_wd' adds genre start dates and generates directed graph GEXF file.
-
-- 'eng_cluster' updated to accept absolute artist numbers (as well as %)
-
-- 'config_nw.txt' configures network layout. 
-
-- 'eng_network_wd' takes 'eng_nodesets' weighted edgelist and plots undirected and directed networks. 
-
-- 'eng_fam' added, to calculate hi, low and average `familiarity' ratings for genres
-
-- 'en_genre' deletes empty genre files automatically
-
-- 'eng_nodesets' script converts genres into set()s and finds intersections
-
-- 'en_genre' now captures artists' musicbrainz ID (and discards those without)
 
 A full manifest can be found at the end of this readme file. 
 
@@ -148,3 +128,7 @@ MANIFEST:
 (18) apikey.txt (BLANK - REQUIRES API KEY)
 
 (19) config_nw.txt
+
+(20) 'data/retromatic.txt'
+
+(21) 'gexf/shm.gexf'
