@@ -25,10 +25,11 @@ runLog = open(logPath, 'a')
 
 # open file for results output
 resultsPath = os.path.join("results", 'shm_' + versionNumber + '.txt')
-resultsFile = open(resultsPath, 'w')
+resultsFile = open(resultsPath, 'a')
 
 # ..and begin..
 runLog.write ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber + '\n' + '\n')
+resultsFile.write ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber + '\n')
 print ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
 omegaYear = int(input ("Enter the up-to-year of this graph: "))
@@ -47,6 +48,12 @@ for key, value in nodeArtistsDict.items():
 
 # Calculate graph total artists from dictionary
 graphTotalArtists = float(sum(nodeArtistsDict.values()))
+
+# Counters for totalGraphNodes and totalNodeH
+totalNodeH = 0
+
+# Get node count for graph
+totalGraphNodes = nx.number_of_nodes(diEnGraph)
 
 # Calculate NodeH values
 # Examine every node
@@ -84,6 +91,9 @@ for node in diEnGraph.nodes():
 	else: 
 		NodeH = totalEdgeSig
 
+	if NodeH == 1.0:
+		totalNodeH += 1
+
 	# Final node significance is NodeHybridity * NodeSignificance
 	finalNodeSig = NodeH * nodeSig
 
@@ -102,26 +112,36 @@ for node in diEnGraph.nodes():
 
 print ('\n' + "Final node sig dictionary: " + str(finalNodeSigDict))
 
+# Calculate NodeH 1.0 as a percentage
+percNodeH = float(100 * (float(totalNodeH) / float(totalGraphNodes)))
+
 # Calculate GraphH, the sum of all nodeSig values
 GraphH = sum(finalNodeSigDict.values())
 
 print
 print ("Up to year: " + str(omegaYear))
-print ("Number of nodes: " + str(nx.number_of_nodes(diEnGraph)))
+print ("Number of nodes: " + str(totalGraphNodes))
+print ("Number of NodeH 1.0 genres: " + str(totalNodeH))
+print ("Percentage of NodeH 1.0 genres: " + str(percNodeH))
 print ("Graph total artists: " + str(graphTotalArtists))
 print ("GraphH: " + str(sum(finalNodeSigDict.values())))
 print
 
 # Write to log
 runLog.write ('\n' + "Up to year: " + str(omegaYear) + '\n')
-runLog.write ("Number of nodes: " + str(nx.number_of_nodes(diEnGraph)) + '\n')
+runLog.write ("Number of nodes: " + str(totalGraphNodes) + '\n')
+runLog.write ("Number of NodeH 1.0 genres: " + str(totalNodeH) + '\n')
+runLog.write ("Percentage of NodeH 1.0 genres: " + str(percNodeH) + '\n')
 runLog.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
 runLog.write ("GraphH: " + str(sum(finalNodeSigDict.values())) + '\n' + '\n')
 runLog.close()
 
 # Write to results
 resultsFile.write ('\n' + "Up to year: " + str(omegaYear) + '\n')
-resultsFile.write ("Number of nodes: " + str(nx.number_of_nodes(diEnGraph)) + '\n')
+resultsFile.write ("Number of nodes: " + str(totalGraphNodes) + '\n')
+resultsFile.write ("Number of NodeH 1.0 genres: " + str(totalNodeH) + '\n')
+resultsFile.write ("Percentage of NodeH 1.0 genres: " + str(percNodeH) + '\n')
 resultsFile.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
-resultsFile.write ("GraphH: " + str(sum(finalNodeSigDict.values())) + '\n' + '\n')
+resultsFile.write ("GraphH: " + str(sum(finalNodeSigDict.values())) + '\n')
+resultsFile.write ("=============================================================" + '\n')
 resultsFile.close()
