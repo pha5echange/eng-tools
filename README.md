@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 11th 2016
+February 21th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -21,7 +21,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
 
-- 'shm' saves log, results and nodes file.
+- 'shm' saves log, results and 'nodes' files.
 
 - 'shm' calculates the Simple Hybridity Metric (SHM) for nodes and graphs. 
 
@@ -82,7 +82,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
 
-13) The output file from this ('wuGraph_data') can then be processed with 'eng_network_wd'. This outputs, among other things, GEXF files, Laplacian Spectra, and other analyses and results. 
+13) The output file from this ('wuGraph_data') can then be processed with 'eng_network_wd'. This outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. 
 
 14) Network layout parameters can be edited in 'config_nw.txt'. 
 
@@ -129,6 +129,6 @@ MANIFEST:
 
 (19) config_nw.txt
 
-(20) 'data/retromatic.txt'
+(20) data/retromatic.txt
 
-(21) 'gexf/shm.gexf'
+(21) gexf/shm.gexf
