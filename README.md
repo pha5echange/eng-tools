@@ -21,6 +21,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST ADDITIONS: 
 
+- 'eng_netwrok_wd' and 'shm' output folder structures revised. 
+
 - 'shm_H_plotter' makes simple line-graphs of SHM results.
 
 - 'shm' saves log, results and 'nodes' files.

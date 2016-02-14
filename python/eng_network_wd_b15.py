@@ -1,7 +1,7 @@
 # eng_network_wd_b14.py
-# Version b14
+# Version b15
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 7th 2016
+# February 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b14")
+versionNumber = ("b15")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -40,16 +40,32 @@ startTime = datetime.now()
 if not os.path.exists("logs"):
     os.makedirs("logs")
 
+# Creat 'data' subdirectories if necessary
 if not os.path.exists("data"):
 	os.makedirs("data")
 
-# Create 'gexf' subdirectory if necessary
+if not os.path.exists("data/node-edge-lists"):
+	os.makedirs("data/node-edge-lists")
+
+# Create 'gexf' subdirectories if necessary
 if not os.path.exists("gexf"):
 	os.makedirs("gexf")
 
-# Create 'results' subdirectory if necessary
+if not os.path.exists("gexf/initial"):
+	os.makedirs("gexf/initial")
+
+if not os.path.exists("gexf/final"):
+	os.makedirs("gexf/final")
+
+# Create 'results' subdirectories if necessary
 if not os.path.exists("results"):
 	os.makedirs("results")
+
+if not os.path.exists("results/analysis"):
+	os.makedirs("results/analysis")
+
+if not os.path.exists("results/laplacian"):
+	os.makedirs("results/laplacian")
 
 # Create 'networks' subdirectory if necessary
 if not os.path.exists("networks"):
@@ -74,15 +90,15 @@ selfLoopIP = int(input ("Enter 1 here to remove self-loop edges: "))
 isolatedIP = 0
 
 # Open file to write list of nodes
-nodeListPath = os.path.join("data", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nodeList.txt')
+nodeListPath = os.path.join("data/node-edge-lists", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
 # Open file to write list of edges
-edgeListPath = os.path.join("data", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_edgeList.txt')
+edgeListPath = os.path.join("data/node-edge-lists", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_edgeList.txt')
 edgeListOP = open (edgeListPath, 'w') 
 
-# Open file for writing gexf
-gexfPath = os.path.join("gexf", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
+# Open file for writing initial gexf
+gexfPath = os.path.join("gexf/initial", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
 gexfFile = open(gexfPath, 'w')
 
 # Open file for writing digraph gexf
@@ -90,19 +106,19 @@ gexfDPath = os.path.join("gexf", 'eng_network_digraph_wd_' + versionNumber + '_'
 gexfDFile = open(gexfDPath, 'w')
 
 # Open file for writing final gexf
-gexfFinPath = os.path.join("gexf", 'eng_network_final_undirected_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
+gexfFinPath = os.path.join("gexf/final", 'eng_network_final_undirected_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
 gexfFinFile = open(gexfFinPath, 'w')
 
 # Open file for analysis results
-anPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_analysis.txt')
+anPath = os.path.join("results/analysis", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_analysis.txt')
 anFile = open(anPath, 'w')
 
 # Open file to write Laplacian Spectrum Numpy array
-lsPath = os.path.join("results", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
+lsPath = os.path.join("results/laplacian", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
 lsFile = open(lsPath, 'w')
 
 # Open file to write final Laplacian Spectrum Numpy array
-lsFinPath = os.path.join("results", 'eng_network_final_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
+lsFinPath = os.path.join("results/laplacian", 'eng_network_final_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
 lsFinFile = open(lsFinPath, 'w')
 
 # Open file to write image

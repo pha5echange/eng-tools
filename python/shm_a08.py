@@ -1,6 +1,6 @@
 # Simple Hybridity Metric
-# v. a0.7
-# 13th Feb. 2016
+# v. a0.8
+# 14th Feb. 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Examines a graph and calculates node hybridty (NodeH) and graph hybridity (GraphH)
@@ -9,11 +9,18 @@
 import os
 import networkx as nx
 
-versionNumber = ("a07")
+versionNumber = ("a08")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
     os.makedirs("logs")
+
+# create 'data' subdirectories if necessary
+if not os.path.exists("data"):
+    os.makedirs("data")
+
+if not os.path.exists("data/node-edge-lists"):
+    os.makedirs("data/node-edge-lists")
 
 # create 'results' subdirectory if necessary
 if not os.path.exists("results"):
@@ -39,8 +46,8 @@ print ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber 
 omegaYear = int(input ("Enter the omega year of this graph: "))
 
 # open file for node results output
-nodeResultsPath = os.path.join("results", 'shm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
-nodeFile = open(nodeResultsPath, 'a')
+nodeDataPath = os.path.join("data/node-edge-lists", 'shm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
+nodeFile = open(nodeDataPath, 'a')
 nodeFile.write ("Genre" + "," + "In-Degree" + "," + "Out-Degree" + "," + "Node H" + "," + "Node Sig" + "," + "Final Node Sig" + '\n')
 
 # Read DiGraph GEXF file to generate network
