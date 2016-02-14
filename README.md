@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 12th 2016
+February 14th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -20,6 +20,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST ADDITIONS: 
+
+- 'shm_H_plotter' makes simple line-graphs of SHM results.
 
 - 'shm' saves log, results and 'nodes' files.
 
@@ -125,10 +127,12 @@ MANIFEST:
 
 (17) shm.py
 
-(18) apikey.txt (BLANK - REQUIRES API KEY)
+(18) shm_H_plotter.py
 
-(19) config_nw.txt
+(19) apikey.txt (BLANK - REQUIRES API KEY)
 
-(20) data/retromatic.txt
+(20) config_nw.txt
+
+(21) data/retromatic.txt
 
 (21) gexf/shm.gexf

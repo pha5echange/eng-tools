@@ -1,6 +1,6 @@
 # Simple Hybridity Metric
-# v. a0.6
-# 12th Feb. 2016
+# v. a0.7
+# 13th Feb. 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Examines a graph and calculates node hybridty (NodeH) and graph hybridity (GraphH)
@@ -9,7 +9,7 @@
 import os
 import networkx as nx
 
-versionNumber = ("a06")
+versionNumber = ("a07")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -23,6 +23,10 @@ if not os.path.exists("results"):
 logPath = os.path.join("logs", 'shm_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
+# open file for plot - file output
+plotPath = os.path.join("data", 'shm_plot.txt')
+plotFile = open(plotPath, 'a')
+
 # open file for results output
 resultsPath = os.path.join("results", 'shm_' + versionNumber + '.txt')
 resultsFile = open(resultsPath, 'a')
@@ -32,7 +36,7 @@ runLog.write ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + version
 resultsFile.write ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber + '\n')
 print ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
-omegaYear = int(input ("Enter the up-to-year of this graph: "))
+omegaYear = int(input ("Enter the omega year of this graph: "))
 
 # open file for node results output
 nodeResultsPath = os.path.join("results", 'shm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
@@ -167,6 +171,10 @@ percTotalNonHybrids = float(100 * (float(totalNonHybrids) / float(totalGraphNode
 
 # Calculate GraphH, the sum of all nodeSig values
 GraphH = sum(finalNodeSigDict.values())
+
+# Write to plot file
+plotFile.write(str(omegaYear) + ',' + str(GraphH) + '\n')
+plotFile.close()
 
 print
 print ("Omega year: " + str(omegaYear))
