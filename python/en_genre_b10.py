@@ -1,7 +1,7 @@
-# en_genre_b09.py
-# Version b09
+# en_genre_b10.py
+# Version b10
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 28th 2016
+# February 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -27,7 +27,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b09")
+versionNumber = ("b10")
 
 # define indexing variables for total artist responses
 artistTotal = 0
@@ -64,7 +64,8 @@ runDate = datetime.now()
 startTime = datetime.now()
 
 # open and read 'apikey.txt'
-apiKeyFile = open('apikey.txt', 'r')
+apiKeyPath = os.path.join("config", 'apikey.txt')
+apiKeyFile = open(apiKeyPath, 'r')
 apiKey = str(apiKeyFile.read())
 
 # call Echonest to get 'genres' response

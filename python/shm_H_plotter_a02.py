@@ -1,5 +1,5 @@
-# shm_H_plotter_a01.py
-# Version a01
+# shm_H_plotter_a02.py
+# Version a02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # February 13th 2016
 
@@ -17,7 +17,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a01")
+versionNumber = ("a02")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -32,7 +32,8 @@ logPath = os.path.join("logs", 'shm_H_plotter_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # define path for graphs
-graphPath = os.path.join("graphs", 'shm_H_plotter_' + versionNumber + ".png")
+graphHPath = os.path.join("graphs", 'shm_H_plotter_' + versionNumber + ".png")
+nodeHPath = os.path.join("graphs", 'shm_nodeH_plotter_' + versionNumber + ".png")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -46,23 +47,23 @@ print ('\n' + 'SHM H Plotter | ' + 'Version: ' + versionNumber + ' | Starting' +
 pathname = os.path.join("data", 'shm_plot.txt')
 dataInput = open(pathname, "r")
 	
-# define dict to store the dates and values
-years = {}
+# define dicts to store the dates and values
+graphHyears = {}
+nodeHyears = {}
 
 # read lines from the file
 for line in dataInput:
 
-	# split line and append 'instances' with start date values
-	year, graphH = line.split(",")
-	years.update ({int(year):float(graphH)})
+	# split line and append 'graphHyears' with start date values
+	year, graphH, meanNodeH = line.split(",")
+	graphHyears.update ({int(year):float(graphH)})
+	nodeHyears.update ({int(year):float(meanNodeH)})
 
-# close input file
-dataInput.close()
-
+# graphH Plot
 xAxis = []
 yAxis = []
 
-for key, value in sorted(years.iteritems()):
+for key, value in sorted(graphHyears.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
 
@@ -82,10 +83,38 @@ plt.xlabel('Year', fontsize=14)
 plt.ylabel('Graph Hybridity', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(graphPath, format = 'png')
+plt.savefig(graphHPath, format = 'png')
+plt.clf()
 
-# display graph on screen - DON'T BOTHER FOR NOW
-# plt.show()
+# meanNodehH Plot
+xAxis = []
+yAxis = []
+
+for key, value in sorted(nodeHyears.iteritems()):
+   xAxis.append(key)
+   yAxis.append(value)
+
+# set axes values
+x_low = (min(xAxis) - 2)
+x_high = (max(xAxis) + 2)
+y_low = 0
+y_high = 1.0
+
+# plot graph
+width = 1
+plt.plot(xAxis, yAxis, linestyle='-', color='r')
+
+# label, plot and save image of graph
+plt.grid(zorder=0)
+plt.xlabel('Year', fontsize=14)
+plt.ylabel('Mean Node Hybridity', fontsize=14)
+plt.xlim(x_low, x_high)
+plt.ylim(y_low, y_high)
+plt.savefig(nodeHPath, format = 'png')
+plt.clf()
+
+# close input file
+dataInput.close()
 
 # End timing of run
 endTime = datetime.now()

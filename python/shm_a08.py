@@ -54,7 +54,8 @@ nodeFile.write ("Genre" + "," + "In-Degree" + "," + "Out-Degree" + "," + "Node H
 diGraphPath = os.path.join("gexf", 'shm.gexf')
 diEnGraph = nx.read_gexf(diGraphPath)
 
-# Create empty dictionary for finalNodeSig values
+# Create empty dictionaries for NodeH and finalNodeSig values
+nodeHDict = {}
 finalNodeSigDict = {}
 
 # Create dictionary for artist totals and clean up unicode
@@ -147,10 +148,13 @@ for node in diEnGraph.nodes():
 	if NodeH == 1.0:
 		totalNodeH += 1
 
+	# Update nodeSigDict dictionary for later use
+	nodeHDict[node] = NodeH
+
 	# Final node significance is NodeHybridity * NodeSignificance
 	finalNodeSig = NodeH * nodeSig
 
-	#Update nodeSigDict dictionary for later use
+	# Update finalNodeSigDict dictionary for later use
 	finalNodeSigDict[node] = finalNodeSig
 
 	print ("Node total artists for " + str(node) + " is: " + str(nodeTotalArtists))
@@ -176,11 +180,14 @@ percNodeH = float(100 * (float(totalNodeH) / float(totalGraphNodes)))
 percNonHybrids = float(100 * (float(nonHybrids) / float(totalGraphNodes)))
 percTotalNonHybrids = float(100 * (float(totalNonHybrids) / float(totalGraphNodes)))
 
-# Calculate GraphH, the sum of all nodeSig values
+# Calculate Mean NodeH
+meanNodeH = (sum(nodeHDict.values())) / float(totalGraphNodes)
+
+# Calculate GraphH, the sum of all finalNodeSig values
 GraphH = sum(finalNodeSigDict.values())
 
 # Write to plot file
-plotFile.write(str(omegaYear) + ',' + str(GraphH) + '\n')
+plotFile.write(str(omegaYear) + ',' + str(GraphH) + ',' + str(meanNodeH) + '\n')
 plotFile.close()
 
 print
@@ -196,7 +203,8 @@ print ("Percentage of non-hybrids (minus progenitors and isolates): " + str(perc
 print ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids))
 print ("Percentage of NodeH 1.0 genres: " + str(percNodeH))
 print ("Graph total artists: " + str(graphTotalArtists))
-print ("GraphH: " + str(GraphH))
+print ("Mean Node Hybridity: " + str(meanNodeH))
+print ("Graph Hybridity (GraphH): " + str(GraphH))
 print
 
 # Write to log
@@ -212,7 +220,8 @@ runLog.write ("Percentage of non-hybrids (minus progenitors and isolates): " + s
 runLog.write ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids) + '\n')
 runLog.write ("Percentage of NodeH 1.0 genres: " + str(percNodeH) + '\n')
 runLog.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
-runLog.write ("GraphH: " + str(GraphH) + '\n')
+runLog.write ("Mean Node Hybridity: " + str(meanNodeH) + '\n')
+runLog.write ("Graph Hybridity (GraphH): " + str(GraphH) + '\n')
 runLog.write ('\n' + "=============================================================" + '\n')
 runLog.close()
 
@@ -229,6 +238,7 @@ resultsFile.write ("Percentage of non-hybrids (minus progenitors and isolates): 
 resultsFile.write ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids) + '\n')
 resultsFile.write ("Percentage of NodeH 1.0 genres: " + str(percNodeH) + '\n')
 resultsFile.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
-resultsFile.write ("GraphH: " + str(GraphH) + '\n')
+resultsFile.write ("Mean Node Hybridity: " + str(meanNodeH) + '\n')
+resultsFile.write ("Graph Hybridity (GraphH): " + str(GraphH) + '\n')
 resultsFile.write ('\n' + "=============================================================" + '\n')
 resultsFile.close()

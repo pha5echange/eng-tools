@@ -1,7 +1,7 @@
-# eng_list_b01.py
-# Version b01
+# eng_list_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 2nd 2015
+# February 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -21,7 +21,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # create 'lists' subdirectory if necessary
 if not os.path.exists("lists"):
@@ -32,7 +32,8 @@ runDate = datetime.now()
 startTime = datetime.now()
 
 # open and read 'apikey.txt'
-apiKeyFile = open('apikey.txt', 'r')
+apiKeyPath = os.path.join("config", 'apikey.txt')
+apiKeyFile = open(apiKeyPath, 'r')
 apiKey = str(apiKeyFile.read())
 
 # open file for writing data

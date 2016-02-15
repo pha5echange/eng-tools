@@ -11,7 +11,7 @@
 # Removes nodes where date-cluster information is not available
 # Removes self-loop edges and zero-degree nodes if required
 # Removes nodes based upon 'incepDate' if required - a date is requested and all nodes NEWER than this are removed
-# Displays using parameters from 'config_nw.txt'
+# Displays using parameters from 'config/config_nw.txt'
 # Writes 'data\eng_network_wd_nodeList.txt' with nodes and degrees (k), '...edgeList.txt' with neighbours
 # Writes analysis files and laplacian spectrum to 'results\'
 # Writes gexf files to 'gexf\'
@@ -540,7 +540,8 @@ gexfDFile.close()
 print ('Reading layout config file...' + '\n')
 
 # Open and read 'config_nw.txt'
-nwConfig = open('config_nw.txt').readlines()
+nwConfigPath = os.path.join ("config", 'config_nw.txt')
+nwConfig = open(nwConfigPath, 'r').readlines()
 
 # Remove the first line
 firstLine = nwConfig.pop(0)
