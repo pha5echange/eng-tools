@@ -1,11 +1,11 @@
-ENG-Tools beta v. 09
+ENG-Tools beta v. 10.0
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 14th 2016
+February 15th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -19,7 +19,11 @@ LICENCE:
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
-LATEST ADDITIONS: 
+LATEST CHANGES AND ADDITIONS: 
+
+- 'shm_h_plotter' now outputs 2 graphs ('GraphH' and 'meanNodeH')
+
+- Altered file structure. 
 
 - 'eng_netwrok_wd' and 'shm' output folder structures revised. 
 
@@ -46,7 +50,7 @@ To use ENG-Tools you will require the following:
 
 1) An Echonest Developer account, and an API key (from https://developer.echonest.com/account/register)
 
-2) A text file called 'apikey.txt' containing your Echonest API key, in the same folder as the scripts
+2) A text file called 'apikey.txt' containing your Echonest API key, in a 'config/' subfolder (i.e. 'config/apikey.txt' within the main ENG-Tools folder). 
 
 3) Python 2.7, the 'pyen' library (from https://github.com/plamere/pyen), the 'matplotlib' library (from http://matplotlib.org), the 'scipy' library (from http://www.scipy.org), and the 'networkx' library (from https://networkx.github.io/). It is likely that the 'community' library (https://bitbucket.org/taynaud/python-louvain) and the 'igraph' library will be used in later versions; the Python version of iGraph can be obtained from http://igraph.org/python/ 
 
@@ -88,7 +92,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 13) The output file from this ('wuGraph_data') can then be processed with 'eng_network_wd'. This outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. 
 
-14) Network layout parameters can be edited in 'config_nw.txt'. 
+14) Network layout parameters can be edited in 'config/config_nw.txt'. 
 
 15) Rename a GEXF file ('gexf/shm.gexf') and run 'shm.py' to calculate the SimpleHybridity Metric (SHM) for a graph. 
 
@@ -131,10 +135,10 @@ MANIFEST:
 
 (18) shm_H_plotter.py
 
-(19) apikey.txt (BLANK - REQUIRES API KEY)
+(19) config/apikey.txt (BLANK - REQUIRES API KEY)
 
-(20) config_nw.txt
+(20) config/config_nw.txt
 
 (21) data/retromatic.txt
 
-(21) gexf/shm.gexf
+(21) gexf/shm.gexf (example file)
