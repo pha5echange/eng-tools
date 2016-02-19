@@ -1,14 +1,15 @@
-# shm_H_plotter_a02.py
-# Version a02
+# shm_H_plotter_a03.py
+# Version a03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 13th 2016
+# February 17th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Plots data from 'Retromatic' (by Glenn McDonald)
 # http://www.furia.com/page.cgi?type=log&id=389
 
-# Processes file 'data/shm_4_plot.txt'
-# Plots GraphH-values (from'shm') over time
+# Processes file 'data/shm_4_plot.txt' and produces 2 line-graphs: 
+  # Plots GraphH and Mean-NodeH values (from'shm') over time
+  # Plots NodeH=1.0 and Progenitors as a % of the total graph node-number
 
 # import packages
 import os
@@ -17,7 +18,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a02")
+versionNumber = ("a03")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -31,9 +32,10 @@ if not os.path.exists("graphs"):
 logPath = os.path.join("logs", 'shm_H_plotter_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
-# define path for graphs
+# define paths for graphs
 graphHPath = os.path.join("graphs", 'shm_H_plotter_' + versionNumber + ".png")
 nodeHPath = os.path.join("graphs", 'shm_nodeH_plotter_' + versionNumber + ".png")
+graphPercPath = os.path.join("graphs", 'shm_Perc_plotter_' + versionNumber + ".png")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -50,14 +52,18 @@ dataInput = open(pathname, "r")
 # define dicts to store the dates and values
 graphHyears = {}
 nodeHyears = {}
+nodePercs = {}
+progenPercs = {}
 
 # read lines from the file
 for line in dataInput:
 
-	# split line and append 'graphHyears' with start date values
-	year, graphH, meanNodeH = line.split(",")
-	graphHyears.update ({int(year):float(graphH)})
-	nodeHyears.update ({int(year):float(meanNodeH)})
+  # split line and append 'graphHyears' with start date values
+  year, graphH, meanNodeH, nodePerc, percProgen = line.split(",")
+  graphHyears.update ({int(year):float(graphH)})
+  nodeHyears.update ({int(year):float(meanNodeH)})
+  nodePercs.update ({int(year):float(nodePerc)})
+  progenPercs.update ({int(year):float(percProgen)})
 
 # graphH Plot
 xAxis = []
@@ -75,16 +81,16 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='-', color='b')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
 plt.xlabel('Year', fontsize=14)
-plt.ylabel('Graph Hybridity', fontsize=14)
+plt.ylabel('Hybridity', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(graphHPath, format = 'png')
-plt.clf()
+# plt.savefig(graphHPath, format = 'png')
+# plt.clf()
 
 # meanNodehH Plot
 xAxis = []
@@ -102,15 +108,68 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='-', color='r')
+plt.plot(xAxis, yAxis, linestyle='solid', color='r')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
 plt.xlabel('Year', fontsize=14)
-plt.ylabel('Mean Node Hybridity', fontsize=14)
+plt.ylabel('Hybridity', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 plt.savefig(nodeHPath, format = 'png')
+plt.clf()
+
+# GraphPerc Plot
+xAxis = []
+yAxis = []
+
+for key, value in sorted(nodePercs.iteritems()):
+   xAxis.append(key)
+   yAxis.append(value)
+
+# set axes values
+x_low = (min(xAxis) - 2)
+x_high = (max(xAxis) + 2)
+y_low = 0
+y_high = 40
+
+# plot graph
+width = 1
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b')
+
+# label, plot and save image of graph
+plt.grid(zorder=0)
+plt.xlabel('Year', fontsize=14)
+plt.ylabel('Percentage of Nodes', fontsize=14)
+plt.xlim(x_low, x_high)
+plt.ylim(y_low, y_high)
+# plt.savefig(graphPercPath, format = 'png')
+# plt.clf()
+
+xAxis = []
+yAxis = []
+
+for key, value in sorted(progenPercs.iteritems()):
+   xAxis.append(key)
+   yAxis.append(value)
+
+# set axes values
+x_low = (min(xAxis) - 2)
+x_high = (max(xAxis) + 2)
+y_low = 0
+y_high = 40
+
+# plot graph
+width = 1
+plt.plot(xAxis, yAxis, linestyle='solid', color='r')
+
+# label, plot and save image of graph
+plt.grid(zorder=0)
+plt.xlabel('Year', fontsize=14)
+plt.ylabel('Percentage of  Nodes', fontsize=14)
+plt.xlim(x_low, x_high)
+plt.ylim(y_low, y_high)
+plt.savefig(graphPercPath, format = 'png')
 plt.clf()
 
 # close input file

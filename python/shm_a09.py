@@ -1,6 +1,6 @@
 # Simple Hybridity Metric
-# v. a0.8
-# 14th Feb. 2016
+# v. a0.9
+# 17th Feb. 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Examines a graph and calculates node hybridty (NodeH) and graph hybridity (GraphH)
@@ -9,7 +9,7 @@
 import os
 import networkx as nx
 
-versionNumber = ("a08")
+versionNumber = ("a09")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -187,7 +187,7 @@ meanNodeH = (sum(nodeHDict.values())) / float(totalGraphNodes)
 GraphH = sum(finalNodeSigDict.values())
 
 # Write to plot file
-plotFile.write(str(omegaYear) + ',' + str(GraphH) + ',' + str(meanNodeH) + '\n')
+plotFile.write(str(omegaYear) + ',' + str(GraphH) + ',' + str(meanNodeH) + ',' + str(percNodeH) + ',' + str(percProgen) + '\n')
 plotFile.close()
 
 print

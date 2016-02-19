@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 15th 2016
+February 19th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -21,7 +21,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
-- 'shm_h_plotter' now outputs 2 graphs ('GraphH' and 'meanNodeH')
+- 'shm_h_plotter' now outputs 2 graphs, each with 2 lines ('GraphH' / 'meanNodeH' and '% H=1.0' / '% Progenitors')
 
 - Altered file structure. 
 
