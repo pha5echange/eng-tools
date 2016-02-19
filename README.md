@@ -21,11 +21,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
-- 'shm_h_plotter' now outputs 2 graphs, each with 2 lines ('GraphH' / 'meanNodeH' and '% H=1.0' / '% Progenitors')
-
-- Altered file structure. 
-
-- 'eng_netwrok_wd' and 'shm' output folder structures revised. 
+- 'shm_h_plotter' now outputs 2 graphs, each with 2 lines ('GraphH' / 'meanNodeH' and '% H=1.0' / '% Progenitors') 
 
 - 'shm_H_plotter' makes simple line-graphs of SHM results.
 
@@ -33,7 +29,7 @@ LATEST CHANGES AND ADDITIONS:
 
 - 'shm' calculates the Simple Hybridity Metric (SHM) for nodes and graphs. 
 
-- 'gexf/shm.gexf' added to prevent 'shm' errors
+- 'gexf/shm.gexf' example added to prevent 'shm' errors. 
 
 - 'eng_network_wd' calculates 'artist Total' for networks. 
 
@@ -94,7 +90,9 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 14) Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-15) Rename a GEXF file ('gexf/shm.gexf') and run 'shm.py' to calculate the SimpleHybridity Metric (SHM) for a graph. 
+15) Rename a GEXF file ('gexf/shm.gexf') and run 'shm.py' to calculate the SimpleHybridity Metric (SHM) for a graph. 'shm.py' also outputs 'data/shm_plot.txt'.
+
+16) Run shm_H_plotter.py' after 'shm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
 
 MANIFEST: 
@@ -141,4 +139,4 @@ MANIFEST:
 
 (21) data/retromatic.txt
 
-(21) gexf/shm.gexf (example file)
+(22) gexf/shm.gexf (example file)
