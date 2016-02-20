@@ -1,7 +1,7 @@
-# shm_H_plotter_a03.py
+# shm_H_plotter_a04.py
 # Version a03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 17th 2016
+# February 20th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Plots data from 'Retromatic' (by Glenn McDonald)
@@ -18,7 +18,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a03")
+versionNumber = ("a04")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -131,7 +131,7 @@ for key, value in sorted(nodePercs.iteritems()):
 x_low = (min(xAxis) - 2)
 x_high = (max(xAxis) + 2)
 y_low = 0
-y_high = 40
+y_high = 100
 
 # plot graph
 width = 1
@@ -157,7 +157,7 @@ for key, value in sorted(progenPercs.iteritems()):
 x_low = (min(xAxis) - 2)
 x_high = (max(xAxis) + 2)
 y_low = 0
-y_high = 40
+y_high = 100
 
 # plot graph
 width = 1

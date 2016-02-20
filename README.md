@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 19th 2016
+February 20th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -21,15 +21,19 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
-- 'shm_h_plotter' now outputs 2 graphs, each with 2 lines ('GraphH' / 'meanNodeH' and '% H=1.0' / '% Progenitors') 
+- 'shm' now looks for 'OMEGAYEAR.gexf' files in 'gexf/..' and calculates for all. 
+
+- 'gexf/2015.gexf' example added to prevent 'shm' errors. 
+
+- 'eng_network_wd' now outputs 'gexf/OMEGAYEAR.gexf' file for directed graphs. 
+
+- 'shm_h_plotter' now outputs 2 graphs, each with 2 lines ('GraphH' + 'meanNodeH' and '% H=1.0' + '% Progenitors') 
 
 - 'shm_H_plotter' makes simple line-graphs of SHM results.
 
-- 'shm' saves log, results and 'nodes' files.
+- 'shm' saves log, results and 'nodes' files, and 'shm_plot' file for use by 'shm_H_plotter'. 
 
 - 'shm' calculates the Simple Hybridity Metric (SHM) for nodes and graphs. 
-
-- 'gexf/shm.gexf' example added to prevent 'shm' errors. 
 
 - 'eng_network_wd' calculates 'artist Total' for networks. 
 
@@ -88,7 +92,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 13) 'eng_network_wd' processes and renders a network, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-14) Rename a GEXF file ('gexf/shm.gexf') and run 'shm.py' to calculate the SimpleHybridity Metric (SHM) for a graph. 'shm.py' also outputs 'data/shm_plot.txt'.
+14) Run 'shm.py' to calculate the Simple Hybridity Metric (SHM) for all graphs (based upon the presence of 'gexf/OMEGAYEAR.gexf' files). 'shm.py' also outputs 'data/shm_plot.txt'.
 
 15) Run shm_H_plotter.py' after 'shm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
@@ -137,4 +141,4 @@ MANIFEST:
 
 (21) data/retromatic.txt
 
-(22) gexf/shm.gexf (example file)
+(22) gexf/2015.gexf (example file)
