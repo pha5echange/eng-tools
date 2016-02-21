@@ -1,7 +1,7 @@
-# shm_H_plotter_a04.py
-# Version a03
+# shm_H_plotter_a05.py
+# Version a05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 20th 2016
+# February 21st 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Plots data from 'Retromatic' (by Glenn McDonald)
@@ -18,7 +18,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a04")
+versionNumber = ("a05")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -47,8 +47,11 @@ print ('\n' + 'SHM H Plotter | ' + 'Version: ' + versionNumber + ' | Starting' +
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'shm_plot.txt')
-dataInput = open(pathname, "r")
-	
+dataInput = open(pathname, "r").readlines()
+
+# Remove the first line
+firstLine = dataInput.pop(0)
+
 # define dicts to store the dates and values
 graphHyears = {}
 nodeHyears = {}
@@ -171,9 +174,6 @@ plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 plt.savefig(graphPercPath, format = 'png')
 plt.clf()
-
-# close input file
-dataInput.close()
 
 # End timing of run
 endTime = datetime.now()

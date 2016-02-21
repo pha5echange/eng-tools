@@ -1,6 +1,6 @@
 # Simple Hybridity Metric
-# v. b0.1
-# 20th Feb. 2016
+# v. b0.2
+# 21st Feb. 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Examines a graph and calculates node hybridty (NodeH) and graph hybridity (GraphH)
@@ -12,7 +12,7 @@ import os
 import networkx as nx
 from datetime import datetime
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -40,6 +40,7 @@ runLog = open(logPath, 'a')
 # open file for plot - file output
 plotPath = os.path.join("data", 'shm_plot.txt')
 plotFile = open(plotPath, 'w')
+plotFile.write("OmegaYear" + ',' + "GraphH" + ',' + "Mean-NodeH" + ',' + "Perc-NodeH=1" + ',' + "Perc-Progen" + '\n')
 
 # open file for results output
 resultsPath = os.path.join("results", 'shm_' + versionNumber + '.txt')
