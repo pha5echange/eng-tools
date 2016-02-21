@@ -10,8 +10,13 @@
 # Import packages
 import os
 import networkx as nx
+from datetime import datetime
 
 versionNumber = ("b01")
+
+# Initiate timing of run
+runDate = datetime.now()
+startTime = datetime.now()
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -253,4 +258,8 @@ for index in range(len(fileNames)):
 resultsFile.close()
 plotFile.close()
 runLog.close()
-print ("Finished")
+
+# End timing of run
+endTime = datetime.now()
+
+print('Duration of run : {}'.format(endTime - startTime))

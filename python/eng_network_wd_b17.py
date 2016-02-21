@@ -162,8 +162,8 @@ for date in dateSet:
 	# lsFinFile = open(lsFinPath, 'w')
 
 	# Open file to write image
-	# nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
-	# nwImg = open (nwImgPath, 'w')
+	nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
+	nwImg = open (nwImgPath, 'w')
 
 	anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
 	anFile.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n' + '\n')
@@ -550,39 +550,40 @@ for date in dateSet:
 
 	# Plot and display graph
 	# Graph plotting parameters - moved to config file 'config_nw.txt'
-	# print ('Reading layout config file...' + '\n')
+	print ('Reading layout config file...' + '\n')
 
 	# Open and read 'config_nw.txt'
-	# nwConfigPath = os.path.join ("config", 'config_nw.txt')
-	# nwConfig = open(nwConfigPath, 'r').readlines()
+	nwConfigPath = os.path.join ("config", 'config_nw.txt')
+	nwConfig = open(nwConfigPath, 'r').readlines()
 
 	# Remove the first line
-	# firstLine = nwConfig.pop(0)
+	firstLine = nwConfig.pop(0)
 
-	# for line in nwConfig:
-	# 	n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, e_text_size, edge_label_colour = line.split(",")
+	for line in nwConfig:
+		n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, e_text_size, edge_label_colour = line.split(",")
 		
-	# node_size = int(n_size)
-	# node_alpha = float(n_alpha)
-	# node_text_size = int(n_text_size)
-	# edge_thickness = int(e_thickness)
-	# edge_alpha = float(e_alpha)
-	# label_pos = float(l_pos)
-	# edge_text_size = int(e_text_size)
+	node_size = int(n_size)
+	node_alpha = float(n_alpha)
+	node_text_size = int(n_text_size)
+	edge_thickness = int(e_thickness)
+	edge_alpha = float(e_alpha)
+	label_pos = float(l_pos)
+	edge_text_size = int(e_text_size)
 
-	# print ('Laying out graph...' + '\n')
+	print ('Laying out graph...' + '\n')
 
-	# nx.draw(enGraph)
-	# graph_pos = nx.spring_layout(diEnGraph)
-	# nx.draw_networkx_nodes(diEnGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
-	# nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
+	# nx.draw(diEnGraph)
+	graph_pos = nx.spring_layout(diEnGraph)
+	nx.draw_networkx_nodes(diEnGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
+	nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
 	#nx.draw_networkx_labels(diEnGraph, graph_pos, font_size = node_text_size, font_family = text_font)
 	# nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
 	# write image file
-	# print ('Writing image file...' + '\n')
-	# plt.savefig(nwImg, format = 'png', bbox_inches='tight')
-	# nwImg.close()
+	print ('Writing image file...' + '\n')
+	plt.savefig(nwImg, format = 'png', bbox_inches='tight')
+	plt.clf()
+	nwImg.close()
 
 	# display graph
 	# print ('Displaying graph...' + '\n')
