@@ -1,11 +1,13 @@
-ENG-Tools beta v. 10.0
+ENG-Tools beta v. 10.1
+
+DEVELOPMENT BRANCH
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 20th 2016
+February 21sth 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -20,6 +22,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST CHANGES AND ADDITIONS: 
+
+- 'eng_network_wd' makes networks for all `first_clusters'. 
 
 - 'shm' now looks for 'OMEGAYEAR.gexf' files in 'gexf/..' and calculates for all. 
 
@@ -90,7 +94,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. The output file from this ('data/wuGraph_data.txt') is a weighted undirected edgelist for use by... 
 
-13) 'eng_network_wd' processes and renders a network, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
+13) 'eng_network_wd' processes and renders networks for all `first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
 
 14) Run 'shm.py' to calculate the Simple Hybridity Metric (SHM) for all graphs (based upon the presence of 'gexf/OMEGAYEAR.gexf' files). 'shm.py' also outputs 'data/shm_plot.txt'.
 
