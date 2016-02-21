@@ -1,7 +1,7 @@
-# eng_cluster_b07.py
-# Version b06
+# eng_cluster_b08.py
+# Version b08
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# February 21st 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -17,7 +17,7 @@
 
 # New version to deal with Musicbrainz ID in data files
 
-# Min Cluster = 3
+# Min Cluster = 2
 
 # Run AFTER 'en_genre.py'
 
@@ -25,7 +25,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b07")
+versionNumber = ("b08")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -97,7 +97,7 @@ for index in range(len(fileNames)):
 	clusterNumber = 1
 	maxIndex = len(genreStartDates)
 
-	# variable for deciding what a cluster is - at least 3 artists in this instance, or a percentage of the total
+	# variable for deciding what a cluster is - at least 2 artists in this instance, or a percentage of the total
 	if not minArtistNumber:
 		divisor = int (100 / clusterInput)
 		minClusterSize = int(maxIndex / divisor)
@@ -106,9 +106,9 @@ for index in range(len(fileNames)):
 		if minClusterSize == 0:
 			minClusterSize = 1
 
-		# ensure minimum cluster size (3 at present)
-		if minClusterSize < 3:
-			minClusterSize = 3
+		# ensure minimum cluster size (2 at present)
+		if minClusterSize < 2:
+			minClusterSize = 2
 	else:
 		minClusterSize = minArtistNumber
 
