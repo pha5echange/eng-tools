@@ -1,7 +1,7 @@
-# en_genre_b10.py
-# Version b10
+# en_genre_b11.py
+# Version b11
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 14th 2016
+# February 22nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -27,7 +27,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b10")
+versionNumber = ("b11")
 
 # define indexing variables for total artist responses
 artistTotal = 0
@@ -50,9 +50,10 @@ if not os.path.exists("logs"):
 logPath = os.path.join("logs", 'en_genre_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
-# open file for writing 'calc_date_ratios'
+# open file for writing 'date_ratios'
 resultsPath = os.path.join("data", 'date_ratios.txt')
 dateRatios = open(resultsPath, 'w')
+dateRatios.write("Genre" + ',' + "Artists returned" + ',' + "Artists written" + '\n')
 
 # get number of genres to trawl
 runLog.write ('\n' + 'Echonest Genre Trawler | ' + 'Version: ' + versionNumber + '\n' + '\n')
