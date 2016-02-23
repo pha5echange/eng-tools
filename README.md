@@ -7,7 +7,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 22nd 2016
+February 23rd 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -22,6 +22,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST CHANGES AND ADDITIONS: 
+
+- 'eng_multiplot' saves images to 'graphs/multi/'. 
 
 - 'eng_fam' and 'eng_hot' combined into one script ('eng_fam_hot'). 
 
