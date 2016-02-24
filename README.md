@@ -7,7 +7,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 23rd 2016
+February 24th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -23,6 +23,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
+- Subfolder 'gexf/directed/' added to folder structure. 
+
 - 'eng_multiplot' saves images to 'graphs/multi/'. 
 
 - 'eng_fam' and 'eng_hot' combined into one script ('eng_fam_hot'). 
@@ -31,9 +33,9 @@ LATEST CHANGES AND ADDITIONS:
 
 - 'shm' now looks for 'OMEGAYEAR.gexf' files in 'gexf/..' and calculates for all. 
 
-- 'gexf/2015.gexf' example added to prevent 'shm' errors. 
+- 'gexf/directed/1977.gexf' example added to prevent 'shm' errors. 
 
-- 'eng_network_wd' now outputs 'gexf/OMEGAYEAR.gexf' file for directed graphs. 
+- 'eng_network_wd' now outputs 'gexf/directed/OMEGAYEAR.gexf' file for directed graphs. 
 
 - 'shm_h_plotter' now outputs 2 graphs, each with 2 lines ('GraphH' + 'meanNodeH' and '% H=1.0' + '% Progenitors') 
 
@@ -98,7 +100,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_network_wd' processes and renders networks for all `first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-13) Run 'shm.py' to calculate the Simple Hybridity Metric (SHM) for all graphs (based upon the presence of 'gexf/OMEGAYEAR.gexf' files). 'shm.py' also outputs 'data/shm_plot.txt'.
+13) Run 'shm.py' to calculate the Simple Hybridity Metric (SHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'shm.py' also outputs 'data/shm_plot.txt'.
 
 14) Run shm_H_plotter.py' after 'shm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
@@ -145,4 +147,4 @@ MANIFEST:
 
 (20) data/retromatic.txt
 
-(21) gexf/2015.gexf (example file)
+(21) gexf/directed/1977.gexf (example file)

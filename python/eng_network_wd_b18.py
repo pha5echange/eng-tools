@@ -1,7 +1,7 @@
-# eng_network_wd_b17.py
-# Version b17
+# eng_network_wd_b18.py
+# Version b18
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 21st 2016
+# February 24th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b17")
+versionNumber = ("b18")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -54,6 +54,9 @@ if not os.path.exists("gexf"):
 if not os.path.exists("gexf/initial"):
 	os.makedirs("gexf/initial")
 
+if not os.path.exists("gexf/directed"):
+	os.makedirs("gexf/directed")
+
 if not os.path.exists("gexf/final"):
 	os.makedirs("gexf/final")
 
@@ -64,8 +67,8 @@ if not os.path.exists("results"):
 if not os.path.exists("results/analysis"):
 	os.makedirs("results/analysis")
 
-if not os.path.exists("results/laplacian"):
-	os.makedirs("results/laplacian")
+#if not os.path.exists("results/laplacian"):
+#	os.makedirs("results/laplacian")
 
 # Create 'networks' subdirectory if necessary
 if not os.path.exists("networks"):
@@ -76,17 +79,11 @@ logPath = os.path.join("logs", 'eng_network_wd_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # Begin
-print ('\n' + "Weighted Directed Network Thing | Version " + versionNumber + " | Starting...")
-runLog.write ('\n' + "==========================================================================" + '\n' + '\n')
-runLog.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n' + '\n')
+print ('\n' + "Weighted Directed Network Thing | Version " + versionNumber + " | Starting..." + '\n')
+runLog.write ("==========================================================================" + '\n' + '\n')
+runLog.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n')
 
-# Get user input
-print
-# dateIP = int(input ("Enter a year to remove nodes that appear AFTER this date (or 0 to leave the network intact): "))
-# selfLoopIP = int(input ("Enter 1 here to remove self-loop edges: "))
-# Uncomment the line below to facilitate optional isolate removal
-# isolatedIP = int(input ("Enter 1 here to remove isolated nodes: "))
-# Comment out the lines below if uncommenting the line above
+# Pre-defined input: remove self-loops (1) but don't remove isolates(0)
 selfLoopIP = 1
 isolatedIP = 0
 
@@ -126,7 +123,6 @@ for line in artistInput:
 sortArtists = OrderedDict(sorted(artistDict.items()))
 
 # Main routine
-
 for date in dateSet:
 
 	dateIP = int(date)
@@ -144,7 +140,7 @@ for date in dateSet:
 	gexfFile = open(gexfPath, 'w')
 
 	# Open file for writing digraph gexf
-	gexfDPath = os.path.join("gexf", str(dateIP) + '.gexf')
+	gexfDPath = os.path.join("gexf/directed", str(dateIP) + '.gexf')
 	gexfDFile = open(gexfDPath, 'w')
 
 	# Open file for writing final gexf
@@ -167,16 +163,15 @@ for date in dateSet:
 	# nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
 	# nwImg = open (nwImgPath, 'w')
 
-	anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
+	anFile.write ("==========================================================================" + '\n' + '\n')
 	anFile.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n' + '\n')
-	# anFile.write('Sorted genre dates: ' + str(sortDates) + '\n' + '\n')
+	anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
 
-	# Read the edgelist and generate undirected graph
+	# Read the edgelist and generate graph
 	print ('\n' + "Importing Weighted Edge List... ")
 	inputPath = os.path.join("data", 'wuGraph_data.txt')
 	edgeList = open (inputPath, 'r')
 	enGraph = nx.read_weighted_edgelist(edgeList, delimiter=',')
-	edgeList.close()
 
 	# Calculate basic graph statistics
 	print ('\n' + "Calculating various things... " + '\n')
@@ -187,37 +182,20 @@ for date in dateSet:
 	nodeList.sort()
 	selfLoopEdges = enGraph.number_of_selfloops()
 	connections = edges - selfLoopEdges
-	avClustering = nx.average_clustering(enGraph)
-	connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-	cl = nx.find_cliques(enGraph)
-	cl = sorted(list(cl), key = len, reverse = True)
 
 	print ('Nodes: ' + str(nodes))
 	print ('Edges: ' + str(edges))
 	print ('Self-loops: ' + str(selfLoopEdges))
 	print ('Connections (edges minus self-loops): ' + str(connections))
 	print ('Density: ' + str(density))
-	print ('Average Clustering Coefficient: ' + str(avClustering))
-	print ('Number of cliques: ' + str(len(cl)))
-	print ('Connected Components: ' + str(connectComp) + '\n')
-	print
-	print (str(nx.info(enGraph)))
 	print
 
-	runLog.write ('Initial data: ' + '\n' + '\n')
-	runLog.write ('User-entered date: ' + str(dateIP) + '\n')
+	runLog.write ('\n' + 'Initial data: ' + '\n' + '\n')
 	runLog.write ('Nodes: ' + str(nodes) + '\n')
 	runLog.write ('Edges: ' + str(edges) + '\n')
 	runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 	runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 	runLog.write ('Density: ' + str(density) + '\n')
-	runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-	runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
-	runLog.write ('Connected Components: ' + str(connectComp) + '\n')
-	runLog.write ('\n' + str(nx.info(enGraph)) + '\n')
-
-	anFile.write('Date: ' + str(dateIP) + '\n' + '\n')
-	anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
 
 	# Apply artist numbers of nodes as attributes
 	print ('Applying total artist number attribute to nodes...' + '\n')
@@ -241,6 +219,11 @@ for date in dateSet:
 		print ('\n' + 'Removed ' + str(noDateNode) + ' nodes due to no inception dates.')
 		runLog.write ('\n' + 'Removed ' + str(noDateNode) + ' nodes due to no inception dates.' + '\n')
 
+	# Apply dates of nodes as attributes
+	print ('Applying inception date attribute to nodes...' + '\n')
+	runLog.write ('\n' + 'Applying inception date attribute to nodes...' + '\n')
+	nx.set_node_attributes (enGraph, 'incepDate', sortDates)
+
 	# Recalculate basic graph statistics
 	print ('\n' + 'Recalculating various things...' + '\n')
 	nodes = nx.number_of_nodes(enGraph)
@@ -250,21 +233,12 @@ for date in dateSet:
 	nodeList.sort()
 	selfLoopEdges = enGraph.number_of_selfloops()
 	connections = edges - selfLoopEdges
-	avClustering = nx.average_clustering(enGraph)
-	connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-	cl = nx.find_cliques(enGraph)
-	cl = sorted(list(cl), key = len, reverse = True)
 
 	print ('Nodes: ' + str(nodes))
 	print ('Edges: ' + str(edges))
 	print ('Self-loops: ' + str(selfLoopEdges))
 	print ('Connections (edges minus self-loops): ' + str(connections))
 	print ('Density: ' + str(density))
-	print ('Average Clustering Coefficient: ' + str(avClustering))
-	print ('Number of cliques: ' + str(len(cl)))
-	print ('Connected Components: ' + str(connectComp))
-	print
-	print (str(nx.info(enGraph)))
 	print
 
 	runLog.write ('\n' + 'Stage 1 data: ' + '\n' + '\n')
@@ -273,28 +247,19 @@ for date in dateSet:
 	runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 	runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 	runLog.write ('Density: ' + str(density) + '\n')
-	runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-	runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
-	runLog.write ('Connected Components: ' + str(connectComp) + '\n')
-	runLog.write ('\n' + str(nx.info(enGraph)) + '\n')
 
-	# Apply dates of nodes as attributes
-	print ('Applying inception date attribute to nodes...' + '\n')
-	runLog.write ('\n' + 'Applying inception date attribute to nodes...' + '\n')
-	nx.set_node_attributes (enGraph, 'incepDate', sortDates)
-
-	# Remove nodes where 'incepDate' attribute is NEWER than user input ('dateIP')
+	# Remove nodes where 'incepDate' attribute is NEWER than omega year ('dateIP')
 	if dateIP != 0:
-		runLog.write('\n' + 'Removing nodes based upon user date input...' + '\n')
+		runLog.write('\n' + 'Removing nodes based upon omega year...' + '\n')
 		for i in nodeList:
 			incepDate = nx.get_node_attributes (enGraph, 'incepDate')
 			intIncep = int(incepDate[i])
 			if intIncep > dateIP:
 				enGraph.remove_node(i)
-				print ('Removed newer node ' + str(i) + ' based upon user date input.')
+				print ('Removed newer node ' + str(i) + ' based upon omega year.')
 	else:
-		print ('No nodes removed based upon user date input.')
-		runLog.write ('\n' + 'No nodes removed based upon user date input.' + '\n')
+		print ('No nodes removed based upon omega year.')
+		runLog.write ('\n' + 'No nodes removed based upon omega year.' + '\n')
 
 	# Recalculate basic graph statistics
 	print ('\n' + 'Recalculating various things...' + '\n')
@@ -305,21 +270,12 @@ for date in dateSet:
 	nodeList.sort()
 	selfLoopEdges = enGraph.number_of_selfloops()
 	connections = edges - selfLoopEdges
-	avClustering = nx.average_clustering(enGraph)
-	connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-	cl = nx.find_cliques(enGraph)
-	cl = sorted(list(cl), key = len, reverse = True)
 
 	print ('Nodes: ' + str(nodes))
 	print ('Edges: ' + str(edges))
 	print ('Self-loops: ' + str(selfLoopEdges))
 	print ('Connections (edges minus self-loops): ' + str(connections))
 	print ('Density: ' + str(density))
-	print ('Average Clustering Coefficient: ' + str(avClustering))
-	print ('Number of cliques: ' + str(len(cl)))
-	print ('Connected Components: ' + str(connectComp))
-	print
-	print (str(nx.info(enGraph)))
 	print
 
 	runLog.write ('\n' + 'Stage 2 data: ' + '\n' + '\n')
@@ -328,10 +284,6 @@ for date in dateSet:
 	runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 	runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 	runLog.write ('Density: ' + str(density) + '\n')
-	runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-	runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
-	runLog.write ('Connected Components: ' + str(connectComp) + '\n')
-	runLog.write ('\n' + str(nx.info(enGraph)) + '\n')
 
 	# Remove self-loops
 	selfLoopCount = 0
@@ -384,20 +336,11 @@ for date in dateSet:
 	nodeList = nx.nodes(enGraph)
 	nodeList.sort()
 	selfLoopEdges = enGraph.number_of_selfloops()
-	avClustering = nx.average_clustering(enGraph)
-	connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-	cl = nx.find_cliques(enGraph)
-	cl = sorted(list(cl), key = len, reverse = True)
 
 	print ('Nodes: ' + str(nodes))
 	print ('Edges: ' + str(edges))
 	print ('Self-loops: ' + str(selfLoopEdges))
 	print ('Density: ' + str(density))
-	print ('Average Clustering Coefficient: ' + str(avClustering))
-	print ('Number of cliques: ' + str(len(cl)))
-	print ('Connected Components: ' + str(connectComp))
-	print
-	print (str(nx.info(enGraph)))
 	print
 
 	runLog.write ('\n' + 'Stage 3 data: ' + '\n' + '\n')
@@ -405,10 +348,6 @@ for date in dateSet:
 	runLog.write ('Edges: ' + str(edges) + '\n')
 	runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 	runLog.write ('Density: ' + str(density) + '\n')
-	runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-	runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
-	runLog.write ('Connected Components: ' + str(connectComp) + '\n')
-	runLog.write ('\n' + str(nx.info(enGraph)) + '\n')
 
 	# Clean edge-labels
 	print ('Cleaning edge labels...')
@@ -550,29 +489,30 @@ for date in dateSet:
 	nx.write_gexf(diEnGraph, gexfDFile)
 	gexfDFile.close()
 
+	'''
 	# Plot and display graph
 	# Graph plotting parameters - moved to config file 'config_nw.txt'
-	#print ('Reading layout config file...' + '\n')
+	print ('Reading layout config file...' + '\n')
 
 	# Open and read 'config_nw.txt'
-	#nwConfigPath = os.path.join ("config", 'config_nw.txt')
-	#nwConfig = open(nwConfigPath, 'r').readlines()
+	nwConfigPath = os.path.join ("config", 'config_nw.txt')
+	nwConfig = open(nwConfigPath, 'r').readlines()
 
 	# Remove the first line
-	#firstLine = nwConfig.pop(0)
+	firstLine = nwConfig.pop(0)
 
 	#for line in nwConfig:
-	#	n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, e_text_size, edge_label_colour = line.split(",")
+		n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, e_text_size, edge_label_colour = line.split(",")
 		
-	#node_size = int(n_size)
-	#node_alpha = float(n_alpha)
-	#node_text_size = int(n_text_size)
-	#edge_thickness = int(e_thickness)
-	#edge_alpha = float(e_alpha)
-	#label_pos = float(l_pos)
-	#edge_text_size = int(e_text_size)
+	node_size = int(n_size)
+	node_alpha = float(n_alpha)
+	node_text_size = int(n_text_size)
+	edge_thickness = int(e_thickness)
+	edge_alpha = float(e_alpha)
+	label_pos = float(l_pos)
+	edge_text_size = int(e_text_size)
 
-	#print ('Laying out graph...' + '\n')
+	print ('Laying out graph...' + '\n')
 
 	# nx.draw(diEnGraph)
 	#graph_pos = nx.spring_layout(diEnGraph)
@@ -582,14 +522,15 @@ for date in dateSet:
 	# nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
 	# write image file
-	#print ('Writing image file...' + '\n')
-	#plt.savefig(nwImg, format = 'png', bbox_inches='tight')
-	#plt.clf()
-	#nwImg.close()
+	print ('Writing image file...' + '\n')
+	plt.savefig(nwImg, format = 'png', bbox_inches='tight')
+	plt.clf()
+	nwImg.close()
 
 	# display graph
-	# print ('Displaying graph...' + '\n')
-	# plt.show()
+	print ('Displaying graph...' + '\n')
+	plt.show()
+	'''
 
 	# Recalculate basic graph statistics
 	nodes = nx.number_of_nodes(diEnGraph)
@@ -661,7 +602,7 @@ for date in dateSet:
 	anFile.close()
 
 	print ('Final Undirected Graph Information' + '\n')
-	print ('User-entered date: ' + str(dateIP))
+	print ('OmegaYear: ' + str(dateIP))
 	print ("Total artists in all genres: " + str(totalArtists))
 	print ("Total edge-weighting: " + str(int(totalEdgeWeight)))
 	print ('Nodes: ' + str(nodes))
@@ -689,6 +630,7 @@ for date in dateSet:
 
 # End timing of run
 endTime = datetime.now()
+
 print
 print ('Duration of run : {}'.format(endTime - startTime))
 runLog.write ('\n' + '\n' + 'Date of run: {}'.format(runDate) + '\n')

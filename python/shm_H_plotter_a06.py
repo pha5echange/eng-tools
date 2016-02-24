@@ -1,7 +1,7 @@
-# shm_H_plotter_a05.py
-# Version a05
+# shm_H_plotter_a06.py
+# Version a06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 21st 2016
+# February 24th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Plots data from 'Retromatic' (by Glenn McDonald)
@@ -18,7 +18,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a05")
+versionNumber = ("a06")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -77,8 +77,8 @@ for key, value in sorted(graphHyears.iteritems()):
    yAxis.append(value)
 
 # set axes values
-x_low = (min(xAxis) - 2)
-x_high = (max(xAxis) + 2)
+x_low = (min(xAxis) - 5)
+x_high = (max(xAxis) + 5)
 y_low = 0
 y_high = 1.0
 
@@ -104,8 +104,8 @@ for key, value in sorted(nodeHyears.iteritems()):
    yAxis.append(value)
 
 # set axes values
-x_low = (min(xAxis) - 2)
-x_high = (max(xAxis) + 2)
+x_low = (min(xAxis) - 5)
+x_high = (max(xAxis) + 5)
 y_low = 0
 y_high = 1.0
 
@@ -131,8 +131,8 @@ for key, value in sorted(nodePercs.iteritems()):
    yAxis.append(value)
 
 # set axes values
-x_low = (min(xAxis) - 2)
-x_high = (max(xAxis) + 2)
+x_low = (min(xAxis) - 5)
+x_high = (max(xAxis) + 5)
 y_low = 0
 y_high = 100
 
@@ -157,8 +157,8 @@ for key, value in sorted(progenPercs.iteritems()):
    yAxis.append(value)
 
 # set axes values
-x_low = (min(xAxis) - 2)
-x_high = (max(xAxis) + 2)
+x_low = (min(xAxis) - 5)
+x_high = (max(xAxis) + 5)
 y_low = 0
 y_high = 100
 

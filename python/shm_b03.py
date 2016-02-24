@@ -1,6 +1,6 @@
 # Simple Hybridity Metric
-# v. b0.2
-# 21st Feb. 2016
+# v. b0.3
+# 24th Feb. 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Examines a graph and calculates node hybridty (NodeH) and graph hybridity (GraphH)
@@ -12,7 +12,7 @@ import os
 import networkx as nx
 from datetime import datetime
 
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -47,7 +47,7 @@ resultsPath = os.path.join("results", 'shm_' + versionNumber + '.txt')
 resultsFile = open(resultsPath, 'w')
 
 # get list of files from gexf folder
-gexfPath = 'gexf'
+gexfPath = 'gexf/directed'
 fileNames = [f for f in os.listdir(gexfPath) if f.endswith('.gexf')]
 
 # ..and begin..
@@ -58,7 +58,7 @@ print ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber 
 for index in range(len(fileNames)):
 
 	# Read DiGraph GEXF file to generate network
-	diGraphPath = os.path.join("gexf", fileNames[index])
+	diGraphPath = os.path.join("gexf/directed", fileNames[index])
 	diGraphFile = str(fileNames[index])
 	diGraphYear, fileExtension = diGraphFile.split(".")
 	omegaYear = int(diGraphYear)
