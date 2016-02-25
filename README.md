@@ -1,4 +1,4 @@
-ENG-Tools beta v. 11
+ENG-Tools beta v. 11.1
 
 DEVELOPMENT BRANCH
 
@@ -7,7 +7,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 24th 2016
+February 25th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -22,6 +22,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST CHANGES AND ADDITIONS: 
+
+- 'SHM' script and plotter script updated and renamed to 'NHM' (Network Hybridity Metric)
 
 - Subfolder 'gexf/directed/' added to folder structure. 
 
@@ -100,9 +102,9 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_network_wd' processes and renders networks for all `first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-13) Run 'shm.py' to calculate the Simple Hybridity Metric (SHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'shm.py' also outputs 'data/shm_plot.txt'.
+13) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
 
-14) Run shm_H_plotter.py' after 'shm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
+14) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
 
 MANIFEST: 
@@ -137,9 +139,9 @@ MANIFEST:
 
 (15) eng_network_wd.py
 
-(16) shm.py
+(16) nhm.py
 
-(17) shm_H_plotter.py
+(17) nhm_plotter.py
 
 (18) config/apikey.txt (BLANK - REQUIRES API KEY)
 
