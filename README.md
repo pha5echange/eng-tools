@@ -25,7 +25,7 @@ LATEST CHANGES AND ADDITIONS:
 
 - 'en_genre' and 'eng_list' now replace spaces in genre names with hyphens.
 
-- Single-network version of 'eng_network_wd' now has an 'a' after the version number.
+- Single-network version of 'eng_network_wd' now has an 'a' after the version number and incorporates 'PageRank'.
 
 - Updated 'nhm_plotter' to also plot points (probably temporarily)
 
@@ -108,7 +108,7 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_network_wd' processes and renders networks for all 'first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-13) 'eng_network_wd_...a' generates single network based upon user input. 
+13) 'eng_network_wd_...a' generates single network based upon user input, and outputs analysis to 'results/analysis' file (containing 'PageRank' results among other things) 
 
 14) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
 

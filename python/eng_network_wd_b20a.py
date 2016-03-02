@@ -1,5 +1,5 @@
-# eng_network_wd_b19a.py
-# Version b19a
+# eng_network_wd_b20a.py
+# Version b20a
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # March 2nd 2016
 
@@ -16,6 +16,7 @@
 # Writes analysis files and laplacian spectrum to 'results\'
 # Writes gexf files to 'gexf\', including 'gexf\YEAR.gexf' for use by 'shm.py'
 # Writes image to 'networks\'
+# This version incorporates PageRank
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -30,7 +31,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b19a")
+versionNumber = ("b20a")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -595,6 +596,7 @@ anFile.write ('Density: ' + str(density) + '\n')
 anFile.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 anFile.write ('Number of cliques: ' + str(len(cl)) + '\n')
 anFile.write ('Connected Components: ' + str(connectComp) + '\n')
+anFile.write( '\n' + 'PageRank: ' + str(nx.pagerank(newEnGraph)) + '\n')
 anFile.write ('\n' + str(nx.info(newEnGraph)))
 anFile.close()
 
