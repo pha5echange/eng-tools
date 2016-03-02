@@ -1,7 +1,7 @@
-# en_genre_b11.py
-# Version b11
+# en_genre_b12.py
+# Version b12
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 22nd 2016
+# March 2nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -15,6 +15,7 @@
 # Deletes empty files (i.e. those without artists with dates and MBID), but logs their presence
 # Writes 'data/date_ratios.txt' (percentage of returned artists with date information) to facilitate the use of 'eng_cdr.py'
 # Writes run log to 'logs/en_genre_versionNumber_log.txt'
+# This version replaces spaces in genre names with hyphens (to note presence of spaces)
 
 # import packages
 import os
@@ -27,7 +28,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b11")
+versionNumber = ("b12")
 
 # define indexing variables for total artist responses
 artistTotal = 0
@@ -80,7 +81,7 @@ removedGenres = []
 for g in response_genre['genres']:
 
 	# clean response and define name of genre
-	genreName = str(g['name']).replace(",", "").replace(" ", "").replace("'","")
+	genreName = str(g['name']).replace(",", "").replace(" ", "-").replace("'","")
 
 	# fix the `zouglou' problem
 	if genreName.endswith('u'):
