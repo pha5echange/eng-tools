@@ -9,7 +9,7 @@
 # Uses 'genre/list' method
 # Reads API Key from 'apikey.txt'
 # Writes to 'lists/datestamp_versionNumber_eng_list.txt' subdirectory
-# This version cleans names in the same manner as 'en_genre' (removes commas, apostrophes, and replaces spaces with hyphens)
+# This version cleans names in the same manner as 'en_genre' (removes commas, apostrophes, and replaces spaces with underscores)
 
 # import packages
 import os
@@ -48,11 +48,7 @@ en = pyen.Pyen(apiKey)
 response = en.get('genre/list', results = ['2000'])
 
 for g in response['genres']:
-	genreName = str(g['name']).replace(",", "").replace(" ", "-").replace("'","")
-
-	# fix the `zouglou' problem
-	#if genreName.endswith('u'):
-	#	genreName = genreName[:-1]
+	genreName = str(g['name']).replace(",", "").replace(" ", "_").replace("'","")
 
 	genreList.write(genreName + '\n')
 	print (genreName)

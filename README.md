@@ -1,4 +1,4 @@
-ENG-Tools beta v. 11.2
+ENG-Tools beta v. 11.3
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
@@ -21,7 +21,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
-- 'en_genre' and 'eng_list' now replace spaces in genre names with hyphens.
+- 'en_genre' and 'eng_list' now replace spaces in genre names with underscores (to note presence of spaces).
 
 - Single-network version of 'eng_network_wd' now has an 'a' after the version number and incorporates 'PageRank'.
 

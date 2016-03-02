@@ -15,7 +15,7 @@
 # Deletes empty files (i.e. those without artists with dates and MBID), but logs their presence
 # Writes 'data/date_ratios.txt' (percentage of returned artists with date information) to facilitate the use of 'eng_cdr.py'
 # Writes run log to 'logs/en_genre_versionNumber_log.txt'
-# This version replaces spaces in genre names with hyphens (to note presence of spaces)
+# This version replaces spaces in genre names with underscores (to note presence of spaces)
 
 # import packages
 import os
@@ -81,9 +81,9 @@ removedGenres = []
 for g in response_genre['genres']:
 
 	# clean response and define name of genre
-	genreName = str(g['name']).replace(",", "").replace(" ", "-").replace("'","")
+	genreName = str(g['name']).replace(",", "").replace(" ", "_").replace("'","")
 
-	# fix the `zouglou' problem
+	# fix the `zouglou' problem because unicode
 	if genreName.endswith('u'):
 		genreName = genreName[:-1]
 
