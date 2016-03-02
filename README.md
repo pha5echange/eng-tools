@@ -1,7 +1,5 @@
 ENG-Tools beta v. 11.2
 
-DEVELOPMENT BRANCH
-
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
