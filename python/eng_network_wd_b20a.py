@@ -1,7 +1,7 @@
-# eng_network_wd_b14.py
-# Version b15
+# eng_network_wd_b20a.py
+# Version b20a
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 14th 2016
+# March 2nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -14,8 +14,9 @@
 # Displays using parameters from 'config/config_nw.txt'
 # Writes 'data\eng_network_wd_nodeList.txt' with nodes and degrees (k), '...edgeList.txt' with neighbours
 # Writes analysis files and laplacian spectrum to 'results\'
-# Writes gexf files to 'gexf\'
+# Writes gexf files to 'gexf\', including 'gexf\YEAR.gexf' for use by 'shm.py'
 # Writes image to 'networks\'
+# This version incorporates PageRank
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -30,7 +31,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b15")
+versionNumber = ("b20a")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -54,6 +55,9 @@ if not os.path.exists("gexf"):
 if not os.path.exists("gexf/initial"):
 	os.makedirs("gexf/initial")
 
+if not os.path.exists("gexf/directed"):
+	os.makedirs("gexf/directed")
+
 if not os.path.exists("gexf/final"):
 	os.makedirs("gexf/final")
 
@@ -64,8 +68,8 @@ if not os.path.exists("results"):
 if not os.path.exists("results/analysis"):
 	os.makedirs("results/analysis")
 
-if not os.path.exists("results/laplacian"):
-	os.makedirs("results/laplacian")
+#if not os.path.exists("results/laplacian"):
+#	os.makedirs("results/laplacian")
 
 # Create 'networks' subdirectory if necessary
 if not os.path.exists("networks"):
@@ -77,6 +81,8 @@ runLog = open(logPath, 'a')
 
 # Begin
 print ('\n' + "Weighted Directed Network Thing | Version " + versionNumber + " | Starting...")
+runLog.write ("==========================================================================" + '\n' + '\n')
+runLog.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n')
 
 # Get user input
 print
@@ -84,10 +90,38 @@ dateIP = int(input ("Enter a year to remove nodes that appear AFTER this date (o
 selfLoopIP = int(input ("Enter 1 here to remove self-loop edges: "))
 
 # Uncomment the line below to facilitate optional isolate removal
-# isolatedIP = int(input ("Enter 1 here to remove isolated nodes: "))
+#isolatedIP = int(input ("Enter 1 here to remove isolated nodes: "))
 
 # Comment out the line below if uncommenting the line above
 isolatedIP = 0
+
+# Generate dictionary containing nodenames and dates (from 'data\first_cluster.txt')
+dateInputPath = os.path.join("data", 'first_cluster.txt')
+dateInput = open(dateInputPath, 'r')
+
+dateDict = {}
+
+for line in dateInput:
+	genreInput, genreDate, newline = line.split(",")
+	genreName = str(genreInput).replace(" ", "")
+	dateDict[genreName] = genreDate
+
+sortDates = OrderedDict(sorted(dateDict.items()))
+
+# Generate dictionary containing nodenames and artist numbers (from 'data\eng_artistNums.txt')
+artistInputPath = os.path.join("data", 'eng_artistNums.txt')
+artistInput = open(artistInputPath, 'r').readlines()
+
+firstLine = artistInput.pop(0)
+
+artistDict = {}
+
+for line in artistInput:
+	genreInput, artistNum, newline = line.split(",")
+	genreName = str(genreInput).replace(" ", "")
+	artistDict[genreName] = artistNum
+
+sortArtists = OrderedDict(sorted(artistDict.items()))
 
 # Open file to write list of nodes
 nodeListPath = os.path.join("data/node-edge-lists", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nodeList.txt')
@@ -102,7 +136,7 @@ gexfPath = os.path.join("gexf/initial", 'eng_network_wd_' + versionNumber + '_' 
 gexfFile = open(gexfPath, 'w')
 
 # Open file for writing digraph gexf
-gexfDPath = os.path.join("gexf", 'eng_network_digraph_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
+gexfDPath = os.path.join("gexf/directed", str(dateIP) + '.gexf')
 gexfDFile = open(gexfDPath, 'w')
 
 # Open file for writing final gexf
@@ -114,19 +148,17 @@ anPath = os.path.join("results/analysis", 'eng_network_wd_' + versionNumber + '_
 anFile = open(anPath, 'w')
 
 # Open file to write Laplacian Spectrum Numpy array
-lsPath = os.path.join("results/laplacian", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
-lsFile = open(lsPath, 'w')
+#lsPath = os.path.join("results/laplacian", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
+#lsFile = open(lsPath, 'w')
 
 # Open file to write final Laplacian Spectrum Numpy array
-lsFinPath = os.path.join("results/laplacian", 'eng_network_final_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
-lsFinFile = open(lsFinPath, 'w')
+#lsFinPath = os.path.join("results/laplacian", 'eng_network_final_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
+#lsFinFile = open(lsFinPath, 'w')
 
 # Open file to write image
-nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
-nwImg = open (nwImgPath, 'w')
+#nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
+#nwImg = open (nwImgPath, 'w')
 
-runLog.write ('\n' + "==========================================================================" + '\n' + '\n')
-runLog.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n' + '\n')
 anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
 anFile.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n' + '\n')
 
@@ -135,7 +167,6 @@ print ('\n' + "Importing Weighted Edge List... ")
 inputPath = os.path.join("data", 'wuGraph_data.txt')
 edgeList = open (inputPath, 'r')
 enGraph = nx.read_weighted_edgelist(edgeList, delimiter=',')
-edgeList.close()
 
 # Calculate basic graph statistics
 print ('\n' + "Calculating various things... " + '\n')
@@ -146,21 +177,12 @@ nodeList = nx.nodes(enGraph)
 nodeList.sort()
 selfLoopEdges = enGraph.number_of_selfloops()
 connections = edges - selfLoopEdges
-avClustering = nx.average_clustering(enGraph)
-connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-cl = nx.find_cliques(enGraph)
-cl = sorted(list(cl), key = len, reverse = True)
 
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
 print ('Self-loops: ' + str(selfLoopEdges))
 print ('Connections (edges minus self-loops): ' + str(connections))
 print ('Density: ' + str(density))
-print ('Average Clustering Coefficient: ' + str(avClustering))
-print ('Number of cliques: ' + str(len(cl)))
-print ('Connected Components: ' + str(connectComp) + '\n')
-print
-print (str(nx.info(enGraph)))
 print
 
 runLog.write ('Initial data: ' + '\n' + '\n')
@@ -170,44 +192,11 @@ runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
-runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
-runLog.write ('Connected Components: ' + str(connectComp) + '\n')
-runLog.write ('\n' + str(nx.info(enGraph)) + '\n')
-
-# Generate dictionary containing nodenames and artist numbers (from 'data\eng_artistNums.txt')
-artistInputPath = os.path.join("data", 'eng_artistNums.txt')
-artistInput = open(artistInputPath, 'r')
-
-artistDict = {}
-
-for line in artistInput:
-	genreInput, artistNum, newline = line.split(",")
-	genreName = str(genreInput).replace(" ", "")
-	artistDict[genreName] = artistNum
-
-sortArtists = OrderedDict(sorted(artistDict.items()))
-anFile.write('User-entered date: ' + str(dateIP) + '\n' + '\n')
-anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
 
 # Apply artist numbers of nodes as attributes
 print ('Applying total artist number attribute to nodes...' + '\n')
 runLog.write ('\n' + 'Applying total artist number attribute to nodes...' + '\n')
 nx.set_node_attributes (enGraph, 'totalArtists', sortArtists)
-
-# Generate dictionary containing nodenames and dates (from 'data\first_cluster.txt')
-dateInputPath = os.path.join("data", 'first_cluster.txt')
-dateInput = open(dateInputPath, 'r')
-
-dateDict = {}
-
-for line in dateInput:
-	genreInput, genreDate, newline = line.split(",")
-	genreName = str(genreInput).replace(" ", "")
-	dateDict[genreName] = genreDate
-
-sortDates = OrderedDict(sorted(dateDict.items()))
-anFile.write('Sorted genre dates: ' + str(sortDates) + '\n' + '\n')
 
 # Discard nodes without first-cluster dates
 noDateNode = 0
@@ -226,6 +215,11 @@ if noDateNode > 1:
 	print ('\n' + 'Removed ' + str(noDateNode) + ' nodes due to no inception dates.')
 	runLog.write ('\n' + 'Removed ' + str(noDateNode) + ' nodes due to no inception dates.' + '\n')
 
+# Apply dates of nodes as attributes
+print ('Applying inception date attribute to nodes...' + '\n')
+runLog.write ('\n' + 'Applying inception date attribute to nodes...' + '\n')
+nx.set_node_attributes (enGraph, 'incepDate', sortDates)
+
 # Recalculate basic graph statistics
 print ('\n' + 'Recalculating various things...' + '\n')
 nodes = nx.number_of_nodes(enGraph)
@@ -235,21 +229,12 @@ nodeList = nx.nodes(enGraph)
 nodeList.sort()
 selfLoopEdges = enGraph.number_of_selfloops()
 connections = edges - selfLoopEdges
-avClustering = nx.average_clustering(enGraph)
-connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-cl = nx.find_cliques(enGraph)
-cl = sorted(list(cl), key = len, reverse = True)
 
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
 print ('Self-loops: ' + str(selfLoopEdges))
 print ('Connections (edges minus self-loops): ' + str(connections))
 print ('Density: ' + str(density))
-print ('Average Clustering Coefficient: ' + str(avClustering))
-print ('Number of cliques: ' + str(len(cl)))
-print ('Connected Components: ' + str(connectComp))
-print
-print (str(nx.info(enGraph)))
 print
 
 runLog.write ('\n' + 'Stage 1 data: ' + '\n' + '\n')
@@ -258,15 +243,6 @@ runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
-runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
-runLog.write ('Connected Components: ' + str(connectComp) + '\n')
-runLog.write ('\n' + str(nx.info(enGraph)) + '\n')
-
-# Apply dates of nodes as attributes
-print ('Applying inception date attribute to nodes...' + '\n')
-runLog.write ('\n' + 'Applying inception date attribute to nodes...' + '\n')
-nx.set_node_attributes (enGraph, 'incepDate', sortDates)
 
 # Remove nodes where 'incepDate' attribute is NEWER than user input ('dateIP')
 if dateIP != 0:
@@ -290,21 +266,12 @@ nodeList = nx.nodes(enGraph)
 nodeList.sort()
 selfLoopEdges = enGraph.number_of_selfloops()
 connections = edges - selfLoopEdges
-avClustering = nx.average_clustering(enGraph)
-connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-cl = nx.find_cliques(enGraph)
-cl = sorted(list(cl), key = len, reverse = True)
 
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
 print ('Self-loops: ' + str(selfLoopEdges))
 print ('Connections (edges minus self-loops): ' + str(connections))
 print ('Density: ' + str(density))
-print ('Average Clustering Coefficient: ' + str(avClustering))
-print ('Number of cliques: ' + str(len(cl)))
-print ('Connected Components: ' + str(connectComp))
-print
-print (str(nx.info(enGraph)))
 print
 
 runLog.write ('\n' + 'Stage 2 data: ' + '\n' + '\n')
@@ -313,10 +280,6 @@ runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
-runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
-runLog.write ('Connected Components: ' + str(connectComp) + '\n')
-runLog.write ('\n' + str(nx.info(enGraph)) + '\n')
 
 # Remove self-loops
 selfLoopCount = 0
@@ -369,20 +332,11 @@ density = nx.density(enGraph)
 nodeList = nx.nodes(enGraph)
 nodeList.sort()
 selfLoopEdges = enGraph.number_of_selfloops()
-avClustering = nx.average_clustering(enGraph)
-connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
-cl = nx.find_cliques(enGraph)
-cl = sorted(list(cl), key = len, reverse = True)
 
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
 print ('Self-loops: ' + str(selfLoopEdges))
 print ('Density: ' + str(density))
-print ('Average Clustering Coefficient: ' + str(avClustering))
-print ('Number of cliques: ' + str(len(cl)))
-print ('Connected Components: ' + str(connectComp))
-print
-print (str(nx.info(enGraph)))
 print
 
 runLog.write ('\n' + 'Stage 3 data: ' + '\n' + '\n')
@@ -390,10 +344,6 @@ runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
-runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
-runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
-runLog.write ('Connected Components: ' + str(connectComp) + '\n')
-runLog.write ('\n' + str(nx.info(enGraph)) + '\n')
 
 # Clean edge-labels
 print ('Cleaning edge labels...')
@@ -432,8 +382,8 @@ for i in edgeList:
 print ('\n' + 'Analysing undirected graph...' + '\n')
 print ('Average clustering coefficient...' + '\n')
 avClustering = nx.average_clustering(enGraph)
-print ('Laplacian spectrum...' + '\n')
-eigenArray = nx.laplacian_spectrum(enGraph)
+#print ('Laplacian spectrum...' + '\n')
+#eigenArray = nx.laplacian_spectrum(enGraph)
 print ('Connected components...' + '\n')
 connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
 print ('Find cliques...' + '\n')
@@ -472,12 +422,12 @@ nx.write_gexf(enGraph, gexfFile)
 gexfFile.close()
 
 # write laplacian spectrum numpy array to file
-print ("Writing laplacian spectrum to file... " + '\n')
-runLog.write('\n' + "Writing laplacian spectrum to file... " + '\n')
-np.savetxt (lsFile, eigenArray)
-lsFile.close()
+#print ("Writing laplacian spectrum to file... " + '\n')
+#runLog.write('\n' + "Writing laplacian spectrum to file... " + '\n')
+#np.savetxt (lsFile, eigenArray)
+#lsFile.close()
 
-# Write directed graph and then gexf of this
+# Direct graph and write gexf of this
 print ("Directing graph... " + '\n')
 runLog.write('\n' + "Directing graph..." + '\n')
 diEnGraph = nx.DiGraph()
@@ -535,6 +485,7 @@ runLog.write('\n' + "Writing directed gexf file... " + '\n')
 nx.write_gexf(diEnGraph, gexfDFile)
 gexfDFile.close()
 
+'''
 # Plot and display graph
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('Reading layout config file...' + '\n')
@@ -574,6 +525,7 @@ nwImg.close()
 # display graph
 print ('Displaying graph...' + '\n')
 plt.show()
+'''
 
 # Recalculate basic graph statistics
 nodes = nx.number_of_nodes(diEnGraph)
@@ -609,8 +561,8 @@ newEnGraph = diEnGraph.to_undirected()
 print ('\n' + 'Analysing final undirected graph...' + '\n')
 print ('Average clustering coefficient...' + '\n')
 avClustering = nx.average_clustering(newEnGraph)
-print ('Laplacian spectrum...' + '\n')
-eigenArray = nx.laplacian_spectrum(newEnGraph)
+#print ('Laplacian spectrum...' + '\n')
+#eigenArray = nx.laplacian_spectrum(newEnGraph)
 print ('Connected components...' + '\n')
 connectComp = [len(c) for c in sorted(nx.connected_components(newEnGraph), key=len, reverse=True)]
 print ('Find cliques...' + '\n')
@@ -628,8 +580,8 @@ nx.write_gexf(newEnGraph, gexfFinFile)
 gexfFinFile.close()
 
 # write laplacian spectrum numpy array to file
-np.savetxt (lsFinFile, eigenArray)
-lsFinFile.close()
+#np.savetxt (lsFinFile, eigenArray)
+#lsFinFile.close()
 
 # End timing of run
 endTime = datetime.now()
@@ -644,6 +596,7 @@ anFile.write ('Density: ' + str(density) + '\n')
 anFile.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 anFile.write ('Number of cliques: ' + str(len(cl)) + '\n')
 anFile.write ('Connected Components: ' + str(connectComp) + '\n')
+anFile.write( '\n' + 'PageRank: ' + str(nx.pagerank(newEnGraph)) + '\n')
 anFile.write ('\n' + str(nx.info(newEnGraph)))
 anFile.close()
 

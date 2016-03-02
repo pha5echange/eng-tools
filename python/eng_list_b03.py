@@ -1,7 +1,7 @@
-# eng_list_b02.py
-# Version b02
+# eng_list_b03.py
+# Version b03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 14th 2016
+# March 2nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -9,6 +9,7 @@
 # Uses 'genre/list' method
 # Reads API Key from 'apikey.txt'
 # Writes to 'lists/datestamp_versionNumber_eng_list.txt' subdirectory
+# This version cleans names in the same manner as 'en_genre' (removes commas, apostrophes, and replaces spaces with hyphens)
 
 # import packages
 import os
@@ -21,7 +22,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # version
-versionNumber = ("b02")
+versionNumber = ("b03")
 
 # create 'lists' subdirectory if necessary
 if not os.path.exists("lists"):
@@ -47,8 +48,14 @@ en = pyen.Pyen(apiKey)
 response = en.get('genre/list', results = ['2000'])
 
 for g in response['genres']:
-	genreList.write(str(g['name']) + '\n')
-	print g['name']
+	genreName = str(g['name']).replace(",", "").replace(" ", "-").replace("'","")
+
+	# fix the `zouglou' problem
+	#if genreName.endswith('u'):
+	#	genreName = genreName[:-1]
+
+	genreList.write(genreName + '\n')
+	print (genreName)
 
 # End timing of run
 endTime = datetime.now()

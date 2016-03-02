@@ -1,7 +1,7 @@
-# eng_process_firsts_b04.py
-# Version b04
+# eng_process_firsts_b05.py
+# Version b05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# February 21st 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -22,7 +22,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b04")
+versionNumber = ("b05")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -66,7 +66,7 @@ instances = []
 for line in dataInput:
 
 	# split line and append 'instances' with start date values
-	genre, firstInstance = line.split(",")
+	genre, firstInstance, newLine = line.split(",")
 	instances.append(int(firstInstance))
 
 # close input file

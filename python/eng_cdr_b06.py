@@ -1,7 +1,7 @@
-# eng_cdr_b05.py
-# Version b05
+# eng_cdr_b06.py
+# Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 19th 2016
+# February 22nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -16,7 +16,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b05")
+versionNumber = ("b06")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -37,10 +37,12 @@ runLog = open(logPath, 'a')
 # open file for data output
 dataPath = os.path.join("data", 'eng_artistNums.txt')
 artistNums = open(dataPath, 'w')
+artistNums.write("Genre" + ',' + "Artists written" + '\n')
 
 # open file for results output
 resultsPath = os.path.join("results", 'eng_cdr_' + versionNumber + '.txt')
 processedResults = open(resultsPath, 'w')
+processedResults.write("Genre" + ',' + "Percentage of artists with dates" + '\n')
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -52,7 +54,9 @@ print ('\n' + 'Genre Data Calc Date Ratios Processor | ' + 'Version: ' + version
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'date_ratios.txt')
-dataInput = open(pathname, "r")
+dataInput = open(pathname, "r").readlines()
+
+firstLine = dataInput.pop(0)
 
 # read lines from the file
 for line in dataInput:
@@ -66,9 +70,6 @@ for line in dataInput:
 	processedResults.write(genre + ',' + str(dateRatio) + '\n')
 	artistNums.write(genre + ',' + str(intWritten) + ',' + '\n')
 	print('Genre: ' + genre + ' Percentage of artists with dates: ' + str(dateRatio))
-
-# close input file
-dataInput.close()
 
 # close output files
 processedResults.close()

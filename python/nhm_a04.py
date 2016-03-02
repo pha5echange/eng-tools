@@ -1,17 +1,25 @@
-# Simple Hybridity Metric
-# v. b0.1
-# 20th Feb. 2016
+# Network Hybridity Metric
+# v. a0.4
+# 25th Feb. 2016
 # by jmg*AT*phasechange*DOT*info
 
+# RENAMED to 'Network Hybridity Metric'
+
 # Examines a graph and calculates node hybridty (NodeH) and graph hybridity (GraphH)
-# This version looks at all loose files in 'gexf/..' with a '.gexf' extension. 
-# These should be directed-gexf files output by 'eng_network_wd', and the filename is used as the omega-year of the graph. 
+# This version looks at all loose files in 'gexf/directed/' with a '.gexf' extension. 
+# These should be directed-gexf files output by 'eng_network_wd'
+# The filename is used as the omega-year of the graph. 
 
 # Import packages
 import os
 import networkx as nx
+from datetime import datetime
 
-versionNumber = ("b01")
+versionNumber = ("a04")
+
+# Initiate timing of run
+runDate = datetime.now()
+startTime = datetime.now()
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -29,37 +37,39 @@ if not os.path.exists("results"):
     os.makedirs("results")
 
 # open file for writing log
-logPath = os.path.join("logs", 'shm_' + versionNumber + '_log.txt')
+logPath = os.path.join("logs", 'nhm_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # open file for plot - file output
-plotPath = os.path.join("data", 'shm_plot.txt')
+plotPath = os.path.join("data", 'nhm_plot.txt')
 plotFile = open(plotPath, 'w')
+plotFile.write("OmegaYear" + ',' + "Nodes" + ',' + "GraphH" + ',' + "Mean-NodeH" + ',' + "Perc-NodeH=1" + ',' + "Perc-Progen" + '\n')
 
 # open file for results output
-resultsPath = os.path.join("results", 'shm_' + versionNumber + '.txt')
+resultsPath = os.path.join("results", 'nhm_' + versionNumber + '.txt')
 resultsFile = open(resultsPath, 'w')
 
 # get list of files from gexf folder
-gexfPath = 'gexf'
+gexfPath = 'gexf/directed'
 fileNames = [f for f in os.listdir(gexfPath) if f.endswith('.gexf')]
 
 # ..and begin..
-runLog.write ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber + '\n' + '\n')
-resultsFile.write ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber + '\n')
-print ('\n' + 'Simple Hybridity Metric DooDad | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
+runLog.write ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + '\n' + '\n')
+resultsFile.write ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + '\n')
+print ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
 for index in range(len(fileNames)):
 
 	# Read DiGraph GEXF file to generate network
-	diGraphPath = os.path.join("gexf", fileNames[index])
+	diGraphPath = os.path.join("gexf/directed", fileNames[index])
 	diGraphFile = str(fileNames[index])
 	diGraphYear, fileExtension = diGraphFile.split(".")
 	omegaYear = int(diGraphYear)
 	diEnGraph = nx.read_gexf(diGraphPath)
 
+
 	# open file for node results output
-	nodeDataPath = os.path.join("data/node-edge-lists", 'shm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
+	nodeDataPath = os.path.join("data/node-edge-lists", 'nhm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
 	nodeFile = open(nodeDataPath, 'a')
 	nodeFile.write ("Genre" + "," + "In-Degree" + "," + "Out-Degree" + "," + "Node H" + "," + "Node Sig" + "," + "Final Node Sig" + '\n')
 
@@ -197,7 +207,7 @@ for index in range(len(fileNames)):
 	GraphH = sum(finalNodeSigDict.values())
 
 	# Write to plot file
-	plotFile.write(str(omegaYear) + ',' + str(GraphH) + ',' + str(meanNodeH) + ',' + str(percNodeH) + ',' + str(percProgen) + '\n')
+	plotFile.write(str(omegaYear) + ',' + str(totalGraphNodes) + ',' + str(GraphH) + ',' + str(meanNodeH) + ',' + str(percNodeH) + ',' + str(percProgen) + '\n')
 
 	print
 	print ("Omega year: " + str(omegaYear))
@@ -253,4 +263,8 @@ for index in range(len(fileNames)):
 resultsFile.close()
 plotFile.close()
 runLog.close()
-print ("Finished")
+
+# End timing of run
+endTime = datetime.now()
+
+print('Duration of run : {}'.format(endTime - startTime))

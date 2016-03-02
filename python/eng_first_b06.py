@@ -1,7 +1,7 @@
-# eng_first_b05.py
-# Version b05
+# eng_first_b06.py
+# Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# February 21st 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -19,7 +19,7 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b05")
+versionNumber = ("b06")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -68,7 +68,7 @@ for index in range(len(fileNames)):
 	firstInstance = open(firstInstancePath, 'a')
 
 	# write first instance in a genre
-	firstInstance.write(str(genreLabel) + ',' + str(startDate) + '\n')
+	firstInstance.write(str(genreLabel) + ',' + str(startDate) + ',' + '\n')
 
 	# write results of run to 'runLog'
 	runLog.write('\n' + 'Genre: ' + str(genreLabel) + '\n')

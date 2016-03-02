@@ -1,7 +1,7 @@
-# eng_multiplot_b11.py
-# Version b11
+# eng_multiplot_b12.py
+# Version b12
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# February 23rd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -27,7 +27,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b11")
+versionNumber = ("b12")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -41,8 +41,8 @@ if not os.path.exists("data"):
 		os.makedirs("data")
 
 # create 'graphs' subdirectory if necessary
-if not os.path.exists("graphs"):
-		os.makedirs("graphs")
+if not os.path.exists("graphs/multi"):
+		os.makedirs("graphs/multi")
 
 # create 'results' subdirectory if necessary
 if not os.path.exists("results"):
@@ -82,7 +82,7 @@ for index in range(len(fileNames)):
 	print('\n' + 'Plotting graph and calculating statistics for ' + genreName + '\n')
 
 	# define path for graphs
-	graphPath = os.path.join("graphs", 'eng_multiplot_' + versionNumber + '_' + genreName + '.eps')
+	graphPath = os.path.join("graphs/multi", 'eng_multiplot_' + versionNumber + '_' + genreName + '.eps')
 
 	dataInput = open(pathname, "r")
 
@@ -194,7 +194,7 @@ runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.write ('Stats are saved to ../results/eng_multiplot_stats_versionNumber_data.txt' + '\n')
 runLog.write ('Results are saved to ../results/eng_multiplot_versionNumber_data.txt' + '\n')
 runLog.write ('Data file (for use by eng_plot_artists) is saved to ../data/eng_multiplot_data.txt' + '\n')
-runLog.write ('Graphs are saved to ../graphs/eng_multiplot_versionNumber_genreName.eps' + '\n')
+runLog.write ('Graphs are saved to ../graphs/multi/eng_multiplot_versionNumber_genreName.eps' + '\n')
 runLog.close()
 
 # write to screen
@@ -205,4 +205,4 @@ print ('Duration of run : {}'.format(endTime - startTime))
 print ('Stats are saved to ../results/eng_multiplot_stats_versionNumber_data.txt')
 print ('Results are saved to ../results/eng_multiplot_versionNumber_data.txt')
 print ('Data file (for use by eng_plot_artists) is saved to ../data/eng_multiplot_data.txt')
-print ('Graphs are saved to ../graphs/eng_multiplot_versionNumber_genreName.eps')
+print ('Graphs are saved to ../graphs/multi/eng_multiplot_versionNumber_genreName.eps')
