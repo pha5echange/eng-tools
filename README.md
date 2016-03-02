@@ -1,4 +1,4 @@
-ENG-Tools beta v. 11.1
+ENG-Tools beta v. 11.2
 
 DEVELOPMENT BRANCH
 
@@ -7,7 +7,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-February 25th 2016
+March 2nd 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -23,6 +23,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
+- Single-network version of 'eng_network_wd' now has an 'a' after the version number
+
+- Updated 'nhm_plotter' to also plot points (probably temporarily)
+
 - 'SHM' script and plotter script updated and renamed to 'NHM' (Network Hybridity Metric)
 
 - Subfolder 'gexf/directed/' added to folder structure. 
@@ -35,7 +39,7 @@ LATEST CHANGES AND ADDITIONS:
 
 - 'shm' now looks for 'OMEGAYEAR.gexf' files in 'gexf/..' and calculates for all. 
 
-- 'gexf/directed/1977.gexf' example added to prevent 'shm' errors. 
+- 'gexf/directed/*.gexf' examples added to prevent 'nhm' errors. 
 
 - 'eng_network_wd' now outputs 'gexf/directed/OMEGAYEAR.gexf' file for directed graphs. 
 
@@ -100,11 +104,13 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 11) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. The output file from this ('data/wuGraph_data.txt') is a weighted undirected edgelist for use by... 
 
-12) 'eng_network_wd' processes and renders networks for all `first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
+12) 'eng_network_wd' processes and renders networks for all 'first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-13) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+13) 'eng_network_wd_...a' generates single network based upon user input. 
 
-14) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
+14) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+
+15) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
 
 MANIFEST: 
@@ -139,14 +145,16 @@ MANIFEST:
 
 (15) eng_network_wd.py
 
-(16) nhm.py
+(16) eng_network_wd_...a.py
 
-(17) nhm_plotter.py
+(17) nhm.py
 
-(18) config/apikey.txt (BLANK - REQUIRES API KEY)
+(18) nhm_plotter.py
 
-(19) config/config_nw.txt
+(19) config/apikey.txt (BLANK - REQUIRES API KEY)
 
-(20) data/retromatic.txt
+(20) config/config_nw.txt
 
-(21) gexf/directed/1977.gexf (example file)
+(21) data/retromatic.txt
+
+(22) Multiple example '.gexf' files added to gexf/directed/

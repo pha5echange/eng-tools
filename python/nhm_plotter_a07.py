@@ -86,7 +86,7 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b', marker='o')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -113,7 +113,7 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r')
+plt.plot(xAxis, yAxis, linestyle='solid', color='r', marker='x')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -136,11 +136,11 @@ for key, value in sorted(nodePercs.iteritems()):
 x_low = (min(xAxis) - 5)
 x_high = (max(xAxis) + 5)
 y_low = 0
-y_high = 100
+y_high = 60
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b', marker='o')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -162,11 +162,11 @@ for key, value in sorted(progenPercs.iteritems()):
 x_low = (min(xAxis) - 5)
 x_high = (max(xAxis) + 5)
 y_low = 0
-y_high = 100
+y_high = 60
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r')
+plt.plot(xAxis, yAxis, linestyle='solid', color='r', marker='x')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
