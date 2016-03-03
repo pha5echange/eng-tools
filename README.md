@@ -108,11 +108,13 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 12) 'eng_network_wd' processes and renders networks for all 'first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-13) 'eng_network_wd_...a' generates single network based upon user input, and outputs analysis to 'results/analysis' file (containing 'PageRank' results among other things) 
+13) 'eng_network_wd_...a' generates single network based upon user input, and outputs analysis to 'results/analysis' file and  pagerank to 'data/pagerank.txt' file. 
 
-14) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+14) 'pr_process' reformats 'data/pagerank.txt' and outputs 'results/pr_results.txt'. 
 
-15) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
+15) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+
+16) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
 
 MANIFEST: 
@@ -149,14 +151,16 @@ MANIFEST:
 
 (16) eng_network_wd_...a.py
 
-(17) nhm.py
+(17) pr_process_a01.py
 
-(18) nhm_plotter.py
+(18) nhm.py
 
-(19) config/apikey.txt (BLANK - REQUIRES API KEY)
+(19) nhm_plotter.py
 
-(20) config/config_nw.txt
+(20) config/apikey.txt (BLANK - REQUIRES API KEY)
 
-(21) data/retromatic.txt
+(21) config/config_nw.txt (Network layout config. file)
 
-(22) Multiple example '.gexf' files added to gexf/directed/
+(22) data/retromatic.txt
+
+(23) Multiple example '.gexf' files added to gexf/directed/
