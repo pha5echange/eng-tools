@@ -4,6 +4,7 @@
 # February 23rd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Processes genre files output from 'en_genre.py'
 # Plots frequency distribution of artists over time

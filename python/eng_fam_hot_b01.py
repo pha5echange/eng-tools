@@ -4,6 +4,7 @@
 # February 22nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Processes genre files output from 'en_genre.py'
 # Averages proprietary EN metrics 'familiarity' and 'hotttnesss' of artists and produces values for genre, plus highest and lowest familiarity and hotttnesss figures for each genre

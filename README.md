@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-March 2nd 2016
+March 3rd 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -21,9 +21,11 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
+- Added 'pr_process_a01.py' to reformat Page Rank data from 'eng_network_wd...a.py'
+
 - 'en_genre' and 'eng_list' now replace spaces in genre names with underscores (to note presence of spaces).
 
-- Single-network version of 'eng_network_wd' now has an 'a' after the version number and incorporates 'PageRank'.
+- Single-network version of 'eng_network_wd' now has an 'a' after the version number and incorporates 'Page Rank'.
 
 - Updated 'nhm_plotter' to also plot points (probably temporarily)
 

@@ -4,6 +4,7 @@
 # January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Processes file 'data/eng_multiplot_data.txt' (output by 'engmulti_plot')
 # Plots frequency distribution of artists over time

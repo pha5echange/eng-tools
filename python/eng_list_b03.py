@@ -4,6 +4,7 @@
 # March 2nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Gets list of genres from Echonest utilising pyen
 # Uses 'genre/list' method

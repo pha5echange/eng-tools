@@ -4,6 +4,7 @@
 # March 2nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Plots network graph from edgelist 'data\wuGraphData.txt'
 # Adds dates from 'data\first_clusters.txt' as node attributes
@@ -142,6 +143,10 @@ gexfDFile = open(gexfDPath, 'w')
 # Open file for writing final gexf
 gexfFinPath = os.path.join("gexf/final", 'eng_network_final_undirected_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
 gexfFinFile = open(gexfFinPath, 'w')
+
+# Open file for Page Rank data
+prPath = os.path.join("data", 'pagerank.txt')
+prFile = open(prPath, 'w')
 
 # Open file for analysis results
 anPath = os.path.join("results/analysis", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_analysis.txt')
@@ -586,6 +591,9 @@ gexfFinFile.close()
 # End timing of run
 endTime = datetime.now()
 
+prFile.write(str(nx.pagerank(newEnGraph)))
+prFile.close()
+
 anFile.write ('\n' + 'Final Undirected Graph Information' + '\n' + '\n')
 anFile.write ('Date of run: {}'.format(runDate) + '\n')
 anFile.write ("Total artists in all genres: " + str(totalArtists) + '\n')
@@ -596,7 +604,6 @@ anFile.write ('Density: ' + str(density) + '\n')
 anFile.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 anFile.write ('Number of cliques: ' + str(len(cl)) + '\n')
 anFile.write ('Connected Components: ' + str(connectComp) + '\n')
-anFile.write( '\n' + 'PageRank: ' + str(nx.pagerank(newEnGraph)) + '\n')
 anFile.write ('\n' + str(nx.info(newEnGraph)))
 anFile.close()
 

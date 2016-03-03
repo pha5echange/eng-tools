@@ -4,6 +4,7 @@
 # February 24th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Plots network graph from edgelist 'data\wuGraphData.txt'
 # Adds dates from 'data\first_clusters.txt' as node attributes
@@ -152,20 +153,20 @@ for date in dateSet:
 	anFile = open(anPath, 'w')
 
 	# Open file to write Laplacian Spectrum Numpy array
-	# lsPath = os.path.join("results/laplacian", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
-	# lsFile = open(lsPath, 'w')
+	#lsPath = os.path.join("results/laplacian", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
+	#lsFile = open(lsPath, 'w')
 
 	# Open file to write final Laplacian Spectrum Numpy array
-	# lsFinPath = os.path.join("results/laplacian", 'eng_network_final_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
-	# lsFinFile = open(lsFinPath, 'w')
+	#lsFinPath = os.path.join("results/laplacian", 'eng_network_final_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
+	#lsFinFile = open(lsFinPath, 'w')
 
 	# Open file to write image
-	# nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
-	# nwImg = open (nwImgPath, 'w')
+	#nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
+	#nwImg = open (nwImgPath, 'w')
 
 	anFile.write ("==========================================================================" + '\n' + '\n')
 	anFile.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n' + '\n')
-	anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
+	#anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
 
 	# Read the edgelist and generate graph
 	print ('\n' + "Importing Weighted Edge List... ")
@@ -386,8 +387,8 @@ for date in dateSet:
 	print ('\n' + 'Analysing undirected graph...' + '\n')
 	print ('Average clustering coefficient...' + '\n')
 	avClustering = nx.average_clustering(enGraph)
-	# print ('Laplacian spectrum...' + '\n')
-	# eigenArray = nx.laplacian_spectrum(enGraph)
+	#print ('Laplacian spectrum...' + '\n')
+	#eigenArray = nx.laplacian_spectrum(enGraph)
 	print ('Connected components...' + '\n')
 	connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
 	print ('Find cliques...' + '\n')
@@ -426,10 +427,10 @@ for date in dateSet:
 	gexfFile.close()
 
 	# write laplacian spectrum numpy array to file
-	# print ("Writing laplacian spectrum to file... " + '\n')
-	# runLog.write('\n' + "Writing laplacian spectrum to file... " + '\n')
-	# np.savetxt (lsFile, eigenArray)
-	# lsFile.close()
+	#print ("Writing laplacian spectrum to file... " + '\n')
+	#runLog.write('\n' + "Writing laplacian spectrum to file... " + '\n')
+	#np.savetxt (lsFile, eigenArray)
+	#lsFile.close()
 
 	# Write directed graph and then gexf of this
 	print ("Directing graph... " + '\n')
@@ -501,7 +502,7 @@ for date in dateSet:
 	# Remove the first line
 	firstLine = nwConfig.pop(0)
 
-	#for line in nwConfig:
+	for line in nwConfig:
 		n_size, n_alpha, node_colour, n_text_size, text_font, e_thickness, e_alpha, edge_colour, l_pos, e_text_size, edge_label_colour = line.split(",")
 		
 	node_size = int(n_size)
@@ -515,17 +516,17 @@ for date in dateSet:
 	print ('Laying out graph...' + '\n')
 
 	# nx.draw(diEnGraph)
-	#graph_pos = nx.spring_layout(diEnGraph)
-	#nx.draw_networkx_nodes(diEnGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
-	#nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
-	# nx.draw_networkx_labels(diEnGraph, graph_pos, font_size = node_text_size, font_family = text_font)
-	# nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
+	graph_pos = nx.spring_layout(diEnGraph)
+	nx.draw_networkx_nodes(diEnGraph, graph_pos, node_size = node_size, alpha = node_alpha, node_color=node_colour)
+	nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edge_alpha, color = edge_colour)
+	#nx.draw_networkx_labels(diEnGraph, graph_pos, font_size = node_text_size, font_family = text_font)
+	#nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
 	# write image file
-	print ('Writing image file...' + '\n')
-	plt.savefig(nwImg, format = 'png', bbox_inches='tight')
-	plt.clf()
-	nwImg.close()
+	#print ('Writing image file...' + '\n')
+	#plt.savefig(nwImg, format = 'png', bbox_inches='tight')
+	#plt.clf()
+	#nwImg.close()
 
 	# display graph
 	print ('Displaying graph...' + '\n')

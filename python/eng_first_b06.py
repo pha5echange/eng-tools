@@ -4,6 +4,7 @@
 # February 21st 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Examines Echonest genre lists
 # Finds first instance of a band start date in a genre

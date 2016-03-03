@@ -4,6 +4,7 @@
 # February 22nd 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Processes file 'data/date_ratios.txt'
 # Writes results to 'results/eng_cdr_versionNumber.txt'

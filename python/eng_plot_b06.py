@@ -4,8 +4,7 @@
 # January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
-
-# PLOTS BARS
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Reads single genre file output from 'en_genre.py'
 # Processes [renamed and moved] file 'data/genre_2_plot.txt'

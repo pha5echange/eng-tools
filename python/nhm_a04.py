@@ -3,6 +3,9 @@
 # 25th Feb. 2016
 # by jmg*AT*phasechange*DOT*info
 
+# Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
+
 # RENAMED to 'Network Hybridity Metric'
 
 # Examines a graph and calculates node hybridty (NodeH) and graph hybridity (GraphH)

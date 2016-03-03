@@ -4,6 +4,7 @@
 # January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Reads results from output of 'eng_cluster.py'
 # Processes file 'data/first_cluster.txt'

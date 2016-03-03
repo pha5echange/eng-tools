@@ -4,6 +4,7 @@
 # January 27th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
 
 # Examines Echonest genre lists
 # Creates a set for each genre, and adds artist info. as elements

@@ -4,14 +4,13 @@
 # February 25th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
-# Plots data from 'Retromatic' (by Glenn McDonald)
-# http://www.furia.com/page.cgi?type=log&id=389
+# Source code at: https://github.com/pha5echange/eng-tools
 
-# RENAMED TO 'Network Hybridity Metric Plotter'
+# Network Hybridity Metric Plotter
 
 # Processes file 'data/nhm_plot.txt' and produces 2 line-graphs: 
-  # Plots GraphH and Mean-NodeH values (from'nhm') over time
-  # Plots NodeH=1.0 and Progenitors as a % of the total graph node-number
+# Plots GraphH and Mean-NodeH values (from'nhm') over time
+# Plots NodeH=1.0 and Progenitors as a % of the total graph node-number
 
 # import packages
 import os

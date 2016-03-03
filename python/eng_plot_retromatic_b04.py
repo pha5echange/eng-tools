@@ -4,6 +4,8 @@
 # January 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
+# Source code at: https://github.com/pha5echange/eng-tools
+
 # Plots data from 'Retromatic' (by Glenn McDonald)
 # http://www.furia.com/page.cgi?type=log&id=389
 
