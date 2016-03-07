@@ -25,7 +25,7 @@ resultsFile = open(resultsPath, 'w')
 dataInputPath = os.path.join("data", 'pagerank.txt')
 dataInput = open(dataInputPath, 'r')
 
-pageRankStr = str(dataInput.read()).replace("{","").replace("u'","").replace("': ",",").replace("}", "").replace(", ","\n")
+pageRankStr = str(dataInput.read()).replace("{","").replace("u'","").replace("': ",",").replace("}", ",").replace(", ",",\n")
 
 print (pageRankStr)
 resultsFile.write (pageRankStr)

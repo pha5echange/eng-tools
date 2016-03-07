@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-March 3rd 2016
+March 7th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -20,6 +20,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST CHANGES AND ADDITIONS: 
+
+- Added 'pr_hot_fam_process' to write a datafile containing genre, pagerank, mean familiarity and mean hotttnesss. 
 
 - Added 'pr_process_a01.py' to reformat Page Rank data from 'eng_network_wd...a.py'
 
@@ -52,12 +54,6 @@ LATEST CHANGES AND ADDITIONS:
 - 'shm' saves log, results and 'nodes' files, and 'shm_plot' file for use by 'shm_H_plotter'. 
 
 - 'shm' calculates the Simple Hybridity Metric (SHM) for nodes and graphs. 
-
-- 'eng_network_wd' calculates 'artist Total' for networks. 
-
-- 'eng_network_wd' renders undirected network AFTER directing to help calculate final characteristics.  
-
-- 'eng_network_wd' removes edges where, in a directed network, the nodes have the same inception date. 
 
 A full manifest can be found at the end of this readme file. 
 
@@ -112,9 +108,11 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 14) 'pr_process' reformats 'data/pagerank.txt' and outputs 'results/pr_results.txt'. 
 
-15) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+15) 'pr_hot_fam_process' grabs info from 'results/pr_results.txt' and 'results/eng_fam_hot__data.txt', and writes 'results/pr_hot_fam_results.txt'.
 
-16) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
+16) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+
+17) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
 
 MANIFEST: 
@@ -153,14 +151,16 @@ MANIFEST:
 
 (17) pr_process_a01.py
 
-(18) nhm.py
+(18) pr_hot_fam_process.py
 
-(19) nhm_plotter.py
+(19) nhm.py
 
-(20) config/apikey.txt (BLANK - REQUIRES API KEY)
+(20) nhm_plotter.py
 
-(21) config/config_nw.txt (Network layout config. file)
+(21) config/apikey.txt (BLANK - REQUIRES API KEY)
 
-(22) data/retromatic.txt
+(22) config/config_nw.txt (Network layout config. file)
 
-(23) Multiple example '.gexf' files added to gexf/directed/
+(23) data/retromatic.txt
+
+(24) Multiple example '.gexf' files added to gexf/directed/

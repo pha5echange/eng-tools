@@ -1,7 +1,7 @@
-# eng_fam_hot_b01.py
-# Version b01
+# eng_fam_hot_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 22nd 2016
+# March 4th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -11,7 +11,7 @@
 # Writes results to 'results/eng_fam_hot_versionNumber_data.txt'
 # Writes run log to 'logs/eng_fam_hot_versionNumber_log.txt'
 
-# This version deals with Musicbrainz IDs in data files
+# This version deals with Musicbrainz IDs in data files, and combines results into a single file
 
 # Run AFTER 'en_genre.py' has gathered 'genres/..'
 
@@ -20,7 +20,7 @@ import os
 from datetime import datetime
 from collections import Counter
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -38,14 +38,13 @@ logPath = os.path.join("logs", 'eng_fam_hot_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # open files for output and write first line
-famResultsPath = os.path.join("results", 'eng_fam_' + versionNumber + '_data.txt')
-processedFamResults = open(famResultsPath, 'a')
-processedFamResults.write("Genre" + ',' + "Total Artists" + ',' + "Familiarity - Low" + ',' + "Familiarity - Mean" + ',' + "Familiarity - High" + '\n')
+famHotResultsPath = os.path.join("results", 'eng_fam_hot_' + versionNumber + '_data.txt')
+processedFamHotResults = open(famHotResultsPath, 'w')
+processedFamHotResults.write("Genre" + ',' + "Total Artists" + ',' + "Familiarity - Low" + ',' + "Familiarity - Mean" + ',' + "Familiarity - High" + ',' + "Hotttnesss - Low" + ',' + "Hotttnesss - Mean" + ',' + "Hotttnesss - High" + '\n')
 
-hotResultsPath = os.path.join("results", 'eng_hot_' + versionNumber + '_data.txt')
-processedHotResults = open(hotResultsPath, 'a')
-processedHotResults.write("Genre" + ',' + "Total Artists" + ',' + "Hotttnesss - Low" + ',' + "Hotttnesss - Mean" + ',' + "Hotttnesss - High" + '\n')
-
+#hotResultsPath = os.path.join("results", 'eng_hot_' + versionNumber + '_data.txt')
+#processedHotResults = open(hotResultsPath, 'a')
+#processedHotResults.write("Genre" + ',' + "Total Artists" + ',' + "Hotttnesss - Low" + ',' + "Hotttnesss - Mean" + ',' + "Hotttnesss - High" + '\n')
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -77,6 +76,7 @@ for index in range(len(fileNames)):
 
 	# Calculate values and display/write
 	artistTotal = float(len(famValues))
+	artistCount = int(artistTotal)
 	famTotal = (sum(famValues))
 	famAverage = (famTotal / artistTotal)
 	famLow = (min(famValues))
@@ -86,21 +86,20 @@ for index in range(len(fileNames)):
 	hotLow = (min(hotValues))
 	hotHigh = (max(hotValues))
 
-	processedFamResults.write(str(genreName) + ',' + str(artistTotal) + ',' + str (famLow) + ',' + str(famAverage) + ',' + str(famHigh) + '\n')
+	processedFamHotResults.write(str(genreName) + ',' + str(artistCount) + ',' + str (famLow) + ',' + str(famAverage) + ',' + str(famHigh) +',' + str (hotLow) + ',' + str(hotAverage) + ',' + str(hotHigh) + ',' + '\n')
 	print
-	print ('Artists within the genre ' + str(genreName) + ': ' + str(artistTotal))
+	print ('Artists within the genre ' + str(genreName) + ': ' + str(artistCount))
+	print
 	print ('Lowest familiarity for ' + str(genreName) + ' is ' + str(famLow))
 	print ('Average familiarity for ' + str(genreName) + ' is ' + str(famAverage))
 	print ('Highest familiarity for ' + str(genreName) + ' is ' + str(famHigh))
-
-	processedHotResults.write(str(genreName) + ',' + str(artistTotal) + ',' + str (hotLow) + ',' + str(hotAverage) + ',' + str(hotHigh) + '\n')
+	print
 	print ('Lowest hotttnesss for ' + str(genreName) + ' is ' + str(hotLow))
 	print ('Average hotttnesss for ' + str(genreName) + ' is ' + str(hotAverage))
 	print ('Highest hotttnesss for ' + str(genreName) + ' is ' + str(hotHigh))
 
 # close files
-processedFamResults.close()
-processedHotResults.close()
+processedFamHotResults.close()
 
 # End timing of run
 endTime = datetime.now()
