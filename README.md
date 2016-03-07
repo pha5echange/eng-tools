@@ -21,6 +21,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
+- Added 'pr_plotter' to plot and output PageRank-Mean Familiarity, PageRank-Mean Hotttnesss, and Mean Hotttness-Mean Familiarity. 
+
 - Added 'pr_hot_fam_process' to write a datafile containing genre, pagerank, mean familiarity and mean hotttnesss. 
 
 - Added 'pr_process_a01.py' to reformat Page Rank data from 'eng_network_wd...a.py'
@@ -153,14 +155,16 @@ MANIFEST:
 
 (18) pr_hot_fam_process.py
 
-(19) nhm.py
+(19) pr_plotter.py
 
-(20) nhm_plotter.py
+(20) nhm.py
 
-(21) config/apikey.txt (BLANK - REQUIRES API KEY)
+(21) nhm_plotter.py
 
-(22) config/config_nw.txt (Network layout config. file)
+(22) config/apikey.txt (BLANK - REQUIRES API KEY)
 
-(23) data/retromatic.txt
+(23) config/config_nw.txt (Network layout config. file)
 
-(24) Multiple example '.gexf' files added to gexf/directed/
+(24) data/retromatic.txt
+
+(25) Multiple example '.gexf' files added to gexf/directed/
