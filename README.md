@@ -110,11 +110,13 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 14) 'pr_process' reformats 'data/pagerank.txt' and outputs 'results/pr_results.txt'. 
 
-15) 'pr_hot_fam_process' grabs info from 'results/pr_results.txt' and 'results/eng_fam_hot__data.txt', and writes 'results/pr_hot_fam_results.txt'.
+15) 'pr_hot_fam_process' grabs info from 'results/pr_results.txt' and 'results/eng_fam_hot__data.txt', and writes 'results/pr_hot_fam_results.txt'. 
 
-16) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+16) 'pr_plotter' takes 'results/pr_hot_fam_results.txt' and plots 3 graphs from this (PageRank-Mean Familiarity, PageRank-Mean Hotttnesss, and Mean Hotttness-Mean Familiarity). 
 
-17) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
+17) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+
+18) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
 
 MANIFEST: 
