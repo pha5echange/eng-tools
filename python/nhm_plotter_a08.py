@@ -1,7 +1,7 @@
-# nhm_plotter_a07.py
-# Version a07
+# nhm_plotter_a08.py
+# Version a08
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 25th 2016
+# March 7th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -11,6 +11,7 @@
 # Processes file 'data/nhm_plot.txt' and produces 2 line-graphs: 
 # Plots GraphH and Mean-NodeH values (from'nhm') over time
 # Plots NodeH=1.0 and Progenitors as a % of the total graph node-number
+# Saves plots as '.eps' files
 
 # import packages
 import os
@@ -19,7 +20,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a07")
+versionNumber = ("a08")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -34,9 +35,9 @@ logPath = os.path.join("logs", 'nhm_plotter_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # define paths for graphs
-graphHPath = os.path.join("graphs", 'nhm_plotter_' + versionNumber + ".png")
-nodeHPath = os.path.join("graphs", 'nhm_nodeH_plotter_' + versionNumber + ".png")
-graphPercPath = os.path.join("graphs", 'nhm_Perc_plotter_' + versionNumber + ".png")
+graphHPath = os.path.join("graphs", 'nhm_plotter_' + versionNumber + ".eps")
+nodeHPath = os.path.join("graphs", 'nhm_nodeH_plotter_' + versionNumber + ".eps")
+graphPercPath = os.path.join("graphs", 'nhm_Perc_plotter_' + versionNumber + ".eps")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -50,8 +51,9 @@ print ('\n' + 'Network Hybridity Metric Plotter - Alpha | ' + 'Version: ' + vers
 pathname = os.path.join("data", 'nhm_plot.txt')
 dataInput = open(pathname, "r").readlines()
 
-# Remove the first line
+# Remove the first line. Count the others. 
 firstLine = dataInput.pop(0)
+lineCounter = 0
 
 # define dicts to store the dates and values
 graphHyears = {}
@@ -68,6 +70,7 @@ for line in dataInput:
   nodeHyears.update ({int(year):float(meanNodeH)})
   nodePercs.update ({int(year):float(nodePerc)})
   progenPercs.update ({int(year):float(percProgen)})
+  lineCounter += 1
 
 # graphH Plot
 xAxis = []
@@ -85,7 +88,7 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', marker='o')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='GraphH')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -93,7 +96,7 @@ plt.xlabel('Year', fontsize=14)
 plt.ylabel('Hybridity', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-# plt.savefig(graphHPath, format = 'png')
+# plt.savefig(graphHPath, format = 'eps')
 # plt.clf()
 
 # meanNodehH Plot
@@ -112,15 +115,16 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', marker='x')
+plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='MeanNodeH')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
 plt.xlabel('Year', fontsize=14)
 plt.ylabel('Hybridity', fontsize=14)
+plt.legend(loc='upper left')
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(nodeHPath, format = 'png')
+plt.savefig(nodeHPath, format = 'eps')
 plt.clf()
 
 # GraphPerc Plot
@@ -139,7 +143,7 @@ y_high = 60
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', marker='o')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='NodeH=1')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -147,7 +151,7 @@ plt.xlabel('Year', fontsize=14)
 plt.ylabel('Percentage of Nodes', fontsize=14)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-# plt.savefig(graphPercPath, format = 'png')
+# plt.savefig(graphPercPath, format = 'eps')
 # plt.clf()
 
 xAxis = []
@@ -165,15 +169,16 @@ y_high = 60
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', marker='x')
+plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Progenitors')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
 plt.xlabel('Year', fontsize=14)
 plt.ylabel('Percentage of  Nodes', fontsize=14)
+plt.legend(loc='upper left')
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
-plt.savefig(graphPercPath, format = 'png')
+plt.savefig(graphPercPath, format = 'eps')
 plt.clf()
 
 # End timing of run

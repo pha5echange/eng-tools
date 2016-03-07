@@ -29,7 +29,7 @@ LATEST CHANGES AND ADDITIONS:
 
 - Single-network version of 'eng_network_wd' now has an 'a' after the version number and incorporates 'Page Rank'.
 
-- Updated 'nhm_plotter' to also plot points (probably temporarily)
+- Updated 'nhm_plotter' to output '.eps' files, and label plots. 
 
 - 'SHM' script and plotter script updated and renamed to 'NHM' (Network Hybridity Metric)
 
