@@ -21,6 +21,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
+- Added check for 'Directed Acyclic Graph' to 'eng_network_wd' and 'eng_network_wd...a'
+
 - Added 'pr_plotter' to plot and output PageRank-Mean Familiarity, PageRank-Mean Hotttnesss, and Mean Hotttness-Mean Familiarity. 
 
 - Added 'pr_hot_fam_process' to write a datafile containing genre, pagerank, mean familiarity and mean hotttnesss. 

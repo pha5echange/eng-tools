@@ -536,18 +536,21 @@ plt.show()
 nodes = nx.number_of_nodes(diEnGraph)
 edges = nx.number_of_edges(diEnGraph)
 density = nx.density(diEnGraph)
+isDag = nx.is_directed_acyclic_graph(diEnGraph)
 
 print ('Final Directed Graph Information' + '\n')
 print ('User-entered date: ' + str(dateIP))
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
 print ('Density: ' + str(density))
+print ('Is DAG? ' + str(isDag))
 print
 print (str(nx.info(diEnGraph)))
 
 anFile.write ('Nodes: ' + str(nodes) + '\n')
 anFile.write ('Edges: ' + str(edges) + '\n')
 anFile.write ('Density: ' + str(density) + '\n')
+anFile.write ('Is DAG? ' + str(isDag) + '\n')
 anFile.write ('\n' + str(nx.info(diEnGraph)) + '\n')
 
 runLog.write ('\n' + 'Final Directed Graph Information' + '\n' + '\n')
@@ -555,6 +558,7 @@ runLog.write ('User-entered date: ' + str(dateIP) + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
+runLog.write ('Is DAG? ' + str(isDag) + '\n')
 runLog.write ('\n' + str(nx.info(diEnGraph)) + '\n')
 
 # Render undirected version of diEnGraph to facilitate final analysis of graph characteristics
