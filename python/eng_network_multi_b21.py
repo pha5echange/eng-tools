@@ -1,10 +1,12 @@
-# eng_network_wd_b18.py
-# Version b18
+# eng_network_multi_b21.py
+# Version b21
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# February 24th 2016
+# March 14th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
+
+# Name changed to 'eng_network_multi'
 
 # Plots network graph from edgelist 'data\wuGraphData.txt'
 # Adds dates from 'data\first_clusters.txt' as node attributes
@@ -31,7 +33,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b18")
+versionNumber = ("b21")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -68,9 +70,6 @@ if not os.path.exists("results"):
 if not os.path.exists("results/analysis"):
 	os.makedirs("results/analysis")
 
-#if not os.path.exists("results/laplacian"):
-#	os.makedirs("results/laplacian")
-
 # Create 'networks' subdirectory if necessary
 if not os.path.exists("networks"):
     os.makedirs("networks")
@@ -80,9 +79,9 @@ logPath = os.path.join("logs", 'eng_network_wd_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # Begin
-print ('\n' + "Weighted Directed Network Thing | Version " + versionNumber + " | Starting..." + '\n')
+print ('\n' + "Multi-Network Thing | Version " + versionNumber + " | Starting..." + '\n')
 runLog.write ("==========================================================================" + '\n' + '\n')
-runLog.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n')
+runLog.write ("Multi-Network Thing | Version " + versionNumber + '\n')
 
 # Pre-defined input: remove self-loops (1) but don't remove isolates(0)
 selfLoopIP = 1
@@ -152,20 +151,12 @@ for date in dateSet:
 	anPath = os.path.join("results/analysis", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_analysis.txt')
 	anFile = open(anPath, 'w')
 
-	# Open file to write Laplacian Spectrum Numpy array
-	#lsPath = os.path.join("results/laplacian", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
-	#lsFile = open(lsPath, 'w')
-
-	# Open file to write final Laplacian Spectrum Numpy array
-	#lsFinPath = os.path.join("results/laplacian", 'eng_network_final_wd_' + versionNumber + '_' + str(dateIP) + '_laplacian.txt')
-	#lsFinFile = open(lsFinPath, 'w')
-
 	# Open file to write image
 	#nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
 	#nwImg = open (nwImgPath, 'w')
 
 	anFile.write ("==========================================================================" + '\n' + '\n')
-	anFile.write ("Weighted Directed Network Thing | Version " + versionNumber + '\n' + '\n')
+	anFile.write ("Multi-Network Thing | Version " + versionNumber + '\n' + '\n')
 	#anFile.write('Sorted artist numbers: ' + str(sortArtists) + '\n' + '\n')
 
 	# Read the edgelist and generate graph
@@ -387,8 +378,6 @@ for date in dateSet:
 	print ('\n' + 'Analysing undirected graph...' + '\n')
 	print ('Average clustering coefficient...' + '\n')
 	avClustering = nx.average_clustering(enGraph)
-	#print ('Laplacian spectrum...' + '\n')
-	#eigenArray = nx.laplacian_spectrum(enGraph)
 	print ('Connected components...' + '\n')
 	connectComp = [len(c) for c in sorted(nx.connected_components(enGraph), key=len, reverse=True)]
 	print ('Find cliques...' + '\n')
@@ -425,12 +414,6 @@ for date in dateSet:
 	runLog.write('\n' + "Writing undirected gexf file... " + '\n')
 	nx.write_gexf(enGraph, gexfFile)
 	gexfFile.close()
-
-	# write laplacian spectrum numpy array to file
-	#print ("Writing laplacian spectrum to file... " + '\n')
-	#runLog.write('\n' + "Writing laplacian spectrum to file... " + '\n')
-	#np.savetxt (lsFile, eigenArray)
-	#lsFile.close()
 
 	# Write directed graph and then gexf of this
 	print ("Directing graph... " + '\n')
@@ -571,8 +554,6 @@ for date in dateSet:
 	print ('\n' + 'Analysing final undirected graph...' + '\n')
 	print ('Average clustering coefficient...' + '\n')
 	avClustering = nx.average_clustering(newEnGraph)
-	# print ('Laplacian spectrum...' + '\n')
-	# eigenArray = nx.laplacian_spectrum(newEnGraph)
 	print ('Connected components...' + '\n')
 	connectComp = [len(c) for c in sorted(nx.connected_components(newEnGraph), key=len, reverse=True)]
 	print ('Find cliques...' + '\n')
@@ -588,10 +569,6 @@ for date in dateSet:
 	print ('\n' + 'Writing final undirected gexf file...' + '\n')
 	nx.write_gexf(newEnGraph, gexfFinFile)
 	gexfFinFile.close()
-
-	# write laplacian spectrum numpy array to file
-	# np.savetxt (lsFinFile, eigenArray)
-	# lsFinFile.close()
 
 	anFile.write ('\n' + 'Final Undirected Graph Information' + '\n' + '\n')
 	anFile.write ('Date of run: {}'.format(runDate) + '\n')

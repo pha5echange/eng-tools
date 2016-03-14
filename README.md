@@ -1,11 +1,11 @@
-ENG-Tools beta v. 11.4
+ENG-Tools beta v. 11.5
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-March 7th 2016
+March 14th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -21,6 +21,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
+- Renamed 'eng_network_wd' as 'eng_network_multi'
+
+- Renamed 'eng_network_wd...a' as 'eng_network_single'
+
 - Added check for 'Directed Acyclic Graph' to 'eng_network_wd' and 'eng_network_wd...a'
 
 - Added 'pr_plotter' to plot and output PageRank-Mean Familiarity, PageRank-Mean Hotttnesss, and Mean Hotttness-Mean Familiarity. 
@@ -30,36 +34,6 @@ LATEST CHANGES AND ADDITIONS:
 - Added 'pr_process_a01.py' to reformat Page Rank data from 'eng_network_wd...a.py'
 
 - 'en_genre' and 'eng_list' now replace spaces in genre names with underscores (to note presence of spaces).
-
-- Single-network version of 'eng_network_wd' now has an 'a' after the version number and incorporates 'Page Rank'.
-
-- Updated 'nhm_plotter' to output '.eps' files, and label plots. 
-
-- 'SHM' script and plotter script updated and renamed to 'NHM' (Network Hybridity Metric)
-
-- Subfolder 'gexf/directed/' added to folder structure. 
-
-- 'eng_multiplot' saves images to 'graphs/multi/'. 
-
-- 'eng_fam' and 'eng_hot' combined into one script ('eng_fam_hot'). 
-
-- 'eng_network_wd' makes networks for all `first_clusters'. 
-
-- 'shm' now looks for 'OMEGAYEAR.gexf' files in 'gexf/..' and calculates for all. 
-
-- 'gexf/directed/*.gexf' examples added to prevent 'nhm' errors. 
-
-- 'eng_network_wd' now outputs 'gexf/directed/OMEGAYEAR.gexf' file for directed graphs. 
-
-- 'shm_h_plotter' now outputs 2 graphs, each with 2 lines ('GraphH' + 'meanNodeH' and '% H=1.0' + '% Progenitors') 
-
-- 'shm_H_plotter' makes simple line-graphs of SHM results.
-
-- 'shm' saves log, results and 'nodes' files, and 'shm_plot' file for use by 'shm_H_plotter'. 
-
-- 'shm' calculates the Simple Hybridity Metric (SHM) for nodes and graphs. 
-
-A full manifest can be found at the end of this readme file. 
 
 
 REQUIREMENTS: 
@@ -106,9 +80,9 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 11) 'eng_nodesets' converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. The output file from this ('data/wuGraph_data.txt') is a weighted undirected edgelist for use by... 
 
-12) 'eng_network_wd' processes and renders networks for all 'first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
+12) 'eng_network_multi' processes and renders networks for all 'first_clusters' genres, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-13) 'eng_network_wd_...a' generates single network based upon user input, and outputs analysis to 'results/analysis' file and  pagerank to 'data/pagerank.txt' file. 
+13) 'eng_network_single' generates single network based upon user input, and outputs analysis to 'results/analysis' file and pagerank to 'data/pagerank.txt' file. 
 
 14) 'pr_process' reformats 'data/pagerank.txt' and outputs 'results/pr_results.txt'. 
 
@@ -151,9 +125,9 @@ MANIFEST:
 
 (14) eng_nodesets.py
 
-(15) eng_network_wd.py
+(15) eng_network_multi.py
 
-(16) eng_network_wd_...a.py
+(16) eng_network_single.py
 
 (17) pr_process_a01.py
 
