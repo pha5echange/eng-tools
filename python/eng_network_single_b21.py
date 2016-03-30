@@ -152,8 +152,8 @@ anPath = os.path.join("results/analysis", 'eng_network_wd_' + versionNumber + '_
 anFile = open(anPath, 'w')
 
 # Open file to write image
-#nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.png')
-#nwImg = open (nwImgPath, 'w')
+nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.eps')
+nwImg = open (nwImgPath, 'w')
 
 anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
 anFile.write ("Single-Network Thing | Version " + versionNumber + '\n' + '\n')
@@ -473,7 +473,6 @@ runLog.write('\n' + "Writing directed gexf file... " + '\n')
 nx.write_gexf(diEnGraph, gexfDFile)
 gexfDFile.close()
 
-'''
 # Plot and display graph
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('Reading layout config file...' + '\n')
@@ -507,13 +506,12 @@ nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edg
 
 # write image file
 print ('Writing image file...' + '\n')
-plt.savefig(nwImg, format = 'png', bbox_inches='tight')
+plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
 nwImg.close()
 
 # display graph
 print ('Displaying graph...' + '\n')
 plt.show()
-'''
 
 # Recalculate basic graph statistics
 nodes = nx.number_of_nodes(diEnGraph)
@@ -544,6 +542,9 @@ runLog.write ('Density: ' + str(density) + '\n')
 runLog.write ('Is DAG? ' + str(isDag) + '\n')
 runLog.write ('\n' + str(nx.info(diEnGraph)) + '\n')
 
+prFile.write(str(nx.pagerank(diEnGraph)))
+prFile.close()
+
 # Render undirected version of diEnGraph to facilitate final analysis of graph characteristics
 print('\n' + "Rendering undirected verison to facilitate final analysis of graph characteristics... ")
 runLog.write('\n' + "Rendering undirected verison to facilitate final analysis of graph characteristics... " + '\n')
@@ -572,8 +573,8 @@ gexfFinFile.close()
 # End timing of run
 endTime = datetime.now()
 
-prFile.write(str(nx.pagerank(newEnGraph)))
-prFile.close()
+#prFile.write(str(nx.pagerank(newEnGraph)))
+#prFile.close()
 
 anFile.write ('\n' + 'Final Undirected Graph Information' + '\n' + '\n')
 anFile.write ('Date of run: {}'.format(runDate) + '\n')
