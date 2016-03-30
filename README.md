@@ -1,11 +1,11 @@
-ENG-Tools beta v. 11.5
+ENG-Tools beta v. 11.7
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-March 14th 2016
+March 30th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -13,6 +13,12 @@ They acquire data from the Echonest (via the API), process it, and facilitate st
 This is research software; USE IT AT YOUR OWN RISK. 
 I will respond to emails if possible, BUT THIS SOFTWARE HAS NO FORMAL SUPPORT.
 
+################################################################################################################
+N.B. The Echonest API will cease to function on May 31st 2016. The provision of new API keys has already ceased. 
+The Spotify Web API will be taking over the role of the EN API. 
+Full announcement at http://http://developer.echonest.com/
+Given this, I will consider providing a data set as a part of this project in future. 
+################################################################################################################
 
 LICENCE: 
 
@@ -20,6 +26,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST CHANGES AND ADDITIONS: 
+
+- Added 2 new `NHM' calculation methods (nhm_a07 uses method `JG'. nhm_a05a uses method `CR'.)
 
 - Renamed 'eng_network_wd' as 'eng_network_multi'
 
@@ -41,6 +49,13 @@ REQUIREMENTS:
 To use ENG-Tools you will require the following:
 
 1) An Echonest Developer account, and an API key (from https://developer.echonest.com/account/register)
+
+################################################################################################################
+N.B. The Echonest API will cease to function on May 31st 2016. The provision of new API keys has already ceased. 
+The Spotify Web API will be taking over the role of the EN API. 
+Full announcement at http://http://developer.echonest.com/
+Given this, I will consider providing a data set as a part of this project in future. 
+################################################################################################################
 
 2) A text file called 'apikey.txt' containing your Echonest API key, in a 'config/..' subfolder (i.e. 'config/apikey.txt' within the main ENG-Tools folder). 
 
@@ -90,7 +105,11 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 16) 'pr_plotter' takes 'results/pr_hot_fam_results.txt' and plots 3 graphs from this (PageRank-Mean Familiarity, PageRank-Mean Hotttnesss, and Mean Hotttness-Mean Familiarity). 
 
-17) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+17) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) using method `JG' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
+
+* OR *
+
+17a) Run 'nhm_*a.py' to calculate the Network Hybridity Metric (NHM) using method `CR' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm_*a.py' also outputs 'data/nhm_plot.txt'.
 
 18) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
@@ -129,20 +148,22 @@ MANIFEST:
 
 (16) eng_network_single.py
 
-(17) pr_process_a01.py
+(17) pr_process.py
 
 (18) pr_hot_fam_process.py
 
 (19) pr_plotter.py
 
-(20) nhm.py
+(20) nhm_*a.py
 
-(21) nhm_plotter.py
+(21) nhm.py
 
-(22) config/apikey.txt (BLANK - REQUIRES API KEY)
+(22) nhm_plotter.py
 
-(23) config/config_nw.txt (Network layout config. file)
+(23) config/apikey.txt (BLANK - REQUIRES API KEY)
 
-(24) data/retromatic.txt
+(24) config/config_nw.txt (Network layout config. file)
+
+(25) data/retromatic.txt
 
 (25) Multiple example '.gexf' files added to gexf/directed/

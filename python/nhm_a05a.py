@@ -1,14 +1,15 @@
 # Network Hybridity Metric
-# v. a0.4
-# 25th Feb. 2016
+# v. a0.5a
+# March 16th 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# RENAMED to 'Network Hybridity Metric'
+# This version utilises Dr. C. Rhodes 'leave out the biggest one' concept.
+# N.B. I am not at ALL sure about this, so version a07 does it differently. 
 
-# Examines a graph and calculates node hybridty (NodeH) and graph hybridity (GraphH)
+# Examines a graph and calculates node hybridty (Hnode) and graph hybridity (Hgraph)
 # This version looks at all loose files in 'gexf/directed/' with a '.gexf' extension. 
 # These should be directed-gexf files output by 'eng_network_wd'
 # The filename is used as the omega-year of the graph. 
@@ -18,7 +19,7 @@ import os
 import networkx as nx
 from datetime import datetime
 
-versionNumber = ("a04")
+versionNumber = ("a05a")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -46,7 +47,7 @@ runLog = open(logPath, 'a')
 # open file for plot - file output
 plotPath = os.path.join("data", 'nhm_plot.txt')
 plotFile = open(plotPath, 'w')
-plotFile.write("OmegaYear" + ',' + "Nodes" + ',' + "GraphH" + ',' + "Mean-NodeH" + ',' + "Perc-NodeH=1" + ',' + "Perc-Progen" + '\n')
+plotFile.write("OmegaYear" + ',' + "Nodes" + ',' + "Hgraph" + ',' + "Mean-Hnode" + ',' + "Perc-Hnode>0.5" + ',' + "Perc-Progen" + '\n')
 
 # open file for results output
 resultsPath = os.path.join("results", 'nhm_' + versionNumber + '.txt')
@@ -74,12 +75,12 @@ for index in range(len(fileNames)):
 	# open file for node results output
 	nodeDataPath = os.path.join("data/node-edge-lists", 'nhm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
 	nodeFile = open(nodeDataPath, 'a')
-	nodeFile.write ("Genre" + "," + "In-Degree" + "," + "Out-Degree" + "," + "Node H" + "," + "Node Sig" + "," + "Final Node Sig" + '\n')
+	nodeFile.write ("Genre" + "," + "In-Degree" + "," + "Out-Degree" + "," + "Hnode" + "," + "Node Imp" + "," + "Final Node Imp" + '\n')
 
 
-	# Create empty dictionaries for NodeH and finalNodeSig values
-	nodeHDict = {}
-	finalNodeSigDict = {}
+	# Create empty dictionaries for Hnode and finalNodeImp values
+	HnodeDict = {}
+	finalNodeImpDict = {}
 
 	# Create dictionary for artist totals and clean up unicode
 	nodeArtistsDict = nx.get_node_attributes(diEnGraph,'totalArtists')
@@ -90,7 +91,7 @@ for index in range(len(fileNames)):
 	graphTotalArtists = float(sum(nodeArtistsDict.values()))
 
 	# Counters
-	totalNodeH = 0
+	totalHnode = 0
 	progenNodes = 0
 	nonHybrids = 0
 	totalNonHybrids = 0
@@ -99,15 +100,16 @@ for index in range(len(fileNames)):
 	# Get node count for graph
 	totalGraphNodes = nx.number_of_nodes(diEnGraph)
 
-	# Calculate NodeH values
+	# Calculate Hnode values
 	# Examine every node
 	for node in diEnGraph.nodes():
 
 		# Assign variables
-		edgeSig = 0.0
-		totalEdgeSig = 0.0
+		edgeImp = 0.0
+		edgeImpList = []
+		totalEdgeImp = 0.0
 		nodeTotalArtists = float(nodeArtistsDict[node])
-		nodeSig = nodeTotalArtists / graphTotalArtists
+		nodeImp = nodeTotalArtists / graphTotalArtists
 		nodeInDeg = diEnGraph.in_degree(node)
 		nodeOutDeg = diEnGraph.out_degree(node)
 		inEdges = diEnGraph.in_edges(node, data=True)
@@ -120,77 +122,94 @@ for index in range(len(fileNames)):
 		runLog.write ("Node in-degree for " + str(node) + " is: " + str(nodeInDeg) + '\n')
 		runLog.write ("Node out-degree for " + str(node) + " is: " + str(nodeOutDeg) + '\n')
 
-		# Assign non-hybrid heuristic NodeH values if possible
+		# Assign non-hybrid heuristic Hnode values if possible
 		# Node is an isolate, so cannot be a hybrid
 		if nodeInDeg == 0 and nodeOutDeg == 0:
-			NodeH = 0.0
+			Hnode = 0.0
 
 			# Count as an isolate and a non-hybrid
 			isolates += 1
 			totalNonHybrids += 1
 
-			print ("NodeH set to 0 because node is an isolate (node in- and out-degree is 0) ")
-			runLog.write ("NodeH set to 0 because node is an isolate (node in- and out-degree is 0) " + '\n')
+			print ("Hnode set to 0 because node is an isolate (node in- and out-degree is 0) ")
+			runLog.write ("Hnode set to 0 because node is an isolate (node in- and out-degree is 0) " + '\n')
 
 		# Node is a progenitor
 		if nodeInDeg == 0 and nodeOutDeg != 0:
-			NodeH = 0.0
+			Hnode = 0.0
 
 			# Count as a progenitor and a non-hybrid
 			progenNodes += 1
 			totalNonHybrids += 1
 
-			print ("NodeH set to 0 because genre is a progenitor (node in-degree is 0) ")
-			runLog.write ("NodeH set to 0 because genre is a progenitor (node in-degree is 0) " + '\n')
+			print ("Hnode set to 0 because genre is a progenitor (node in-degree is 0) ")
+			runLog.write ("Hnode set to 0 because genre is a progenitor (node in-degree is 0) " + '\n')
 
 		if nodeInDeg == 1:
-			NodeH = 0.0
+			Hnode = 0.0
 
 			# Count non-hybrids
 			totalNonHybrids += 1
 
-			print ("NodeH set to 0 because node in-degree is " + str(nodeInDeg))
-			runLog.write ("NodeH set to 0 because node in-degree is " + str(nodeInDeg) + '\n')
+			print ("Hnode set to 0 because node in-degree is " + str(nodeInDeg))
+			runLog.write ("Hnode set to 0 because node in-degree is " + str(nodeInDeg) + '\n')
 
-		# Examine all incoming edges for significance
+		# Examine all incoming edges for importance
 		if nodeInDeg > 1:
 			for edge in inEdges:
 				edgeStr = str(edge).replace("u'","").replace("'","").replace("(","").replace(")","").replace(" ","")
 				nodeU, nodeV, edgeId, edgeWeight = edgeStr.split(",")
 				inEdgeWeight = float(str(edgeWeight).replace("{","").replace("weight:","").replace("}",""))
-				edgeSig = inEdgeWeight / nodeTotalArtists
-				totalEdgeSig += edgeSig
+				edgeImp = inEdgeWeight / nodeTotalArtists
+				edgeImpList.append(edgeImp)
 
-		# Maximum value of NodeH is 1.0, so sort that out
-		if totalEdgeSig > 1.0: 
-			NodeH = 1.0 
+			print
+			print ("Complete list of edge importance: ")
+			print (edgeImpList)
+			print
+
+			# Remove largest group, as per CR's instructions
+			edgeImpList.remove(max(edgeImpList))
+
+			print
+			print ("Edge importance list after removal of largest: ")
+			print (edgeImpList)
+			print
+
+			# Calculate totalEdgeImp
+			for i in range (len(edgeImpList)):
+				totalEdgeImp += edgeImpList[i]
+
+		# Maximum value of Hnode is 1.0, so sort that out
+		if totalEdgeImp > 1.0: 
+			Hnode = 1.0 
 		else: 
-			NodeH = totalEdgeSig
+			Hnode = totalEdgeImp
 
-		# Count NodeH = 1.0 hybrids 
-		if NodeH == 1.0:
-			totalNodeH += 1
+		# Count Hnode > 0.5 hybrids 
+		if Hnode > 0.5:
+			totalHnode += 1
 
-		# Update nodeSigDict dictionary for later use
-		nodeHDict[node] = NodeH
+		# Update HnodeDict dictionary for later use
+		HnodeDict[node] = Hnode
 
-		# Final node significance is NodeHybridity * NodeSignificance
-		finalNodeSig = NodeH * nodeSig
+		# Final node importance is NodeHybridity * NodeImportance
+		finalNodeImp = Hnode * nodeImp
 
-		# Update finalNodeSigDict dictionary for later use
-		finalNodeSigDict[node] = finalNodeSig
+		# Update finalNodeImpDict dictionary for later use
+		finalNodeImpDict[node] = finalNodeImp
 
 		print ("Node total artists for " + str(node) + " is: " + str(nodeTotalArtists))
-		print ("Node significance for " + str(node) + " is: " + str(nodeSig))
-		print ("NodeH for " + str(node) + " is: " + str(NodeH))
-		print ("Final node significance for " + str(node) + " is: " + str(finalNodeSig))
+		print ("Node importance of " + str(node) + " is: " + str(nodeImp))
+		print ("Hnode for " + str(node) + " is: " + str(Hnode))
+		print ("Final node importance of " + str(node) + " is: " + str(finalNodeImp))
 
-		nodeFile.write (str(node) + "," + str(nodeInDeg) + "," + str(nodeOutDeg) + "," + str(NodeH) + "," + str(nodeSig) + "," + str(finalNodeSig) + '\n')
+		nodeFile.write (str(node) + "," + str(nodeInDeg) + "," + str(nodeOutDeg) + "," + str(Hnode) + "," + str(nodeImp) + "," + str(finalNodeImp) + '\n')
 
 		runLog.write ("Node total artists for " + str(node) + " is: " + str(nodeTotalArtists) + '\n')
-		runLog.write ("Node significance for " + str(node) + " is: " + str(nodeSig) + '\n')
-		runLog.write ("NodeH for " + str(node) + " is: " + str(NodeH) + '\n')
-		runLog.write ("Final node significance for " + str(node) + " is: " + str(finalNodeSig) + '\n')
+		runLog.write ("Node importance of " + str(node) + " is: " + str(nodeImp) + '\n')
+		runLog.write ("Hnode for " + str(node) + " is: " + str(Hnode) + '\n')
+		runLog.write ("Final node importance of " + str(node) + " is: " + str(finalNodeImp) + '\n')
 
 	nodeFile.close()
 
@@ -199,18 +218,18 @@ for index in range(len(fileNames)):
 
 	# Calculate percentages
 	percProgen = float(100 * (float(progenNodes) / float(totalGraphNodes)))
-	percNodeH = float(100 * (float(totalNodeH) / float(totalGraphNodes)))
+	percHnode = float(100 * (float(totalHnode) / float(totalGraphNodes)))
 	percNonHybrids = float(100 * (float(nonHybrids) / float(totalGraphNodes)))
 	percTotalNonHybrids = float(100 * (float(totalNonHybrids) / float(totalGraphNodes)))
 
-	# Calculate Mean NodeH
-	meanNodeH = (sum(nodeHDict.values())) / float(totalGraphNodes)
+	# Calculate Mean Hnode
+	meanHnode = (sum(HnodeDict.values())) / float(totalGraphNodes)
 
-	# Calculate GraphH, the sum of all finalNodeSig values
-	GraphH = sum(finalNodeSigDict.values())
+	# Calculate Hgraph, the sum of all finalNodeImp values
+	Hgraph = sum(finalNodeImpDict.values())
 
 	# Write to plot file
-	plotFile.write(str(omegaYear) + ',' + str(totalGraphNodes) + ',' + str(GraphH) + ',' + str(meanNodeH) + ',' + str(percNodeH) + ',' + str(percProgen) + '\n')
+	plotFile.write(str(omegaYear) + ',' + str(totalGraphNodes) + ',' + str(Hgraph) + ',' + str(meanHnode) + ',' + str(percHnode) + ',' + str(percProgen) + '\n')
 
 	print
 	print ("Omega year: " + str(omegaYear))
@@ -219,14 +238,14 @@ for index in range(len(fileNames)):
 	print ('Number of isolates (in- and out-degree = 0): ' + str(isolates))
 	print ("Number of non-Hybrids (minus progenitors and isolates): " + str(nonHybrids))
 	print ("Total number of non-hybrids: " + str(totalNonHybrids))
-	print ("Number of NodeH 1.0 genres: " + str(totalNodeH))
+	print ("Number of Hnode>0.5 genres: " + str(totalHnode))
 	print ("Percentage of progenitors: " + str(percProgen))
 	print ("Percentage of non-hybrids (minus progenitors and isolates): " + str(percNonHybrids))
 	print ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids))
-	print ("Percentage of NodeH 1.0 genres: " + str(percNodeH))
+	print ("Percentage of Hnode>0.5 genres: " + str(percHnode))
 	print ("Graph total artists: " + str(graphTotalArtists))
-	print ("Mean Node Hybridity: " + str(meanNodeH))
-	print ("Graph Hybridity (GraphH): " + str(GraphH))
+	print ("Mean Node Hybridity: " + str(meanHnode))
+	print ("Graph Hybridity (GraphH): " + str(Hgraph))
 	print
 
 	# Write to log
@@ -236,14 +255,14 @@ for index in range(len(fileNames)):
 	runLog.write ('Number of isolates (in- and out-degree = 0): ' + str(isolates) + '\n')
 	runLog.write ("Number of non-Hybrids (minus progenitors and isolates): " + str(nonHybrids) + '\n')
 	runLog.write ("Total number of non-hybrids: " + str(totalNonHybrids) + '\n')
-	runLog.write ("Number of NodeH 1.0 genres: " + str(totalNodeH) + '\n')
+	runLog.write ("Number of Hnode>0.5 genres: " + str(totalHnode) + '\n')
 	runLog.write ("Percentage of progenitors: " + str(percProgen) + '\n')
 	runLog.write ("Percentage of non-hybrids (minus progenitors and isolates): " + str(percNonHybrids) + '\n')
 	runLog.write ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids) + '\n')
-	runLog.write ("Percentage of NodeH 1.0 genres: " + str(percNodeH) + '\n')
+	runLog.write ("Percentage of Hnode>0.5 genres: " + str(percHnode) + '\n')
 	runLog.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
-	runLog.write ("Mean Node Hybridity: " + str(meanNodeH) + '\n')
-	runLog.write ("Graph Hybridity (GraphH): " + str(GraphH) + '\n')
+	runLog.write ("Mean Node Hybridity: " + str(meanHnode) + '\n')
+	runLog.write ("Graph Hybridity (GraphH): " + str(Hgraph) + '\n')
 	runLog.write ('\n' + "=============================================================" + '\n')
 
 	# Write to results
@@ -253,14 +272,14 @@ for index in range(len(fileNames)):
 	resultsFile.write ('Number of isolates (in- and out-degree = 0): ' + str(isolates) + '\n')
 	resultsFile.write ("Number of non-Hybrids (minus progenitors and isolates): " + str(nonHybrids) + '\n')
 	resultsFile.write ("Total number of non-hybrids: " + str(totalNonHybrids) + '\n')
-	resultsFile.write ("Number of NodeH 1.0 genres: " + str(totalNodeH) + '\n')
+	resultsFile.write ("Number of Hnode>0.5 genres: " + str(totalHnode) + '\n')
 	resultsFile.write ("Percentage of progenitors: " + str(percProgen) + '\n')
 	resultsFile.write ("Percentage of non-hybrids (minus progenitors and isolates): " + str(percNonHybrids) + '\n')
 	resultsFile.write ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids) + '\n')
-	resultsFile.write ("Percentage of NodeH 1.0 genres: " + str(percNodeH) + '\n')
+	resultsFile.write ("Percentage of Hnode>0.5 genres: " + str(percHnode) + '\n')
 	resultsFile.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
-	resultsFile.write ("Mean Node Hybridity: " + str(meanNodeH) + '\n')
-	resultsFile.write ("Graph Hybridity (GraphH): " + str(GraphH) + '\n')
+	resultsFile.write ("Mean Node Hybridity: " + str(meanHnode) + '\n')
+	resultsFile.write ("Graph Hybridity (GraphH): " + str(Hgraph) + '\n')
 	resultsFile.write ('\n' + "=============================================================" + '\n')
 
 resultsFile.close()

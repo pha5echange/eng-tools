@@ -1,7 +1,7 @@
-# nhm_plotter_a08.py
-# Version a08
+# nhm_plotter_a09.py
+# Version a09
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 7th 2016
+# March 16th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -9,8 +9,8 @@
 # Network Hybridity Metric Plotter
 
 # Processes file 'data/nhm_plot.txt' and produces 2 line-graphs: 
-# Plots GraphH and Mean-NodeH values (from'nhm') over time
-# Plots NodeH=1.0 and Progenitors as a % of the total graph node-number
+# Plots Hgraph and Mean-Hnode values (from'nhm') over time
+# Plots Hnode>0.5 and Progenitors as a % of the total graph node-number
 # Saves plots as '.eps' files
 
 # import packages
@@ -20,7 +20,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a08")
+versionNumber = ("a09")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -35,7 +35,7 @@ logPath = os.path.join("logs", 'nhm_plotter_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # define paths for graphs
-graphHPath = os.path.join("graphs", 'nhm_plotter_' + versionNumber + ".eps")
+#graphHPath = os.path.join("graphs", 'nhm_plotter_' + versionNumber + ".eps")
 nodeHPath = os.path.join("graphs", 'nhm_nodeH_plotter_' + versionNumber + ".eps")
 graphPercPath = os.path.join("graphs", 'nhm_Perc_plotter_' + versionNumber + ".eps")
 
@@ -88,7 +88,7 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='GraphH')
+plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hgraph')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -115,7 +115,7 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='MeanNodeH')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='k', label='Mean-Hnode')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -142,11 +142,11 @@ for key, value in sorted(nodePercs.iteritems()):
 x_low = (min(xAxis) - 5)
 x_high = (max(xAxis) + 5)
 y_low = 0
-y_high = 60
+y_high = 100
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='NodeH=1')
+plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hnode>0.5')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -168,11 +168,11 @@ for key, value in sorted(progenPercs.iteritems()):
 x_low = (min(xAxis) - 5)
 x_high = (max(xAxis) + 5)
 y_low = 0
-y_high = 60
+y_high = 100
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Progenitors')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='k', label='Progenitors')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
