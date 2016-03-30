@@ -13,12 +13,12 @@ They acquire data from the Echonest (via the API), process it, and facilitate st
 This is research software; USE IT AT YOUR OWN RISK. 
 I will respond to emails if possible, BUT THIS SOFTWARE HAS NO FORMAL SUPPORT.
 
-################################################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 N.B. The Echonest API will cease to function on May 31st 2016. The provision of new API keys has already ceased. 
 The Spotify Web API will be taking over the role of the EN API. 
 Full announcement at http://http://developer.echonest.com/
 Given this, I will consider providing a data set as a part of this project in future. 
-################################################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 LICENCE: 
 
@@ -27,7 +27,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
-- Added 2 new `NHM' calculation methods (nhm_a07 uses method `JG'. nhm_a05a uses method `CR'.)
+- Added 2 new 'NHM' calculation methods (nhm_a07 uses method 'JG'. nhm_a05a uses method 'CR'.)
 
 - Renamed 'eng_network_wd' as 'eng_network_multi'
 
@@ -50,12 +50,12 @@ To use ENG-Tools you will require the following:
 
 1) An Echonest Developer account, and an API key (from https://developer.echonest.com/account/register)
 
-################################################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 N.B. The Echonest API will cease to function on May 31st 2016. The provision of new API keys has already ceased. 
 The Spotify Web API will be taking over the role of the EN API. 
 Full announcement at http://http://developer.echonest.com/
 Given this, I will consider providing a data set as a part of this project in future. 
-################################################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 2) A text file called 'apikey.txt' containing your Echonest API key, in a 'config/..' subfolder (i.e. 'config/apikey.txt' within the main ENG-Tools folder). 
 
