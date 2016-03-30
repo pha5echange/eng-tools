@@ -27,7 +27,7 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
-- Added 2 new 'NHM' calculation methods (nhm_a07 uses method 'JG'. nhm_a05a uses method 'CR'.)
+- Added 2 new 'NHM' calculation methods (nhm_a07 uses method 'JG' (look for new artists); nhm_a05a uses method 'CR' (ignore largest category)
 
 - Renamed 'eng_network_wd' as 'eng_network_multi'
 
@@ -107,9 +107,9 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 17) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) using method `JG' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'.
 
-* OR *
+* OR
 
-17a) Run 'nhm_*a.py' to calculate the Network Hybridity Metric (NHM) using method `CR' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm_*a.py' also outputs 'data/nhm_plot.txt'.
+17a) Run 'nhm_...a.py' to calculate the Network Hybridity Metric (NHM) using method `CR' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm_...a.py' also outputs 'data/nhm_plot.txt'.
 
 18) Run nhm_plotter.py' after 'nhm.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'GraphH' (dashed blue) and 'Mean-NodeH' (solid red). The other shows '% H=1.0 hybrid nodes' (dashed blue) and '% Progenitor nodes' (solid red). 
 
@@ -154,7 +154,7 @@ MANIFEST:
 
 (19) pr_plotter.py
 
-(20) nhm_*a.py
+(20) nhm_...a.py
 
 (21) nhm.py
 
