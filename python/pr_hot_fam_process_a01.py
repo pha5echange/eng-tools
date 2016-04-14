@@ -32,7 +32,7 @@ for line in prInput:
 print (prDict)
 
 # Get Fam_Hot data and read
-fhInputPath = os.path.join("results", 'eng_fam_hot_b02_data.txt')
+fhInputPath = os.path.join("results", 'eng_fam_hot_b03_data.txt')
 fhInput = open(fhInputPath, 'r').readlines()
 
 firstLine = fhInput.pop(0)

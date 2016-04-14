@@ -13,6 +13,8 @@
 # Plots Hnode>0.5 and Progenitors as a % of the total graph node-number
 # Saves plots as '.eps' files
 
+# USE AFTER 'nhm_a05a.py'
+
 # import packages
 import os
 from datetime import datetime

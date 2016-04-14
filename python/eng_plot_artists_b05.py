@@ -6,7 +6,7 @@
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# Processes file 'data/eng_multiplot_data.txt' (output by 'engmulti_plot')
+# Processes file 'data/eng_multiplot_data.txt' (output by 'eng_multiplot')
 # Plots frequency distribution of artists over time
 # Writes run log to 'logs/eng_plot_artists_versionNumber_log.txt'
 # Plots results and writes EPS to 'graphs/eng_plot_artists_versionNumber.eps'

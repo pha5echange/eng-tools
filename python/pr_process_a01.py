@@ -6,7 +6,7 @@
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# Processes PageRank values flung out by 'eng_network_wd_...a.py' (so run AFTER thst, obviously)
+# Processes PageRank values flung out by 'eng_network_wd_...a.py' (so run AFTER that, obviously)
 
 # import packages
 import os

@@ -7,7 +7,6 @@
 # Source code at: https://github.com/pha5echange/eng-tools
 
 # This version utilises Dr. C. Rhodes 'leave out the biggest one' concept.
-# N.B. I am not at ALL sure about this, so version a07 does it differently. 
 
 # Examines a graph and calculates node hybridty (Hnode) and graph hybridity (Hgraph)
 # This version looks at all loose files in 'gexf/directed/' with a '.gexf' extension. 
