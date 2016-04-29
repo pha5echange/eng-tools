@@ -61,9 +61,9 @@ fileNames = [f for f in os.listdir(gexfPath) if f.endswith('.gexf')]
 genreFiles = os.listdir("genres")
 
 # ..and begin..
-runLog.write ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + '\n' + '\n')
-resultsFile.write ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + '\n')
-print ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
+runLog.write ('\n' + 'Network Hybridity Metric (JG) - Beta | ' + 'Version: ' + versionNumber + '\n' + '\n')
+resultsFile.write ('\n' + 'Network Hybridity Metric (JG) - Beta | ' + 'Version: ' + versionNumber + '\n')
+print ('\n' + 'Network Hybridity Metric (JG) - Beta | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
 for index in range(len(fileNames)):
 

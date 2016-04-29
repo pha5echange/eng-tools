@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-April 14th 2016
+April 29th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -31,9 +31,9 @@ LATEST CHANGES AND ADDITIONS:
 
 - Added 'genres_2016_04_09.zip' to facilitate analysis once the Echo Nest API has shut down. 
 
-- New node-type ('sink') added to 'nhm_b01'. These are nodes that have multiple inputs but no outputs. 
+- New node-type ('sink') added to both 'nhm_' methods. These are nodes that have multiple inputs but no outputs. 
 
-- Added 2 new 'NHM' calculation methods (nhm_b01 uses method 'JG' (look for new artists); nhm_a05a uses method 'CR' (ignore largest category)
+- Added 2 new 'NHM' calculation methods (nhm_b01 uses method 'JG' (look for new artists); nhm_a06cr uses method 'CR' (ignore largest category)
 
 - Renamed 'eng_network_wd' as 'eng_network_multi'
 
@@ -119,13 +119,14 @@ This will ask you for a figure; either an absolute value or percentage of artist
 
 * OR
 
-17a) Run 'nhm_...a.py' to calculate the Network Hybridity Metric (NHM) using method `CR' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm_...a.py' also outputs 'data/nhm_plot.txt'. THIS WILL THROW AN ERROR IF NO .GEXF FILES ARE FOUND.
+17a) Run 'nhm_...cr.py' to calculate the Network Hybridity Metric (NHM) using method `CR' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm_...cr.py' also outputs 'data/nhm_plot_cr.txt'. THIS WILL THROW AN ERROR IF NO .GEXF FILES ARE FOUND.
 
-18) Run nhm_plotter_a09.py' after 'nhm_a05a.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed black). The other shows '% Hnode = 0.5 hybrid nodes' (solid red) and '% Progenitor nodes' (dashed black). 
+18) Run nhm_plotter_a10.py' after 'nhm_b01.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed blue). The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
 
 * OR
 
-18) Run nhm_plotter_a10.py' after 'nhm_b01.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed blue). The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
+18a) Run nhm_plotter_a09cr.py' after 'nhm_a06cr.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed black). The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
+
 
 
 MANIFEST: 
@@ -168,7 +169,7 @@ MANIFEST:
 
 (19) pr_plotter.py
 
-(20) nhm_...a.py (CR method)
+(20) nhm_...cr.py (CR method)
 
 (21) nhm.py (JG method)
 

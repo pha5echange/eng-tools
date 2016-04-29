@@ -6,7 +6,7 @@
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# Network Hybridity Metric Plotter
+# Network Hybridity Metric Plotter (for 'JG' method)
 
 # Processes file 'data/nhm_plot.txt' and produces 2 line-graphs: 
 # Plots Hgraph and Mean-Hnode values (from'nhm') over time

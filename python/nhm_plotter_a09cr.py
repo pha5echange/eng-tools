@@ -1,19 +1,19 @@
-# nhm_plotter_a09.py
-# Version a09
+# nhm_plotter_a09cr.py
+# Version a09cr
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 16th 2016
+# April 29th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# Network Hybridity Metric Plotter
+# Network Hybridity Metric Plotter (for 'CR' method)
 
 # Processes file 'data/nhm_plot.txt' and produces 2 line-graphs: 
 # Plots Hgraph and Mean-Hnode values (from'nhm') over time
-# Plots Hnode>0.5 and Progenitors as a % of the total graph node-number
+# Plots Hnode>0.5 and Progenitors and Sinks as a % of the total graph node-number
 # Saves plots as '.eps' files
 
-# USE AFTER 'nhm_a05a.py'
+# USE AFTER 'nhm_a06cr.py'
 
 # import packages
 import os
@@ -22,7 +22,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a09")
+versionNumber = ("a09cr")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -46,11 +46,11 @@ runDate = datetime.now()
 startTime = datetime.now()
 
 # ..and begin..
-runLog.write ('\n' + 'Network Hybridity Metric Plotter - Alpha | ' + 'Version: ' + versionNumber + '\n' + '\n')
-print ('\n' + 'Network Hybridity Metric Plotter - Alpha | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
+runLog.write ('\n' + 'Network Hybridity Metric Plotter (CR) - Alpha | ' + 'Version: ' + versionNumber + '\n' + '\n')
+print ('\n' + 'Network Hybridity Metric Plotter (CR) - Alpha | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # look for file in 'data' subfolder
-pathname = os.path.join("data", 'nhm_plot.txt')
+pathname = os.path.join("data", 'nhm_plot_cr.txt')
 dataInput = open(pathname, "r").readlines()
 
 # Remove the first line. Count the others. 
@@ -62,16 +62,18 @@ graphHyears = {}
 nodeHyears = {}
 nodePercs = {}
 progenPercs = {}
+sinkPercs ={}
 
 # read lines from the file
 for line in dataInput:
 
   # split line and append 'graphHyears' with start date values
-  year, nodes, graphH, meanNodeH, nodePerc, percProgen = line.split(",")
+  year, nodes, graphH, meanNodeH, nodePerc, percProgen, percTotalSinks = line.split(",")
   graphHyears.update ({int(year):float(graphH)})
   nodeHyears.update ({int(year):float(meanNodeH)})
   nodePercs.update ({int(year):float(nodePerc)})
   progenPercs.update ({int(year):float(percProgen)})
+  sinkPercs.update ({int(year):float(percTotalSinks)})
   lineCounter += 1
 
 # graphH Plot
@@ -110,19 +112,19 @@ for key, value in sorted(nodeHyears.iteritems()):
    yAxis.append(value)
 
 # set axes values
-x_low = (min(xAxis) - 5)
-x_high = (max(xAxis) + 5)
-y_low = 0
-y_high = 1.0
+#x_low = (min(xAxis) - 5)
+#x_high = (max(xAxis) + 5)
+#y_low = 0
+#y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='k', label='Mean-Hnode')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Mean-Hnode')
 
 # label, plot and save image of graph
-plt.grid(zorder=0)
-plt.xlabel('Year', fontsize=14)
-plt.ylabel('Hybridity', fontsize=14)
+#plt.grid(zorder=0)
+#plt.xlabel('Year', fontsize=14)
+#plt.ylabel('Hybridity', fontsize=14)
 plt.legend(loc='upper left')
 leg = plt.gca().get_legend()
 ltext = leg.get_texts()
@@ -159,6 +161,7 @@ plt.ylim(y_low, y_high)
 # plt.savefig(graphPercPath, format = 'eps')
 # plt.clf()
 
+# Plot Progenitors
 xAxis = []
 yAxis = []
 
@@ -167,19 +170,50 @@ for key, value in sorted(progenPercs.iteritems()):
    yAxis.append(value)
 
 # set axes values
-x_low = (min(xAxis) - 5)
-x_high = (max(xAxis) + 5)
-y_low = 0
-y_high = 100
+#x_low = (min(xAxis) - 5)
+#x_high = (max(xAxis) + 5)
+#y_low = 0
+#y_high = 100
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='k', label='Progenitors')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Progenitors')
 
 # label, plot and save image of graph
-plt.grid(zorder=0)
-plt.xlabel('Year', fontsize=14)
-plt.ylabel('Percentage of  Nodes', fontsize=14)
+#plt.grid(zorder=0)
+#plt.xlabel('Year', fontsize=14)
+#plt.ylabel('Percentage of  Nodes', fontsize=14)
+#plt.legend(loc='upper left')
+#leg = plt.gca().get_legend()
+#ltext = leg.get_texts()
+#plt.setp(ltext, fontsize='small') 
+plt.xlim(x_low, x_high)
+plt.ylim(y_low, y_high)
+#plt.savefig(graphPercPath, format = 'eps')
+#plt.clf()
+
+# Plot Sinks
+xAxis = []
+yAxis = []
+
+for key, value in sorted(sinkPercs.iteritems()):
+   xAxis.append(key)
+   yAxis.append(value)
+
+# set axes values
+#x_low = (min(xAxis) - 5)
+#x_high = (max(xAxis) + 5)
+#y_low = 0
+#y_high = 100
+
+# plot graph
+width = 1
+plt.plot(xAxis, yAxis, linestyle='dotted', color='k', label='Sinks')
+
+# label, plot and save image of graph
+#plt.grid(zorder=0)
+#plt.xlabel('Year', fontsize=14)
+#plt.ylabel('Percentage of  Nodes', fontsize=14)
 plt.legend(loc='upper left')
 leg = plt.gca().get_legend()
 ltext = leg.get_texts()

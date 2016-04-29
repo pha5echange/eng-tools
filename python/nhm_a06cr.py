@@ -1,12 +1,13 @@
 # Network Hybridity Metric
-# v. a0.5a
-# March 16th 2016
+# v. a0.6cr
+# April 29th 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# This version utilises Dr. C. Rhodes 'leave out the biggest one' concept.
+# This version utilises C. Rhodes 'leave out the biggest one' concept. 
+# Also counts `sink' nodes (non-zero in-degree and zero out-degree)
 
 # Examines a graph and calculates node hybridty (Hnode) and graph hybridity (Hgraph)
 # This version looks at all loose files in 'gexf/directed/' with a '.gexf' extension. 
@@ -18,7 +19,7 @@ import os
 import networkx as nx
 from datetime import datetime
 
-versionNumber = ("a05a")
+versionNumber = ("a06cr")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -44,12 +45,12 @@ logPath = os.path.join("logs", 'nhm_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # open file for plot - file output
-plotPath = os.path.join("data", 'nhm_plot.txt')
+plotPath = os.path.join("data", 'nhm_plot_cr.txt')
 plotFile = open(plotPath, 'w')
-plotFile.write("OmegaYear" + ',' + "Nodes" + ',' + "Hgraph" + ',' + "Mean-Hnode" + ',' + "Perc-Hnode>0.5" + ',' + "Perc-Progen" + '\n')
+plotFile.write("OmegaYear" + ',' + "Nodes" + ',' + "Hgraph" + ',' + "Mean-Hnode" + ',' + "Perc-Hnode>0.5" + ',' + "Perc-Progen" + "Perc-Sinks" + '\n')
 
 # open file for results output
-resultsPath = os.path.join("results", 'nhm_' + versionNumber + '.txt')
+resultsPath = os.path.join("results", 'nhm_cr_' + versionNumber + '.txt')
 resultsFile = open(resultsPath, 'w')
 
 # get list of files from gexf folder
@@ -57,9 +58,9 @@ gexfPath = 'gexf/directed'
 fileNames = [f for f in os.listdir(gexfPath) if f.endswith('.gexf')]
 
 # ..and begin..
-runLog.write ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + '\n' + '\n')
-resultsFile.write ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + '\n')
-print ('\n' + 'Network Hybridity Metric - Alpha | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
+runLog.write ('\n' + 'Network Hybridity Metric (CR) - Alpha | ' + 'Version: ' + versionNumber + '\n' + '\n')
+resultsFile.write ('\n' + 'Network Hybridity Metric (CR) - Alpha | ' + 'Version: ' + versionNumber + '\n')
+print ('\n' + 'Network Hybridity Metric (CR) - Alpha | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
 for index in range(len(fileNames)):
 
@@ -94,6 +95,7 @@ for index in range(len(fileNames)):
 	progenNodes = 0
 	nonHybrids = 0
 	totalNonHybrids = 0
+	totalSinkNodes = 0
 	isolates = 0
 
 	# Get node count for graph
@@ -179,6 +181,14 @@ for index in range(len(fileNames)):
 			for i in range (len(edgeImpList)):
 				totalEdgeImp += edgeImpList[i]
 
+		# Node is a sink
+		if nodeInDeg > 0 and nodeOutDeg == 0:
+			# Count sink-nodes
+			totalSinkNodes += 1
+
+			print ("Node has a non-zero in-degree and an out-degree of 0. It is therefore a sink. ")
+			runLog.write ("Node has a non-zero in-degree and an out-degree of 0. It is therefore a sink. " + '\n')
+
 		# Maximum value of Hnode is 1.0, so sort that out
 		if totalEdgeImp > 1.0: 
 			Hnode = 1.0 
@@ -220,6 +230,7 @@ for index in range(len(fileNames)):
 	percHnode = float(100 * (float(totalHnode) / float(totalGraphNodes)))
 	percNonHybrids = float(100 * (float(nonHybrids) / float(totalGraphNodes)))
 	percTotalNonHybrids = float(100 * (float(totalNonHybrids) / float(totalGraphNodes)))
+	percTotalSinks = float(100 * (float(totalSinkNodes) / float(totalGraphNodes)))
 
 	# Calculate Mean Hnode
 	meanHnode = (sum(HnodeDict.values())) / float(totalGraphNodes)
@@ -228,7 +239,7 @@ for index in range(len(fileNames)):
 	Hgraph = sum(finalNodeImpDict.values())
 
 	# Write to plot file
-	plotFile.write(str(omegaYear) + ',' + str(totalGraphNodes) + ',' + str(Hgraph) + ',' + str(meanHnode) + ',' + str(percHnode) + ',' + str(percProgen) + '\n')
+	plotFile.write(str(omegaYear) + ',' + str(totalGraphNodes) + ',' + str(Hgraph) + ',' + str(meanHnode) + ',' + str(percHnode) + ',' + str(percProgen) + ',' + str(percTotalSinks) + '\n')
 
 	print
 	print ("Omega year: " + str(omegaYear))
@@ -239,6 +250,7 @@ for index in range(len(fileNames)):
 	print ("Total number of non-hybrids: " + str(totalNonHybrids))
 	print ("Number of Hnode>0.5 genres: " + str(totalHnode))
 	print ("Percentage of progenitors: " + str(percProgen))
+	print ("Percentage of sinks: " + str(percTotalSinks))
 	print ("Percentage of non-hybrids (minus progenitors and isolates): " + str(percNonHybrids))
 	print ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids))
 	print ("Percentage of Hnode>0.5 genres: " + str(percHnode))
@@ -256,6 +268,7 @@ for index in range(len(fileNames)):
 	runLog.write ("Total number of non-hybrids: " + str(totalNonHybrids) + '\n')
 	runLog.write ("Number of Hnode>0.5 genres: " + str(totalHnode) + '\n')
 	runLog.write ("Percentage of progenitors: " + str(percProgen) + '\n')
+	runLog.write ("Percentage of sinks: " + str(percTotalSinks) + '\n')
 	runLog.write ("Percentage of non-hybrids (minus progenitors and isolates): " + str(percNonHybrids) + '\n')
 	runLog.write ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids) + '\n')
 	runLog.write ("Percentage of Hnode>0.5 genres: " + str(percHnode) + '\n')
@@ -273,6 +286,7 @@ for index in range(len(fileNames)):
 	resultsFile.write ("Total number of non-hybrids: " + str(totalNonHybrids) + '\n')
 	resultsFile.write ("Number of Hnode>0.5 genres: " + str(totalHnode) + '\n')
 	resultsFile.write ("Percentage of progenitors: " + str(percProgen) + '\n')
+	resultsFile.write ("Percentage of sinks: " + str(percTotalSinks) + '\n')
 	resultsFile.write ("Percentage of non-hybrids (minus progenitors and isolates): " + str(percNonHybrids) + '\n')
 	resultsFile.write ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids) + '\n')
 	resultsFile.write ("Percentage of Hnode>0.5 genres: " + str(percHnode) + '\n')
