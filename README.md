@@ -1,11 +1,11 @@
-ENG-Tools beta v. 11.8
+ENG-Tools beta v. 11.9
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-April 29th 2016
+June 1st 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -26,6 +26,10 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST CHANGES AND ADDITIONS: 
+
+- updated 'JG' method version of 'nhm_b' to 'nhm_b03.py' (to incorporate maximum node-hybridity values and 'artist-uniques' totals).
+
+- added 'ghp_..py' to facilitate hive plots. 
 
 - Updated 'en_genre' (and associated scripts) to grab and deal with EchoNest IDs. This will facilitate later mapping to MusicBrainz IDs. 
 
@@ -115,19 +119,19 @@ This will ask you for a figure; either an absolute value or percentage of artist
 
 16) 'pr_plotter' takes 'results/pr_hot_fam_results.txt' and plots 3 graphs from this (PageRank-Mean Familiarity, PageRank-Mean Hotttnesss, and Mean Hotttness-Mean Familiarity). 
 
-17) Run 'nhm.py' to calculate the Network Hybridity Metric (NHM) using method `JG' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm.py' also outputs 'data/nhm_plot.txt'. THIS WILL THROW AN ERROR IF NO .GEXF FILES ARE FOUND.
+17) Run 'nhm_b03.py' to calculate the Network Hybridity Metric (NHM) using method `JG' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm_b03.py' also outputs 'data/nhm_plot.txt'. THIS WILL THROW AN ERROR IF NO .GEXF FILES ARE FOUND.
 
 * OR
 
 17a) Run 'nhm_...cr.py' to calculate the Network Hybridity Metric (NHM) using method `CR' for all graphs (based upon the presence of 'gexf/directed/OMEGAYEAR.gexf' files). 'nhm_...cr.py' also outputs 'data/nhm_plot_cr.txt'. THIS WILL THROW AN ERROR IF NO .GEXF FILES ARE FOUND.
 
-18) Run nhm_plotter_a10.py' after 'nhm_b01.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed blue). The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
+18) Run nhm_plotter_a10.py' after 'nhm_b03.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed blue). The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
 
 * OR
 
 18a) Run nhm_plotter_a09cr.py' after 'nhm_a06cr.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed black). The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
 
-
+19) 'ghp...py' reads 'gexf/ghp/hive.gexf' and plots an SVG hiveplot (in 'networks/hives')
 
 MANIFEST: 
 
@@ -175,12 +179,14 @@ MANIFEST:
 
 (22) nhm_plotter.py
 
-(23) config/apikey.txt (BLANK - REQUIRES API KEY)
+(23) ghp.py
 
-(24) config/config_nw.txt (Network layout config. file)
+(24) config/apikey.txt (BLANK - REQUIRES API KEY)
 
-(25) data/retromatic.txt
+(25) config/config_nw.txt (Network layout config. file)
 
-(26) data/date_ratios.txt
+(26) data/retromatic.txt
 
-(27) genres_2016_04_09.zip
+(27) data/date_ratios.txt
+
+(28) genres_2016_04_09.zip

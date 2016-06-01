@@ -92,7 +92,8 @@ y_high = 1.0
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hgraph')
+#plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hgraph')
+plt.plot(xAxis, yAxis, 'ro', label='Hgraph')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -119,7 +120,8 @@ for key, value in sorted(nodeHyears.iteritems()):
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Mean-Hnode')
+#plt.plot(xAxis, yAxis, linestyle='dashed', color='k', label='Mean-Hnode')
+plt.plot(xAxis, yAxis, 'kx', label='Mean-Hnode')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)
@@ -150,7 +152,8 @@ y_high = 100
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hnode>0.5')
+#plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hnode>0.5')
+plt.plot(xAxis, yAxis, 'ro', label='Hnode>0.5')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -177,7 +180,8 @@ for key, value in sorted(progenPercs.iteritems()):
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Progenitors')
+#plt.plot(xAxis, yAxis, linestyle='dashed', color='k', label='Progenitors')
+plt.plot(xAxis, yAxis, 'kx', label='Progenitors')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)
@@ -208,7 +212,8 @@ for key, value in sorted(sinkPercs.iteritems()):
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dotted', color='k', label='Sinks')
+#plt.plot(xAxis, yAxis, linestyle='dotted', color='b', label='Sinks')
+plt.plot(xAxis, yAxis, 'b.', label='Sinks')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)

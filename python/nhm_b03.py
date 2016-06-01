@@ -1,25 +1,26 @@
 # Network Hybridity Metric
-# v. b0.1
-# April 9th 2016
+# v. b0.3
+# June 1st 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# This version utilises the 'look for new artists' concept by the author. 
+# Examines a graph and calculates node hybridty (Hnode) and graph hybridity (Hgraph)
+# Looks at all loose files in 'gexf/directed/' with a '.gexf' extension (directed-gexf files output by 'eng_network_wd')
+# The filename is used as the omega-year of the graph. 
+
+# This version utilises 'leave out the Principal Ancestor,' and sets a maximal 'Hnode' value using 'look for new artists' 
 # Also counts `sink' nodes (non-zero in-degree and zero out-degree)
 
-# Examines a graph and calculates node hybridty (Hnode) and graph hybridity (Hgraph)
-# This version looks at all loose files in 'gexf/directed/' with a '.gexf' extension. 
-# These should be directed-gexf files output by 'eng_network_wd'
-# The filename is used as the omega-year of the graph. 
+# Calculates artist-uniques and artist-instances for entire network.
 
 # Import packages
 import os
 import networkx as nx
 from datetime import datetime
 
-versionNumber = ("b01")
+versionNumber = ("b03")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -75,9 +76,9 @@ for index in range(len(fileNames)):
 	diEnGraph = nx.read_gexf(diGraphPath)
 
 	# open file for node results output
-	#nodeDataPath = os.path.join("data/node-edge-lists", 'nhm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
-	#nodeFile = open(nodeDataPath, 'a')
-	#nodeFile.write ("Genre" + "," + "In-Degree" + "," + "Out-Degree" + "," + "Hnode" + "," + "Node Imp" + "," + "Final Node Imp" + '\n')
+	nodeDataPath = os.path.join("data/node-edge-lists", 'nhm_nodes_' + versionNumber + "_" + str(omegaYear) + '.txt')
+	nodeFile = open(nodeDataPath, 'a')
+	nodeFile.write ("Genre" + "," + "In-Degree" + "," + "Out-Degree" + "," + "Hnode" + "," + "Node Imp" + "," + "Final Node Imp" + '\n')
 
 	# Create empty dictionaries for Hnode and finalNodeImp values
 	HnodeDict = {}
@@ -88,10 +89,11 @@ for index in range(len(fileNames)):
 	for key, value in nodeArtistsDict.items():
 		nodeArtistsDict[key] = int(str(value).replace("u'",""))
 
-	# Calculate graph total artists from dictionary
-	graphTotalArtists = float(sum(nodeArtistsDict.values()))
+	# Calculate graph total artist-instances from dictionary
+	graphTotalArtistInstances = float(sum(nodeArtistsDict.values()))
 
 	# Counters
+	graphTotalArtists = 0
 	totalHnode = 0
 	progenNodes = 0
 	nonHybrids = 0
@@ -107,8 +109,9 @@ for index in range(len(fileNames)):
 	for node in diEnGraph.nodes():
 
 		# Assign variables
-		#edgeImp = 0.0
-		#totalEdgeImp = 0.0
+		edgeImp = 0.0
+		edgeImpList = []
+		totalEdgeImp = 0.0
 		nodeUartists = []
 		nodeVartists = []
 		diffArtists = []
@@ -127,9 +130,10 @@ for index in range(len(fileNames)):
 		diffCount = 0
 		newVcount = 0
 		nodeNewArtists = 0.0
+		MaxHnode = 1.0
 		Hnode = 0.0
 		nodeTotalArtists = float(nodeArtistsDict[node])
-		nodeImp = nodeTotalArtists / graphTotalArtists
+		nodeImp = nodeTotalArtists / graphTotalArtistInstances
 		nodeInDeg = diEnGraph.in_degree(node)
 		nodeOutDeg = diEnGraph.out_degree(node)
 		inEdges = diEnGraph.in_edges(node, data=True)
@@ -165,6 +169,7 @@ for index in range(len(fileNames)):
 			newVCount = len(nodeVset)
 			newVartists = nodeVset
 			nodeNewArtists = nodeTotalArtists
+			MaxHnode = 0.0
 			Hnode = 0.0
 
 			# Count as an isolate and a non-hybrid
@@ -180,6 +185,7 @@ for index in range(len(fileNames)):
 			newVCount = len(nodeVset)
 			newVartists = nodeVset
 			nodeNewArtists = nodeTotalArtists
+			MaxHnode = 0.0
 			Hnode = 0.0
 
 			# Count as a progenitor and a non-hybrid
@@ -204,6 +210,8 @@ for index in range(len(fileNames)):
 				edgeStr = str(edge).replace("u'","").replace("'","").replace("(","").replace(")","").replace(" ","")
 				nodeU, nodeV, edgeId, edgeWeight = edgeStr.split(",")
 				inEdgeWeight = float(str(edgeWeight).replace("{","").replace("weight:","").replace("}",""))
+				edgeImp = inEdgeWeight / nodeTotalArtists
+				edgeImpList.append(edgeImp)
 
 				# open file 'genres/nodeU' and read
 				sourceGenrePath = os.path.join("genres", nodeU + '.txt')
@@ -218,6 +226,13 @@ for index in range(len(fileNames)):
 
 				allInArtists.extend(nodeUartists)
 
+			# Remove largest group (Principal Ancestor)
+			edgeImpList.remove(max(edgeImpList))
+
+			# Calculate total edgeImp
+			for i in range (len(edgeImpList)):
+				totalEdgeImp += edgeImpList[i]
+
 			# Compare nodeU and nodeV lists
 			nodeVset = set(nodeVartists)
 			nodeUset = set(allInArtists)
@@ -229,6 +244,7 @@ for index in range(len(fileNames)):
 
 			# Node is a non-hybrid
 			if nodeInDeg == 1:
+				MaxHnode = 0.0
 				Hnode = 0.0
 
 				# Count non-hybrids
@@ -239,7 +255,8 @@ for index in range(len(fileNames)):
 
 			# Node is a hybrid
 			if nodeInDeg > 1:
-				Hnode = 1.0 - (nodeNewArtists / nodeTotalArtists)
+				MaxHnode = 1.0 - (nodeNewArtists / nodeTotalArtists)
+				Hnode = totalEdgeImp
 
 		# Node is a sink
 		if nodeInDeg > 0 and nodeOutDeg == 0:
@@ -249,15 +266,16 @@ for index in range(len(fileNames)):
 			print ("Node has a non-zero in-degree and an out-degree of 0. It is therefore a sink. ")
 			runLog.write ("Node has a non-zero in-degree and an out-degree of 0. It is therefore a sink. " + '\n')
 
-		# Maximum value of Hnode is 1.0, so sort that out
-		#if totalEdgeImp > 1.0: 
-		#	Hnode = 1.0 
-		#else: 
-		#	Hnode = totalEdgeImp
-
+		# Maximum value of Hnode is MaxHnode
+		if Hnode > MaxHnode: 
+			Hnode = MaxHnode
+			
 		# Count Hnode > 0.5 hybrids 
 		if Hnode > 0.5:
 			totalHnode += 1
+
+		# Increment graphTotalArtists with newVcount
+		graphTotalArtists += newVCount
 
 		# Update HnodeDict dictionary for later use
 		HnodeDict[node] = Hnode
@@ -276,7 +294,7 @@ for index in range(len(fileNames)):
 		print ("NewVCount: " + str(newVCount))
 		print ("NewVartists: " + str(newVartists))
 
-		#nodeFile.write (str(node) + "," + str(nodeInDeg) + "," + str(nodeOutDeg) + "," + str(Hnode) + "," + str(nodeImp) + "," + str(finalNodeImp) + '\n')
+		nodeFile.write (str(node) + "," + str(nodeInDeg) + "," + str(nodeOutDeg) + "," + str(Hnode) + "," + str(nodeImp) + "," + str(finalNodeImp) + '\n')
 
 		runLog.write ("Node total artists for " + str(node) + " is: " + str(nodeTotalArtists) + '\n')
 		runLog.write ("Node new artists total for " + str(node) + " is: " + str(nodeNewArtists) + '\n')
@@ -286,7 +304,7 @@ for index in range(len(fileNames)):
 		runLog.write ("NewVCount: " + str(newVCount) + '\n')
 		runLog.write ("NewVartists: " + str(newVartists) + '\n')
 
-	#nodeFile.close()
+	nodeFile.close()
 
 	# Calculate non-hybrids (not including isolates and progenitors)
 	nonHybrids = ((totalNonHybrids - progenNodes) - isolates)
@@ -322,6 +340,7 @@ for index in range(len(fileNames)):
 	print ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids))
 	print ("Percentage of Hnode>0.5 genres: " + str(percHnode))
 	print ("Graph total artists: " + str(graphTotalArtists))
+	print ("Graph total artist-instances: " + str(graphTotalArtistInstances))
 	print ("Mean Node Hybridity: " + str(meanHnode))
 	print ("Graph Hybridity (GraphH): " + str(Hgraph))
 	print
@@ -341,6 +360,7 @@ for index in range(len(fileNames)):
 	runLog.write ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids) + '\n')
 	runLog.write ("Percentage of Hnode>0.5 genres: " + str(percHnode) + '\n')
 	runLog.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
+	runLog.write ("Graph total artist-instances: " + str(graphTotalArtistInstances) + '\n')
 	runLog.write ("Mean Node Hybridity: " + str(meanHnode) + '\n')
 	runLog.write ("Graph Hybridity (GraphH): " + str(Hgraph) + '\n')
 	runLog.write ('\n' + "=============================================================" + '\n')
@@ -359,7 +379,8 @@ for index in range(len(fileNames)):
 	resultsFile.write ("Percentage of non-hybrids (minus progenitors and isolates): " + str(percNonHybrids) + '\n')
 	resultsFile.write ("Percentage of non-hybrids (includes progenitors and isolates): " + str(percTotalNonHybrids) + '\n')
 	resultsFile.write ("Percentage of Hnode>0.5 genres: " + str(percHnode) + '\n')
-	resultsFile.write ("Graph total artists: " + str(graphTotalArtists) + '\n')
+	resultsFile.write ("Graph total artists: " + str(graphTotalArtists) + '\n')	
+	resultsFile.write ("Graph total artist-instances: " + str(graphTotalArtistInstances) + '\n')
 	resultsFile.write ("Mean Node Hybridity: " + str(meanHnode) + '\n')
 	resultsFile.write ("Graph Hybridity (GraphH): " + str(Hgraph) + '\n')
 	resultsFile.write ('\n' + "=============================================================" + '\n')

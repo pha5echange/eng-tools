@@ -47,7 +47,7 @@ runLog = open(logPath, 'a')
 # open file for plot - file output
 plotPath = os.path.join("data", 'nhm_plot_cr.txt')
 plotFile = open(plotPath, 'w')
-plotFile.write("OmegaYear" + ',' + "Nodes" + ',' + "Hgraph" + ',' + "Mean-Hnode" + ',' + "Perc-Hnode>0.5" + ',' + "Perc-Progen" + "Perc-Sinks" + '\n')
+plotFile.write("OmegaYear" + ',' + "Nodes" + ',' + "Hgraph" + ',' + "Mean-Hnode" + ',' + "Perc-Hnode>0.5" + ',' + "Perc-Progen" +  ',' + "Perc-Sinks" + '\n')
 
 # open file for results output
 resultsPath = os.path.join("results", 'nhm_cr_' + versionNumber + '.txt')
