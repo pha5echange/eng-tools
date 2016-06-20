@@ -1,6 +1,6 @@
 # Genre Hive Plotter
-# v. a0.5
-# June 8th 2016
+# v. a0.6
+# June 20th 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
@@ -14,12 +14,14 @@ from math import sin, cos, pi
 from svgwrite.utils import rgb
 from collections import OrderedDict
 import os
-import random
 import networkx as nx
 import numpy as np
 import operator
 
-versionNumber = ("a05")
+versionNumber = ("a06")
+
+# Begin
+print ('\n' + "Genre Data Hive Plotter | Version " + versionNumber + " | Starting...")
 
 # Make stuff if required
 if not os.path.exists("networks/hives"):
@@ -32,13 +34,18 @@ h = Hiveplot(hSvgPath)
 axis0 = Axis( (150,150), (150,0), stroke = "black", stroke_width = 1, stroke_opacity = 0.6) 
 axis1 = Axis( (150,150), (300,0), stroke = "gray", stroke_width = 1.1, stroke_opacity = 0.6)
 axis2 = Axis( (150,150), (300,150), stroke = "blue", stroke_width = 1.2, stroke_opacity = 0.6)
-axis3 = Axis( (150,150), (300,300), stroke = "purple", stroke_width = 1.3, stroke_opacity = 0.6)
+axis3 = Axis( (150,150), (300,300), stroke = "yellow", stroke_width = 1.3, stroke_opacity = 0.6)
 axis4 = Axis( (150,150), (0,300), stroke = "red", stroke_width = 1.4, stroke_opacity = 0.6)
 axis5 = Axis( (150,150), (0,150), stroke = "green", stroke_width = 1.5, stroke_opacity = 0.6)
-axis6 = Axis( (150,150), (0,0), stroke = "yellow", stroke_width = 1.6, stroke_opacity = 0.6)
+axis6 = Axis( (150,150), (0,0), stroke = "purple", stroke_width = 1.6, stroke_opacity = 0.6)
 
 h.axes = [axis0, axis1, axis2, axis3, axis4, axis5, axis6]
 
+# Get user input
+print
+print ("The maximal degree of the graph dictates where the nodes are placed on the axes (in relation to the centre.")
+maxDeg = int(input ("Enter the maximal degree for this graph (or 0 to let the GEXF file dictate this): "))
+print
 # read gexf file, get genre inception dates and store in dictionary
 dateDict = {}
 gexfPath = os.path.join("gexf/ghp", 'hive.gexf')
@@ -52,7 +59,7 @@ for i in nodeList:
 
 sortDates = OrderedDict(sorted(dateDict.items()))
 
-print ('SortDates (OrderedDict): ' +'\n')
+print ('SortDates (OrderedDict): ')
 print sortDates
 print
 
@@ -64,57 +71,19 @@ sorted_dg = sorted(degrees.items(), key = operator.itemgetter(1))
 maxDegTup = max(sorted_dg, key=operator.itemgetter(1))
 
 mdtKey, mdtValue = maxDegTup
-maxDeg = float(mdtValue)
 
-print ('sorted_dg: ' +'\n')
+if maxDeg==0:
+  maxDeg = float(mdtValue)
+
+print ('Items in bins: ')
+print (dateCounts)
+print
+print ('Contents of sorted_dg: ')
 print sorted_dg
-print maxDeg
-
-'''
-try:
-  delta6 = 0.99/float(counts[0])
-except:
-  delta6 = 0.99
-
-try:  
-  delta5 = 0.93/float(counts[1])
-except:
-  delta5 = 0.93
-
-try:
-  delta4 = 0.94/float(counts[2])
-except:
-  delta4 = 0.94
-
-try:
-  delta3 = 0.95/float(counts[3])
-except:
-  delta3 = 0.95
-
-try:
-  delta2 = 0.96/float(counts[4])
-except:
-  delta2 = 0.96
-
-try:
-  delta1 = 0.97/float(counts[5])
-except:
-  delta1 = 0.97
-
-try:
-  delta0 = 1/float(counts[6])
-except:
-  delta0 = 1
-
-
-offset0 = 0
-offset1 = 1
-offset2 = 2
-offset3 = 3
-offset4 = 4
-offset5 = 5
-offset6 = 6
-'''
+print
+print ('Maximum Degree:')
+print (maxDeg)
+print
 
 # place nodes on axes
 for k,v in sorted_dg:
@@ -123,11 +92,17 @@ for k,v in sorted_dg:
     deg = float(v)
     offset = float(deg/maxDeg)
 
+    print ('Node: ')
     print nd
+    print ('Key: ')
     print k
+    print ('Degree: ')
     print v
+    print ('Inception date: ')
     print d
+    print ('Offset: ')
     print offset
+    print
 
     if d >= bins[0] and d < bins[1]:
         #offset0 += delta0
@@ -164,6 +139,7 @@ for k,v in sorted_dg:
         axis6.add_node(nd, offset)
         nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = 'black', stroke = 'black', stroke_width = 0.01)
 
+#DO SELF CONNECTING AXES!!!
 # Do edges
 for e in g.edges():
 
@@ -173,16 +149,16 @@ for e in g.edges():
                   45,  # angle of invisible axis for source control points
                   axis1, e[1], 
                   -45, # angle of invisible axis for target control points
-                  stroke_width   = 0.34,  # pass any SVG attributes to an edge
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,  # pass any SVG attributes to an edge
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
     if (e[1] in axis0.nodes) and (e[0] in axis1.nodes):
         h.connect(axis0, e[1], 45,  
                   axis1, e[0], -45, 
-                  stroke_width   = 0.34,  # pass any SVG attributes to an edge
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,  # pass any SVG attributes to an edge
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
@@ -190,16 +166,16 @@ for e in g.edges():
     if (e[0] in axis0.nodes) and (e[1] in axis2.nodes):
         h.connect(axis0, e[0], -45,
                   axis2, e[1], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
     if (e[1] in axis0.nodes) and (e[0] in axis2.nodes):
         h.connect(axis0, e[1], -45,
                   axis2, e[0], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.9,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
@@ -207,16 +183,16 @@ for e in g.edges():
     if (e[0] in axis0.nodes) and (e[1] in axis3.nodes):
         h.connect(axis0, e[0], -45,
                   axis3, e[1], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
     if (e[1] in axis0.nodes) and (e[0] in axis3.nodes):
         h.connect(axis0, e[1], -45,
                   axis3, e[0], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.9,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
@@ -224,16 +200,16 @@ for e in g.edges():
     if (e[0] in axis0.nodes) and (e[1] in axis4.nodes):
         h.connect(axis0, e[0], -45,
                   axis4, e[1], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
     if (e[1] in axis0.nodes) and (e[0] in axis4.nodes):
         h.connect(axis0, e[1], -45,
                   axis4, e[0], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.9,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
@@ -241,16 +217,16 @@ for e in g.edges():
     if (e[0] in axis0.nodes) and (e[1] in axis5.nodes):
         h.connect(axis0, e[0], -45,
                   axis5, e[1], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
     if (e[1] in axis0.nodes) and (e[0] in axis5.nodes):
         h.connect(axis0, e[1], -45,
                   axis5, e[0], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.9,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
@@ -258,16 +234,16 @@ for e in g.edges():
     if (e[0] in axis0.nodes) and (e[1] in axis6.nodes):
         h.connect(axis0, e[0], -45,
                   axis6, e[1], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
     if (e[1] in axis0.nodes) and (e[0] in axis6.nodes):
         h.connect(axis0, e[1], -45,
                   axis6, e[0], 45,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.9,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'red',
                   )
 
@@ -275,16 +251,16 @@ for e in g.edges():
     if (e[0] in axis1.nodes) and (e[1] in axis2.nodes):
         h.connect(axis1, e[0], 15,
                   axis2, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
     if (e[1] in axis1.nodes) and (e[0] in axis2.nodes):
         h.connect(axis1, e[1], 15,
                   axis2, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
@@ -292,16 +268,16 @@ for e in g.edges():
     if (e[0] in axis1.nodes) and (e[1] in axis3.nodes):
         h.connect(axis1, e[0], 15,
                   axis3, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
     if (e[1] in axis1.nodes) and (e[0] in axis3.nodes):
         h.connect(axis1, e[1], 15,
                   axis3, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
@@ -309,16 +285,16 @@ for e in g.edges():
     if (e[0] in axis1.nodes) and (e[1] in axis4.nodes):
         h.connect(axis1, e[0], 15,
                   axis4, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
     if (e[1] in axis1.nodes) and (e[0] in axis4.nodes):
         h.connect(axis1, e[1], 15,
                   axis4, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
@@ -326,16 +302,16 @@ for e in g.edges():
     if (e[0] in axis1.nodes) and (e[1] in axis5.nodes):
         h.connect(axis1, e[0], 15,
                   axis5, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
     if (e[1] in axis1.nodes) and (e[0] in axis5.nodes):
         h.connect(axis1, e[1], 15,
                   axis5, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
@@ -343,16 +319,16 @@ for e in g.edges():
     if (e[0] in axis1.nodes) and (e[1] in axis6.nodes):
         h.connect(axis1, e[0], 15,
                   axis6, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
 
     if (e[1] in axis1.nodes) and (e[0] in axis6.nodes):
         h.connect(axis1, e[1], 15,
                   axis6, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'blue',
                   )
     
@@ -360,16 +336,16 @@ for e in g.edges():
     if (e[0] in axis2.nodes) and (e[1] in axis3.nodes):
         h.connect(axis2, e[0], 15,
                   axis3, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'purple',
                   )
 
     if (e[1] in axis2.nodes) and (e[0] in axis3.nodes):
         h.connect(axis2, e[1], 15,
                   axis3, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'purple',
                   )
 
@@ -377,16 +353,16 @@ for e in g.edges():
     if (e[0] in axis2.nodes) and (e[1] in axis4.nodes):
         h.connect(axis2, e[0], 15,
                   axis4, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'purple',
                   )
 
     if (e[1] in axis2.nodes) and (e[0] in axis4.nodes):
         h.connect(axis2, e[1], 15,
                   axis4, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'purple',
                   )
 
@@ -394,16 +370,16 @@ for e in g.edges():
     if (e[0] in axis2.nodes) and (e[1] in axis5.nodes):
         h.connect(axis2, e[0], 15,
                   axis5, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'purple', 
                   )
 
     if (e[1] in axis2.nodes) and (e[0] in axis5.nodes):
         h.connect(axis2, e[1], 15,
                   axis5, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'purple',
                   )
 
@@ -411,16 +387,16 @@ for e in g.edges():
     if (e[0] in axis2.nodes) and (e[1] in axis6.nodes):
         h.connect(axis2, e[0], 15,
                   axis6, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'purple', 
                   )
 
     if (e[1] in axis2.nodes) and (e[0] in axis6.nodes):
         h.connect(axis2, e[1], 15,
                   axis6, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'purple', 
                   )
 
@@ -428,16 +404,16 @@ for e in g.edges():
     if (e[0] in axis3.nodes) and (e[1] in axis4.nodes):
         h.connect(axis3, e[0], 15,
                   axis4, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'green', 
                   )
 
     if (e[1] in axis3.nodes) and (e[0] in axis4.nodes):
         h.connect(axis3, e[1], 15,
                   axis4, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'green', 
                   )
 
@@ -445,16 +421,16 @@ for e in g.edges():
     if (e[0] in axis3.nodes) and (e[1] in axis5.nodes):
         h.connect(axis3, e[0], 15,
                   axis5, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'green', 
                   )
 
     if (e[1] in axis3.nodes) and (e[0] in axis5.nodes):
         h.connect(axis3, e[1], 15,
                   axis5, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'green', 
                   )
 
@@ -462,16 +438,16 @@ for e in g.edges():
     if (e[0] in axis3.nodes) and (e[1] in axis6.nodes):
         h.connect(axis3, e[0], 15,
                   axis6, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'green', 
                   )
 
     if (e[1] in axis3.nodes) and (e[0] in axis6.nodes):
         h.connect(axis3, e[1], 15,
                   axis6, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'green', 
                   )
 
@@ -479,16 +455,16 @@ for e in g.edges():
     if (e[0] in axis4.nodes) and (e[1] in axis5.nodes):
         h.connect(axis4, e[0], 15,
                   axis5, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'magenta',
                   )
 
     if (e[1] in axis4.nodes) and (e[0] in axis5.nodes):
         h.connect(axis4, e[1], 15,
                   axis5, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'magenta',
                   )
 
@@ -496,16 +472,16 @@ for e in g.edges():
     if (e[0] in axis4.nodes) and (e[1] in axis6.nodes):
         h.connect(axis4, e[0], 15,
                   axis6, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'magenta',
                   )
 
     if (e[1] in axis4.nodes) and (e[0] in axis6.nodes):
         h.connect(axis4, e[1], 15,
                   axis6, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'magenta',
                   )
 
@@ -513,16 +489,16 @@ for e in g.edges():
     if (e[0] in axis5.nodes) and (e[1] in axis6.nodes):
         h.connect(axis5, e[0], 15,
                   axis6, e[1], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'black',
                   )
 
     if (e[1] in axis5.nodes) and (e[0] in axis6.nodes):
         h.connect(axis5, e[1], 15,
                   axis6, e[0], -15,
-                  stroke_width   = 0.34,
-                  stroke_opacity = 0.4,
+                  stroke_width   = 0.2,
+                  stroke_opacity = 0.2,
                   stroke         = 'black',
                   )
 
