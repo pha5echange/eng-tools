@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-June 20th 2016
+June 21st 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -27,11 +27,13 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 LATEST CHANGES AND ADDITIONS: 
 
-- updated 'ghp_..py' (to facilitate like-for-like node placement upon hive-axes across eras). 
+- Added 'eng_en_mb_map' to generate a text file containing EchoNest-to-MusicBrainz artist IDs to facilitate mapping.
 
-- updated 'JG' method version of 'nhm_b' to 'nhm_b03.py' (to incorporate maximum node-hybridity values and 'artist-uniques' totals).
+- Updated 'ghp_..py' (to facilitate like-for-like node placement upon hive-axes across eras). 
 
-- added 'ghp_..py' to facilitate hive plots. 
+- Updated 'JG' method version of 'nhm_b' to 'nhm_b03.py' (to incorporate maximum node-hybridity values and 'artist-uniques' totals).
+
+- Added 'ghp_..py' to facilitate hive plots. 
 
 - Updated 'en_genre' (and associated scripts) to grab and deal with EchoNest IDs. This will facilitate later mapping to MusicBrainz IDs. 
 
@@ -53,7 +55,6 @@ LATEST CHANGES AND ADDITIONS:
 
 - Added 'pr_process_a01.py' to reformat Page Rank data from 'eng_network_wd...a.py'
 
-- 'en_genre' and 'eng_list' now replace spaces in genre names with underscores (to note presence of spaces).
 
 
 REQUIREMENTS: 
@@ -135,6 +136,8 @@ This will ask you for a figure; either an absolute value or percentage of artist
 
 19) 'ghp...py' reads 'gexf/ghp/hive.gexf' and plots an SVG hiveplot (in 'networks/hives')
 
+20) 'eng_en_mb_map..py' reads all genre files and generates a text file with 'Artist Name ^ EchoNest ID ^ MusicBrainz ID' (to facilitate mapping EN to MB)
+
 MANIFEST: 
 
 (1) en_genre.py
@@ -183,12 +186,14 @@ MANIFEST:
 
 (23) ghp.py
 
-(24) config/apikey.txt (BLANK - REQUIRES API KEY)
+(24) eng_en_mb_map.py
 
-(25) config/config_nw.txt (Network layout config. file)
+(25) config/apikey.txt (BLANK - REQUIRES API KEY)
 
-(26) data/retromatic.txt
+(26) config/config_nw.txt (Network layout config. file)
 
-(27) data/date_ratios.txt
+(27) data/retromatic.txt
+
+(28) data/date_ratios.txt
 
 (28) genres_2016_04_09.zip
