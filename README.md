@@ -5,7 +5,7 @@ jmg*AT*phasechange*DOT*info
 
 http://www*DOT*phasechange*DOT*info
 
-June 21st 2016
+September 9th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -26,6 +26,8 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
 LATEST CHANGES AND ADDITIONS: 
+
+- Updated 'ghp_..py' to handle multiple gexf inputs. 
 
 - Added 'eng_en_mb_map' to generate a text file containing EchoNest-to-MusicBrainz artist IDs to facilitate mapping.
 
@@ -134,7 +136,7 @@ This will ask you for a figure; either an absolute value or percentage of artist
 
 18a) Run nhm_plotter_a09cr.py' after 'nhm_a06cr.py' to plot 2 linegraphs (in 'graphs/..'). One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed black). The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
 
-19) 'ghp...py' reads 'gexf/ghp/hive.gexf' and plots an SVG hiveplot (in 'networks/hives')
+19) 'ghp...py' reads gexf files in 'gexf/directed' and plots SVG hives (in 'networks/hives/all')
 
 20) 'eng_en_mb_map..py' reads all genre files and generates a text file with 'Artist Name ^ EchoNest ID ^ MusicBrainz ID' (to facilitate mapping EN to MB)
 
