@@ -1,25 +1,26 @@
-# eng_network_single_b21.py
-# Version b21
+# eng_network_single_b23.py
+# Version b23
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 14th 2016
+# September 21st 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
 # Name changed to 'eng_network_single'
 
-# Plots network graph from edgelist 'data\wuGraphData.txt'
+# Plots network graph from edgelist 'data\OMEGAYEAR_wuGraphData.txt'
 # Adds dates from 'data\first_clusters.txt' as node attributes
-# Adds artist numbers from 'data\eng_artistNums.txt' as node attributes
+# Adds artist numbers from 'data\OMEGAYEAR_artistNums.txt' as node attributes
 # Removes nodes where date-cluster information is not available
 # Removes self-loop edges and zero-degree nodes if required
-# Removes nodes based upon 'incepDate' if required - a date is requested and all nodes NEWER than this are removed
+# Removes nodes based upon 'incepDate' if required - all nodes NEWER than Omega Year are removed
 # Displays using parameters from 'config/config_nw.txt'
 # Writes 'data\eng_network_wd_nodeList.txt' with nodes and degrees (k), '...edgeList.txt' with neighbours
-# Writes analysis files and laplacian spectrum to 'results\'
-# Writes gexf files to 'gexf\', including 'gexf\YEAR.gexf' for use by 'shm.py'
+# Writes analysis files to 'results\'
+# Writes gexf files to 'gexf\', including 'gexf\YEAR.gexf' for use by 'nhm.py'
 # Writes image to 'networks\'
 # This version incorporates PageRank
+# Incorporates Artist Time Slicing
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -34,7 +35,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b21")
+versionNumber = ("b23")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -44,7 +45,7 @@ startTime = datetime.now()
 if not os.path.exists("logs"):
     os.makedirs("logs")
 
-# Creat 'data' subdirectories if necessary
+# Create 'data' subdirectories if necessary
 if not os.path.exists("data"):
 	os.makedirs("data")
 
@@ -82,13 +83,13 @@ runLog = open(logPath, 'a')
 # Begin
 print ('\n' + "Single-Network Thing | Version " + versionNumber + " | Starting...")
 runLog.write ("==========================================================================" + '\n' + '\n')
-runLog.write ("Single-Network Thing | Version " + versionNumber + '\n')
+runLog.write ("Single-Network Thing | Version " + versionNumber + '\n' + '\n')
 
 # Get user input
 print
 dateIP = int(input ("Enter a year to remove nodes that appear AFTER this date (or 0 to leave the network intact): "))
 selfLoopIP = int(input ("Enter 1 here to remove self-loop edges: "))
-
+omegaYear = str(dateIP)
 # Uncomment the line below to facilitate optional isolate removal
 #isolatedIP = int(input ("Enter 1 here to remove isolated nodes: "))
 
@@ -103,13 +104,18 @@ dateDict = {}
 
 for line in dateInput:
 	genreInput, genreDate, newline = line.split(",")
-	genreName = str(genreInput).replace(" ", "")
-	dateDict[genreName] = genreDate
+	
+	# Remove genres AFTER the Omega Year
+	intGenreDate = int(genreDate)
+	
+	if intGenreDate < dateIP:
+		genreName = str(omegaYear + '_' + genreInput).replace(" ", "")
+		dateDict[genreName] = genreDate
 
 sortDates = OrderedDict(sorted(dateDict.items()))
 
-# Generate dictionary containing nodenames and artist numbers (from 'data\eng_artistNums.txt')
-artistInputPath = os.path.join("data", 'eng_artistNums.txt')
+# Generate dictionary containing nodenames and artist numbers (from 'data\OMEGAYEAR\_artistNums.txt')
+artistInputPath = os.path.join("data", omegaYear, omegaYear + '_artistNums.txt')
 artistInput = open(artistInputPath, 'r').readlines()
 
 firstLine = artistInput.pop(0)
@@ -124,43 +130,43 @@ for line in artistInput:
 sortArtists = OrderedDict(sorted(artistDict.items()))
 
 # Open file to write list of nodes
-nodeListPath = os.path.join("data/node-edge-lists", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nodeList.txt')
+nodeListPath = os.path.join("data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
 # Open file to write list of edges
-edgeListPath = os.path.join("data/node-edge-lists", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_edgeList.txt')
+edgeListPath = os.path.join("data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_edgeList.txt')
 edgeListOP = open (edgeListPath, 'w') 
 
 # Open file for writing initial gexf
-gexfPath = os.path.join("gexf/initial", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
+gexfPath = os.path.join("gexf/initial", 'eng_network_' + versionNumber + '_' + omegaYear + '.gexf')
 gexfFile = open(gexfPath, 'w')
 
 # Open file for writing digraph gexf
-gexfDPath = os.path.join("gexf/directed", str(dateIP) + '.gexf')
+gexfDPath = os.path.join("gexf/directed", omegaYear + '.gexf')
 gexfDFile = open(gexfDPath, 'w')
 
 # Open file for writing final gexf
-gexfFinPath = os.path.join("gexf/final", 'eng_network_final_undirected_wd_' + versionNumber + '_' + str(dateIP) + '.gexf')
+gexfFinPath = os.path.join("gexf/final", 'eng_network_final_' + versionNumber + '_' + omegaYear + '.gexf')
 gexfFinFile = open(gexfFinPath, 'w')
 
 # Open file for Page Rank data
-prPath = os.path.join("data", 'pagerank.txt')
+prPath = os.path.join("data", omegaYear, omegaYear +'_pagerank.txt')
 prFile = open(prPath, 'w')
 
 # Open file for analysis results
-anPath = os.path.join("results/analysis", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_analysis.txt')
+anPath = os.path.join("results/analysis", 'eng_network_' + versionNumber + '_' + omegaYear + '_analysis.txt')
 anFile = open(anPath, 'w')
 
 # Open file to write image
-nwImgPath = os.path.join("networks", 'eng_network_wd_' + versionNumber + '_' + str(dateIP) + '_nw.eps')
-nwImg = open (nwImgPath, 'w')
+#nwImgPath = os.path.join("networks", 'eng_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
+#nwImg = open (nwImgPath, 'w')
 
 anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
 anFile.write ("Single-Network Thing | Version " + versionNumber + '\n' + '\n')
 
 # Read the edgelist and generate undirected graph
 print ('\n' + "Importing Weighted Edge List... ")
-inputPath = os.path.join("data", 'wuGraph_data.txt')
+inputPath = os.path.join("data", omegaYear, omegaYear + '_wuGraph_data.txt')
 edgeList = open (inputPath, 'r')
 enGraph = nx.read_weighted_edgelist(edgeList, delimiter=',')
 
@@ -193,7 +199,7 @@ runLog.write ('Density: ' + str(density) + '\n')
 print ('Applying total artist number attribute to nodes...' + '\n')
 runLog.write ('\n' + 'Applying total artist number attribute to nodes...' + '\n')
 nx.set_node_attributes (enGraph, 'totalArtists', sortArtists)
-
+	
 # Discard nodes without first-cluster dates
 noDateNode = 0
 print ('Checking genre inception dates, and removing if none...' + '\n')
@@ -505,13 +511,13 @@ nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edg
 #nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
 # write image file
-print ('Writing image file...' + '\n')
-plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
-nwImg.close()
+#print ('Writing image file...' + '\n')
+#plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
+#nwImg.close()
 
 # display graph
-print ('Displaying graph...' + '\n')
-plt.show()
+#print ('Displaying graph...' + '\n')
+#plt.show()
 
 # Recalculate basic graph statistics
 nodes = nx.number_of_nodes(diEnGraph)
@@ -578,6 +584,7 @@ endTime = datetime.now()
 
 anFile.write ('\n' + 'Final Undirected Graph Information' + '\n' + '\n')
 anFile.write ('Date of run: {}'.format(runDate) + '\n')
+anFile.write ('Omega Year: ' + omegaYear + '\n')
 anFile.write ("Total artists in all genres: " + str(totalArtists) + '\n')
 anFile.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
 anFile.write ('Nodes: ' + str(nodes) + '\n')
@@ -591,6 +598,7 @@ anFile.close()
 
 print ('Final Undirected Graph Information' + '\n')
 print ('User-entered date: ' + str(dateIP))
+print ('Omega Year: ' + omegaYear)
 print ("Total artists in all genres: " + str(totalArtists))
 print ("Total edge-weighting: " + str(int(totalEdgeWeight)))
 print ('Nodes: ' + str(nodes))
@@ -607,6 +615,7 @@ print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 
 runLog.write ('\n' + 'Final Undirected Graph Information' + '\n' + '\n')
+runLog.write ('Omega Year: ' + omegaYear + '\n')
 runLog.write ("Total artists in all genres: " + str(totalArtists) + '\n')
 runLog.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
