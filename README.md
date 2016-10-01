@@ -119,20 +119,12 @@ Run this, and it will use the 'data/date_ratios.txt' file from earlier. It write
 
 'eng_fam_hot.py' calculates the lowest, highest and average 'Familiarity' and 'Hotttnesss' metrics for each genre and stores these in 'results/'.  
 
-5) pr_process: 
-
-'pr_process' reformats 'data/pagerank.txt' and outputs 'results/pr_results.txt'. 
-
-6) pr_hot_fam_process: 
-
-'pr_hot_fam_process' grabs info from 'results/pr_results.txt' and 'results/eng_fam_hot__data.txt', and writes 'results/pr_hot_fam_results.txt'. 
-
-7) eng_prob.py:
+5) eng_prob.py:
 
 'eng_prob.py' converts the output from a single genre plot (the results file from 'eng_plot.py'- a genre data file which has been converted to a frequency distribution) to a probability distribution. 
 The purpose of this is to facilitate analysis at a later date. To use this script, copy a single-genre plot file to 'data/..' and rename it to 'genre_freq_data.txt'. 
 
-8) eng_en_mb_map: 
+6) eng_en_mb_map: 
 
 'eng_en_mb_map..py' reads all genre files and generates a text file with 'Artist Name ^ EchoNest ID ^ MusicBrainz ID' (to facilitate mapping EN to MB)
 
@@ -157,6 +149,14 @@ This generates a single network based upon user input, and outputs analysis to '
 
 This generates an OMEGAYEAR folder in 'data/', with associated timesliced genre files (in 'data/OMEGAYEAR/genres') and 'data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
 It is designed to allow timesliced-data processing using existing methods.
+
+5) pr_process: 
+
+'pr_process' reformats 'data/pagerank.txt' and outputs 'results/pr_results.txt'. 
+
+6) pr_hot_fam_process: 
+
+'pr_hot_fam_process' grabs info from 'results/pr_results.txt' and 'results/eng_fam_hot__data.txt', and writes 'results/pr_hot_fam_results.txt'. 
 
 
 HYBRIDITY METRICS
