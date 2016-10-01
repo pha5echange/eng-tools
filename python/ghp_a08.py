@@ -25,8 +25,8 @@ versionNumber = ("a08")
 print ('\n' + "Genre Data Hive Plotter | Version " + versionNumber + " | Starting...")
 
 # Make stuff if required
-if not os.path.exists("networks/hives"):
-	os.makedirs("networks/hives")
+if not os.path.exists("networks/hives/all"):
+	os.makedirs("networks/hives/all")
 
 # Drawing parameters
 axisWidth = 1.0
