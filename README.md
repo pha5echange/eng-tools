@@ -27,9 +27,9 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
-- New version of 'nhm' (b04) deals with time sliced data.
+- New version of 'nhm' (b06) deals with time sliced data.
 
-- New version of 'eng_network_single' (b23) deals with time-sliced data.
+- New version of 'eng_network_single' (b24) deals with time-sliced data.
 
 - New version of 'eng_nodesets' (b06) deals with artist time-slice data (written by 'timeslicer')
 

@@ -1,7 +1,7 @@
-# eng_network_single_b23.py
-# Version b23
+# eng_network_single_b24.py
+# Version b24
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# September 21st 2016
+# September 29th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -35,7 +35,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b23")
+versionNumber = ("b24")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -483,6 +483,7 @@ gexfDFile.close()
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('Reading layout config file...' + '\n')
 
+'''
 # Open and read 'config_nw.txt'
 nwConfigPath = os.path.join ("config", 'config_nw.txt')
 nwConfig = open(nwConfigPath, 'r').readlines()
@@ -518,6 +519,7 @@ nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edg
 # display graph
 #print ('Displaying graph...' + '\n')
 #plt.show()
+'''
 
 # Recalculate basic graph statistics
 nodes = nx.number_of_nodes(diEnGraph)
@@ -578,9 +580,6 @@ gexfFinFile.close()
 
 # End timing of run
 endTime = datetime.now()
-
-#prFile.write(str(nx.pagerank(newEnGraph)))
-#prFile.close()
 
 anFile.write ('\n' + 'Final Undirected Graph Information' + '\n' + '\n')
 anFile.write ('Date of run: {}'.format(runDate) + '\n')
