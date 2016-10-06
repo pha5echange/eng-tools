@@ -1,7 +1,7 @@
-# eng_network_single_b24.py
-# Version b24
+# eng_network_single_b25.py
+# Version b25
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# September 29th 2016
+# October 6th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -21,6 +21,7 @@
 # Writes image to 'networks\'
 # This version incorporates PageRank
 # Incorporates Artist Time Slicing
+# Added 'maxDeg' metric
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -35,7 +36,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b24")
+versionNumber = ("b25")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -479,11 +480,11 @@ runLog.write('\n' + "Writing directed gexf file... " + '\n')
 nx.write_gexf(diEnGraph, gexfDFile)
 gexfDFile.close()
 
+'''
 # Plot and display graph
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('Reading layout config file...' + '\n')
 
-'''
 # Open and read 'config_nw.txt'
 nwConfigPath = os.path.join ("config", 'config_nw.txt')
 nwConfig = open(nwConfigPath, 'r').readlines()
@@ -560,6 +561,11 @@ newEnGraph = diEnGraph.to_undirected()
 
 # Analysis
 print ('\n' + 'Analysing final undirected graph...' + '\n')
+print ('Maximal degree... ' + '\n')
+degreeSeq = sorted(nx.degree(newEnGraph).values(),reverse=True)
+maxDeg = max(degreeSeq)
+print ('Maximal degree: ' + str(maxDeg) + '\n')
+anFile.write ('Maximal degree: ' + str(maxDeg) + '\n')
 print ('Average clustering coefficient...' + '\n')
 avClustering = nx.average_clustering(newEnGraph)
 print ('Connected components...' + '\n')
@@ -572,6 +578,7 @@ anFile.write ('Number of cliques: ' + str(len(cl)) + '\n')
 cl_sizes = [len(c) for c in cl]
 print ('Size of cliques: ' + str(cl_sizes))
 anFile.write ('Size of cliques: ' + str(cl_sizes) + '\n' + '\n')
+
 
 # Write undirected gexf file for use in Gephi
 print ('\n' + 'Writing final undirected gexf file...' + '\n')
@@ -589,6 +596,7 @@ anFile.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
 anFile.write ('Nodes: ' + str(nodes) + '\n')
 anFile.write ('Edges: ' + str(edges) + '\n')
 anFile.write ('Density: ' + str(density) + '\n')
+anFile.write ('Maximal degree: ' + str(maxDeg) + '\n')
 anFile.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 anFile.write ('Number of cliques: ' + str(len(cl)) + '\n')
 anFile.write ('Connected Components: ' + str(connectComp) + '\n')
@@ -604,6 +612,7 @@ print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
 print ('Self-loops: ' + str(selfLoopEdges))
 print ('Density: ' + str(density))
+print ('Maximal degree: ' + str(maxDeg))
 print ('Average Clustering Coefficient: ' + str(avClustering))
 print ('Number of cliques: ' + str(len(cl)))
 print ('Connected Components: ' + str(connectComp))
@@ -621,6 +630,7 @@ runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
+runLog.write ('Maximal degree: ' + str(maxDeg) + '\n')
 runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
 runLog.write ('Connected Components: ' + str(connectComp) + '\n' + '\n')
