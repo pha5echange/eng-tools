@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-October 1st 2016
+October 6th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -131,24 +131,24 @@ The purpose of this is to facilitate analysis at a later date. To use this scrip
 
 NETWORK CREATION AND ANALYSIS
 
-1) eng_nodesets: 
+1) timeslicer: 
+
+This generates an OMEGAYEAR folder in 'data/', with associated timesliced genre files (in 'data/OMEGAYEAR/genres') and 'data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
+It is designed to allow timesliced-data processing using existing methods.
+
+2) eng_nodesets: 
 
 This converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
 The output file from this ('data/wuGraph_data.txt') is a weighted undirected edgelist for use by 'eng_network_multi' and 'eng_network_single'.  
 
-2) eng_network_multi: 
+3) eng_network_multi: 
 
 'eng_network_multi' processes and renders networks for all dates in the 'first_clusters' file, and outputs, among other things, nodelists, edgelists, GEXF files, Laplacian Spectra, and other analyses and results. 
 Network layout parameters can be edited in 'config/config_nw.txt'. 
 
-3) eng_network_single: 
+4) eng_network_single: 
 
 This generates a single network based upon user input, and outputs analysis to 'results/analysis' file and pagerank to 'data/pagerank.txt' file. 
-
-4) timeslicer: 
-
-This generates an OMEGAYEAR folder in 'data/', with associated timesliced genre files (in 'data/OMEGAYEAR/genres') and 'data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
-It is designed to allow timesliced-data processing using existing methods.
 
 5) pr_process: 
 
@@ -191,7 +191,7 @@ Also, 'eng_plot' and 'eng_multi_plot' have statistical calulations integrated in
 This charts the genres of the most popular 5000 songs for every year since 1950 (based on Echonest 'song' genres figures; these are unavailable to the API). 
 A file containing this data can be found in the 'data/..' directory, and this is where the script will look for 'retromatic.txt'.
 
-5) eng_plot_artists.py:
+5) eng_plot_artists:
 
 'eng_plot_artists.py' uses the file ouput by ‘eng_multi_plot’ (moved to ‘data/..’ and renamed as ‘eng_multi_plot_data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
