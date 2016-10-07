@@ -28,12 +28,22 @@ print ('\n' + "Genre Data Hive Plotter | Version " + versionNumber + " | Startin
 if not os.path.exists("networks/hives/all"):
 	os.makedirs("networks/hives/all")
 
-# Drawing parameters
+# line parameters
 axisWidth = 1.0
-axisOpacity = 0.3
+axisOpacity = 1.0
 nodeStrokeWidth = 0.07
 edgeWidth = 0.1
-edgeOpacity = 0.5
+edgeOpacity = 0.2
+
+#colour parameters
+nodeStrokeCol = "black"
+prpCol = "gold"
+prbrCol = "green"
+prmCol = "red"
+prdCol = "purple"
+prICol = "blue"
+prsmCol = "darkgray"
+pstsmCol = "darkolivegreen"
 
 # Create dictionary for incepDates
 dateDict = {}
@@ -51,13 +61,13 @@ fileNames = [f for f in os.listdir(gexfPath) if f.endswith('.gexf')]
 for index in range(len(fileNames)):
 
 	# define axes as required
-	axis0 = Axis( (150,150), (150,0), stroke = "black", stroke_width = axisWidth, stroke_opacity = axisOpacity) 
-	axis1 = Axis( (150,150), (300,0), stroke = "gray", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-	axis2 = Axis( (150,150), (300,150), stroke = "blue", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-	axis3 = Axis( (150,150), (300,300), stroke = "yellow", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-	axis4 = Axis( (150,150), (0,300), stroke = "red", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-	axis5 = Axis( (150,150), (0,150), stroke = "green", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-	axis6 = Axis( (150,150), (0,0), stroke = "purple", stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis0 = Axis( (150,150), (150,0), stroke = prpCol, stroke_width = axisWidth, stroke_opacity = axisOpacity) 
+	axis1 = Axis( (150,150), (300,0), stroke = prbrCol, stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis2 = Axis( (150,150), (300,150), stroke = prmCol, stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis3 = Axis( (150,150), (300,300), stroke = prdCol, stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis4 = Axis( (150,150), (0,300), stroke = prICol, stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis5 = Axis( (150,150), (0,150), stroke = prsmCol, stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis6 = Axis( (150,150), (0,0), stroke = pstsmCol, stroke_width = axisWidth, stroke_opacity = axisOpacity)
 
 	gexfPath = os.path.join("gexf/directed", fileNames[index])
 	gexfFile = str(fileNames[index])
@@ -126,37 +136,37 @@ for index in range(len(fileNames)):
 	    if d >= bins[0] and d < bins[1]:
 	        #offset0 += delta0
 	        axis0.add_node(nd, offset)
-	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = 'yellow', stroke = 'black', stroke_width = nodeStrokeWidth)
+	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = prpCol, stroke = nodeStrokeCol, stroke_width = nodeStrokeWidth)
 
 	    if d >= bins[1] and d < bins[2]:
 	        #offset1 += delta1
 	        axis1.add_node(nd, offset)
-	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = 'green', stroke = 'black', stroke_width = nodeStrokeWidth)
+	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = prbrCol, stroke = nodeStrokeCol, stroke_width = nodeStrokeWidth)
 
 	    if d >= bins[2] and d < bins[3]:
 	        #offset2 += delta2
 	        axis2.add_node(nd, offset)
-	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = 'red', stroke = 'black', stroke_width = nodeStrokeWidth)
+	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = prmCol, stroke = nodeStrokeCol, stroke_width = nodeStrokeWidth)
 
 	    if d >= bins[3] and d < bins[4]:
 	        #offset3 += delta3
 	        axis3.add_node(nd, offset)
-	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = 'purple', stroke = 'black', stroke_width = nodeStrokeWidth)
+	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = prdCol, stroke = nodeStrokeCol, stroke_width = nodeStrokeWidth)
 
 	    if d >= bins[4] and d < bins[5]:
 	        #offset4 += delta4
 	        axis4.add_node(nd, offset)
-	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = 'blue', stroke = 'black', stroke_width = nodeStrokeWidth)
+	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = prICol, stroke = nodeStrokeCol, stroke_width = nodeStrokeWidth)
 
 	    if d >= bins[5] and d < bins[6]:
 	        #offset5 += delta5
 	        axis5.add_node(nd, offset)
-	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = 'gray', stroke = 'black', stroke_width = nodeStrokeWidth)
+	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = prsmCol, stroke = nodeStrokeCol, stroke_width = nodeStrokeWidth)
 
 	    if d >= bins[6]:
 	        #offset6 += delta6
 	        axis6.add_node(nd, offset)
-	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = 'black', stroke = 'black', stroke_width = nodeStrokeWidth)
+	        nd.dwg = nd.dwg.circle(center = (nd.x, nd.y), fill = pstsmCol, stroke = nodeStrokeCol, stroke_width = nodeStrokeWidth)
 
 	# Do edges
 	for e in g.edges():
@@ -167,7 +177,7 @@ for index in range(len(fileNames)):
 	                  axis0, e[1], -45, # angle of invisible axis for target control points
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    # edges from axis0 to axis1
@@ -176,7 +186,7 @@ for index in range(len(fileNames)):
 	                  axis1, e[1], -45, 
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    if (e[1] in axis0.nodes) and (e[0] in axis1.nodes):
@@ -184,7 +194,7 @@ for index in range(len(fileNames)):
 	                  axis1, e[0], -45, 
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    # edges from axis0 to axis2
@@ -193,7 +203,7 @@ for index in range(len(fileNames)):
 	                  axis2, e[1], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    if (e[1] in axis0.nodes) and (e[0] in axis2.nodes):
@@ -201,7 +211,7 @@ for index in range(len(fileNames)):
 	                  axis2, e[0], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    # edges from axis0 to axis3
@@ -210,7 +220,7 @@ for index in range(len(fileNames)):
 	                  axis3, e[1], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    if (e[1] in axis0.nodes) and (e[0] in axis3.nodes):
@@ -218,7 +228,7 @@ for index in range(len(fileNames)):
 	                  axis3, e[0], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    # edges from axis0 to axis4
@@ -227,7 +237,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[1], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    if (e[1] in axis0.nodes) and (e[0] in axis4.nodes):
@@ -235,7 +245,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[0], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    # edges from axis0 to axis5
@@ -244,7 +254,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[1], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    if (e[1] in axis0.nodes) and (e[0] in axis5.nodes):
@@ -252,7 +262,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[0], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    # edges from axis0 to axis6
@@ -261,7 +271,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[1], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    if (e[1] in axis0.nodes) and (e[0] in axis6.nodes):
@@ -269,7 +279,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[0], 45,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'yellow',
+	                  stroke         = prpCol,
 	                  )
 
 	    # edges from axis1 to axis1
@@ -278,7 +288,7 @@ for index in range(len(fileNames)):
 	                  axis1, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    # edges from axis1 to axis2
@@ -287,7 +297,7 @@ for index in range(len(fileNames)):
 	                  axis2, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    if (e[1] in axis1.nodes) and (e[0] in axis2.nodes):
@@ -295,7 +305,7 @@ for index in range(len(fileNames)):
 	                  axis2, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    # edges from axis1 to axis3
@@ -304,7 +314,7 @@ for index in range(len(fileNames)):
 	                  axis3, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    if (e[1] in axis1.nodes) and (e[0] in axis3.nodes):
@@ -312,7 +322,7 @@ for index in range(len(fileNames)):
 	                  axis3, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    # edges from axis1 to axis4
@@ -321,7 +331,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    if (e[1] in axis1.nodes) and (e[0] in axis4.nodes):
@@ -329,7 +339,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    # edges from axis1 to axis5
@@ -338,7 +348,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    if (e[1] in axis1.nodes) and (e[0] in axis5.nodes):
@@ -346,7 +356,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    # edges from axis1 to axis6
@@ -355,7 +365,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 
 	    if (e[1] in axis1.nodes) and (e[0] in axis6.nodes):
@@ -363,7 +373,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'green',
+	                  stroke         = prbrCol,
 	                  )
 	 
 	    # edges from axis2 to axis2
@@ -372,7 +382,7 @@ for index in range(len(fileNames)):
 	                  axis2, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red',
+	                  stroke         = prmCol,
 	                  )
 
 	    # edges from axis2 to axis3
@@ -381,7 +391,7 @@ for index in range(len(fileNames)):
 	                  axis3, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red',
+	                  stroke         = prmCol,
 	                  )
 
 	    if (e[1] in axis2.nodes) and (e[0] in axis3.nodes):
@@ -389,7 +399,7 @@ for index in range(len(fileNames)):
 	                  axis3, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red',
+	                  stroke         = prmCol,
 	                  )
 
 	    # edges from axis2 to axis4
@@ -398,7 +408,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red',
+	                  stroke         = prmCol,
 	                  )
 
 	    if (e[1] in axis2.nodes) and (e[0] in axis4.nodes):
@@ -406,7 +416,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red',
+	                  stroke         = prmCol,
 	                  )
 
 	    # edges from axis2 to axis5
@@ -415,7 +425,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red', 
+	                  stroke         = prmCol, 
 	                  )
 
 	    if (e[1] in axis2.nodes) and (e[0] in axis5.nodes):
@@ -423,7 +433,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red',
+	                  stroke         = prmCol,
 	                  )
 
 	    # edges from axis2 to axis6
@@ -432,7 +442,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red', 
+	                  stroke         = prmCol, 
 	                  )
 
 	    if (e[1] in axis2.nodes) and (e[0] in axis6.nodes):
@@ -440,7 +450,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'red', 
+	                  stroke         = prmCol, 
 	                  )
 
 	    # edges from axis3 to axis3
@@ -449,7 +459,7 @@ for index in range(len(fileNames)):
 	                  axis3, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'purple', 
+	                  stroke         = prdCol, 
 	                  )
 
 	    # edges from axis3 to axis4
@@ -458,7 +468,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'purple', 
+	                  stroke         = prdCol, 
 	                  )
 
 	    if (e[1] in axis3.nodes) and (e[0] in axis4.nodes):
@@ -466,7 +476,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'purple', 
+	                  stroke         = prdCol, 
 	                  )
 
 	    # edges from axis3 to axis5
@@ -475,7 +485,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'purple', 
+	                  stroke         = prdCol, 
 	                  )
 
 	    if (e[1] in axis3.nodes) and (e[0] in axis5.nodes):
@@ -483,7 +493,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'purple', 
+	                  stroke         = prdCol, 
 	                  )
 
 	    # edges from axis3 to axis6
@@ -492,7 +502,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'purple', 
+	                  stroke         = prdCol, 
 	                  )
 
 	    if (e[1] in axis3.nodes) and (e[0] in axis6.nodes):
@@ -500,7 +510,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'purple', 
+	                  stroke         = prdCol, 
 	                  )
 
 	    # edges from axis4 to axis4
@@ -509,7 +519,7 @@ for index in range(len(fileNames)):
 	                  axis4, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'blue',
+	                  stroke         = prICol,
 	                  )
 
 	    # edges from axis4 to axis5
@@ -518,7 +528,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'blue',
+	                  stroke         = prICol,
 	                  )
 
 	    if (e[1] in axis4.nodes) and (e[0] in axis5.nodes):
@@ -526,7 +536,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'blue',
+	                  stroke         = prICol,
 	                  )
 
 	    # edges from axis4 to axis6
@@ -535,7 +545,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'blue',
+	                  stroke         = prICol,
 	                  )
 
 	    if (e[1] in axis4.nodes) and (e[0] in axis6.nodes):
@@ -543,7 +553,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'blue',
+	                  stroke         = prICol,
 	                  )
 
 	    # edges from axis5 to axis5
@@ -552,7 +562,7 @@ for index in range(len(fileNames)):
 	                  axis5, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'gray',
+	                  stroke         = prsmCol,
 	                  )
 
 	    # edges from axis5 to axis6
@@ -561,7 +571,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'gray',
+	                  stroke         = prsmCol,
 	                  )
 
 	    if (e[1] in axis5.nodes) and (e[0] in axis6.nodes):
@@ -569,7 +579,7 @@ for index in range(len(fileNames)):
 	                  axis6, e[0], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'gray',
+	                  stroke         = prsmCol,
 	                  )
 
 	    # edges from axis6 to axis6
@@ -578,16 +588,16 @@ for index in range(len(fileNames)):
 	                  axis6, e[1], -15,
 	                  stroke_width   = edgeWidth,  
 	                  stroke_opacity = edgeOpacity,
-	                  stroke         = 'black',
+	                  stroke         = pstsmCol,
 	                  )
 
 	h.save()
 
-	# clear axes the hard way
-	axis0 = Axis( (150,150), (150,0), stroke = "black", stroke_width = axisWidth, stroke_opacity = 0) 
-	axis1 = Axis( (150,150), (300,0), stroke = "gray", stroke_width = axisWidth, stroke_opacity = 0)
-	axis2 = Axis( (150,150), (300,150), stroke = "blue", stroke_width = axisWidth, stroke_opacity = 0)
-	axis3 = Axis( (150,150), (300,300), stroke = "yellow", stroke_width = axisWidth, stroke_opacity = 0)
-	axis4 = Axis( (150,150), (0,300), stroke = "red", stroke_width = axisWidth, stroke_opacity = 0)
-	axis5 = Axis( (150,150), (0,150), stroke = "green", stroke_width = axisWidth, stroke_opacity = 0)
-	axis6 = Axis( (150,150), (0,0), stroke = "purple", stroke_width = axisWidth, stroke_opacity = 0)
+	# clear axes the hard way (can't find another way)
+	axis0 = Axis( (150,150), (150,0), stroke = "white", stroke_width = axisWidth, stroke_opacity = 0) 
+	axis1 = Axis( (150,150), (300,0), stroke = "white", stroke_width = axisWidth, stroke_opacity = 0)
+	axis2 = Axis( (150,150), (300,150), stroke = "white", stroke_width = axisWidth, stroke_opacity = 0)
+	axis3 = Axis( (150,150), (300,300), stroke = "white", stroke_width = axisWidth, stroke_opacity = 0)
+	axis4 = Axis( (150,150), (0,300), stroke = "white", stroke_width = axisWidth, stroke_opacity = 0)
+	axis5 = Axis( (150,150), (0,150), stroke = "white", stroke_width = axisWidth, stroke_opacity = 0)
+	axis6 = Axis( (150,150), (0,0), stroke = "white", stroke_width = axisWidth, stroke_opacity = 0)
