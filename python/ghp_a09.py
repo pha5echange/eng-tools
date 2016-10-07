@@ -1,6 +1,6 @@
 # Genre Hive Plotter
-# v. a0.8
-# July 12th 2016
+# v. a0.9
+# October 7th 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
@@ -19,7 +19,7 @@ import networkx as nx
 import numpy as np
 import operator
 
-versionNumber = ("a08")
+versionNumber = ("a09")
 
 # Begin
 print ('\n' + "Genre Data Hive Plotter | Version " + versionNumber + " | Starting...")
@@ -38,15 +38,6 @@ edgeOpacity = 0.5
 # Create dictionary for incepDates
 dateDict = {}
 
-# define axes as required
-axis0 = Axis( (150,150), (150,0), stroke = "black", stroke_width = axisWidth, stroke_opacity = axisOpacity) 
-axis1 = Axis( (150,150), (300,0), stroke = "gray", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-axis2 = Axis( (150,150), (300,150), stroke = "blue", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-axis3 = Axis( (150,150), (300,300), stroke = "yellow", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-axis4 = Axis( (150,150), (0,300), stroke = "red", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-axis5 = Axis( (150,150), (0,150), stroke = "green", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-axis6 = Axis( (150,150), (0,0), stroke = "purple", stroke_width = axisWidth, stroke_opacity = axisOpacity)
-
 # Get user input
 print
 print ("The maximal degree of the graph dictates where the nodes are placed on the axes.")
@@ -58,6 +49,15 @@ gexfPath = 'gexf/directed'
 fileNames = [f for f in os.listdir(gexfPath) if f.endswith('.gexf')]
 
 for index in range(len(fileNames)):
+
+	# define axes as required
+	axis0 = Axis( (150,150), (150,0), stroke = "black", stroke_width = axisWidth, stroke_opacity = axisOpacity) 
+	axis1 = Axis( (150,150), (300,0), stroke = "gray", stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis2 = Axis( (150,150), (300,150), stroke = "blue", stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis3 = Axis( (150,150), (300,300), stroke = "yellow", stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis4 = Axis( (150,150), (0,300), stroke = "red", stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis5 = Axis( (150,150), (0,150), stroke = "green", stroke_width = axisWidth, stroke_opacity = axisOpacity)
+	axis6 = Axis( (150,150), (0,0), stroke = "purple", stroke_width = axisWidth, stroke_opacity = axisOpacity)
 
 	gexfPath = os.path.join("gexf/directed", fileNames[index])
 	gexfFile = str(fileNames[index])
@@ -582,3 +582,12 @@ for index in range(len(fileNames)):
 	                  )
 
 	h.save()
+
+	# clear axes the hard way
+	axis0 = Axis( (150,150), (150,0), stroke = "black", stroke_width = axisWidth, stroke_opacity = 0) 
+	axis1 = Axis( (150,150), (300,0), stroke = "gray", stroke_width = axisWidth, stroke_opacity = 0)
+	axis2 = Axis( (150,150), (300,150), stroke = "blue", stroke_width = axisWidth, stroke_opacity = 0)
+	axis3 = Axis( (150,150), (300,300), stroke = "yellow", stroke_width = axisWidth, stroke_opacity = 0)
+	axis4 = Axis( (150,150), (0,300), stroke = "red", stroke_width = axisWidth, stroke_opacity = 0)
+	axis5 = Axis( (150,150), (0,150), stroke = "green", stroke_width = axisWidth, stroke_opacity = 0)
+	axis6 = Axis( (150,150), (0,0), stroke = "purple", stroke_width = axisWidth, stroke_opacity = 0)
