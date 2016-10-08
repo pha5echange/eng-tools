@@ -1,12 +1,14 @@
 ENG-Tools beta v. 12
 
+(ts-dev branch)
+
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-October 7th 2016
+October 8th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -26,6 +28,10 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 /////////////////////////////////////////////////////////////////////////
 
 LATEST CHANGES AND ADDITIONS: 
+
+- 'eng_nodesets' (b07) works with time-sliced artist data and writes to 'ts_data/'
+
+- 'timeslicer' (a02) bulk generates time-sliced artist data and writes to 'ts_data/'
 
 - 'ghp' (a09) now resets axes parameters after saving image. 
 
@@ -135,13 +141,13 @@ NETWORK CREATION AND ANALYSIS
 
 1) timeslicer: 
 
-This generates an OMEGAYEAR folder in 'data/', with associated timesliced genre files (in 'data/OMEGAYEAR/genres') and 'data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
+This generates a list of cluster dates from `first_cluster.txt' and uses this ti bulk-create OMEGAYEAR folders in 'ts_data/', with associated timesliced genre files (in 'ts_data/OMEGAYEAR/genres') and 'ts_data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
 It is designed to allow timesliced-data processing using existing methods.
 
 2) eng_nodesets: 
 
-This converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
-The output file from this ('data/wuGraph_data.txt') is a weighted undirected edgelist for use by 'eng_network_multi' and 'eng_network_single'.  
+This converts the time-sliced genre data in `ts_data/' to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
+The output file from this ('ts_data/OMEGAYEAR/OMEGAYEAR_wuGraph_data.txt') is a weighted undirected edgelist for use by 'eng_network_multi' and 'eng_network_single'.  
 
 3) eng_network_multi: 
 
