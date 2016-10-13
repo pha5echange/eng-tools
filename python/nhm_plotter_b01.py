@@ -1,19 +1,19 @@
-# nhm_plotter_a10.py
-# Version a10
+# nhm_plotter_b02.py
+# Version b01
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 31st 2016
+# October 13th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
 # Network Hybridity Metric Plotter (for 'JG' method)
 
-# Processes file 'data/nhm_plot.txt' and produces 2 line-graphs: 
+# Processes file 'data/nhm_plot.txt' and produces 2 charts: 
 # Plots Hgraph and Mean-Hnode values (from'nhm') over time
 # Plots Hnode>0.5, Progenitors, and Sinks as a % of the total graph node-number
 # Saves plots as '.eps' files
 
-# USE AFTER 'nhm_b01.py'
+# USE AFTER 'nhm_b05.py'
 
 # import packages
 import os
@@ -22,7 +22,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a10")
+versionNumber = ("b01")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -77,22 +77,25 @@ for line in dataInput:
   lineCounter += 1
 
 # graphH Plot
+# bar width
+width = 4
+
 xAxis = []
 yAxis = []
+adjGraphHX = []
 
 for key, value in sorted(graphHyears.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjGraphHX.append(int(key - 4))
 
 # set axes values
-x_low = (min(xAxis) - 5)
-x_high = (max(xAxis) + 5)
+x_low = (min(xAxis) - 10)
+x_high = (max(xAxis) + 10)
 y_low = 0
-y_high = 1.0
+y_high = 0.6
 
-# plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hgraph')
+plt.bar(adjGraphHX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hgraph')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -106,10 +109,12 @@ plt.ylim(y_low, y_high)
 # meanNodehH Plot
 xAxis = []
 yAxis = []
+adjNodeHX = []
 
 for key, value in sorted(nodeHyears.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjNodeHX.append(int(key))
 
 # set axes values
 #x_low = (min(xAxis) - 5)
@@ -118,8 +123,7 @@ for key, value in sorted(nodeHyears.iteritems()):
 #y_high = 1.0
 
 # plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Mean-Hnode')
+plt.bar(adjNodeHX, yAxis, width, color='black', edgecolor = 'black', label='Mean-Hnode')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)
@@ -134,24 +138,29 @@ plt.ylim(y_low, y_high)
 plt.savefig(nodeHPath, format = 'eps')
 plt.clf()
 
+
 # GraphPerc Plot
+# bar width
+width = 2
+
 # Plot Hnode > 0.5 Hybrids
 xAxis = []
 yAxis = []
+adjNodePX = []
 
 for key, value in sorted(nodePercs.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjNodePX.append(int(key - 3))
 
 # set axes values
-x_low = (min(xAxis) - 5)
-x_high = (max(xAxis) + 5)
+x_low = (min(xAxis) - 10)
+x_high = (max(xAxis) + 10)
 y_low = 0
-y_high = 100
+y_high = 60
 
 # plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hnode>0.5')
+plt.bar(adjNodePX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hnode>0.5')
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -165,10 +174,12 @@ plt.ylim(y_low, y_high)
 # Plot Progenitors
 xAxis = []
 yAxis = []
+adjSourcePX = []
 
 for key, value in sorted(progenPercs.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjSourcePX.append(int(key -1))
 
 # set axes values
 #x_low = (min(xAxis) - 5)
@@ -177,8 +188,7 @@ for key, value in sorted(progenPercs.iteritems()):
 #y_high = 100
 
 # plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Progenitors')
+plt.bar(adjSourcePX, yAxis, width, color='green', edgecolor = 'black', hatch='-', label='Progenitors')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)
@@ -196,10 +206,12 @@ plt.ylim(y_low, y_high)
 # Plot Sinks
 xAxis = []
 yAxis = []
+adjSinkPX = []
 
 for key, value in sorted(sinkPercs.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjSinkPX.append(int(key + 1))
 
 # set axes values
 #x_low = (min(xAxis) - 5)
@@ -208,8 +220,7 @@ for key, value in sorted(sinkPercs.iteritems()):
 #y_high = 100
 
 # plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='dotted', color='k', label='Sinks')
+plt.bar(adjSinkPX, yAxis, width, color='black', edgecolor = 'black', label='Sinks')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)

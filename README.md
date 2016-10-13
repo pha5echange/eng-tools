@@ -29,6 +29,8 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
+- Updated 'nhm_plotter' writes bar charts.
+
 - New version of 'eng_network_single' (b27) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
 
 - 'eng_nodesets' (b07) works with time-sliced artist data and writes to 'ts_data/'
@@ -209,9 +211,9 @@ A file containing this data can be found in the 'data/..' directory, and this is
 
 7) nhm_plotter: 
 
-Run 'nhm_plotter.py' after 'nhm.py' to plot 2 graphs (in 'graphs/..'). 
-One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed blue). 
-The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
+Run 'nhm_plotter.py' after 'nhm.py' to plot 2 bar charts (in 'graphs/..'). 
+One shows 'Hgraph' (yellow, hatched) and 'Mean-Hnode' (black). 
+The other shows '% Hnode = 0.5 hybrid nodes' (yellow, hatched), '% Progenitor nodes' (green, hatched), and '% Sink nodes' (black). 
 
 8) ghp: 
 
@@ -258,24 +260,22 @@ MANIFEST
 
 (19) pr_plotter.py
 
-(20) nhm_...cr.py (CR method)
+(20) nhm.py
 
-(21) nhm.py (JG method)
+(21) nhm_plotter.py
 
-(22) nhm_plotter.py
+(22) ghp.py
 
-(23) ghp.py
+(23) eng_en_mb_map.py
 
-(24) eng_en_mb_map.py
+(24) timeslicer.py
 
-(25) timeslicer.py
+(25) config/config_nw.txt (Network layout config. file)
 
-(26) config/config_nw.txt (Network layout config. file)
+(26) data/retromatic.txt
 
-(27) data/retromatic.txt
+(27) data/date_ratios.txt
 
-(28) data/date_ratios.txt
+(28) genres_2016_04_09.zip
 
-(29) genres_2016_04_09.zip
-
-(30) config/apikey.txt (BLANK - REQUIRES API KEY) - DEPRECATED
+(29) config/apikey.txt (BLANK - REQUIRES API KEY) - DEPRECATED
