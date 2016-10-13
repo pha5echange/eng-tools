@@ -1,7 +1,7 @@
-# eng_network_single_b25.py
-# Version b25
+# eng_network_single_b27.py
+# Version b27
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 6th 2016
+# October 10th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -21,7 +21,7 @@
 # Writes image to 'networks\'
 # This version incorporates PageRank
 # Incorporates Artist Time Slicing
-# Added 'maxDeg' metric
+# Added 'maxDeg' metric and 'isolated nodes' counter
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b25")
+versionNumber = ("b27")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -78,7 +78,7 @@ if not os.path.exists("networks"):
     os.makedirs("networks")
 
 # Open file for writing log
-logPath = os.path.join("logs", 'eng_network_wd_' + versionNumber + '_log.txt')
+logPath = os.path.join("logs", 'eng_network_single_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # Begin
@@ -88,13 +88,17 @@ runLog.write ("Single-Network Thing | Version " + versionNumber + '\n' + '\n')
 
 # Get user input
 print
-dateIP = int(input ("Enter a year to remove nodes that appear AFTER this date (or 0 to leave the network intact): "))
-selfLoopIP = int(input ("Enter 1 here to remove self-loop edges: "))
+dateIP = int(input ("Enter an omega year for this graph (or 0 to leave the network intact): "))
 omegaYear = str(dateIP)
+
+# Uncomment the line below to facilitate optional self-loop removal
+#selfLoopIP = int(input ("Enter 1 here to remove self-loop edges: "))
+# Auto-remove self-loops - comment out the line below if self-loop removal is optional
+selfLoopIP = 1
+
 # Uncomment the line below to facilitate optional isolate removal
 #isolatedIP = int(input ("Enter 1 here to remove isolated nodes: "))
-
-# Comment out the line below if uncommenting the line above
+# Do not remove isolated nodes - comment out the line below if isolate removal is optional
 isolatedIP = 0
 
 # Generate dictionary containing nodenames and dates (from 'data\first_cluster.txt')
@@ -109,14 +113,14 @@ for line in dateInput:
 	# Remove genres AFTER the Omega Year
 	intGenreDate = int(genreDate)
 	
-	if intGenreDate < dateIP:
+	if intGenreDate <= dateIP:
 		genreName = str(omegaYear + '_' + genreInput).replace(" ", "")
 		dateDict[genreName] = genreDate
 
 sortDates = OrderedDict(sorted(dateDict.items()))
 
 # Generate dictionary containing nodenames and artist numbers (from 'data\OMEGAYEAR\_artistNums.txt')
-artistInputPath = os.path.join("data", omegaYear, omegaYear + '_artistNums.txt')
+artistInputPath = os.path.join("ts_data", omegaYear, omegaYear + '_artistNums.txt')
 artistInput = open(artistInputPath, 'r').readlines()
 
 firstLine = artistInput.pop(0)
@@ -131,11 +135,11 @@ for line in artistInput:
 sortArtists = OrderedDict(sorted(artistDict.items()))
 
 # Open file to write list of nodes
-nodeListPath = os.path.join("data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_nodeList.txt')
+nodeListPath = os.path.join("ts_data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
 # Open file to write list of edges
-edgeListPath = os.path.join("data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_edgeList.txt')
+edgeListPath = os.path.join("ts_data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_edgeList.txt')
 edgeListOP = open (edgeListPath, 'w') 
 
 # Open file for writing initial gexf
@@ -151,7 +155,7 @@ gexfFinPath = os.path.join("gexf/final", 'eng_network_final_' + versionNumber + 
 gexfFinFile = open(gexfFinPath, 'w')
 
 # Open file for Page Rank data
-prPath = os.path.join("data", omegaYear, omegaYear +'_pagerank.txt')
+prPath = os.path.join("ts_data", omegaYear, omegaYear +'_pagerank.txt')
 prFile = open(prPath, 'w')
 
 # Open file for analysis results
@@ -167,7 +171,7 @@ anFile.write ("Single-Network Thing | Version " + versionNumber + '\n' + '\n')
 
 # Read the edgelist and generate undirected graph
 print ('\n' + "Importing Weighted Edge List... ")
-inputPath = os.path.join("data", omegaYear, omegaYear + '_wuGraph_data.txt')
+inputPath = os.path.join("ts_data", omegaYear, omegaYear + '_wuGraph_data.txt')
 edgeList = open (inputPath, 'r')
 enGraph = nx.read_weighted_edgelist(edgeList, delimiter=',')
 
@@ -178,12 +182,14 @@ edges = nx.number_of_edges(enGraph)
 density = nx.density(enGraph)
 nodeList = nx.nodes(enGraph)
 nodeList.sort()
-selfLoopEdges = enGraph.number_of_selfloops()
-connections = edges - selfLoopEdges
+selfLoopTotal = enGraph.number_of_selfloops()
+#selfLoops = enGraph.selfloop_edges()
+connections = edges - selfLoopTotal
 
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
-print ('Self-loops: ' + str(selfLoopEdges))
+print ('Number of self-loops: ' + str(selfLoopTotal))
+#print ('Self-loop edges: ' + str(selfLoops))
 print ('Connections (edges minus self-loops): ' + str(connections))
 print ('Density: ' + str(density))
 print
@@ -192,7 +198,8 @@ runLog.write ('Initial data: ' + '\n' + '\n')
 runLog.write ('User-entered date: ' + str(dateIP) + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
-runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
+runLog.write ('Self-loops: ' + str(selfLoopTotal) + '\n')
+#runLog.write ('Self-loop edges: ' + str(selfLoops) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
@@ -230,12 +237,12 @@ edges = nx.number_of_edges(enGraph)
 density = nx.density(enGraph)
 nodeList = nx.nodes(enGraph)
 nodeList.sort()
-selfLoopEdges = enGraph.number_of_selfloops()
-connections = edges - selfLoopEdges
+selfLoopTotal = enGraph.number_of_selfloops()
+connections = edges - selfLoopTotal
 
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
-print ('Self-loops: ' + str(selfLoopEdges))
+print ('Self-loops: ' + str(selfLoopTotal))
 print ('Connections (edges minus self-loops): ' + str(connections))
 print ('Density: ' + str(density))
 print
@@ -243,7 +250,7 @@ print
 runLog.write ('\n' + 'Stage 1 data: ' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
-runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
+runLog.write ('Self-loops: ' + str(selfLoopTotal) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
@@ -267,12 +274,12 @@ edges = nx.number_of_edges(enGraph)
 density = nx.density(enGraph)
 nodeList = nx.nodes(enGraph)
 nodeList.sort()
-selfLoopEdges = enGraph.number_of_selfloops()
-connections = edges - selfLoopEdges
+selfLoopTotal = enGraph.number_of_selfloops()
+connections = edges - selfLoopTotal
 
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
-print ('Self-loops: ' + str(selfLoopEdges))
+print ('Self-loops: ' + str(selfLoopTotal))
 print ('Connections (edges minus self-loops): ' + str(connections))
 print ('Density: ' + str(density))
 print
@@ -280,7 +287,7 @@ print
 runLog.write ('\n' + 'Stage 2 data: ' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
-runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
+runLog.write ('Self-loops: ' + str(selfLoopTotal) + '\n')
 runLog.write ('Connections (edges minus self-loops): ' + str(connections) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
@@ -309,6 +316,7 @@ else:
 # Remove zero degree nodes
 isolateCount = 0
 if isolatedIP == 1:
+
 	print ('\n' + 'Checking for and removing isolated (zero degree) nodes...' +'\n')
 	runLog.write('\n' + 'Checking for and removing isolated (zero degree) nodes...' +'\n' + '\n')
 	for i in nodeList:
@@ -317,15 +325,28 @@ if isolatedIP == 1:
 			print ('Removed isolated node ' + str(i))
 			runLog.write('Removed isolated node ' + str(i) + '\n')
 			isolateCount += 1
+
 	if isolateCount == 1:
 		print ('\n' + "Removed " + str(isolateCount) + " isolated node. " + '\n')
 		runLog.write ('\n' + "Removed " + str(isolateCount) + " isolated node. " + '\n')
+
 	if isolateCount > 1:
 		print ('\n' + "Removed " + str(isolateCount) + " isolated nodes. " + '\n')
 		runLog.write ('\n' + "Removed " + str(isolateCount) + " isolated nodes. " + '\n')
+
 else:
-	print ('Isolated nodes intact.')
-	runLog.write('\n' + 'Isolated nodes intact.' + '\n')
+
+	for i in nodeList:
+		if nx.is_isolate(enGraph,i):
+			isolateCount += 1
+
+	if isolateCount == 1:
+		print ('\n' + str(isolateCount) + ' isolated node intact.')
+		runLog.write('\n' + str(isolateCount) + ' isolated node intact.' + '\n')
+
+	if isolateCount > 1:
+		print ('\n' + str(isolateCount) + ' isolated nodes intact.')
+		runLog.write('\n' + str(isolateCount) + ' isolated nodes intact.' + '\n')
 
 # Recalculate basic graph statistics
 print ('Recalculating various things...' + '\n')
@@ -334,18 +355,20 @@ edges = nx.number_of_edges(enGraph)
 density = nx.density(enGraph)
 nodeList = nx.nodes(enGraph)
 nodeList.sort()
-selfLoopEdges = enGraph.number_of_selfloops()
+selfLoopTotal = enGraph.number_of_selfloops()
 
 print ('Nodes: ' + str(nodes))
+print ('Isolated nodes:' + str(isolateCount))
 print ('Edges: ' + str(edges))
-print ('Self-loops: ' + str(selfLoopEdges))
+print ('Self-loops: ' + str(selfLoopTotal))
 print ('Density: ' + str(density))
 print
 
 runLog.write ('\n' + 'Stage 3 data: ' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
+runLog.write ('Isolated nodes:' + str(isolateCount) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
-runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
+runLog.write ('Self-loops: ' + str(selfLoopTotal) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 
 # Clean edge-labels
@@ -392,12 +415,12 @@ cl = nx.find_cliques(enGraph)
 cl = sorted(list(cl), key = len, reverse = True)
 print ('Number of cliques: ' + str(len(cl)) + '\n')
 cl_sizes = [len(c) for c in cl]
-print ('Size of cliques: ' + str(cl_sizes))
+#print ('Size of cliques: ' + str(cl_sizes))
 
 print ('\n' + 'Undirected graph data: ' + '\n')
 print ('Nodes: ' + str(nodes))
 print ('Edges: ' + str(edges))
-print ('Self-loops: ' + str(selfLoopEdges))
+print ('Self-loops: ' + str(selfLoopTotal))
 print ('Density: ' + str(density))
 print ('Average Clustering Coefficient: ' + str(avClustering))
 print ('Number of cliques: ' + str(len(cl)))
@@ -409,7 +432,7 @@ print
 runLog.write ('\n' + 'Undirected graph data: ' + '\n' + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
-runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
+runLog.write ('Self-loops: ' + str(selfLoopTotal) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
 runLog.write ('Number of cliques: ' + str(len(cl)) + '\n')
@@ -479,6 +502,45 @@ print ("Writing directed gexf file... " + '\n')
 runLog.write('\n' + "Writing directed gexf file... " + '\n')
 nx.write_gexf(diEnGraph, gexfDFile)
 gexfDFile.close()
+
+# Recheck zero degree nodes
+print ('Rechecking isolated (zero degree) nodes...' +'\n')
+runLog.write('\n' + 'Rechecking isolated (zero degree) nodes...' +'\n' + '\n')
+
+diNodeList = nx.nodes(diEnGraph)
+diNodeList.sort()
+
+isolateCount = 0
+if isolatedIP == 1:
+
+	for i in diNodeList:
+		if nx.is_isolate(diEnGraph,i):
+			diEnGraph.remove_node(i)
+			print ('Removed isolated node ' + str(i))
+			runLog.write('Removed isolated node ' + str(i) + '\n')
+			isolateCount += 1
+
+	if isolateCount == 1:
+		print ("Removed " + str(isolateCount) + " isolated node. " + '\n')
+		runLog.write ('\n' + "Removed " + str(isolateCount) + " isolated node. " + '\n')
+
+	if isolateCount > 1:
+		print ("Removed " + str(isolateCount) + " isolated nodes. " + '\n')
+		runLog.write ('\n' + "Removed " + str(isolateCount) + " isolated nodes. " + '\n')
+
+else:
+
+	for i in diNodeList:
+		if nx.is_isolate(diEnGraph,i):
+			isolateCount += 1
+
+	if isolateCount == 1:
+		print (str(isolateCount) + ' isolated node intact.' +'\n')
+		runLog.write('\n' + str(isolateCount) + ' isolated node intact.' + '\n')
+
+	if isolateCount > 1:
+		print (str(isolateCount) + ' isolated nodes intact.' + '\n')
+		runLog.write('\n' + str(isolateCount) + ' isolated nodes intact.' + '\n')
 
 '''
 # Plot and display graph
@@ -555,8 +617,8 @@ prFile.write(str(nx.pagerank(diEnGraph)))
 prFile.close()
 
 # Render undirected version of diEnGraph to facilitate final analysis of graph characteristics
-print('\n' + "Rendering undirected verison to facilitate final analysis of graph characteristics... ")
-runLog.write('\n' + "Rendering undirected verison to facilitate final analysis of graph characteristics... " + '\n')
+print('\n' + "Rendering undirected version to facilitate final analysis of graph characteristics... ")
+runLog.write('\n' + "Rendering undirected version to facilitate final analysis of graph characteristics... " + '\n')
 newEnGraph = diEnGraph.to_undirected()
 
 # Analysis
@@ -576,7 +638,7 @@ cl = sorted(list(cl), key = len, reverse = True)
 print ('Number of cliques: ' + str(len(cl)) + '\n')
 anFile.write ('Number of cliques: ' + str(len(cl)) + '\n')
 cl_sizes = [len(c) for c in cl]
-print ('Size of cliques: ' + str(cl_sizes))
+#print ('Size of cliques: ' + str(cl_sizes))
 anFile.write ('Size of cliques: ' + str(cl_sizes) + '\n' + '\n')
 
 
@@ -591,9 +653,10 @@ endTime = datetime.now()
 anFile.write ('\n' + 'Final Undirected Graph Information' + '\n' + '\n')
 anFile.write ('Date of run: {}'.format(runDate) + '\n')
 anFile.write ('Omega Year: ' + omegaYear + '\n')
-anFile.write ("Total artists in all genres: " + str(totalArtists) + '\n')
-anFile.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
+#anFile.write ("Total artists in all genres: " + str(totalArtists) + '\n')
+#anFile.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
 anFile.write ('Nodes: ' + str(nodes) + '\n')
+anFile.write ('Isolated nodes: ' + str(isolateCount) + '\n')
 anFile.write ('Edges: ' + str(edges) + '\n')
 anFile.write ('Density: ' + str(density) + '\n')
 anFile.write ('Maximal degree: ' + str(maxDeg) + '\n')
@@ -606,11 +669,12 @@ anFile.close()
 print ('Final Undirected Graph Information' + '\n')
 print ('User-entered date: ' + str(dateIP))
 print ('Omega Year: ' + omegaYear)
-print ("Total artists in all genres: " + str(totalArtists))
-print ("Total edge-weighting: " + str(int(totalEdgeWeight)))
+#print ("Total artists in all genres: " + str(totalArtists))
+#print ("Total edge-weighting: " + str(int(totalEdgeWeight)))
 print ('Nodes: ' + str(nodes))
+print ('Isolated nodes: ' + str(isolateCount))
 print ('Edges: ' + str(edges))
-print ('Self-loops: ' + str(selfLoopEdges))
+print ('Self-loops: ' + str(selfLoopTotal))
 print ('Density: ' + str(density))
 print ('Maximal degree: ' + str(maxDeg))
 print ('Average Clustering Coefficient: ' + str(avClustering))
@@ -624,11 +688,12 @@ print ('Duration of run : {}'.format(endTime - startTime))
 
 runLog.write ('\n' + 'Final Undirected Graph Information' + '\n' + '\n')
 runLog.write ('Omega Year: ' + omegaYear + '\n')
-runLog.write ("Total artists in all genres: " + str(totalArtists) + '\n')
-runLog.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
+#runLog.write ("Total artists in all genres: " + str(totalArtists) + '\n')
+#runLog.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
+runLog.write ('Isolated nodes:' + str(isolateCount) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
-runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
+runLog.write ('Self-loops: ' + str(selfLoopTotal) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 runLog.write ('Maximal degree: ' + str(maxDeg) + '\n')
 runLog.write ('Average Clustering Coefficient: ' + str(avClustering) + '\n')
