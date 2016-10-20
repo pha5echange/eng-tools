@@ -8,7 +8,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-October 13th 2016
+October 20th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -29,7 +29,7 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
-- Updated 'nhm_plotter' writes bar charts.
+- Updated 'nhm_plotter' writes bar charts, and labels x axis with category values.
 
 - New version of 'eng_network_single' (b27) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
 

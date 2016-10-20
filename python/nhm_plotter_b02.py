@@ -1,7 +1,7 @@
 # nhm_plotter_b02.py
-# Version b01
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 13th 2016
+# October 20th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -22,7 +22,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b01")
+versionNumber = ("b02")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -96,11 +96,12 @@ y_low = 0
 y_high = 0.6
 
 plt.bar(adjGraphHX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hgraph')
+plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015],fontsize=10)
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.xlabel('Year', fontsize=14)
-plt.ylabel('Hybridity', fontsize=14)
+plt.xlabel('Year', fontsize=10)
+plt.ylabel('Hybridity', fontsize=10)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 # plt.savefig(graphHPath, format = 'eps')
@@ -161,11 +162,11 @@ y_high = 60
 
 # plot graph
 plt.bar(adjNodePX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hnode>0.5')
-
+plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015], fontsize=10)
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.xlabel('Year', fontsize=14)
-plt.ylabel('Percentage of Nodes', fontsize=14)
+plt.xlabel('Year', fontsize=10)
+plt.ylabel('Percentage of Nodes', fontsize=10)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 #plt.savefig(graphPercPath, format = 'eps')
@@ -188,7 +189,7 @@ for key, value in sorted(progenPercs.iteritems()):
 #y_high = 100
 
 # plot graph
-plt.bar(adjSourcePX, yAxis, width, color='green', edgecolor = 'black', hatch='-', label='Progenitors')
+plt.bar(adjSourcePX, yAxis, width, color='cyan', edgecolor = 'black', hatch='-', label='Progenitors')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)
