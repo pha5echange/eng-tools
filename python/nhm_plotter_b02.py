@@ -6,11 +6,11 @@
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# Network Hybridity Metric Plotter (for 'JG' method)
+# Network Hybridity Metric Plotter
 
 # Processes file 'data/nhm_plot.txt' and produces 2 charts: 
 # Plots Hgraph and Mean-Hnode values (from'nhm') over time
-# Plots Hnode>0.5, Progenitors, and Sinks as a % of the total graph node-number
+# Plots Hnode>0.5, Progenitors (Sources), and Sinks as a % of the total graph node-number
 # Saves plots as '.eps' files
 
 # USE AFTER 'nhm_b05.py'
@@ -96,12 +96,12 @@ y_low = 0
 y_high = 0.6
 
 plt.bar(adjGraphHX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hgraph')
-plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015],fontsize=10)
+plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015],fontsize=9)
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.xlabel('Year', fontsize=10)
-plt.ylabel('Hybridity', fontsize=10)
+plt.xlabel('Category Omega-Year', fontsize=12)
+plt.ylabel('Hybridity', fontsize=12)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 # plt.savefig(graphHPath, format = 'eps')
@@ -162,11 +162,11 @@ y_high = 60
 
 # plot graph
 plt.bar(adjNodePX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hnode>0.5')
-plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015], fontsize=10)
+plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015], fontsize=9)
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.xlabel('Year', fontsize=10)
-plt.ylabel('Percentage of Nodes', fontsize=10)
+plt.xlabel('Category Omega-Year', fontsize=12)
+plt.ylabel('Percentage of Nodes', fontsize=12)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 #plt.savefig(graphPercPath, format = 'eps')
@@ -189,7 +189,7 @@ for key, value in sorted(progenPercs.iteritems()):
 #y_high = 100
 
 # plot graph
-plt.bar(adjSourcePX, yAxis, width, color='cyan', edgecolor = 'black', hatch='-', label='Progenitors')
+plt.bar(adjSourcePX, yAxis, width, color='cyan', edgecolor = 'black', hatch='-', label='Sources')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)
