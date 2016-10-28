@@ -1,4 +1,4 @@
-ENG-Tools beta v. 12
+ENG-Tools beta v. 12.2
 
 (ts-dev branch)
 
@@ -8,7 +8,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-October 20th 2016
+October 28th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -31,17 +31,17 @@ LATEST CHANGES AND ADDITIONS:
 
 - Updated 'nhm_plotter' writes bar charts, and labels x axis with category values.
 
+- New version of 'eng_network_multi' (b28) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
+
 - New version of 'eng_network_single' (b27) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
 
-- 'eng_nodesets' (b07) works with time-sliced artist data and writes to 'ts_data/'
+- 'eng_nodesets' (b08) works with time-sliced artist data and writes to 'ts_data/'
 
-- 'timeslicer' (a02) bulk generates time-sliced artist data and writes to 'ts_data/'
+- 'timeslicer' (a03) bulk generates time-sliced artist data and writes to 'ts_data/'
 
 - 'ghp' (a09) now resets axes parameters after saving image. 
 
-- New version of 'nhm' (b05) deals with time-sliced data. 
-
-- New version of 'eng_nodesets' (b06) deals with artist time-slice data (written by 'timeslicer'). 
+- New version of 'nhm' (b06) deals with time-sliced data. 
 
 - 'timeslicer' deals with raw genre files and writes new ones after artist time-slicing.
 

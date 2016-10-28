@@ -1,7 +1,7 @@
-# timeslicer_a02.py
-# Version a02
+# timeslicer_a03.py
+# Version a03
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 8th 2016
+# October 27th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -19,7 +19,7 @@
 import os
 from collections import OrderedDict
 
-versionNumber = ("a02")
+versionNumber = ("a03")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -71,7 +71,10 @@ runLog.write ('Artist Time-Slicer | ' + 'Version: ' + versionNumber + '\n' + '\n
 #dateIP = int(input ("Enter an Omega Year to remove artists that appear AFTER this date (or 2016 to leave data intact): "))
 #omegaYear = str(dateIP)
 
-print ('\n' + "Dateset: " + str(dateSet) + '\n' + '\n')
+print ('\n' + "Dateset: " + str(dateSet) + '\n')
+print ("DateSet elements: " + str(len(dateSet)) + '\n' + '\n')
+runLog.write ('\n' + "Dateset: " + str(dateSet) + '\n')
+runLog.write("DateSet elements: " + str(len(dateSet)) + '\n' + '\n')
 
 for date in dateSet:
 
@@ -97,6 +100,7 @@ for date in dateSet:
 	# ..and begin..
 
 	print('\n' + "Omega Year: " + omegaYear + '\n')
+	runLog.write('\n' + "Omega Year: " + omegaYear + '\n')
 
 	# open files for reading
 	for index in range(len(fileNames)):
@@ -124,6 +128,10 @@ for date in dateSet:
 					newGenreFile.write(str(artist) + ',' + str(enid) + ',' + str(start) + ',' + str(end_date) + ',' + str(familiarity) + ',' + str(hotness) + ',' + str(mbid))
 					artistCounter += 1
 
+		if artistCounter != 0:
+			print("In " + omegaYear + " the genre " + genreLabel + " had " + str(artistCounter) + " artist(s)." + '\n')
+			runLog.write("In " + omegaYear + " the genre " + genreLabel + " had " + str(artistCounter) + " artist(s)." + '\n')
+
 		# close input files
 		dataInput.close()
 		newGenreFile.close()
@@ -131,6 +139,7 @@ for date in dateSet:
 		if os.stat(newGenrePath).st_size == 0:
 			os.remove(newGenrePath)
 			emptyGenres += 1
+			print('In ' + omegaYear + ' the genre ' + genreLabel + ' had no artists. The file has been removed. ' + '\n')
 			runLog.write('In ' + omegaYear + ' the genre ' + genreLabel + ' had no artists. The file has been removed. ' + '\n')
 			removedGenres.append(genreLabel)
 

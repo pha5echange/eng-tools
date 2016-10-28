@@ -1,7 +1,7 @@
-# eng_nodesets_b07.py
-# Version b07
+# eng_nodesets_b08.py
+# Version b08
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 8th 2016
+# October 28th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -19,7 +19,7 @@ import resource
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b07")
+versionNumber = ("b08")
 
 # open file for writing log
 logPath = os.path.join("logs", 'eng_nodesets_' + versionNumber + '_log.txt')
@@ -33,6 +33,13 @@ runLog.write ('Genre Data Node Set Maker | ' + 'Version: ' + versionNumber + '\n
 runDate = datetime.now()
 startTime = datetime.now()
 
+# Look for subfolders in `ts_data' and generate datelist from these
+dateList = []
+datePath = "ts_data/"
+dateList = os.listdir(datePath) 
+dateSet = set(dateList)
+
+'''
 # Generate dictionary containing nodenames and dates (from 'data\first_cluster.txt')
 dateInputPath = os.path.join("data", 'first_cluster.txt')
 dateInput = open(dateInputPath, 'r')
@@ -55,6 +62,7 @@ dateSet = set(dateList)
 
 # add 2015 to 'dateSet' 
 dateSet.add(2015)
+'''
 
 # initialise global counters
 totalIntersectCount = 0
@@ -173,8 +181,8 @@ for date in dateSet:
 					else:
 						# write setA only to enable nodes with no connections
 						wuGraphData.write (setAlabel + ',' + setAlabel + ',' + "0" + '\n')
-
 						setBcount += 1	
+						wuGraphData.write (setBlabel + ',' + setBlabel + ',' + "0" + '\n')
 
 		else:
 			setBcount = 0
