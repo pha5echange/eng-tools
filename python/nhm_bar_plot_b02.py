@@ -1,7 +1,7 @@
-# nhm_plotter_b02.py
+# nhm_bar_plot_b02.py
 # Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 20th 2016
+# October 28th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -13,7 +13,7 @@
 # Plots Hnode>0.5, Progenitors (Sources), and Sinks as a % of the total graph node-number
 # Saves plots as '.eps' files
 
-# USE AFTER 'nhm_b05.py'
+# USE AFTER 'nhm_b06.py'
 
 # import packages
 import os
@@ -33,21 +33,21 @@ if not os.path.exists("graphs"):
     os.makedirs("graphs")
 
 # open file for writing log
-logPath = os.path.join("logs", 'nhm_plotter_' + versionNumber + '_log.txt')
+logPath = os.path.join("logs", 'nhm_bar_plotter_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # define paths for graphs
 #graphHPath = os.path.join("graphs", 'nhm_plotter_' + versionNumber + ".eps")
-nodeHPath = os.path.join("graphs", 'nhm_nodeH_plotter_' + versionNumber + ".eps")
-graphPercPath = os.path.join("graphs", 'nhm_Perc_plotter_' + versionNumber + ".eps")
+nodeHPath = os.path.join("graphs", 'nhm_h_bar_plot_' + versionNumber + ".eps")
+graphPercPath = os.path.join("graphs", 'nhm_p_bar_plot_' + versionNumber + ".eps")
 
 # Initiate timing of run
 runDate = datetime.now()
 startTime = datetime.now()
 
 # ..and begin..
-runLog.write ('\n' + 'Network Hybridity Metric Plotter - Alpha | ' + 'Version: ' + versionNumber + '\n' + '\n')
-print ('\n' + 'Network Hybridity Metric Plotter - Alpha | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
+runLog.write ('\n' + 'Network Hybridity Metric Bar Plotter - Beta | ' + 'Version: ' + versionNumber + '\n' + '\n')
+print ('\n' + 'Network Hybridity Metric Bar Plotter - Beta | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'nhm_plot.txt')

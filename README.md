@@ -29,7 +29,9 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
-- Updated 'nhm_plotter' writes bar charts, and labels x axis with category values.
+- 'nhm_line_plot' writes line charts, and labels x axis with set-year values.
+
+- 'nhm_bar_plot' writes bar charts, and labels x axis with category values.
 
 - New version of 'eng_network_multi' (b28) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
 
@@ -209,15 +211,21 @@ A file containing this data can be found in the 'data/..' directory, and this is
 
 'pr_plotter' takes 'results/pr_hot_fam_results.txt' and plots 3 graphs from this (PageRank-Mean Familiarity, PageRank-Mean Hotttnesss, and Mean Hotttness-Mean Familiarity). 
 
-7) nhm_plotter: 
+7) nhm_bar_plot: 
 
-Run 'nhm_plotter.py' after 'nhm.py' to plot 2 bar charts (in 'graphs/..'). 
+Run 'nhm_bar_plot.py' after temporal-category-based analysis 'nhm.py' to plot 2 bar charts (in 'graphs/..'). 
 One shows 'Hgraph' (yellow, hatched) and 'Mean-Hnode' (black). 
 The other shows '% Hnode = 0.5 hybrid nodes' (yellow, hatched), '% Progenitor nodes' (green, hatched), and '% Sink nodes' (black). 
 
-8) ghp: 
+8) nhm_line_plot:
 
-'ghp...py' reads gexf files in 'gexf/directed' and plots SVG hives (in 'networks/hives/all')
+Run 'nhm_lne_plot.py' after full-range analysis 'nhm.py' to plot 2 line charts (in 'graphs/..'). 
+One shows 'Hgraph' (red, solid) and 'Mean-Hnode' (blue, dashed). 
+The other shows '% Hnode = 0.5 hybrid nodes' (red, solid), '% Progenitor nodes' (blue, dashed), and '% Sink nodes' (black, dotted). 
+
+9) ghp: 
+
+'ghp...py' reads gexf files in 'gexf/directed' and plots SVG hives (in 'networks/hives/all'). The axes represent the temporal categories (deprecated - working on this), the node position represents the degree of the genre (the further out the higher). 
 
 
 MANIFEST 
@@ -262,20 +270,22 @@ MANIFEST
 
 (20) nhm.py
 
-(21) nhm_plotter.py
+(21) nhm_bar_plot.py
 
-(22) ghp.py
+(22) nhm_line_plot.py
 
-(23) eng_en_mb_map.py
+(23) ghp.py
 
-(24) timeslicer.py
+(24) eng_en_mb_map.py
 
-(25) config/config_nw.txt (Network layout config. file)
+(25) timeslicer.py
 
-(26) data/retromatic.txt
+(26) config/config_nw.txt (Network layout config. file)
 
-(27) data/date_ratios.txt
+(27) data/retromatic.txt
 
-(28) genres_2016_04_09.zip
+(28) data/date_ratios.txt
 
-(29) config/apikey.txt (BLANK - REQUIRES API KEY) - DEPRECATED
+(29) genres_2016_04_09.zip
+
+(30) config/apikey.txt (BLANK - REQUIRES API KEY) - DEPRECATED
