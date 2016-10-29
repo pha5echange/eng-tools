@@ -31,7 +31,7 @@ LATEST CHANGES AND ADDITIONS:
 
 - 'nhm_bar_plot' writes bar charts, and labels x axis with category values.
 
-- New version of 'eng_network_multi' (b28) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
+- New version of 'eng_network_multi' (b29) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
 
 - New version of 'eng_network_single' (b27) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
 

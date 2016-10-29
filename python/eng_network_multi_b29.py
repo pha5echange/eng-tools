@@ -1,7 +1,7 @@
-# eng_network_multi_b28.py
-# Version b28
+# eng_network_multi_b29.py
+# Version b29
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 28th 2016
+# October 29th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b28")
+versionNumber = ("b29")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -425,9 +425,20 @@ for date in dateList:
 		if isolateCount > 1:
 			print ('\n' + "Removed " + str(isolateCount) + " isolated nodes. " + '\n')
 			runLog.write ('\n' + "Removed " + str(isolateCount) + " isolated nodes. " + '\n')
+
 	else:
-		print ('Isolated nodes intact.')
-		runLog.write('\n' + 'Isolated nodes intact.' + '\n')
+
+		for i in nodeList:
+			if nx.is_isolate(enGraph,i):
+				isolateCount += 1
+
+		if isolateCount == 1:
+			print ('\n' + str(isolateCount) + ' isolated node intact.')
+			runLog.write('\n' + str(isolateCount) + ' isolated node intact.' + '\n')
+
+		if isolateCount > 1:
+			print ('\n' + str(isolateCount) + ' isolated nodes intact.')
+			runLog.write('\n' + str(isolateCount) + ' isolated nodes intact.' + '\n')
 
 	# Recalculate basic graph statistics
 	print ('Recalculating various things...' + '\n')
@@ -439,6 +450,7 @@ for date in dateList:
 	selfLoopEdges = enGraph.number_of_selfloops()
 
 	print ('Nodes: ' + str(nodes))
+	print ('Isolated nodes:' + str(isolateCount))
 	print ('Edges: ' + str(edges))
 	print ('Self-loops: ' + str(selfLoopEdges))
 	print ('Density: ' + str(density))
@@ -446,6 +458,7 @@ for date in dateList:
 
 	runLog.write ('\n' + 'Stage 3 data: ' + '\n' + '\n')
 	runLog.write ('Nodes: ' + str(nodes) + '\n')
+	runLog.write ('Isolated nodes:' + str(isolateCount) + '\n')
 	runLog.write ('Edges: ' + str(edges) + '\n')
 	runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 	runLog.write ('Density: ' + str(density) + '\n')
@@ -585,6 +598,46 @@ for date in dateList:
 	nx.write_gexf(diEnGraph, gexfDFile)
 	gexfDFile.close()
 
+	# Recheck zero degree nodes
+	print ('Rechecking isolated (zero degree) nodes...' +'\n')
+	runLog.write('\n' + 'Rechecking isolated (zero degree) nodes...' +'\n' + '\n')
+
+	diNodeList = nx.nodes(diEnGraph)
+	diNodeList.sort()
+
+	isolateCount = 0
+	if isolatedIP == 1:
+
+		for i in diNodeList:
+			if nx.is_isolate(diEnGraph,i):
+				diEnGraph.remove_node(i)
+				print ('Removed isolated node ' + str(i))
+				runLog.write('Removed isolated node ' + str(i) + '\n')
+				isolateCount += 1
+
+		if isolateCount == 1:
+			print ("Removed " + str(isolateCount) + " isolated node. " + '\n')
+			runLog.write ('\n' + "Removed " + str(isolateCount) + " isolated node. " + '\n')
+
+		if isolateCount > 1:
+			print ("Removed " + str(isolateCount) + " isolated nodes. " + '\n')
+			runLog.write ('\n' + "Removed " + str(isolateCount) + " isolated nodes. " + '\n')
+
+	else:
+
+		for i in diNodeList:
+			if nx.is_isolate(diEnGraph,i):
+				isolateCount += 1
+
+		if isolateCount == 1:
+			print (str(isolateCount) + ' isolated node intact.' +'\n')
+			runLog.write('\n' + str(isolateCount) + ' isolated node intact.' + '\n')
+
+		if isolateCount > 1:
+			print (str(isolateCount) + ' isolated nodes intact.' + '\n')
+			runLog.write('\n' + str(isolateCount) + ' isolated nodes intact.' + '\n')
+
+
 	'''
 	# Plot and display graph
 	# Graph plotting parameters - moved to config file 'config_nw.txt'
@@ -696,6 +749,7 @@ for date in dateList:
 	anFile.write ("Total artists in all genres: " + str(totalArtists) + '\n')
 	anFile.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
 	anFile.write ('Nodes: ' + str(nodes) + '\n')
+	anFile.write ('Isolated nodes: ' + str(isolateCount) + '\n')
 	anFile.write ('Edges: ' + str(edges) + '\n')
 	anFile.write ('Density: ' + str(density) + '\n')
 	anFile.write ('Maximal degree: ' + str(maxDeg) + '\n')
@@ -710,6 +764,7 @@ for date in dateList:
 	#print ("Total artists in all genres: " + str(totalArtists))
 	#print ("Total edge-weighting: " + str(int(totalEdgeWeight)))
 	print ('Nodes: ' + str(nodes))
+	print ('Isolated nodes: ' + str(isolateCount))
 	print ('Edges: ' + str(edges))
 	print ('Self-loops: ' + str(selfLoopEdges))
 	print ('Density: ' + str(density))
@@ -726,6 +781,7 @@ for date in dateList:
 	#runLog.write ("Total artists in all genres: " + str(totalArtists) + '\n')
 	#runLog.write ("Total edge-weighting: " + str(int(totalEdgeWeight)) + '\n')
 	runLog.write ('Nodes: ' + str(nodes) + '\n')
+	runLog.write ('Isolated nodes:' + str(isolateCount) + '\n')
 	runLog.write ('Edges: ' + str(edges) + '\n')
 	runLog.write ('Self-loops: ' + str(selfLoopEdges) + '\n')
 	runLog.write ('Density: ' + str(density) + '\n')
