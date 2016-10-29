@@ -1,19 +1,19 @@
-# nhm_plotter_a10.py
-# Version a10
+# nhm_bar_plot_b02.py
+# Version b02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# March 31st 2016
+# October 28th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# Network Hybridity Metric Plotter (for 'JG' method)
+# Network Hybridity Metric Plotter
 
-# Processes file 'data/nhm_plot.txt' and produces 2 line-graphs: 
+# Processes file 'data/nhm_plot.txt' and produces 2 charts: 
 # Plots Hgraph and Mean-Hnode values (from'nhm') over time
-# Plots Hnode>0.5, Progenitors, and Sinks as a % of the total graph node-number
+# Plots Hnode>0.5, Progenitors (Sources), and Sinks as a % of the total graph node-number
 # Saves plots as '.eps' files
 
-# USE AFTER 'nhm_b01.py'
+# USE AFTER 'nhm_b06.py'
 
 # import packages
 import os
@@ -22,7 +22,7 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("a10")
+versionNumber = ("b02")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -33,21 +33,21 @@ if not os.path.exists("graphs"):
     os.makedirs("graphs")
 
 # open file for writing log
-logPath = os.path.join("logs", 'nhm_plotter_' + versionNumber + '_log.txt')
+logPath = os.path.join("logs", 'nhm_bar_plotter_' + versionNumber + '_log.txt')
 runLog = open(logPath, 'a')
 
 # define paths for graphs
 #graphHPath = os.path.join("graphs", 'nhm_plotter_' + versionNumber + ".eps")
-nodeHPath = os.path.join("graphs", 'nhm_nodeH_plotter_' + versionNumber + ".eps")
-graphPercPath = os.path.join("graphs", 'nhm_Perc_plotter_' + versionNumber + ".eps")
+nodeHPath = os.path.join("graphs", 'nhm_h_bar_plot_' + versionNumber + ".eps")
+graphPercPath = os.path.join("graphs", 'nhm_p_bar_plot_' + versionNumber + ".eps")
 
 # Initiate timing of run
 runDate = datetime.now()
 startTime = datetime.now()
 
 # ..and begin..
-runLog.write ('\n' + 'Network Hybridity Metric Plotter - Alpha | ' + 'Version: ' + versionNumber + '\n' + '\n')
-print ('\n' + 'Network Hybridity Metric Plotter - Alpha | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
+runLog.write ('\n' + 'Network Hybridity Metric Bar Plotter - Beta | ' + 'Version: ' + versionNumber + '\n' + '\n')
+print ('\n' + 'Network Hybridity Metric Bar Plotter - Beta | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'nhm_plot.txt')
@@ -77,27 +77,31 @@ for line in dataInput:
   lineCounter += 1
 
 # graphH Plot
+# bar width
+width = 4
+
 xAxis = []
 yAxis = []
+adjGraphHX = []
 
 for key, value in sorted(graphHyears.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjGraphHX.append(int(key - 4))
 
 # set axes values
-x_low = (min(xAxis) - 5)
-x_high = (max(xAxis) + 5)
+x_low = (min(xAxis) - 10)
+x_high = (max(xAxis) + 10)
 y_low = 0
-y_high = 1.0
+y_high = 0.6
 
-# plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hgraph')
+plt.bar(adjGraphHX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hgraph')
+plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015],fontsize=9)
 
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.xlabel('Year', fontsize=14)
-plt.ylabel('Hybridity', fontsize=14)
+plt.xlabel('Category Omega-Year', fontsize=12)
+plt.ylabel('Hybridity', fontsize=12)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 # plt.savefig(graphHPath, format = 'eps')
@@ -106,10 +110,12 @@ plt.ylim(y_low, y_high)
 # meanNodehH Plot
 xAxis = []
 yAxis = []
+adjNodeHX = []
 
 for key, value in sorted(nodeHyears.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjNodeHX.append(int(key))
 
 # set axes values
 #x_low = (min(xAxis) - 5)
@@ -118,8 +124,7 @@ for key, value in sorted(nodeHyears.iteritems()):
 #y_high = 1.0
 
 # plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Mean-Hnode')
+plt.bar(adjNodeHX, yAxis, width, color='black', edgecolor = 'black', label='Mean-Hnode')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)
@@ -134,29 +139,34 @@ plt.ylim(y_low, y_high)
 plt.savefig(nodeHPath, format = 'eps')
 plt.clf()
 
+
 # GraphPerc Plot
+# bar width
+width = 2
+
 # Plot Hnode > 0.5 Hybrids
 xAxis = []
 yAxis = []
+adjNodePX = []
 
 for key, value in sorted(nodePercs.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjNodePX.append(int(key - 3))
 
 # set axes values
-x_low = (min(xAxis) - 5)
-x_high = (max(xAxis) + 5)
+x_low = (min(xAxis) - 10)
+x_high = (max(xAxis) + 10)
 y_low = 0
-y_high = 100
+y_high = 60
 
 # plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='solid', color='r', label='Hnode>0.5')
-
+plt.bar(adjNodePX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hnode>0.5')
+plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015], fontsize=9)
 # label, plot and save image of graph
 plt.grid(zorder=0)
-plt.xlabel('Year', fontsize=14)
-plt.ylabel('Percentage of Nodes', fontsize=14)
+plt.xlabel('Category Omega-Year', fontsize=12)
+plt.ylabel('Percentage of Nodes', fontsize=12)
 plt.xlim(x_low, x_high)
 plt.ylim(y_low, y_high)
 #plt.savefig(graphPercPath, format = 'eps')
@@ -165,10 +175,12 @@ plt.ylim(y_low, y_high)
 # Plot Progenitors
 xAxis = []
 yAxis = []
+adjSourcePX = []
 
 for key, value in sorted(progenPercs.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjSourcePX.append(int(key -1))
 
 # set axes values
 #x_low = (min(xAxis) - 5)
@@ -177,8 +189,7 @@ for key, value in sorted(progenPercs.iteritems()):
 #y_high = 100
 
 # plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Progenitors')
+plt.bar(adjSourcePX, yAxis, width, color='cyan', edgecolor = 'black', hatch='-', label='Sources')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)
@@ -196,10 +207,12 @@ plt.ylim(y_low, y_high)
 # Plot Sinks
 xAxis = []
 yAxis = []
+adjSinkPX = []
 
 for key, value in sorted(sinkPercs.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
+   adjSinkPX.append(int(key + 1))
 
 # set axes values
 #x_low = (min(xAxis) - 5)
@@ -208,8 +221,7 @@ for key, value in sorted(sinkPercs.iteritems()):
 #y_high = 100
 
 # plot graph
-width = 1
-plt.plot(xAxis, yAxis, linestyle='dotted', color='k', label='Sinks')
+plt.bar(adjSinkPX, yAxis, width, color='black', edgecolor = 'black', label='Sinks')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)

@@ -1,4 +1,4 @@
-ENG-Tools beta v. 12
+ENG-Tools beta v. 12.2
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-October 7th 2016
+October 29th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -27,13 +27,21 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
+- 'nhm_line_plot' writes line charts, and labels x axis with set-year values.
+
+- 'nhm_bar_plot' writes bar charts, and labels x axis with category values.
+
+- New version of 'eng_network_multi' (b28) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
+
+- New version of 'eng_network_single' (b27) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
+
+- 'eng_nodesets' (b08) works with time-sliced artist data and writes to 'ts_data/'
+
+- 'timeslicer' (a03) bulk generates time-sliced artist data and writes to 'ts_data/'
+
 - 'ghp' (a09) now resets axes parameters after saving image. 
 
-- New version of 'nhm' (b05) deals with time-sliced data.
-
-- New version of 'eng_network_single' (b25) deals with time-sliced data and writes 'maxDeg' (maximum degree) metric. 
-
-- New version of 'eng_nodesets' (b06) deals with artist time-slice data (written by 'timeslicer'). 
+- New version of 'nhm' (b06) deals with time-sliced data. 
 
 - 'timeslicer' deals with raw genre files and writes new ones after artist time-slicing.
 
@@ -135,13 +143,13 @@ NETWORK CREATION AND ANALYSIS
 
 1) timeslicer: 
 
-This generates an OMEGAYEAR folder in 'data/', with associated timesliced genre files (in 'data/OMEGAYEAR/genres') and 'data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
+This generates a list of cluster dates from `first_cluster.txt' and uses this ti bulk-create OMEGAYEAR folders in 'ts_data/', with associated timesliced genre files (in 'ts_data/OMEGAYEAR/genres') and 'ts_data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
 It is designed to allow timesliced-data processing using existing methods.
 
 2) eng_nodesets: 
 
-This converts the genres to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
-The output file from this ('data/wuGraph_data.txt') is a weighted undirected edgelist for use by 'eng_network_multi' and 'eng_network_single'.  
+This converts the time-sliced genre data in `ts_data/' to set()s containing 'artists' as elements. It then finds all intersections based upon shared artists. 
+The output file from this ('ts_data/OMEGAYEAR/OMEGAYEAR_wuGraph_data.txt') is a weighted undirected edgelist for use by 'eng_network_multi' and 'eng_network_single'.  
 
 3) eng_network_multi: 
 
@@ -201,15 +209,21 @@ A file containing this data can be found in the 'data/..' directory, and this is
 
 'pr_plotter' takes 'results/pr_hot_fam_results.txt' and plots 3 graphs from this (PageRank-Mean Familiarity, PageRank-Mean Hotttnesss, and Mean Hotttness-Mean Familiarity). 
 
-7) nhm_plotter: 
+7) nhm_bar_plot: 
 
-Run 'nhm_plotter.py' after 'nhm.py' to plot 2 graphs (in 'graphs/..'). 
-One shows 'Hgraph' (solid red) and 'Mean-Hnode' (dashed blue). 
-The other shows '% Hnode = 0.5 hybrid nodes' (solid red), '% Progenitor nodes' (dashed blue), and '% Sink nodes' (dotted black). 
+Run 'nhm_bar_plot.py' after temporal-category-based analysis 'nhm.py' to plot 2 bar charts (in 'graphs/..'). 
+One shows 'Hgraph' (yellow, hatched) and 'Mean-Hnode' (black). 
+The other shows '% Hnode = 0.5 hybrid nodes' (yellow, hatched), '% Progenitor nodes' (green, hatched), and '% Sink nodes' (black). 
 
-8) ghp: 
+8) nhm_line_plot:
 
-'ghp...py' reads gexf files in 'gexf/directed' and plots SVG hives (in 'networks/hives/all')
+Run 'nhm_lne_plot.py' after full-range analysis 'nhm.py' to plot 2 line charts (in 'graphs/..'). 
+One shows 'Hgraph' (red, solid) and 'Mean-Hnode' (blue, dashed). 
+The other shows '% Hnode = 0.5 hybrid nodes' (red, solid), '% Progenitor nodes' (blue, dashed), and '% Sink nodes' (black, dotted). 
+
+9) ghp: 
+
+'ghp...py' reads gexf files in 'gexf/directed' and plots SVG hives (in 'networks/hives/all'). The axes represent the temporal categories (deprecated - working on this), the node position represents the degree of the genre (the further out the higher). 
 
 
 MANIFEST 
@@ -252,11 +266,11 @@ MANIFEST
 
 (19) pr_plotter.py
 
-(20) nhm_...cr.py (CR method)
+(20) nhm.py
 
-(21) nhm.py (JG method)
+(21) nhm_bar_plot.py
 
-(22) nhm_plotter.py
+(22) nhm_line_plot.py
 
 (23) ghp.py
 

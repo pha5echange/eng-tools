@@ -1,6 +1,6 @@
 # Network Hybridity Metric
-# v. b0.5
-# October 1st 2016
+# v. b0.6
+# October 28th 2016
 # by jmg*AT*phasechange*DOT*info
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
@@ -22,7 +22,7 @@ import os
 import networkx as nx
 from datetime import datetime
 
-versionNumber = ("b05")
+versionNumber = ("b06")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -158,7 +158,7 @@ for index in range(len(fileNames)):
 		if omegaYear == 0:
 			genrePath = os.path.join("genres", nodeV + '.txt')
 		else:
-			genrePath = os.path.join("data", str(omegaYear), "genres", nodeV + '.txt')
+			genrePath = os.path.join("ts_data", str(omegaYear), "genres", nodeV + '.txt')
 
 		genreInput = open(genrePath, "r")
 			
@@ -224,7 +224,7 @@ for index in range(len(fileNames)):
 				if omegaYear == 0:
 					sourceGenrePath = os.path.join("genres", nodeU + '.txt')
 				else:
-					sourceGenrePath = os.path.join("data", str(omegaYear), "genres", nodeU + '.txt')
+					sourceGenrePath = os.path.join("ts_data", str(omegaYear), "genres", nodeU + '.txt')
 
 				sourceGenreFile = open(sourceGenrePath, 'r')
 
