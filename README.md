@@ -1,14 +1,12 @@
 ENG-Tools beta v. 12.2
 
-(ts-dev branch)
-
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
 j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-October 28th 2016
+October 29th 2016
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
