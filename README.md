@@ -143,7 +143,7 @@ NETWORK CREATION AND ANALYSIS
 
 1) timeslicer: 
 
-This generates a list of cluster dates from `first_cluster.txt' and uses this ti bulk-create OMEGAYEAR folders in 'ts_data/', with associated timesliced genre files (in 'ts_data/OMEGAYEAR/genres') and 'ts_data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
+This generates a list of cluster dates from `first_cluster.txt' and uses this to bulk-create OMEGAYEAR folders in 'ts_data/', with associated timesliced genre files (in 'ts_data/OMEGAYEAR/genres') and 'ts_data/OMEGAYEAR/OMEGAYEAR_artistNums.txt'.
 It is designed to allow timesliced-data processing using existing methods.
 
 2) eng_nodesets: 
