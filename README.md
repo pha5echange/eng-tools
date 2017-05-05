@@ -1,4 +1,4 @@
-ENG-Tools beta v. 12.2
+ENG-Tools beta v. 12.3
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-October 29th 2016
+May 5th 2017
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -27,13 +27,13 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
+- New version of 'eng_network_single' (b28) deals with time-sliced data and writes sink- and source-node metrics, and LCC- membership file to `ts_data'
+
 - 'nhm_line_plot' writes line charts, and labels x axis with set-year values.
 
 - 'nhm_bar_plot' writes bar charts, and labels x axis with category values.
 
 - New version of 'eng_network_multi' (b29) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
-
-- New version of 'eng_network_single' (b27) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
 
 - 'eng_nodesets' (b08) works with time-sliced artist data and writes to 'ts_data/'
 

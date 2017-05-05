@@ -1,7 +1,7 @@
-# eng_network_single_b27.py
-# Version b27
+# eng_network_single_b28.py
+# Version b28
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 10th 2016
+# May 5th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -22,6 +22,7 @@
 # This version incorporates PageRank
 # Incorporates Artist Time Slicing
 # Added 'maxDeg' metric and 'isolated nodes' counter
+# This version writes a list of nodes in the Largest Connected Component to 'ts_data'
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -36,7 +37,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b27")
+versionNumber = ("b28")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -138,6 +139,10 @@ sortArtists = OrderedDict(sorted(artistDict.items()))
 nodeListPath = os.path.join("ts_data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_nodeList.txt')
 nodeListOP = open (nodeListPath, 'w') 
 
+# Open file for writing LCC nodes
+lccPath = os.path.join("ts_data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_lcc.txt')
+lccOP = open(lccPath, 'w')
+
 # Open file to write list of edges
 edgeListPath = os.path.join("ts_data", omegaYear, 'eng_network_' + versionNumber + '_' + omegaYear + '_edgeList.txt')
 edgeListOP = open (edgeListPath, 'w') 
@@ -163,8 +168,8 @@ anPath = os.path.join("results/analysis", 'eng_network_' + versionNumber + '_' +
 anFile = open(anPath, 'w')
 
 # Open file to write image
-#nwImgPath = os.path.join("networks", 'eng_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
-#nwImg = open (nwImgPath, 'w')
+nwImgPath = os.path.join("networks", 'eng_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
+nwImg = open (nwImgPath, 'w')
 
 anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
 anFile.write ("Single-Network Thing | Version " + versionNumber + '\n' + '\n')
@@ -542,7 +547,6 @@ else:
 		print (str(isolateCount) + ' isolated nodes intact.' + '\n')
 		runLog.write('\n' + str(isolateCount) + ' isolated nodes intact.' + '\n')
 
-'''
 # Plot and display graph
 # Graph plotting parameters - moved to config file 'config_nw.txt'
 print ('Reading layout config file...' + '\n')
@@ -575,24 +579,40 @@ nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edg
 #nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
 # write image file
-#print ('Writing image file...' + '\n')
-#plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
-#nwImg.close()
+print ('Writing image file...' + '\n')
+plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
+nwImg.close()
 
 # display graph
-#print ('Displaying graph...' + '\n')
-#plt.show()
-'''
+print ('Displaying graph...' + '\n')
+plt.show()
 
 # Recalculate basic graph statistics
 nodes = nx.number_of_nodes(diEnGraph)
 edges = nx.number_of_edges(diEnGraph)
+nodeList = nx.nodes(diEnGraph)
+nodeList.sort()
 density = nx.density(diEnGraph)
 isDag = nx.is_directed_acyclic_graph(diEnGraph)
+
+# Count sources and sinks
+sourceCount = 0
+sinkCount = 0
+for i in nodeList:
+	outDeg = diEnGraph.out_degree(i)
+	inDeg = diEnGraph.in_degree(i)
+	if outDeg == 0 and inDeg >= 1: 
+		sinkCount += 1
+
+	elif inDeg == 0 and outDeg >= 1:
+		sourceCount += 1
 
 print ('Final Directed Graph Information' + '\n')
 print ('User-entered date: ' + str(dateIP))
 print ('Nodes: ' + str(nodes))
+print ('Isolated nodes: ' + str(isolateCount))
+print ('Source nodes: ' + str(sourceCount))
+print ('Sink nodes: ' + str(sinkCount))
 print ('Edges: ' + str(edges))
 print ('Density: ' + str(density))
 print ('Is DAG? ' + str(isDag))
@@ -600,6 +620,9 @@ print
 print (str(nx.info(diEnGraph)))
 
 anFile.write ('Nodes: ' + str(nodes) + '\n')
+anFile.write ('Isolated nodes: ' + str(isolateCount) + '\n')
+anFile.write ('Source nodes: ' + str(sourceCount) + '\n')
+anFile.write ('Sink nodes: ' + str(sinkCount) + '\n')
 anFile.write ('Edges: ' + str(edges) + '\n')
 anFile.write ('Density: ' + str(density) + '\n')
 anFile.write ('Is DAG? ' + str(isDag) + '\n')
@@ -608,6 +631,9 @@ anFile.write ('\n' + str(nx.info(diEnGraph)) + '\n')
 runLog.write ('\n' + 'Final Directed Graph Information' + '\n' + '\n')
 runLog.write ('User-entered date: ' + str(dateIP) + '\n')
 runLog.write ('Nodes: ' + str(nodes) + '\n')
+runLog.write ('Isolated nodes:' + str(isolateCount) + '\n')
+runLog.write ('Source nodes: ' + str(sourceCount) + '\n')
+runLog.write ('Sink nodes: ' + str(sinkCount) + '\n')
 runLog.write ('Edges: ' + str(edges) + '\n')
 runLog.write ('Density: ' + str(density) + '\n')
 runLog.write ('Is DAG? ' + str(isDag) + '\n')
@@ -641,6 +667,18 @@ cl_sizes = [len(c) for c in cl]
 #print ('Size of cliques: ' + str(cl_sizes))
 anFile.write ('Size of cliques: ' + str(cl_sizes) + '\n' + '\n')
 
+# Find LCC nodes, print to screen and and write to file
+largeCC = max(nx.connected_components(newEnGraph), key=len)
+print
+print ("Nodes in LCC: ")
+print
+print (largeCC)
+lccOP.write(str(largeCC))
+lccOP.write('\n' + '\n' + "There are " + str(len(largeCC)) + " nodes in the LCC of this graph." + '\n')
+lccOP.close()
+print
+print ("There are " + str(len(largeCC)) + " nodes in the LCC of this graph.")
+print
 
 # Write undirected gexf file for use in Gephi
 print ('\n' + 'Writing final undirected gexf file...' + '\n')
