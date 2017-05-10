@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-May 5th 2017
+May 10th 2017
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -27,7 +27,7 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
-- New version of 'eng_network_single' (b28) deals with time-sliced data and writes sink- and source-node metrics, and LCC- membership file to `ts_data'
+- New version of 'eng_network_single' (b29) deals with time-sliced data, writes sink- and source-node metrics, and adds LCC analysis. 
 
 - 'nhm_line_plot' writes line charts, and labels x axis with set-year values.
 
