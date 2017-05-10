@@ -1,7 +1,7 @@
-# eng_network_single_b28.py
-# Version b28
+# eng_network_single_b29.py
+# Version b29
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# May 5th 2016
+# May 10th 2016
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -22,7 +22,7 @@
 # This version incorporates PageRank
 # Incorporates Artist Time Slicing
 # Added 'maxDeg' metric and 'isolated nodes' counter
-# This version writes a list of nodes in the Largest Connected Component to 'ts_data'
+# This version writes a list of nodes in the Largest Connected Component to 'ts_data' and a GEXF of the LCC
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -37,7 +37,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b28")
+versionNumber = ("b29")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -66,6 +66,9 @@ if not os.path.exists("gexf/directed"):
 
 if not os.path.exists("gexf/final"):
 	os.makedirs("gexf/final")
+
+if not os.path.exists("gexf/lcc"):
+	os.makedirs("gexf/lcc")
 
 # Create 'results' subdirectories if necessary
 if not os.path.exists("results"):
@@ -158,6 +161,10 @@ gexfDFile = open(gexfDPath, 'w')
 # Open file for writing final gexf
 gexfFinPath = os.path.join("gexf/final", 'eng_network_final_' + versionNumber + '_' + omegaYear + '.gexf')
 gexfFinFile = open(gexfFinPath, 'w')
+
+# OPen file for writing LCC gexf
+gexfLccPath = os.path.join("gexf/lcc", 'eng_lcc_' + versionNumber + '_' + omegaYear + '.gexf')
+gexfLccFile = open(gexfLccPath, 'w')
 
 # Open file for Page Rank data
 prPath = os.path.join("ts_data", omegaYear, omegaYear +'_pagerank.txt')
@@ -678,6 +685,42 @@ lccOP.write('\n' + '\n' + "There are " + str(len(largeCC)) + " nodes in the LCC 
 lccOP.close()
 print
 print ("There are " + str(len(largeCC)) + " nodes in the LCC of this graph.")
+print
+
+# Render GEXF file of LCC
+print
+print ("Writing gexf file of LCC... " + '\n')
+runLog.write('\n' + "Writing gexf file of LCC... " + '\n')
+lccSub = max(nx.connected_component_subgraphs(newEnGraph), key=len)
+nx.write_gexf(lccSub, gexfLccFile)
+gexfLccFile.close()
+
+# Analysis of LCC
+print ('\n' + 'Analysing LCC...' + '\n')
+lccNodes = nx.number_of_nodes(lccSub)
+lccEdges = nx.number_of_edges(lccSub)
+lccDegreeSeq = sorted(nx.degree(lccSub).values(),reverse=True)
+lccMaxDeg = max(lccDegreeSeq)
+lccDensity = nx.density(lccSub)
+lccAvClustering = nx.average_clustering(lccSub)
+lccCl = nx.find_cliques(lccSub)
+lccCl = sorted(list(lccCl), key = len, reverse = True)
+lccCl_sizes = [len(c) for c in lccCl]
+
+print ('LCC Nodes: ' + str(lccNodes))
+anFile.write('LCC Nodes: ' + str(lccNodes) + '\n')
+print ('LCC Edges: ' + str(lccEdges))
+anFile.write('LCC Edges: ' + str(lccEdges) + '\n')
+print ('LCC Density: ' + str(lccDensity))
+anFile.write('LCC Density: ' + str(lccDensity) + '\n')
+print ('Maximal degree of LCC: ' + str(lccMaxDeg) + '\n')
+anFile.write ('Maximal degree of LCC: ' + str(lccMaxDeg) + '\n')
+print ('ACC of LCC: ' + str(lccAvClustering))
+anFile.write('ACC of LCC: ' + str(lccAvClustering) + '\n')
+print ('Number of cliques in LCC: ' + str(len(lccCl)) + '\n')
+anFile.write ('Number of cliques in LCC: ' + str(len(lccCl)) + '\n' + '\n')
+print ('Size of LCC cliques: ' + str(lccCl_sizes))
+anFile.write ('Size of LCC cliques: ' + str(lccCl_sizes) + '\n')
 print
 
 # Write undirected gexf file for use in Gephi
