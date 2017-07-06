@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-May 10th 2017
+Jul 6th 2017
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -26,6 +26,8 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 /////////////////////////////////////////////////////////////////////////
 
 LATEST CHANGES AND ADDITIONS: 
+
+- `eng_ts_en_mb_map' enables the creation of time-sliced EN-MB mappings.
 
 - New version of 'eng_network_single' (b29) deals with time-sliced data, writes sink- and source-node metrics, and adds LCC analysis. 
 
@@ -137,6 +139,7 @@ The purpose of this is to facilitate analysis at a later date. To use this scrip
 6) eng_en_mb_map: 
 
 'eng_en_mb_map..py' reads all genre files and generates a text file with 'Artist Name ^ EchoNest ID ^ MusicBrainz ID' (to facilitate mapping EN to MB)
+N.B. `eng_ts_en_mb_map_a01' creates time-sliced artist mappings, based upon user-entered Omega Year, and the existence of time-sliced genre data. 
 
 
 NETWORK CREATION AND ANALYSIS
@@ -276,14 +279,16 @@ MANIFEST
 
 (24) eng_en_mb_map.py
 
-(25) timeslicer.py
+(25) eng_ts_en_mb_map_a01.py
 
-(26) config/config_nw.txt (Network layout config. file)
+(26) timeslicer.py
 
-(27) data/retromatic.txt
+(27) config/config_nw.txt (Network layout config. file)
 
-(28) data/date_ratios.txt
+(28) data/retromatic.txt
 
-(29) genres_2016_04_09.zip
+(29) data/date_ratios.txt
 
-(30) config/apikey.txt (BLANK - REQUIRES API KEY) - DEPRECATED
+(30) genres_2016_04_09.zip
+
+(31) config/apikey.txt (BLANK - REQUIRES API KEY) - DEPRECATED
