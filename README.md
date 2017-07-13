@@ -1,4 +1,4 @@
-ENG-Tools beta v. 12.3
+ENG-Tools beta v. 12.4
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-Jul 6th 2017
+Jul 13th 2017
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -26,6 +26,8 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 /////////////////////////////////////////////////////////////////////////
 
 LATEST CHANGES AND ADDITIONS: 
+
+- `eng_MBdate' enables start date validation with MusicBrainz data (see `mbg-tools' repository). 
 
 - `eng_ts_en_mb_map' enables the creation of time-sliced EN-MB mappings.
 
@@ -140,6 +142,10 @@ The purpose of this is to facilitate analysis at a later date. To use this scrip
 
 'eng_en_mb_map..py' reads all genre files and generates a text file with 'Artist Name ^ EchoNest ID ^ MusicBrainz ID' (to facilitate mapping EN to MB)
 N.B. `eng_ts_en_mb_map_a01' creates time-sliced artist mappings, based upon user-entered Omega Year, and the existence of time-sliced genre data. 
+
+7) eng_MBdate:
+
+This enables start date validation with MusicBrainz data, by reading data generated via tools in the `mbg-tools' repository. Specifically, the file `data/mb_artist_xml.txt' (included in this repository). WORK IN PROGRESS - TAKES HOURS - USE WITH CAUTION.
 
 
 NETWORK CREATION AND ANALYSIS
@@ -279,16 +285,18 @@ MANIFEST
 
 (24) eng_en_mb_map.py
 
-(25) eng_ts_en_mb_map_a01.py
+(25) eng_ts_en_mb_map.py
 
 (26) timeslicer.py
 
-(27) config/config_nw.txt (Network layout config. file)
+(27) eng_MBdate.py
 
-(28) data/retromatic.txt
+(28) config/config_nw.txt (Network layout config. file)
 
-(29) data/date_ratios.txt
+(29) data/retromatic.txt
 
-(30) genres_2016_04_09.zip
+(30) data/date_ratios.txt
 
-(31) config/apikey.txt (BLANK - REQUIRES API KEY) - DEPRECATED
+(31) genres_2016_04_09.zip
+
+(32) config/apikey.txt (BLANK - REQUIRES API KEY) - DEPRECATED
