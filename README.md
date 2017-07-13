@@ -111,41 +111,41 @@ Unzip so a 'genres' folder appears as a subdirectory in the main folder.
 
 DATA PROCESSING AND ANALYSIS
 
-1) eng_first:
+1) eng_MBdate:
+
+This enables start date validation with MusicBrainz data, by reading data generated via tools in the 'mbg-tools' repository. Specifically, the file 'data/mb_artist_xml.txt' (included in this repository). It creates a folder called 'datedGenres' containing corrected genre files. WORK IN PROGRESS - TAKES HOURS - USE WITH CAUTION.
+
+2) eng_first:
 
 To analyse and plot the genres, start with 'eng_first.py'. 
 This will find the first instances of artists within the genres and writes this data to 'data/first_instances.txt'
 
-2) eng_cluster: 
+3) eng_cluster: 
 
 To analyse artists clustered around single start dates, rather than first instances, run 'eng_cluster.py'. 
 This will ask you for a figure; either an absolute value or percentage of artists to be considered as a cluster. 
 The minimum number of artists that will be considered a cluster, is 2; this is hardcoded. 
 If you choose a percentage that works out at less than 2, the figure is set as to 2. 
 
-3) eng_cdr: 
+4) eng_cdr: 
 
 This calculates the ratio of artists with date information to those without, for each genre. 
 
 Run this, and it will use the 'data/date_ratios.txt' file from earlier. It writes the output to 'results/eng_cdr.txt'
 
-4) eng_fam_hot: 
+5) eng_fam_hot: 
 
 'eng_fam_hot.py' calculates the lowest, highest and average 'Familiarity' and 'Hotttnesss' metrics for each genre and stores these in 'results/'.  
 
-5) eng_prob.py:
+6) eng_prob.py:
 
 'eng_prob.py' converts the output from a single genre plot (the results file from 'eng_plot.py'- a genre data file which has been converted to a frequency distribution) to a probability distribution. 
 The purpose of this is to facilitate analysis at a later date. To use this script, copy a single-genre plot file to 'data/..' and rename it to 'genre_freq_data.txt'. 
 
-6) eng_en_mb_map: 
+7) eng_en_mb_map: 
 
 'eng_en_mb_map..py' reads all genre files and generates a text file with 'Artist Name ^ EchoNest ID ^ MusicBrainz ID' (to facilitate mapping EN to MB)
 N.B. 'eng_ts_en_mb_map_a01' creates time-sliced artist mappings, based upon user-entered Omega Year, and the existence of time-sliced genre data. 
-
-7) eng_MBdate:
-
-This enables start date validation with MusicBrainz data, by reading data generated via tools in the 'mbg-tools' repository. Specifically, the file 'data/mb_artist_xml.txt' (included in this repository). WORK IN PROGRESS - TAKES HOURS - USE WITH CAUTION.
 
 
 NETWORK CREATION AND ANALYSIS
