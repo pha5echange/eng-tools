@@ -1,7 +1,7 @@
-# eng_MBdate_a05.py
-# Version a05
+# eng_MBdate_a06.py
+# Version a06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# July 11th 2017
+# July 13th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -16,7 +16,7 @@ import os
 from datetime import datetime
 
 appName = ("eng_MBdate_")
-versionNumber = ("a05")
+versionNumber = ("a06")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -33,8 +33,8 @@ if not os.path.exists("data"):
 xmlPath = os.path.join("data", 'mb_artist_xml.txt')
 
 # open file for writing log
-#logPath = os.path.join("logs", appName + versionNumber + '_log.txt')
-#runLog = open(logPath, 'a')
+logPath = os.path.join("logs", appName + versionNumber + '_log.txt')
+runLog = open(logPath, 'w')
 
 # create 'datadGenres' subdirectory if necessary
 #if not os.path.exists("datedGenres"):
@@ -94,7 +94,8 @@ for index in range(len(fileNames)):
 		artist, enid, start, end_date, familiarity, hotness, mbid = line.split(",")
 		mbid = mbid.strip()
 
-		enDict[mbid] = start
+		if mbid in mbDict:
+			enDict[mbid] = start
 
 print
 print(enDict)
@@ -109,6 +110,7 @@ print("Returns '0' if both dictionaries are equal, '-1' if mbDict < enDict, and 
 print(cmp(mbDict, enDict))
 print
 
+'''
 # Create updated dictionary
 genreDictCounter = 0
 genreDict = {}
@@ -129,12 +131,8 @@ for key, value in mbDict.iteritems():
 		except:
 			pass
 print
-print(genreDict)
-
-# Don't really understand this 
-#value = {k : enDict[k] for k in set(enDict) - set(mbDict)}
-#print (value)
-#print (len(value))
+print (genreDict)
+print >> runLog,(genreDict)
 
 # Recompare the dictionaries
 print
@@ -142,6 +140,7 @@ print("Recomparing dictionaries... ")
 print ("MB Dictionary Entries: " + str(len(mbDict)))
 print ("EN Dictionary Entries: " + str(len(enDict)))
 print ("Genre (generated) Dictionary: " + str(len(genreDict)))
+'''
 
 # End timing of run
 endTime = datetime.now()
