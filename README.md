@@ -141,11 +141,11 @@ The purpose of this is to facilitate analysis at a later date. To use this scrip
 6) eng_en_mb_map: 
 
 'eng_en_mb_map..py' reads all genre files and generates a text file with 'Artist Name ^ EchoNest ID ^ MusicBrainz ID' (to facilitate mapping EN to MB)
-N.B. `eng_ts_en_mb_map_a01' creates time-sliced artist mappings, based upon user-entered Omega Year, and the existence of time-sliced genre data. 
+N.B. 'eng_ts_en_mb_map_a01' creates time-sliced artist mappings, based upon user-entered Omega Year, and the existence of time-sliced genre data. 
 
 7) eng_MBdate:
 
-This enables start date validation with MusicBrainz data, by reading data generated via tools in the `mbg-tools' repository. Specifically, the file `data/mb_artist_xml.txt' (included in this repository). WORK IN PROGRESS - TAKES HOURS - USE WITH CAUTION.
+This enables start date validation with MusicBrainz data, by reading data generated via tools in the 'mbg-tools' repository. Specifically, the file 'data/mb_artist_xml.txt' (included in this repository). WORK IN PROGRESS - TAKES HOURS - USE WITH CAUTION.
 
 
 NETWORK CREATION AND ANALYSIS
