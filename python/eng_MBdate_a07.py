@@ -1,5 +1,5 @@
-# eng_MBdate_a06.py
-# Version a06
+# eng_MBdate_a07.py
+# Version a07
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # July 13th 2017
 
@@ -16,7 +16,7 @@ import os
 from datetime import datetime
 
 appName = ("eng_MBdate_")
-versionNumber = ("a06")
+versionNumber = ("a07")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -69,11 +69,18 @@ with open(xmlPath) as xmlFile:
 		begin = begin.strip()
 		xMbId = xMbId.strip()
 
+		if not begin:
+			strChars = 0
+		else:
+			strChars = len(begin)
+			begin = begin[:4]
+			try:
+				beginInt = int(begin)
+			except:
+				pass
+
 		if mbType == "Person":
 			try:
-				strChars = len(begin)
-				begin = begin[:4]
-				beginInt = int(begin)
 				if strChars > 4:
 					personBegin = beginInt + 20
 				else:
