@@ -27,7 +27,7 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
-- `eng_MBdate' enables start date validation with MusicBrainz data see. 
+- `eng_MBdate' enables start date validation with MusicBrainz data. 
 
 - `eng_ts_en_mb_map' enables the creation of time-sliced EN-MB mappings.
 
