@@ -1,5 +1,5 @@
-# eng_MBdate_a07.py
-# Version a07
+# eng_MBdate_a08.py
+# Version a08
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
 # July 13th 2017
 
@@ -16,7 +16,7 @@ import os
 from datetime import datetime
 
 appName = ("eng_MBdate_")
-versionNumber = ("a07")
+versionNumber = ("a08")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -46,9 +46,9 @@ enDictFile = open(enDictPath, 'w')
 genreDictPath = os.path.join("data", "genreDict_" + versionNumber + "_.txt")
 genreDictFile = open(genreDictPath, 'w')
 
-# create 'datadGenres' subdirectory if necessary
-#if not os.path.exists("datedGenres"):
-#	os.makedirs("datedGenres")
+# create 'datedGenres' subdirectory if necessary
+if not os.path.exists("datedGenres"):
+	os.makedirs("datedGenres")
 
 #dateCheckCounter = 0
 
@@ -57,7 +57,7 @@ runDate = datetime.now()
 startTime = datetime.now()
 
 # ..and begin..
-#runLog.write ('\n' + 'Genre Data Date Checker | ' + 'Version: ' + versionNumber + '\n' + '\n')
+runLog.write ('\n' + 'Genre Data Date Checker | ' + 'Version: ' + versionNumber + '\n' + '\n')
 print ('\n' + 'Genre Data Date Checker | ' + 'Version: ' + versionNumber + ' | Starting' + '\n')
 
 # Read XML file into dictionary {xMbId:begin}
@@ -103,9 +103,6 @@ for index in range(len(fileNames)):
 	# look for files in 'genres' subfolder
 	pathname = os.path.join("genres", fileNames[index])
 	dataInput = open(pathname, "r")
-
-	#datedGenrePath = os.path.join("datedGenres", fileNames[index])
-	#datedGenreFile = open(datedGenrePath, 'a')
 	
 	# read lines from file
 	for line in dataInput:
@@ -157,6 +154,41 @@ print
 print (genreDict)
 genreDictFile.write(str(genreDict))
 print
+
+# Read EN genre files, fix dates from genreDict, and write new `datedGenre' files
+for index in range(len(fileNames)):
+
+	# look for files in 'genres' subfolder
+	pathname = os.path.join("genres", fileNames[index])
+	dataInput = open(pathname, "r")
+
+	datedGenrePath = os.path.join("datedGenres", fileNames[index])
+	datedGenreFile = open(datedGenrePath, 'a')
+	
+	# read lines from file
+	for line in dataInput:
+		artist, enid, start, end_date, familiarity, hotness, mbid = line.split(",")
+		mbid = mbid.strip()
+
+		if mbid in genreDict:
+			print ("Written " + str(mbid) + " to file 'datedGenres/" + fileNames[index])
+			print >> datedGenreFile, artist + ',' + enid + ',' +  str(genreDict[mbid]) + ',' +  end_date + ',' +  familiarity + ',' +  hotness + ',' +  mbid
+			runLog.write (str(mbid) + '\n')
+		else:
+			print ("Not written: " + str(mbid))
+			runLog.write ("Not written: " + str(mbid) + '\n')
+
+	datedGenreFile.close()
+
+# Check for and remove empty datedGenre files
+
+# define path to 'datedGenres' directory
+datedFiles = os.listdir("datedGenres")
+
+for index in range(len(datedFiles)):
+	datedPath = os.path.join("datedGenres", datedFiles[index])
+	if os.stat(datedPath).st_size == 0:
+		os.remove(datedPath)
 
 # Recompare the dictionaries
 print
