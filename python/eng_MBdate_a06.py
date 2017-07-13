@@ -36,6 +36,16 @@ xmlPath = os.path.join("data", 'mb_artist_xml.txt')
 logPath = os.path.join("logs", appName + versionNumber + '_log.txt')
 runLog = open(logPath, 'w')
 
+# open files for writing dictionaries
+mbDictPath = os.path.join("data", "mbDict_" + versionNumber + "_.txt")
+mbDictFile = open(mbDictPath, 'w')
+
+enDictPath = os.path.join("data", "enDict_" + versionNumber + "_.txt")
+enDictFile = open(enDictPath, 'w')
+
+genreDictPath = os.path.join("data", "genreDict_" + versionNumber + "_.txt")
+genreDictFile = open(genreDictPath, 'w')
+
 # create 'datadGenres' subdirectory if necessary
 #if not os.path.exists("datedGenres"):
 #	os.makedirs("datedGenres")
@@ -76,6 +86,7 @@ with open(xmlPath) as xmlFile:
 
 print
 print(mbDict)
+mbDictFile.write(str(mbDict))
 print
 
 # Read EN genre files into dictionary {mbid:start}
@@ -96,9 +107,15 @@ for index in range(len(fileNames)):
 
 		if mbid in mbDict:
 			enDict[mbid] = start
+			print ("Written: " + str(mbid))
+			runLog.write (str(mbid) + '\n')
+		else:
+			print ("Not written: " + str(mbid))
+			runLog.write ("Not written: " + str(mbid) + '\n')
 
 print
 print(enDict)
+enDictFile.write(str(enDict))
 print
 
 # Compare the dictionaries
@@ -110,7 +127,6 @@ print("Returns '0' if both dictionaries are equal, '-1' if mbDict < enDict, and 
 print(cmp(mbDict, enDict))
 print
 
-'''
 # Create updated dictionary
 genreDictCounter = 0
 genreDict = {}
@@ -132,7 +148,8 @@ for key, value in mbDict.iteritems():
 			pass
 print
 print (genreDict)
-print >> runLog,(genreDict)
+genreDictFile.write(str(genreDict))
+print
 
 # Recompare the dictionaries
 print
@@ -140,21 +157,25 @@ print("Recomparing dictionaries... ")
 print ("MB Dictionary Entries: " + str(len(mbDict)))
 print ("EN Dictionary Entries: " + str(len(enDict)))
 print ("Genre (generated) Dictionary: " + str(len(genreDict)))
-'''
 
 # End timing of run
 endTime = datetime.now()
 
 # write to log
-#runLog.write ('\n' + 'Run Information' + '\n' + '\n')
-#runLog.write ('Version: ' + versionNumber + '\n')
-#runLog.write ("Dates checked: " + str(dateCheckCounter) + '\n')
-#runLog.write ('Date of run: {}'.format(runDate) + '\n')
-#runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n' + '\n')
-#runLog.close()
+runLog.write ('\n' + 'Run Information' + '\n' + '\n')
+runLog.write ('Version: ' + versionNumber + '\n')
+runLog.write ("MB Dictionary Entries: " + str(len(mbDict)) + '\n')
+runLog.write ("EN Dictionary Entries: " + str(len(enDict)) + '\n')
+runLog.write ("Genre (generated) Dictionary: " + str(len(genreDict)) + '\n')
+runLog.write ('Date of run: {}'.format(runDate) + '\n')
+runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n' + '\n')
+runLog.close()
 
 # write to screen
 print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
+print ("MB Dictionary Entries: " + str(len(mbDict)))
+print ("EN Dictionary Entries: " + str(len(enDict)))
+print ("Genre (generated) Dictionary: " + str(len(genreDict)))
 print ('Date of run: {}'.format(runDate))
 print('Duration of run : {}'.format(endTime - startTime))
