@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-Jul 13th 2017
+Aug 2nd 2017
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -113,7 +113,7 @@ DATA PROCESSING AND ANALYSIS
 
 1) eng_MBdate:
 
-This enables start date validation with MusicBrainz data, by reading data generated via tools in the 'mbg-tools' repository. Specifically, the file 'data/mb_artist_xml.txt' (included in this repository). It creates a folder called 'datedGenres' containing corrected genre files. WORK IN PROGRESS - TAKES HOURS - USE WITH CAUTION.
+This enables start date validation with MusicBrainz data, by reading data generated via tools in the 'mbg-tools' repository. Specifically, the file 'data/mb_artist_xml.txt' (included in this repository). It creates a folder called 'datedGenres' containing corrected genre files. 
 
 2) eng_first:
 

@@ -1,7 +1,7 @@
-# eng_MBdate_a08.py
-# Version a08
+# eng_MBdate_a09.py
+# Version a09
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# July 13th 2017
+# Aug 2nd 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -16,7 +16,7 @@ import os
 from datetime import datetime
 
 appName = ("eng_MBdate_")
-versionNumber = ("a08")
+versionNumber = ("a09")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -138,7 +138,8 @@ genreDict = {}
 print ("Iterating through... See you tmrw... ")
 
 for key, value in mbDict.iteritems():
-	for key, value in enDict.iteritems(): 
+	#for key, value in enDict.iteritems(): 
+	if key in enDict:
 		try:
 			if mbDict[key] == "":
 				genreDict[key] = enDict[key]
