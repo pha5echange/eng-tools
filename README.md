@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-Aug 2nd 2017
+Aug 4th 2017
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -196,13 +196,13 @@ Run 'eng_process_firsts.py' to plot the results from 'eng_first.py', and produce
 
 Run 'eng_process_clusters.py' to plot the results from 'eng_clusters.py' (in 'graphs/..'). 
 
-3) eng_multi_plot: 
+3) eng_multiplot: 
 
-To plot the graph for artists-over-time for each and every genre, run 'eng_multi_plot.py'. 
+To plot the graph for artists-over-time for each and every genre, run 'eng_multiplot.py'. 
 It will produce one graph (named with the version number and genre) for each genre file (and place them in 'graphs/..'). 
-Individual genres can easily be plotted in two ways; either run 'eng_multi_plot' having placed only one genre file in the 'genres/..' folder, or run 'eng_plot.py'. 
+Individual genres can easily be plotted in two ways; either run 'eng_multiplot' having placed only one genre file in the 'genres/..' folder, or run 'eng_plot.py'. 
 If doing the later, you will need to copy a genre data file and place it in 'data/..'. Then rename it to 'genre_2_plot.txt'. 
-Also, 'eng_plot' and 'eng_multi_plot' have statistical calulations integrated into them; these are written to 'results/eng_multi_plot_stats_data.txt'. 
+Also, 'eng_plot' and 'eng_multiplot' have statistical calulations integrated into them; these are written to 'results/eng_multiplot_stats_data.txt'. 
 
 4) eng_plot_retromatic:
 

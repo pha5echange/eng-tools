@@ -1,7 +1,7 @@
-# eng_MBdate_a09.py
-# Version a09
+# eng_MBdate_a10.py
+# Version a10
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# Aug 2nd 2017
+# Aug 3rd 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -16,7 +16,7 @@ import os
 from datetime import datetime
 
 appName = ("eng_MBdate_")
-versionNumber = ("a09")
+versionNumber = ("a10")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -83,6 +83,9 @@ with open(xmlPath) as xmlFile:
 			try:
 				if strChars > 4:
 					personBegin = beginInt + 20
+					# Deal with those born less than 20 years ago
+					if personBegin >= 2017:
+						personBegin = 2016
 				else:
 					personBegin = beginInt
 				begin = str(personBegin)
