@@ -220,15 +220,17 @@ A file containing this data can be found in the 'data/..' directory, and this is
 
 7) nhm_bar_plot: 
 
-Run 'nhm_bar_plot.py' after temporal-category-based analysis 'nhm.py' to plot 2 bar charts (in 'graphs/..'). 
+Run 'nhm_bar_plot.py' after 'nhm.py' to plot 2 bar charts (in 'graphs/..'). 
 One shows 'Hgraph' (yellow, hatched) and 'Mean-Hnode' (black). 
 The other shows '% Hnode = 0.5 hybrid nodes' (yellow, hatched), '% Progenitor nodes' (green, hatched), and '% Sink nodes' (black). 
+N.B. Best used for temporal-category-based analysis; edit `data/nhm_plot.txt' to define datapoints.
 
 8) nhm_line_plot:
 
-Run 'nhm_lne_plot.py' after full-range analysis 'nhm.py' to plot 2 line charts (in 'graphs/..'). 
+Run 'nhm_lne_plot.py' after 'nhm.py' to plot 2 line charts (in 'graphs/..'). 
 One shows 'Hgraph' (red, solid) and 'Mean-Hnode' (blue, dashed). 
 The other shows '% Hnode = 0.5 hybrid nodes' (red, solid), '% Progenitor nodes' (blue, dashed), and '% Sink nodes' (black, dotted). 
+N.B. Best used for full-range analysis; edit `data/nhm_plot.txt' to define range. 
 
 9) ghp: 
 
