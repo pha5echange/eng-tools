@@ -93,9 +93,9 @@ for key, value in sorted(graphHyears.iteritems()):
 x_low = (min(xAxis) - 10)
 x_high = (max(xAxis) + 10)
 y_low = 0
-y_high = 0.6
+y_high = 0.65
 
-plt.bar(adjGraphHX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hgraph')
+plt.bar(adjGraphHX, yAxis, width, color='lightgray', edgecolor = 'black', label='Hgraph')
 plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015],fontsize=9)
 
 # label, plot and save image of graph
@@ -158,10 +158,10 @@ for key, value in sorted(nodePercs.iteritems()):
 x_low = (min(xAxis) - 10)
 x_high = (max(xAxis) + 10)
 y_low = 0
-y_high = 60
+y_high = 65
 
 # plot graph
-plt.bar(adjNodePX, yAxis, width, color='yellow', edgecolor = 'black', hatch='/', label='Hnode>0.5')
+plt.bar(adjNodePX, yAxis, width, color='lightgray', edgecolor = 'black', label='Hnode>0.5')
 plt.xticks([1899, 1920, 1954, 1971, 1987, 1997, 2007, 2015], fontsize=9)
 # label, plot and save image of graph
 plt.grid(zorder=0)
@@ -189,7 +189,7 @@ for key, value in sorted(progenPercs.iteritems()):
 #y_high = 100
 
 # plot graph
-plt.bar(adjSourcePX, yAxis, width, color='cyan', edgecolor = 'black', hatch='-', label='Sources')
+plt.bar(adjSourcePX, yAxis, width, color='gray', edgecolor = 'black', hatch='/', label='Sources')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)

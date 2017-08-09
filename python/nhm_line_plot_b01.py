@@ -178,7 +178,7 @@ for key, value in sorted(progenPercs.iteritems()):
 
 # plot graph
 width = 1
-plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Progenitors')
+plt.plot(xAxis, yAxis, linestyle='dashed', color='b', label='Sources')
 
 # label, plot and save image of graph
 #plt.grid(zorder=0)

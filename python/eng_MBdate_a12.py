@@ -1,7 +1,7 @@
-# eng_MBdate_a10.py
-# Version a10
+# eng_MBdate_a12.py
+# Version a12
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# Aug 3rd 2017
+# Aug 9th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -10,13 +10,14 @@
 # Checks start-dates against MusicBrainz <begin> tags
 # Writes corrected genre files
 # REMOVES artists with no date information in MusicBrainz
+# Checks for MB ID changes in returns
 
 # import packages
 import os
 from datetime import datetime
 
 appName = ("eng_MBdate_")
-versionNumber = ("a10")
+versionNumber = ("a12")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -35,6 +36,10 @@ xmlPath = os.path.join("data", 'mb_artist_xml.txt')
 # open file for writing log
 logPath = os.path.join("logs", appName + versionNumber + '_log.txt')
 runLog = open(logPath, 'w')
+
+# open file for writing `missing'
+missPath = os.path.join("data", appName + versionNumber + '_enDict_missing.txt')
+enMiss = open(missPath, 'w')
 
 # open files for writing dictionaries
 mbDictPath = os.path.join("data", "mbDict_" + versionNumber + "_.txt")
@@ -64,7 +69,8 @@ print ('\n' + 'Genre Data Date Checker | ' + 'Version: ' + versionNumber + ' | S
 mbDict = {}
 with open(xmlPath) as xmlFile:
 	for line in xmlFile:
-		xMbId, mbType, begin, mbCountry, mbTag = line.split("^")
+		origID, xMbId, mbType, begin, mbCountry, mbTag = line.split("^")
+		origID = origID.strip()
 		mbType = mbType.strip()
 		begin = begin.strip()
 		xMbId = xMbId.strip()
@@ -74,10 +80,13 @@ with open(xmlPath) as xmlFile:
 		else:
 			strChars = len(begin)
 			begin = begin[:4]
-			try:
-				beginInt = int(begin)
-			except:
-				pass
+			if begin == "????":
+				strChars = 0
+			else:
+				try:
+					beginInt = int(begin)
+				except:
+					pass
 
 		if mbType == "Person":
 			try:
@@ -85,18 +94,26 @@ with open(xmlPath) as xmlFile:
 					personBegin = beginInt + 20
 					# Deal with those born less than 20 years ago
 					if personBegin >= 2017:
-						personBegin = 2016
+						personBegin = 2015
 				else:
 					personBegin = beginInt
+
 				begin = str(personBegin)
 			except:
 				pass
 
-		mbDict[xMbId] = begin
+		if strChars != 0:
+			mbDict[xMbId] = begin
+			print ("Written to mbDict: " + str(xMbId))
+			runLog.write ("Written to mbDict: " + str(xMbId) + '\n')
+		else:
+			print ("date info. missing - not written: " + str(xMbId))
+			runLog.write ("date info. missing - not written: " + str(xMbId) + '\n')
 
+runLog.write('\n' + '\n')
 print
 print(mbDict)
-mbDictFile.write(str(mbDict))
+mbDictFile.write(str(mbDict)  + '\n' + str(len(mbDict)))
 print
 
 # Read EN genre files into dictionary {mbid:start}
@@ -114,15 +131,17 @@ for index in range(len(fileNames)):
 
 		if mbid in mbDict:
 			enDict[mbid] = start
-			print ("Written: " + str(mbid))
-			runLog.write (str(mbid) + '\n')
+			print ("Written to enDict: " + str(mbid))
+			runLog.write ("Written to enDict: " + str(mbid) + '\n')
 		else:
-			print ("Not written: " + str(mbid))
-			runLog.write ("Not written: " + str(mbid) + '\n')
+			print ("mbid missing from mbDict - not written: " + str(mbid))
+			runLog.write ("mbid missing from mbDict - not written: " + str(mbid) + '\n')
+			#enMiss.write (str(mbid) + '\n')
 
+runLog.write('\n' + '\n')
 print
 print(enDict)
-enDictFile.write(str(enDict))
+enDictFile.write(str(enDict) + '\n' + str(len(enDict)))
 print
 
 # Compare the dictionaries
@@ -138,10 +157,9 @@ print
 genreDictCounter = 0
 genreDict = {}
 
-print ("Iterating through... See you tmrw... ")
+print ("Iterating through... ")
 
 for key, value in mbDict.iteritems():
-	#for key, value in enDict.iteritems(): 
 	if key in enDict:
 		try:
 			if mbDict[key] == "":
@@ -156,8 +174,12 @@ for key, value in mbDict.iteritems():
 			pass
 print
 print (genreDict)
-genreDictFile.write(str(genreDict))
+genreDictFile.write(str(genreDict) + '\n' + str(len(genreDict)))
 print
+
+# Find missing artists
+diff = set(mbDict.keys()) - set(enDict.keys())
+print >> enMiss, diff
 
 # Read EN genre files, fix dates from genreDict, and write new `datedGenre' files
 for index in range(len(fileNames)):
