@@ -1,7 +1,7 @@
-# timeslicer_a03.py
-# Version a03
+# timeslicer_a04.py
+# Version a04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 27th 2016
+# Aug 11th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -14,15 +14,16 @@
 # Writes new artist numbers files based upon Omega Year of graph (to 'ts_data/omegaYear')
 
 # Run AFTER 'en_genre.py' (N.B. API has closed. Unzip 'genres..' zip file instead!)
+# Run AFTER 'eng_MBDate.py'
 
 # import packages
 import os
 from collections import OrderedDict
 
-versionNumber = ("a03")
+versionNumber = ("a04")
 
 # define path to 'genres' subdirectory
-fileNames = os.listdir("genres")
+fileNames = os.listdir("MbDateGenres")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -108,7 +109,7 @@ for date in dateSet:
 		artistCounter = 0
 
 		# look for files in 'genres' subfolder
-		pathname = os.path.join("genres", fileNames[index])
+		pathname = os.path.join("MbDateGenres", fileNames[index])
 		genreFile = str(fileNames[index])
 		genreLabel, fileExtension = genreFile.split(".")
 		dataInput = open(pathname, "r")

@@ -1,7 +1,7 @@
-# eng_first_b07.py
-# Version b07
+# eng_first_b08.py
+# Version b08
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# April 9th 2016
+# Aug 11th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -20,10 +20,10 @@
 import os
 from datetime import datetime
 
-versionNumber = ("b07")
+versionNumber = ("b08")
 
 # define path to 'genres' subdirectory
-fileNames = os.listdir("genres")
+fileNames = os.listdir("MbDateGenres")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -49,7 +49,7 @@ print ('\n' + 'Genre Data First Instance Finder | ' + 'Version: ' + versionNumbe
 for index in range(len(fileNames)):
 
 	# look for files in 'genres' subfolder
-	pathname = os.path.join("genres", fileNames[index])
+	pathname = os.path.join("MbDateGenres", fileNames[index])
 	genreFile = str(fileNames[index])
 	genreLabel, fileExtension = genreFile.split(".")
 	dataInput = open(pathname, "r")

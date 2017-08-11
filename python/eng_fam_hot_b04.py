@@ -1,7 +1,7 @@
-# eng_fam_hot_b03.py
-# Version b03
+# eng_fam_hot_b04.py
+# Version b04
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# April 9th 2016
+# Aug 11th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -20,10 +20,10 @@ import os
 from datetime import datetime
 from collections import Counter
 
-versionNumber = ("b03")
+versionNumber = ("b04")
 
 # define path to 'genres' subdirectory
-fileNames = os.listdir("genres")
+fileNames = os.listdir("MbDateGenres")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -56,7 +56,7 @@ print ('\n' + 'Genre Familiarity and Hotttnesss | ' + 'Version: ' + versionNumbe
 for index in range(len(fileNames)):
 
 	# look for files in 'genres' subfolder
-	pathname = os.path.join("genres", fileNames[index])
+	pathname = os.path.join("MbDateGenres", fileNames[index])
 	genreFile = str(fileNames[index])
 	genreName, fileExtension = genreFile.split(".")
 	dataInput = open(pathname, "r")

@@ -1,7 +1,7 @@
-# eng_multiplot_b13.py
-# Version b13
+# eng_multiplot_b14.py
+# Version b14
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# April 9th 2016
+# Aug 11th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -16,7 +16,7 @@
 
 # This version deals with Musicbrainz ID in data files
 
-# Run AFTER 'en_genre.py' has gathered 'genres/..'
+# Run AFTER 'en_genre.py' and 'eng_MBDate'
 
 # import packages
 import os
@@ -28,10 +28,10 @@ from collections import Counter
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b13")
+versionNumber = ("b14")
 
 # define path to 'genres' subdirectory
-fileNames = os.listdir("genres")
+fileNames = os.listdir("MbDateGenres")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -75,7 +75,7 @@ print ('\n' + 'Multi Genre Plotter | ' + 'Version: ' + versionNumber + ' | Start
 for index in range(len(fileNames)):
 
 	# look for files in 'genres' subfolder
-	pathname = os.path.join("genres", fileNames[index])
+	pathname = os.path.join("MbDateGenres", fileNames[index])
 	genreFile = str(fileNames[index])
 	genreName, fileExtension = genreFile.split(".")
 
