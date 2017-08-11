@@ -1,4 +1,4 @@
-ENG-Tools beta v. 12.5
+ENG-Tools beta v. 12.6
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-Aug 4th 2017
+Aug 11th 2017
 
 These scripts have been created to facilitate research into musical genre using the Echonest. 
 They acquire data from the Echonest (via the API), process it, and facilitate statistical and network analysis.  
@@ -27,7 +27,7 @@ Given this, I have included a .ZIP file containing a dataset from April 9th 2016
 
 LATEST CHANGES AND ADDITIONS: 
 
-- `eng_MBdate' enables start date validation with MusicBrainz data. 
+- `eng_MBdate' enables start date validation and MBID correction with MusicBrainz data. Rewrites `genres' to `MbDateGenres'.   
 
 - `eng_ts_en_mb_map' enables the creation of time-sliced EN-MB mappings.
 
