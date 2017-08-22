@@ -1,13 +1,14 @@
-# eng_plot_artists_b05.py
-# Version b05
+# eng_plot_artists_b06.py
+# Version b06
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# January 14th 2016
+# Aug 22nd 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
 # Processes file 'data/eng_multiplot_data.txt' (output by 'eng_multiplot')
 # Plots frequency distribution of artists over time
+# Offers choice of full-range X-axis, or 1895-2017
 # Writes run log to 'logs/eng_plot_artists_versionNumber_log.txt'
 # Plots results and writes EPS to 'graphs/eng_plot_artists_versionNumber.eps'
 
@@ -17,7 +18,7 @@ from datetime import datetime
 import matplotlib
 import matplotlib.pyplot as plt
 
-versionNumber = ("b05")
+versionNumber = ("b06")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -42,6 +43,10 @@ startTime = datetime.now()
 # ..and begin..
 runLog.write ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + '\n' + '\n')
 print ('\n' + 'All Artists Plotter | ' + 'Version: ' + versionNumber + ' | Starting' + '\n' +'\n')
+
+print
+xAxisRange = int(input ("Enter 0 here for full-range X-Axis, or 1 for 1895-2017 range: "))
+print
 
 # look for file in 'data' subfolder
 pathname = os.path.join("data", 'eng_multiplot_data.txt')
@@ -80,10 +85,13 @@ for key, value in sorted(years.iteritems()):
 print yAxis
 
 # set axes values
-#x_low = (min(xAxis) - 5)
-x_low = (1895)
-#x_high = (max(xAxis) + 5)
-x_high = (2017)
+if xAxisRange == 0:
+	x_low = (min(xAxis) - 5)
+	x_high = (max(xAxis) + 5)
+else:
+	x_low = (1895)
+	x_high = (2017)
+	
 y_low = 0
 y_high = (max(yAxis) + 100)
 
