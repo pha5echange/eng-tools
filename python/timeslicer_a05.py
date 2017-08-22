@@ -1,12 +1,11 @@
-# timeslicer_a04.py
-# Version a04
+# timeslicer_a05.py
+# Version a05
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# Aug 11th 2017
+# Aug 22nd 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
-# REDESIGN
 # Generates NEW genre files for each time-category to facilitate processing by existing methods
 
 # Generates OmegaYears from 'data/first_clusters.txt'
@@ -14,16 +13,16 @@
 # Writes new artist numbers files based upon Omega Year of graph (to 'ts_data/omegaYear')
 
 # Run AFTER 'en_genre.py' (N.B. API has closed. Unzip 'genres..' zip file instead!)
-# Run AFTER 'eng_MBDate.py'
+# Run AFTER 'eng_MBdate.py'
 
 # import packages
 import os
 from collections import OrderedDict
 
-versionNumber = ("a04")
+versionNumber = ("a05")
 
 # define path to 'genres' subdirectory
-fileNames = os.listdir("MbDateGenres")
+fileNames = os.listdir("MbGenres")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -109,7 +108,7 @@ for date in dateSet:
 		artistCounter = 0
 
 		# look for files in 'genres' subfolder
-		pathname = os.path.join("MbDateGenres", fileNames[index])
+		pathname = os.path.join("MbGenres", fileNames[index])
 		genreFile = str(fileNames[index])
 		genreLabel, fileExtension = genreFile.split(".")
 		dataInput = open(pathname, "r")
@@ -121,12 +120,12 @@ for date in dateSet:
 		for line in dataInput:
 
 			# split line and append genreDates' with start date values
-			artist, enid, start, end_date, familiarity, hotness, mbid = line.split(",")
+			artist, enid, start, end_date, country, familiarity, hotness, mbid = line.split(",")
 			startDate = int(start)
 
 			if dateIP != 0:
 				if startDate <= dateIP:		
-					newGenreFile.write(str(artist) + ',' + str(enid) + ',' + str(start) + ',' + str(end_date) + ',' + str(familiarity) + ',' + str(hotness) + ',' + str(mbid))
+					newGenreFile.write(str(artist) + ',' + str(enid) + ',' + str(start) + ',' + str(end_date) + ',' + str(country) + ',' + str(familiarity) + ',' + str(hotness) + ',' + str(mbid))
 					artistCounter += 1
 
 		if artistCounter != 0:

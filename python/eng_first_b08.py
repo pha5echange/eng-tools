@@ -23,7 +23,7 @@ from datetime import datetime
 versionNumber = ("b08")
 
 # define path to 'genres' subdirectory
-fileNames = os.listdir("MbDateGenres")
+fileNames = os.listdir("MbGenres")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -49,7 +49,7 @@ print ('\n' + 'Genre Data First Instance Finder | ' + 'Version: ' + versionNumbe
 for index in range(len(fileNames)):
 
 	# look for files in 'genres' subfolder
-	pathname = os.path.join("MbDateGenres", fileNames[index])
+	pathname = os.path.join("MbGenres", fileNames[index])
 	genreFile = str(fileNames[index])
 	genreLabel, fileExtension = genreFile.split(".")
 	dataInput = open(pathname, "r")
@@ -58,7 +58,7 @@ for index in range(len(fileNames)):
 	first_line = dataInput.readline()
 
 	# split line and append genreDates' with start date values
-	artist, enid, start, end_date, familiarity, hotness, mbid = first_line.split(",")
+	artist, enid, start, end_date, country, familiarity, hotness, mbid = first_line.split(",")
 	startDate = int(start)
 
 	# close input file

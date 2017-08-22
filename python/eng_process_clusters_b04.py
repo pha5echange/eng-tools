@@ -84,11 +84,13 @@ for key, value in sorted(countedClusters.iteritems()):
    xAxis.append(key)
    yAxis.append(value)
 
-# set axes values
-x_low = (min(xAxis) - 10)
-x_high = (max(xAxis) + 10)
+# set axes values (N.B. x parameters can be altered to limit time axis)
+#x_low = (min(xAxis) - 10)
+x_low = (1895)
+#x_high = (max(xAxis) + 10)
+x_high = (2017)
 y_low = 0
-y_high = (max(yAxis) + 10)
+y_high = (max(yAxis) + 5)
 
 # plot graph
 width = 1

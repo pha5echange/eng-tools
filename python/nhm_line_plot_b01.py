@@ -88,7 +88,7 @@ for key, value in sorted(graphHyears.iteritems()):
 x_low = (min(xAxis) - 5)
 x_high = (max(xAxis) + 5)
 y_low = 0
-y_high = 1.0
+y_high = 0.8
 
 # plot graph
 width = 1
@@ -147,7 +147,7 @@ for key, value in sorted(nodePercs.iteritems()):
 x_low = (min(xAxis) - 5)
 x_high = (max(xAxis) + 5)
 y_low = 0
-y_high = 100
+y_high = 80
 
 # plot graph
 width = 1

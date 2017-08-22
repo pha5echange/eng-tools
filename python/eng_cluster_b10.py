@@ -29,7 +29,7 @@ from datetime import datetime
 versionNumber = ("b10")
 
 # define path to 'genres' subdirectory
-fileNames = os.listdir("MbDateGenres")
+fileNames = os.listdir("MbGenres")
 
 # create 'logs' subdirectory if necessary
 if not os.path.exists("logs"):
@@ -66,7 +66,7 @@ for index in range(len(fileNames)):
 	clusterDates = []
 
 	# look for files in 'genres' subfolder
-	pathname = os.path.join("MbDateGenres", fileNames[index])
+	pathname = os.path.join("MbGenres", fileNames[index])
 	genreFile = str(fileNames[index])
 	genreLabel, fileExtension = genreFile.split(".")
 	dataInput = open(pathname, "r")
@@ -75,7 +75,7 @@ for index in range(len(fileNames)):
 	for line in dataInput:
 
 		# split line and append genreStartDates' with start date values
-		artist, enid, start, end_date, familiarity, hotness, mbid = line.split(",")
+		artist, enid, start, end_date, country, familiarity, hotness, mbid = line.split(",")
 		
 		if start == " ":
 			start = 0

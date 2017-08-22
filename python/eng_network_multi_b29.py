@@ -671,9 +671,9 @@ for date in dateList:
 	#nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
 	# write image file
-	#print ('Writing image file...' + '\n')
-	#plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
-	#nwImg.close()
+	print ('Writing image file...' + '\n')
+	plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
+	nwImg.close()
 
 	# display graph
 	#print ('Displaying graph...' + '\n')

@@ -212,7 +212,7 @@ A file containing this data can be found in the 'data/..' directory, and this is
 
 5) eng_plot_artists:
 
-'eng_plot_artists.py' uses the file ouput by ‘eng_multi_plot’ (moved to ‘data/..’ and renamed as ‘eng_multi_plot_data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
+'eng_plot_artists.py' uses a copy of the results file ouput by ‘eng_multi_plot’ (‘data/eng_multi_plot_data.txt’) to calculate and plot the inception dates of all artists over time, regardless of genre. 
 
 6) pr_plotter: 
 
@@ -223,14 +223,14 @@ A file containing this data can be found in the 'data/..' directory, and this is
 Run 'nhm_bar_plot.py' after 'nhm.py' to plot 2 bar charts (in 'graphs/..'). 
 One shows 'Hgraph' (yellow, hatched) and 'Mean-Hnode' (black). 
 The other shows '% Hnode = 0.5 hybrid nodes' (yellow, hatched), '% Progenitor nodes' (green, hatched), and '% Sink nodes' (black). 
-N.B. Best used for temporal-category-based analysis; edit `data/nhm_plot.txt' to define datapoints.
+N.B. Best used for temporal-category-based analysis; edit `data/nhm_plot.txt' to define datapoints (by removing unwanted years/lines). 
 
 8) nhm_line_plot:
 
 Run 'nhm_lne_plot.py' after 'nhm.py' to plot 2 line charts (in 'graphs/..'). 
 One shows 'Hgraph' (red, solid) and 'Mean-Hnode' (blue, dashed). 
 The other shows '% Hnode = 0.5 hybrid nodes' (red, solid), '% Progenitor nodes' (blue, dashed), and '% Sink nodes' (black, dotted). 
-N.B. Best used for full-range analysis; edit `data/nhm_plot.txt' to define range. 
+N.B. Best used for full-range analysis; trim `data/nhm_plot.txt' to define range. 
 
 9) ghp: 
 

@@ -80,8 +80,10 @@ for key, value in sorted(years.iteritems()):
 print yAxis
 
 # set axes values
-x_low = (min(xAxis) - 5)
-x_high = (max(xAxis) + 5)
+#x_low = (min(xAxis) - 5)
+x_low = (1895)
+#x_high = (max(xAxis) + 5)
+x_high = (2017)
 y_low = 0
 y_high = (max(yAxis) + 100)
 

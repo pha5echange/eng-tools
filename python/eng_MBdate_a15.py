@@ -1,13 +1,14 @@
-# eng_MBdate_a14.py
-# Version a14
+# eng_MBdate_a15.py
+# Version a15
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# Aug 11th 2017
+# Aug 22nd 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
 # Examines Echonest genre lists
 # Checks start-dates against MusicBrainz XML <begin> tags
+# Gets country-of-origin information for each artist
 # Writes corrected genre files, and *Dict.txt files for verification
 # REMOVES artists with no date information (or `????'' date information) in MusicBrainz
 # Checks for MB ID changes in returns, and corrects (replaces with newest MBID)
@@ -17,7 +18,7 @@ import os
 from datetime import datetime
 
 appName = ("eng_MBdate_")
-versionNumber = ("a14")
+versionNumber = ("a15")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -45,6 +46,9 @@ enMiss = open(missPath, 'w')
 mbDictPath = os.path.join("data", "mbDict_" + versionNumber + ".txt")
 mbDictFile = open(mbDictPath, 'w')
 
+countryDictPath = os.path.join("data", "countryDict_" + versionNumber + ".txt")
+countryDictFile = open(countryDictPath, 'w')
+
 compDictPath = os.path.join("data", "compDict_" + versionNumber + ".txt")
 compDictFile = open(compDictPath, 'w')
 
@@ -55,8 +59,8 @@ genreDictPath = os.path.join("data", "genreDict_" + versionNumber + ".txt")
 genreDictFile = open(genreDictPath, 'w')
 
 # create 'datedGenres' subdirectory if necessary
-if not os.path.exists("MbDateGenres"):
-	os.makedirs("MbDateGenres")
+if not os.path.exists("MbGenres"):
+	os.makedirs("MbGenres")
 
 #dateCheckCounter = 0
 
@@ -71,6 +75,9 @@ print ('\n' + 'Genre Data Date Correcter | ' + 'Version: ' + versionNumber + ' |
 # Dict for ID comparison
 compDict = {}
 
+# Dict for Countries
+countryDict = {}
+
 # Read MusicBrainz XML file into dictionary {xMbId:begin}
 mbDict = {}
 with open(xmlPath) as xmlFile:
@@ -80,6 +87,7 @@ with open(xmlPath) as xmlFile:
 		mbType = mbType.strip()
 		begin = begin.strip()
 		xMbId = xMbId.strip()
+		mbCountry = mbCountry.strip()
 
 		# Populate compDict for later changed-ID repairs 
 		if origID != xMbId:
@@ -116,11 +124,18 @@ with open(xmlPath) as xmlFile:
 			except:
 				pass
 
-		# Populate mbDict
+		# Populate mbDict and countryDict
 		if strChars != 0:
 			mbDict[xMbId] = begin
 			print ("Written to mbDict: " + str(xMbId))
 			runLog.write ("Written to mbDict: " + str(xMbId) + '\n')
+			if mbCountry:
+				countryDict[xMbId] = mbCountry
+				print ("Written to countryDict: " + str(xMbId) + ":" + str(mbCountry))
+				runLog.write ("Written to countryDict: " + str(xMbId) + ":" + str(mbCountry) + '\n')
+			else:
+				print ("country info. missing - not written: " + str(xMbId))
+				runLog.write ("country info. missing - not written: " + str(xMbId) + '\n')
 		else:
 			print ("date info. missing - not written: " + str(xMbId))
 			runLog.write ("date info. missing - not written: " + str(xMbId) + '\n')
@@ -129,6 +144,8 @@ runLog.write('\n' + '\n')
 print
 print(mbDict)
 mbDictFile.write(str(mbDict)  + '\n' + str(len(mbDict)))
+print(countryDict)
+countryDictFile.write(str(countryDict)  + '\n' + str(len(countryDict)))
 print(compDict)
 compDictFile.write(str(compDict)  + '\n' + str(len(compDict)))
 print
@@ -214,7 +231,7 @@ for index in range(len(fileNames)):
 	pathname = os.path.join("genres", fileNames[index])
 	dataInput = open(pathname, "r")
 
-	datedGenrePath = os.path.join("MbDateGenres", fileNames[index])
+	datedGenrePath = os.path.join("MbGenres", fileNames[index])
 	datedGenreFile = open(datedGenrePath, 'a')
 	
 	# read lines from file
@@ -223,8 +240,12 @@ for index in range(len(fileNames)):
 		mbid = mbid.strip()
 
 		if mbid in genreDict:
-			print ("Written " + str(mbid) + " to file 'MbDateGenres/" + fileNames[index])
-			print >> datedGenreFile, artist + ',' + enid + ',' +  str(genreDict[mbid]) + ',' +  end_date + ',' +  familiarity + ',' +  hotness + ',' +  mbid
+			try:
+				country = str(countryDict[mbid])
+			except:
+				country = ""
+			print >> datedGenreFile, artist + ',' + enid + ',' +  str(genreDict[mbid]) + ',' +  end_date + ',' + country + ',' + familiarity + ',' +  hotness + ',' +  mbid
+			print ("Written " + str(mbid) + " to file 'MbGenres/" + fileNames[index])
 			runLog.write (str(mbid) + '\n')
 		else:
 			print ("Not written: " + str(mbid))
@@ -235,22 +256,12 @@ for index in range(len(fileNames)):
 # Check for and remove empty datedGenre files
 
 # define path to 'datedGenres' directory
-datedFiles = os.listdir("MbDateGenres")
+datedFiles = os.listdir("MbGenres")
 
 for index in range(len(datedFiles)):
-	datedPath = os.path.join("MbDateGenres", datedFiles[index])
+	datedPath = os.path.join("MbGenres", datedFiles[index])
 	if os.stat(datedPath).st_size == 0:
 		os.remove(datedPath)
-
-# Recompare the dictionaries
-print
-print("Recomparing dictionaries... ")
-print ("MB Dictionary Entries: " + str(len(mbDict)))
-print ("EN Dictionary Entries: " + str(len(enDict)))
-print ("Genre (generated) Dictionary: " + str(len(genreDict)))
-runLog.write ('\n' + "MB Dictionary Entries: " + str(len(mbDict)) + '\n')
-runLog.write ("EN Dictionary Entries: " + str(len(enDict)) + '\n')
-runLog.write ("Genre (generated) Dictionary: " + str(len(genreDict)) + '\n') 
 
 # End timing of run
 endTime = datetime.now()
@@ -260,6 +271,7 @@ runLog.write ('\n' + 'Run Information' + '\n' + '\n')
 runLog.write ('Version: ' + versionNumber + '\n')
 runLog.write ("MB Dictionary Entries: " + str(len(mbDict)) + '\n')
 runLog.write ("EN Dictionary Entries: " + str(len(enDict)) + '\n')
+runLog.write ("Country Dictionary Entries: " + str(len(countryDict)) + '\n')
 runLog.write ("ID comparison Dictionary: " + str(len(compDict)) + '\n')
 runLog.write ("Genre (generated) Dictionary: " + str(len(genreDict)) + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
@@ -267,10 +279,12 @@ runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n' + '\n')
 runLog.close()
 
 # write to screen
+print
 print ('\n' + 'Run Information' + '\n')
 print ('Version: ' + versionNumber)
 print ("MB Dictionary Entries: " + str(len(mbDict)))
 print ("EN Dictionary Entries: " + str(len(enDict)))
+print ("Country Dictionary Entries: " + str(len(countryDict)))
 print ("ID comparison Dictionary: " + str(len(compDict)))
 print ("Genre (generated) Dictionary: " + str(len(genreDict)))
 print ('Date of run: {}'.format(runDate))

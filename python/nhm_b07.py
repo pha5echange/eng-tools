@@ -1,6 +1,6 @@
 # Network Hybridity Metric
-# v. b0.6
-# October 28th 2016
+# v. b0.7
+# Aug 13th 2017
 # by jmg*AT*phasechange*DOT*info
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
@@ -15,14 +15,14 @@
 
 # Calculates artist-uniques and artist-instances for entire network.
 
-# Works with time-sliced 'omega year' files.
+# Works with time-sliced 'omega year' files, and MusicBrainz-corrected data.
 
 # Import packages
 import os
 import networkx as nx
 from datetime import datetime
 
-versionNumber = ("b06")
+versionNumber = ("b07")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -61,7 +61,7 @@ gexfPath = 'gexf/directed'
 fileNames = [f for f in os.listdir(gexfPath) if f.endswith('.gexf')]
 
 # get files from genres folder
-genreFiles = os.listdir("genres")
+genreFiles = os.listdir("MbGenres")
 
 # ..and begin..
 runLog.write ('\n' + 'Network Hybridity Metric (JG) - Beta | ' + 'Version: ' + versionNumber + '\n' + '\n')
@@ -156,14 +156,14 @@ for index in range(len(fileNames)):
 		# open file 'data/omegaYear/genres/nodeV.txt' and read
 
 		if omegaYear == 0:
-			genrePath = os.path.join("genres", nodeV + '.txt')
+			genrePath = os.path.join("MbGenres", nodeV + '.txt')
 		else:
 			genrePath = os.path.join("ts_data", str(omegaYear), "genres", nodeV + '.txt')
 
 		genreInput = open(genrePath, "r")
 			
 		for line in genreInput:
-			vArtist, vEnid, vArtistStart, vArtistEnd, vFamiliarity, vHotness, vMbid = line.split(",")
+			vArtist, vEnid, vArtistStart, vArtistEnd, vCountry, vFamiliarity, vHotness, vMbid = line.split(",")
 			vMB = str(vMbid).replace("\n","")
 
 			# make a list of MBIDs from file
@@ -222,14 +222,14 @@ for index in range(len(fileNames)):
 
 				# open file 'data/omegaYear/genres/nodeU' and read
 				if omegaYear == 0:
-					sourceGenrePath = os.path.join("genres", nodeU + '.txt')
+					sourceGenrePath = os.path.join("MbDateGenres", nodeU + '.txt')
 				else:
 					sourceGenrePath = os.path.join("ts_data", str(omegaYear), "genres", nodeU + '.txt')
 
 				sourceGenreFile = open(sourceGenrePath, 'r')
 
 				for line in sourceGenreFile:
-					artist, enid, artistStart, artistEnd, familiarity, hotness, mbid = line.split(",")
+					artist, enid, artistStart, artistEnd, country, familiarity, hotness, mbid = line.split(",")
 					MB = str(mbid).replace("\n","") 
 
 					# make a list of MBIDs from file
