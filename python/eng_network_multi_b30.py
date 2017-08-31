@@ -1,7 +1,7 @@
-# eng_network_multi_b29.py
-# Version b29
+# eng_network_multi_b30.py
+# Version b30
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 29th 2016
+# August 26th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -22,6 +22,8 @@
 # This version incorporates PageRank
 # Incorporates Artist Time Slicing
 # Added 'maxDeg' metric and isolated nodes counter
+# Calculates mean in- and out-degree centrality for each network. Writes {dict}s to analysis files. 
+# Calculates graph flow hierarchy. 
 
 # Run AFTER 'eng_nodesets.py'
 
@@ -36,7 +38,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b29")
+versionNumber = ("b30")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -98,9 +100,8 @@ dateSet = set(dateList)
 # Get user input
 #print
 #dateIP = int(input ("Enter a year to remove nodes that appear AFTER this date (or 0 to leave the network intact): "))
-print
-selfLoopIP = int(input ("Enter 1 here to remove self-loop edges: "))
-print
+#selfLoopIP = int(input ("Enter 1 here to remove self-loop edges: "))
+selfLoopIP = 1
 
 #omegaYear = str(dateIP)
 # Uncomment the line below to facilitate optional isolate removal
@@ -686,6 +687,44 @@ for date in dateList:
 	density = nx.density(diEnGraph)
 	isDag = nx.is_directed_acyclic_graph(diEnGraph)
 
+	# Calculate degree_centrality
+	try:
+		inDegCent = nx.in_degree_centrality(diEnGraph)
+		outDegCent = nx.out_degree_centrality(diEnGraph)
+	except:
+		inDegCent = {}
+		outDegCent = {}
+
+	inDegCount = 0
+	inDegSum = 0
+	inDegMean = 0
+	for key in inDegCent:
+		inDegCount += 1
+		inDegSum += inDegCent[key]
+
+	try:
+		inDegMean = inDegSum/inDegCount
+	except:
+		inDegMean = 0
+
+	outDegCount = 0
+	outDegSum = 0
+	outDegMean = 0
+	for key in outDegCent:
+		outDegCount += 1
+		outDegSum += outDegCent[key]
+
+	try:
+		outDegMean = outDegSum/outDegCount
+	except:
+		outDegMean = 0
+
+	# Calculate flow hierarchy
+	try:
+		graphFlow = nx.flow_hierarchy(diEnGraph)
+	except:
+		graphFlow = 0
+
 	print ('Final Directed Graph Information' + '\n')
 	print ('Omega Year: ' + omegaYear)
 	print ('Nodes: ' + str(nodes))
@@ -693,12 +732,21 @@ for date in dateList:
 	print ('Density: ' + str(density))
 	print ('Is DAG? ' + str(isDag))
 	print
+	print ("Mean In-degree Centrality: " + str(inDegMean))
+	print ("Mean Out-degree Centrality: " + str(outDegMean))
+	print ("Flow Hierarchy: " + str(graphFlow))
+	print
 	print (str(nx.info(diEnGraph)))
 
 	anFile.write ('Nodes: ' + str(nodes) + '\n')
 	anFile.write ('Edges: ' + str(edges) + '\n')
 	anFile.write ('Density: ' + str(density) + '\n')
 	anFile.write ('Is DAG? ' + str(isDag) + '\n')
+	anFile.write ('\n' + "In-degree Centrality: " + str(inDegCent) + '\n')
+	anFile.write ('\n' + "Out-degree Centrality: " + str(outDegCent) + '\n' + '\n')
+	anFile.write ("Mean In-degree Centrality: " + str(inDegMean) + '\n')
+	anFile.write ("Mean Out-degree Centrality: " + str(outDegMean) + '\n')
+	anFile.write ("Flow Hierarchy: " + str(graphFlow) + '\n')
 	anFile.write ('\n' + str(nx.info(diEnGraph)) + '\n')
 
 	runLog.write ('\n' + 'Final Directed Graph Information' + '\n' + '\n')
@@ -707,6 +755,9 @@ for date in dateList:
 	runLog.write ('Edges: ' + str(edges) + '\n')
 	runLog.write ('Density: ' + str(density) + '\n')
 	runLog.write ('Is DAG? ' + str(isDag) + '\n')
+	runLog.write ("Mean In-degree Centrality: " + str(inDegMean) + '\n')
+	runLog.write ("Mean Out-degree Centrality: " + str(outDegMean) + '\n')
+	runLog.write ("Flow Hierarchy: " + str(graphFlow) + '\n')
 	runLog.write ('\n' + str(nx.info(diEnGraph)) + '\n')
 
 	prFile.write(str(nx.pagerank(diEnGraph)))
