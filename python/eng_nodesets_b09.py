@@ -1,7 +1,7 @@
-# eng_nodesets_b08.py
-# Version b08
+# eng_nodesets_b09.py
+# Version b09
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# October 28th 2016
+# Sep 1st 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -19,7 +19,7 @@ import resource
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("b08")
+versionNumber = ("b09")
 
 # open file for writing log
 logPath = os.path.join("logs", 'eng_nodesets_' + versionNumber + '_log.txt')
@@ -39,39 +39,9 @@ datePath = "ts_data/"
 dateList = os.listdir(datePath) 
 dateSet = set(dateList)
 
-'''
-# Generate dictionary containing nodenames and dates (from 'data\first_cluster.txt')
-dateInputPath = os.path.join("data", 'first_cluster.txt')
-dateInput = open(dateInputPath, 'r')
-
-dateDict = {}
-dateList = []
-
-for line in dateInput:
-	genreInput, genreDate, newline = line.split(",")
-	genreName = str(genreInput).replace(" ", "")
-	dateDict[genreName] = genreDate
-	# dateList.append(genreDate)
-
-sortDates = OrderedDict(sorted(dateDict.items()))
-
-for key, value in sortDates.iteritems():
-	dateList.append(int(value))
-
-dateSet = set(dateList)
-
-# add 2015 to 'dateSet' 
-dateSet.add(2015)
-'''
-
 # initialise global counters
 totalIntersectCount = 0
 totalElementCount = 0
-
-# Get user input
-#print
-#dateIP = int(input ("Enter an Omega Year to remove artists that appear AFTER this date (or 0 to leave data intact): "))
-#omegaYear = str(dateIP)
 
 for date in dateSet:
 
@@ -167,7 +137,7 @@ for date in dateSet:
 						runLog.write ('Intersection of ' + setAlabel + ' and ' + setBlabel + ': ' + 'Elements: ' + str(elementCount) + ' SetAcount: ' + str(setAcount) + ' setBcount: ' + str(setBcount) + '\n')
 						
 						if setAlabel:
-							# For full data file,make circumfles ('^') seperator, to avoid problems with sets() later
+							# For full data file,make circumflex ('^') seperator, to avoid problems with sets() later
 							intersectData.write (setAlabel + '^' + setBlabel + '^' + str(elementCount) + '^' + intersectionStr + '\n')
 
 							# Data file for weighted, undirected graph
@@ -189,8 +159,11 @@ for date in dateSet:
 
 		setAcount += 1
 
+		if setList:
+			if not intersectSet:
+				wuGraphData.write (setAlabel + ',' + setAlabel + ',' + "0" + '\n')
+
 	# Close files
-	# setData.close()
 	intersectData.close()
 	wuGraphData.close()
 
