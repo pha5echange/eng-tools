@@ -14,6 +14,8 @@
 # Saves plots as '.eps' files
 
 # USE AFTER 'nhm_b06.py'
+# Best used for temporal-category-based analysis
+# edit `data/nhm_plot.txt' to define datapoints (by removing unwanted years/lines).
 
 # import packages
 import os

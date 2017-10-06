@@ -1,7 +1,7 @@
-# eng_MBdate_a15.py
-# Version a15
+# eng_MBdate_a16.py
+# Version a16
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# Aug 22nd 2017
+# Oct 5th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -12,13 +12,14 @@
 # Writes corrected genre files, and *Dict.txt files for verification
 # REMOVES artists with no date information (or `????'' date information) in MusicBrainz
 # Checks for MB ID changes in returns, and corrects (replaces with newest MBID)
+# Sorts MBGenre files, as this is required for cluster processing
 
 # import packages
 import os
 from datetime import datetime
 
 appName = ("eng_MBdate_")
-versionNumber = ("a15")
+versionNumber = ("a16")
 
 # define path to 'genres' subdirectory
 fileNames = os.listdir("genres")
@@ -253,15 +254,32 @@ for index in range(len(fileNames)):
 
 	datedGenreFile.close()
 
-# Check for and remove empty datedGenre files
-
+# Re-sort genre files by new start dates
 # define path to 'datedGenres' directory
 datedFiles = os.listdir("MbGenres")
 
 for index in range(len(datedFiles)):
 	datedPath = os.path.join("MbGenres", datedFiles[index])
+	sortedFile = sorted(open(datedPath).readlines(), key=lambda line: int(line.split(',')[2]))
+
+	print sortedFile
+
+# Check for and remove empty datedGenre files
+# define path to 'datedGenres' directory
+datedFiles = os.listdir("MbGenres")
+
+for index in range(len(datedFiles)):
+	datedPath = os.path.join("MbGenres", datedFiles[index])
+
 	if os.stat(datedPath).st_size == 0:
 		os.remove(datedPath)
+	else:
+		sortedList = sorted(open(datedPath).readlines(), key=lambda line: int(line.split(',')[2]))
+		sortedFile = open(datedPath, 'w')
+
+		for item in sortedList:
+			newLine = str(item.strip('\n'))
+			print >> sortedFile,newLine
 
 # End timing of run
 endTime = datetime.now()

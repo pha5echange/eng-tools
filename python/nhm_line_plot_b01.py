@@ -14,6 +14,9 @@
 # Saves plots as '.eps' files
 
 # USE AFTER 'nhm_b01.py'
+# Best used for full-range analysis
+# trim `data/nhm_plot.txt' to define range. 
+
 
 # import packages
 import os
