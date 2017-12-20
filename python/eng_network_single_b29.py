@@ -176,7 +176,6 @@ anFile = open(anPath, 'w')
 
 # Open file to write image
 nwImgPath = os.path.join("networks", 'eng_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
-nwImg = open (nwImgPath, 'w')
 
 anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
 anFile.write ("Single-Network Thing | Version " + versionNumber + '\n' + '\n')
@@ -586,13 +585,15 @@ nx.draw_networkx_edges(diEnGraph, graph_pos, width = edge_thickness, alpha = edg
 #nx.draw_networkx_edge_labels(diEnGraph, graph_pos, edge_labels = labels, label_pos = label_pos, font_color = edge_label_colour, font_size = edge_text_size, font_family = text_font)
 
 # write image file
-print ('Writing image file...' + '\n')
-plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
-nwImg.close()
+#print ('Writing image file...' + '\n')
+plt.savefig(nwImgPath, format = 'eps', bbox_inches='tight')
 
 # display graph
 print ('Displaying graph...' + '\n')
 plt.show()
+
+# Clear plot
+plt.clf()
 
 # Recalculate basic graph statistics
 nodes = nx.number_of_nodes(diEnGraph)

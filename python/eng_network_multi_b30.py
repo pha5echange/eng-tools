@@ -235,8 +235,7 @@ for date in dateList:
 	anFile = open(anPath, 'w')
 
 	# Open file to write image
-	#nwImgPath = os.path.join("networks", 'eng_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
-	#nwImg = open (nwImgPath, 'w')
+	nwImgPath = os.path.join("networks", 'eng_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
 
 	anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
 	anFile.write ("Multi-Network Thing | Version " + versionNumber + '\n' + '\n')
@@ -639,7 +638,6 @@ for date in dateList:
 			runLog.write('\n' + str(isolateCount) + ' isolated nodes intact.' + '\n')
 
 
-	'''
 	# Plot and display graph
 	# Graph plotting parameters - moved to config file 'config_nw.txt'
 	print ('Reading layout config file...' + '\n')
@@ -673,13 +671,14 @@ for date in dateList:
 
 	# write image file
 	print ('Writing image file...' + '\n')
-	plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
-	nwImg.close()
+	plt.savefig(nwImgPath, format = 'eps', bbox_inches='tight')
 
 	# display graph
 	#print ('Displaying graph...' + '\n')
 	#plt.show()
-	'''
+
+	# Clear plot
+	plt.clf()
 
 	# Recalculate basic graph statistics
 	nodes = nx.number_of_nodes(diEnGraph)
