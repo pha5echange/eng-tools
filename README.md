@@ -18,71 +18,23 @@ LICENCE:
 http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 
-/////////////////////////////////////////////////////////////////////////
-N.B. The Echonest API ceased to function on May 31st 2016. The provision of new API keys has already ceased. 
-The Spotify Web API will be taking over the role of the EN API. 
-Full announcement at http://http://developer.echonest.com/
-Given this, I have included a .ZIP file containing a dataset from April 9th 2016 within this repository. 
-/////////////////////////////////////////////////////////////////////////
-
-LATEST CHANGES AND ADDITIONS: 
-
-- `eng_MBdate' now re-sorts date-updated genre files into start-date order. 
-
-- 'eng_MBdate' enables start date validation, country data, and MBID correction with MusicBrainz data. Rewrites `genres' to `MbGenres'.   
-
-- `eng_ts_en_mb_map' enables the creation of time-sliced EN-MB mappings.
-
-- New version of 'eng_network_single' (b29) deals with time-sliced data, writes sink- and source-node metrics, and adds LCC analysis. 
-
-- 'nhm_line_plot' writes line charts, and labels x axis with set-year values.
-
-- 'nhm_bar_plot' writes bar charts, and labels x axis with category values.
-
-- New version of 'eng_network_multi' (b29) deals with time-sliced data and writes 'maxDeg' (maximum degree) and 'isolateCount'(isolated nodes) metrics.
-
-- 'eng_nodesets' (b08) works with time-sliced artist data and writes to 'ts_data/'
-
-- 'timeslicer' (a03) bulk generates time-sliced artist data and writes to 'ts_data/'
-
-- 'ghp' (a09) now resets axes parameters after saving image. 
-
-- New version of 'nhm' (b06) deals with time-sliced data. 
-
-- 'timeslicer' deals with raw genre files and writes new ones after artist time-slicing.
-
-- Updated 'ghp_..py' to handle multiple gexf inputs. 
-
-- Added 'eng_en_mb_map' to generate a text file containing EchoNest-to-MusicBrainz artist IDs to facilitate mapping.
-
-- Updated 'ghp_..py' (to facilitate like-for-like node placement upon hive-axes across eras). 
-
-- Updated 'JG' method version of 'nhm_b' to 'nhm_b03.py' (to incorporate maximum node-hybridity values and 'artist-uniques' totals).
-
-- Added 'ghp_..py' to facilitate hive plots. 
-
-- Updated 'en_genre' (and associated scripts) to grab and deal with EchoNest IDs. This will facilitate later mapping to MusicBrainz IDs. 
-
-- Added 'genres_2016_04_09.zip' to facilitate analysis once the Echo Nest API has shut down. 
-
 
 REQUIREMENTS 
 
 To use ENG-Tools you will require the following:
 
-1) An Echonest Developer account, and an API key (from https://developer.echonest.com/account/register)
+1) An Echonest Developer account, and an API key (from https://developer.echonest.com/account/register) - DEPRECATED
 
-2) A text file called 'apikey.txt' containing your Echonest API key, in a 'config/..' subfolder (i.e. 'config/apikey.txt' within the main ENG-Tools folder). 
+2) A text file called 'apikey.txt' containing your Echonest API key, in a 'config/..' subfolder (i.e. 'config/apikey.txt' within the main ENG-Tools folder) - DEPRECATED
 
 /////////////////////////////////////////////////////////////////////////
-N.B. The Echonest API ceased to function on May 31st 2016. The provision of new API keys has already ceased. 
-The Spotify Web API will be taking over the role of the EN API. 
-Full announcement at http://http://developer.echonest.com/
-Given this, I have included a .ZIP file containing a dataset from April 9th 2016 within this repository. 
+N.B. The Echonest API ceased to function on May 31st 2016. 
+Given this, I have included a dataset from April 9th 2016. 
+This data can now be found in 'genres_2016_04_09.zip'
+Unzip so a 'genres' folder appears as a subdirectory in the main folder.
 /////////////////////////////////////////////////////////////////////////
 
-3) Python 2.7, the 'pyen' library (from https://github.com/plamere/pyen), the 'matplotlib' library (from http://matplotlib.org), the 'scipy' library (from http://www.scipy.org), and the 'networkx' library (from https://networkx.github.io/). 
-It is likely that the 'community' library (https://bitbucket.org/taynaud/python-louvain) will be used in later versions.  
+3) Python 2.7, the 'pyen' library (from https://github.com/plamere/pyen - DEPRECATED), the 'matplotlib' library (from http://matplotlib.org), the 'scipy' library (from http://www.scipy.org), version 1.11 of the 'networkx' library (from https://networkx.github.io/), and the 'community' library (from https://bitbucket.org/taynaud/python-louvain).  
 
 
 USAGE 
@@ -241,7 +193,7 @@ N.B. Best used for full-range analysis; edit `data/nhm_plot.txt' to define range
 
 MANIFEST 
 
-(1) en_genre.py
+(1) en_genre.py - DEPRECATED
 
 (2) eng_cdr.py
 
@@ -251,7 +203,7 @@ MANIFEST
 
 (5) eng_fam_hot.py
 
-(6) eng_list.py
+(6) eng_list.py - DEPRECATED
 
 (7) eng_multi_plot.py
 
